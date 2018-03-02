@@ -3,7 +3,7 @@ body, html {
   padding: 0;
 }
 
-.hodgefkeyboard {
+.simple-keyboard {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   width: 100%;
   user-select: none;
@@ -11,38 +11,38 @@ body, html {
   overflow: hidden;
 }
 
-.hodgefkeyboard .hg-row {
+.simple-keyboard .hg-row {
   display: flex;
 }
 
-.hodgefkeyboard .hg-row:not(:last-child) {
+.simple-keyboard .hg-row:not(:last-child) {
   margin-bottom: 5px;
 }
 
-.hodgefkeyboard .hg-row .hg-button:not(:last-child) {
+.simple-keyboard .hg-row .hg-button:not(:last-child) {
   margin-right: 5px;
 }
 
-.hodgefkeyboard .hg-button {
+.simple-keyboard .hg-button {
   display: inline-block;
   flex-grow: 1;
   cursor: pointer;
 }
 
-.hodgefkeyboard.hg-layout-default .hg-button.hg-standardBtn {
+.simple-keyboard.hg-layout-default .hg-button.hg-standardBtn {
   max-width: 100px;
 }
 
 /**
  * hg-theme-default theme
  */
- .hodgefkeyboard.hg-theme-default {
+ .simple-keyboard.hg-theme-default {
    background-color: rgba(0,0,0,0.2);
    padding: 5px;
    border-radius: 5px;
  }
 
- .hodgefkeyboard.hg-theme-default .hg-button {
+ .simple-keyboard.hg-theme-default .hg-button {
   box-shadow: 0px 0px 51px -2px rgba(0,0,0,0.3);
   height: 40px;
   border: 1px solid rgba(0,0,0,0.25);
@@ -52,7 +52,7 @@ body, html {
   background: white;
  }
 
- .hodgefkeyboard.hg-theme-default.hg-layout-numeric .hg-button {
+ .simple-keyboard.hg-theme-default.hg-layout-numeric .hg-button {
   width: 33.3%;
   height: 60px;
   align-items: center;

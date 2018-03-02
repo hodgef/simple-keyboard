@@ -71,7 +71,7 @@ class App extends Component {
     let layoutClass = this.props.layout ? "hg-layout-custom" : `hg-layout-${layoutName}`;
 
     return (
-      <div className={`hodgefkeyboard ${themeClass} ${layoutClass}`}>
+      <div className={`simple-keyboard ${themeClass} ${layoutClass}`}>
         {layout[layoutName].map((row, index) => {
           let rowArray = row.split(' ');
 
