@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React.js Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hodgef/simple-keyboard.git"
+    "url": "https://github.com/hodgef/simple-keyboard"
   },
   "author": "Francisco Hodge <hello@franciscohodge.com> (https://github.com/hodgef)",
   "bugs": {
-    "url": "https://github.com/hodgef/simple-keyboard.git/issues"
+    "url": "https://github.com/hodgef/simple-keyboard/issues"
   },
   "homepage": "https://github.com/hodgef/simple-keyboard",
   "keywords": [
