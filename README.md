@@ -44,7 +44,8 @@ export default App;
 ````
 
 # Options
-You can customize the Keyboard by passing options (props) to it. Here are the available options (the code examples are the defaults):
+You can customize the Keyboard by passing options (props) to it.
+Here are the available options (the code examples are the defaults):
 
 ### layout
 > Modify the keyboard layout
@@ -111,4 +112,5 @@ To run demo on your own computer:
 * Visit http://localhost:3000/
 
 ## Note
-This is a work in progress. Feel free to submit any issues you have at: https://github.com/hodgef/simple-keyboard/issues
+This is a work in progress. Feel free to submit any issues you have at:
+https://github.com/hodgef/simple-keyboard/issues
