@@ -1,0 +1,61 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+.hodgefkeyboard {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  width: 100%;
+  user-select: none;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.hodgefkeyboard .hg-row {
+  display: flex;
+}
+
+.hodgefkeyboard .hg-row:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.hodgefkeyboard .hg-row .hg-button:not(:last-child) {
+  margin-right: 5px;
+}
+
+.hodgefkeyboard .hg-button {
+  display: inline-block;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.hodgefkeyboard.hg-layout-default .hg-button.hg-standardBtn {
+  max-width: 100px;
+}
+
+/**
+ * hg-theme-default theme
+ */
+ .hodgefkeyboard.hg-theme-default {
+   background-color: rgba(0,0,0,0.2);
+   padding: 5px;
+   border-radius: 5px;
+ }
+
+ .hodgefkeyboard.hg-theme-default .hg-button {
+  box-shadow: 0px 0px 51px -2px rgba(0,0,0,0.3);
+  height: 40px;
+  border: 1px solid rgba(0,0,0,0.25);
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 5px;
+  background: white;
+ }
+
+ .hodgefkeyboard.hg-theme-default.hg-layout-numeric .hg-button {
+  width: 33.3%;
+  height: 60px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
