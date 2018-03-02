@@ -30,6 +30,8 @@ class Utilities {
       output = 'openbracket';
     else if(string === "]")
       output = 'closebracket';
+    else if(string === "//")
+      output = 'emptybutton';
     else
       output = '';
 
@@ -37,7 +39,7 @@ class Utilities {
   }
 
   static getButtonClass = button => {
-    let buttonTypeClass = button.includes("{") ? "functionBtn" : "standardBtn";
+    let buttonTypeClass = (button.includes("{") && button !== '{//}') ? "functionBtn" : "standardBtn";
     let buttonWithoutBraces = button.replace("{", "").replace("}", "");
 
     let buttonNormalized =

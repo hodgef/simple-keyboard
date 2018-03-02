@@ -34,7 +34,7 @@ class App extends Component {
               '.com @ {space}'
             ]
           }}
-          theme={"myTheme hg-theme-default"}
+          theme={"hg-layout-default hg-theme-default"}
           debug={true}
           display={{
             '{bksp}': 'delete',

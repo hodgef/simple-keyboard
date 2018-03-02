@@ -42,6 +42,7 @@ class App extends Component {
 
 export default App;
 ````
+> Need a more extensive example? [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/App.js).
 
 # Options
 You can customize the Keyboard by passing options (props) to it.
