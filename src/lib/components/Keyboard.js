@@ -65,13 +65,13 @@ class App extends Component {
   }
 
   render() {
-    let layoutName = this.state.layoutName || "default";
-    let layout = this.state.layout || KeyboardLayout.getLayout(layoutName);
-    let themeClass = this.state.theme || `hg-theme-default`;
+    let layoutName = this.props.layoutName || "default";
+    let layout = this.props.layout || KeyboardLayout.getLayout(layoutName);
+    let themeClass = this.props.theme || `hg-theme-default`;
 
     return (
       <div className={`hodgefkeyboard ${themeClass} hg-layout-${layoutName}`}>
-        {layout.default.map((row, index) => {
+        {layout[layoutName].map((row, index) => {
           let rowArray = row.split(' ');
 
           return (
@@ -99,9 +99,9 @@ class App extends Component {
 
 App.propTypes = {
   layoutName: PropTypes.string,
-  layout: PropTypes.array,
+  layout: PropTypes.object,
   theme:  PropTypes.string,
-  display: PropTypes.string,
+  display: PropTypes.object,
   onChange: PropTypes.func,
   onKeyPress: PropTypes.func,
   debug: PropTypes.bool
