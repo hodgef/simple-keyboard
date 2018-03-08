@@ -1,13 +1,14 @@
 {
   "name": "simple-keyboard",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "React.js Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "demo": "node scripts/demo.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
