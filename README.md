@@ -9,6 +9,8 @@
 
 > An easily customisable and responsive on-screen virtual keyboard for React.js projects.
 
+<img src="src/demo/images/keyboard.PNG" align="center" width="100%">
+
 ## Installation
 
 `npm install simple-keyboard --save`
@@ -118,6 +120,8 @@ debug={false}
 ```
 
 ## Demo
+
+<img src="src/demo/images/demo.gif" align="center" width="600">
 
 To run demo on your own computer:
 
