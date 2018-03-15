@@ -5,11 +5,9 @@
 [![Dev Dependencies](https://img.shields.io/david/dev/hodgef/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 [![npm downloads](https://img.shields.io/npm/dm/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 
-[![NPM](https://nodei.co/npm/simple-keyboard.png)](https://npmjs.com/package/simple-keyboard)
-
+<a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="src/demo/images/simple-keyboard.png" align="center"></a>
 > An easily customisable and responsive on-screen virtual keyboard for React.js projects.
 
-<a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="src/demo/images/simple-keyboard.png" align="center"></a>
 <img src="src/demo/images/keyboard.PNG" align="center" width="100%">
 
 ## Installation
