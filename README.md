@@ -119,6 +119,63 @@ theme={"hg-theme-default"}
 debug={false}
 ```
 
+### newLineOnEnter
+
+> Specifies whether clicking the "ENTER" button will input a newline (`\n`) or not.
+
+```js
+newLineOnEnter={true}
+```
+
+## Methods
+
+simple-keybord has a few methods you can use to further control it's behavior.
+To access these functions, you need a `ref` of the simple-keyboard component, like so:
+
+```js
+<Keyboard
+  ref={r => this.keyboard = r}
+  [...]
+/>
+
+// Then, on componentDidMount ..
+this.keyboard.methodName(params);
+```
+
+### clearInput
+
+> Clear the keyboard's input.
+
+```js
+this.keyboard.clearInput();
+```
+
+### getInput
+
+> Get the keyboard's input (You can also get it from the _onChange_ prop).
+
+```js
+let input = this.keyboard.getInput();
+```
+
+### setInput
+
+> Set the keyboard's input. Useful if you want the keybord to initialize with a default value, for example.
+
+```js
+this.keyboard.setInput("Hello World!");
+```
+
+It returns a promise, so if you want to run something after it's applied, call it as so:
+
+```js
+let inputSetPromise = this.keyboard.setInput("Hello World!");
+
+inputSetPromise.then((result) => {
+  console.log("Input set");
+});
+```
+
 ## Demo
 
 <img src="src/demo/images/demo.gif" align="center" width="600">
