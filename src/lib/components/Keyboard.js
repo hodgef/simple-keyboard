@@ -23,6 +23,29 @@ class App extends Component {
     }
   }
 
+  clearInput = () => {
+    this.setState({
+      input: ''
+    });
+  }
+
+  getInput = () => {
+    return this.state.input;
+  }
+
+  setInput = input => {
+    return new Promise(resolve => {
+      this.setState({
+        input: input
+      }, () => {
+        resolve(input);
+      });
+    })
+    .catch(reason => {
+      console.warn(reason);
+    });
+  }
+
   handleButtonClicked = (button) => {
     let debug = this.props.debug;
     
@@ -41,7 +64,11 @@ class App extends Component {
     /**
      * Updating input
      */
-    let updatedInput = Utilities.getUpdatedInput(button, this.state.input);
+    let options = {
+      newLineOnEnter: this.props.newLineOnEnter !== false || true
+    }
+    
+    let updatedInput = Utilities.getUpdatedInput(button, this.state.input, options);
 
     if(this.state.input !== updatedInput){
       this.setState({
