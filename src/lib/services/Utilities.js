@@ -20,6 +20,8 @@ class Utilities {
       output = 'dollarsign';
     else if(string === "=")
       output = 'equals';
+    else if(string === "+")
+      output = 'plus';
     else if(string === "-")
       output = 'minus';
     else if(string === "'")
@@ -68,13 +70,18 @@ class Utilities {
     return display[button] || button;
   }
 
-  static getUpdatedInput = (button, input) => {
+  static getUpdatedInput = (button, input, options) => {
     let output = input;
+    let newLineOnEnter = options.newLineOnEnter;
 
     if(button === "{bksp}" && output.length > 0)
       output = output.slice(0, -1);
     else if(button === "{space}")
       output = output + ' ';
+    else if(button === "{tab}")
+      output = output + "\t";
+    else if(button === "{enter}" && newLineOnEnter)
+      output = output + "\n";
     else if(!button.includes("{") && !button.includes("{"))
       output = output + button;
 
