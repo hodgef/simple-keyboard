@@ -1,23 +1,59 @@
 import React, {Component} from 'react';
 import Keyboard from '../lib';
+import './App.css';
 
 class App extends Component {
+  state = {
+    input: '',
+    layoutName: "default"
+  }
+
+  componentDidMount(){
+    this.keyboard.setInput("Hello World!")
+      .then(input => {
+        this.setState({input: input});
+      });
+  }
   
   onChange = (input) => {
-    console.log("Input changed", input);
+    this.setState({
+      input: input
+    }, () => {
+      console.log("Input changed", input);
+    });
   }
 
   onKeyPress = (button) => {
     console.log("Button pressed", button);
+
+    /**
+     * Shift functionality
+     */
+    if(button === "{lock}" || button === "{shift}")
+      this.handleShiftButton();
+
+  }
+
+  handleShiftButton = () => {
+    let layoutName = this.state.layoutName;
+    let shiftToggle = layoutName === "default" ? "shift" : "default";
+
+    this.setState({
+      layoutName: shiftToggle
+    });
   }
   
   render(){
     return (
-      <div>
+      <div className={"demoPage"}>
+        <div className={"screenContainer"}>
+          <textarea className={"inputContainer"} value={this.state.input} />
+        </div>
         <Keyboard
+          ref={r => this.keyboard = r}
           onChange={input => this.onChange(input)}
           onKeyPress={button => this.onKeyPress(button)}
-          layoutName={"default"}
+          layoutName={this.state.layoutName}
           layout={{
             'default': [
               '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
