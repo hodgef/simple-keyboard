@@ -9,6 +9,7 @@
 
 > An easily customisable and responsive on-screen virtual keyboard for React.js projects.
 
+<a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="src/demo/images/simple-keyboard.png" align="center"></a>
 <img src="src/demo/images/keyboard.PNG" align="center" width="100%">
 
 ## Installation
@@ -180,12 +181,15 @@ inputSetPromise.then((result) => {
 
 <img src="src/demo/images/demo.gif" align="center" width="600">
 
-To run demo on your own computer:
+### To run demo on your own computer:
 
 * Clone this repository
 * `npm install`
 * `npm start`
 * Visit [http://localhost:3000/](http://localhost:3000/)
+
+### Live demo
+Coming soon at the [Official Page](https://franciscohodge.com/projects/simple-keyboard/) !
 
 ## Note
 
