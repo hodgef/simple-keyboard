@@ -47,6 +47,8 @@ export default App;
 ````
 
 > Need a more extensive example? [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/App.js).
+>
+> Need a live demo? [See Live Demo](https://franciscohodge.com/simple-keyboard/demo).
 
 ## Options
 
@@ -179,15 +181,16 @@ inputSetPromise.then((result) => {
 
 <img src="src/demo/images/demo.gif" align="center" width="600">
 
-### To run demo on your own computer:
+### Live demo
+
+[https://franciscohodge.com/simple-keyboard/demo](https://franciscohodge.com/simple-keyboard/demo)
+
+### To run demo on your own computer
 
 * Clone this repository
 * `npm install`
 * `npm start`
 * Visit [http://localhost:3000/](http://localhost:3000/)
-
-### Live demo
-Coming soon at the [Official Page](https://franciscohodge.com/projects/simple-keyboard/) !
 
 ## Note
 
