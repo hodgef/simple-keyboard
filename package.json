@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "React.js Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
@@ -27,8 +27,9 @@
     "onscreen",
     "virtual",
     "component",
-    "simple",
-    "easy"
+    "virtual-keyboard",
+    "touchscreen",
+    "touch-screen"
   ],
   "license": "MIT",
   "dependencies": {},

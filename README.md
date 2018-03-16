@@ -10,6 +10,9 @@
 
 <img src="src/demo/images/keyboard.PNG" align="center" width="100%">
 
+<b>[Live Demo](https://franciscohodge.com/simple-keyboard/demo)</b>
+
+
 ## Installation
 
 `npm install simple-keyboard --save`
@@ -47,8 +50,6 @@ export default App;
 ````
 
 > Need a more extensive example? [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/App.js).
->
-> Need a live demo? [See Live Demo](https://franciscohodge.com/simple-keyboard/demo).
 
 ## Options
 
