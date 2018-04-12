@@ -65,7 +65,7 @@ class App extends Component {
      * Updating input
      */
     let options = {
-      newLineOnEnter: this.props.newLineOnEnter !== false || true
+      newLineOnEnter: (this.props.newLineOnEnter === true)
     }
     
     let updatedInput = Utilities.getUpdatedInput(button, this.state.input, options);

@@ -126,10 +126,10 @@ debug={false}
 > Specifies whether clicking the "ENTER" button will input a newline (`\n`) or not.
 
 ```js
-newLineOnEnter={true}
+newLineOnEnter={false}
 ```
 
-## Methods
+## MethodsS
 
 simple-keybord has a few methods you can use to further control it's behavior.
 To access these functions, you need a `ref` of the simple-keyboard component, like so:
