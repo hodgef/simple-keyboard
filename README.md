@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 [![Dependencies](https://img.shields.io/david/hodgef/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
-[![Dev Dependencies](https://img.shields.io/david/dev/hodgef/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 [![npm downloads](https://img.shields.io/npm/dm/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 
 <a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="src/demo/images/simple-keyboard.png" align="center"></a>
@@ -129,7 +128,7 @@ debug={false}
 newLineOnEnter={false}
 ```
 
-## MethodsS
+## Methods
 
 simple-keybord has a few methods you can use to further control it's behavior.
 To access these functions, you need a `ref` of the simple-keyboard component, like so:
