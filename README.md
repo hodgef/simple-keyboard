@@ -14,9 +14,17 @@
 
 ## Installation
 
+### npm
+
 `npm install simple-keyboard --save`
 
-## Usage
+### zip file (self-hosted)
+
+[Click here to download the latest release (zip format).](https://github.com/hodgef/simple-keyboard/zipball/master)
+
+> Want to use a CDN instead of self-host? Scroll down to the "Usage from CDN" instructions below.
+
+## Usage with npm
 
 ### js
 
@@ -24,10 +32,28 @@
 import Keyboard from 'simple-keyboard';
 import 'simple-keyboard/build/css/index.css';
 
-var keyboard = new Keyboard({
-  onChange: input => this.onChange(input),
-  onKeyPress: button => this.onKeyPress(button)
-});
+class App {
+  constructor(){
+    document.addEventListener('DOMContentLoaded', this.onDOMLoaded);
+  }
+
+  onDOMLoaded = () => {
+    this.keyboard = new Keyboard({
+      onChange: input => this.onChange(input),
+      onKeyPress: button => this.onKeyPress(button)
+    });
+  }
+
+  onChange = input => {
+    console.log("Input changed", input);
+  }
+
+  onKeyPress = button => {
+    console.log("Button pressed", button);
+  }
+}
+
+export default App;
 ````
 
 ### html
@@ -37,6 +63,23 @@ var keyboard = new Keyboard({
 ````
 
 > Need a more extensive example? [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/App.js).
+
+## Usage from CDN
+
+### html
+
+````html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/css/index.css">
+</head>
+<body>
+    <div class="simple-keyboard"></div>
+    <script src="https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/index.js"></script>
+</body>
+</html>
+````
 
 ## Options
 
@@ -118,7 +161,7 @@ newLineOnEnter: false
 
 ## Methods
 
-simple-keybord has a few methods you can use to further control it's behavior.
+simple-keyboard has a few methods you can use to further control it's behavior.
 To access these functions, you need the instance the simple-keyboard component, like so:
 
 ```js
