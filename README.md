@@ -79,7 +79,7 @@ export default App;
     <script src="https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/index.js"></script>
     <script>
       function keyboard_onChange(input){
-        console.log("Input chanfed", input);
+        console.log("Input changed", input);
       }
 
       function keyboard_onKeyPress(button){
