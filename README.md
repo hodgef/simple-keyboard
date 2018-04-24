@@ -77,6 +77,20 @@ export default App;
 <body>
     <div class="simple-keyboard"></div>
     <script src="https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/index.js"></script>
+    <script>
+      function keyboard_onChange(input){
+        console.log("Input chanfed", input);
+      }
+
+      function keyboard_onKeyPress(button){
+        console.log("Button pressed", button);
+      }
+
+      var myKeyboard = new Keyboard({
+        onChange: input => keyboard_onChange(input),
+        onKeyPress: button => keyboard_onKeyPress(button)
+      });
+    </script>
 </body>
 </html>
 ````
