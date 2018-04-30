@@ -173,6 +173,14 @@ debug: false
 newLineOnEnter: false
 ```
 
+### inputName
+
+> Allows you to use a single simple-keyboard instance for several inputs. 
+
+```js
+inputName: "default"
+```
+
 ## Methods
 
 simple-keyboard has a few methods you can use to further control it's behavior.
@@ -211,6 +219,49 @@ let input = keyboard.getInput();
 ```js
 keyboard.setInput("Hello World!");
 ```
+
+### setOptions
+
+> Set new option or modify existing ones after initialization. The changes are applied immediately.
+
+```js
+keyboard.setOptions({
+  theme: "my-custom-theme"
+});
+```
+
+## Use-cases
+
+### Using several inputs
+
+Set the *[inputName](#inputname)* option for each input you want to handle with simple-keyboard.
+
+For example:
+```html
+  <input class="input" id="input1" value=""/>
+  <input class="input" id="input2" value=""/>
+```
+
+```js
+  // Initialize simple-keyboard as usual
+  var keyboard = new Keyboard({
+    onChange: input => console.log(input),
+    onKeyPress: button => console.log(button),
+  });
+
+  // Add an event listener for the inputs to be tracked
+  document.querySelectorAll('.input')
+    .forEach(input => input.addEventListener('focus', onInputFocus));
+
+  // Set the inputName option on the fly !
+  function onInputFocus(event){
+    keyboard.setOptions({
+      inputName: event.target.id
+    });
+  }
+```
+
+[Using several inputs](#using-several-inputs)
 
 ## Demo
 
