@@ -2,12 +2,12 @@
 
 [![npm](https://img.shields.io/npm/v/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 
-<a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="src/demo/images/simple-keyboard.png" align="center"></a>
+<a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard.png" align="center"></a>
 > An easily customisable and responsive on-screen virtual keyboard for Javascript projects.
 
 > Want the React.js version? Get [react-simple-keyboard](https://www.npmjs.com/package/react-simple-keyboard) instead!
 
-<img src="src/demo/images/keyboard.PNG" align="center" width="100%">
+<img src="https://franciscohodge.com/project-pages/simple-keyboard/images/keyboard.png" align="center" width="100%">
 
 <b>[Live Demo](https://franciscohodge.com/simple-keyboard/demo)</b>
 
@@ -303,7 +303,7 @@ For example:
 
 ## Demo
 
-<img src="src/demo/images/demo.gif" align="center" width="600">
+<img src="https://franciscohodge.com/project-pages/simple-keyboard/images/demo.gif" align="center" width="600">
 
 ### Live demo
 
