@@ -13,7 +13,8 @@ class App {
       debug: true,
       layoutName: this.layoutName,
       onChange: input => this.onChange(input),
-      onKeyPress: button => this.onKeyPress(button)
+      onKeyPress: button => this.onKeyPress(button),
+      newLineOnEnter: true
     });
   
     this.keyboard.setInput("Hello World!");
