@@ -17,9 +17,12 @@ class SimpleKeyboard {
      */
     this.keyboardDOM = document.querySelector(keyboardDOMQuery);
     this.options = options;
-    this.input = '';
     this.options.layoutName = this.options.layoutName || "default";
     this.options.theme = this.options.theme || "hg-theme-default";
+    this.options.inputName = this.options.inputName || "default";
+    this.input = {};
+    this.input[this.options.inputName] = '';
+
 
     /**
      * Rendering keyboard
@@ -52,10 +55,13 @@ class SimpleKeyboard {
       newLineOnEnter: (this.options.newLineOnEnter === true)
     }
     
-    let updatedInput = Utilities.getUpdatedInput(button, this.input, options);
+    if(!this.input[this.options.inputName])
+      this.input[this.options.inputName] = '';
 
-    if(this.input !== updatedInput){
-      this.input = updatedInput;
+    let updatedInput = Utilities.getUpdatedInput(button, this.input[this.options.inputName], options);
+
+    if(this.input[this.options.inputName] !== updatedInput){
+      this.input[this.options.inputName] = updatedInput;
 
       if(debug)
         console.log('Input changed:', this.input);
@@ -64,7 +70,7 @@ class SimpleKeyboard {
        * Calling onChange
        */
       if(typeof this.options.onChange === "function")
-        this.options.onChange(this.input);
+        this.options.onChange(this.input[this.options.inputName]);
     }
     
     if(debug){
@@ -72,16 +78,19 @@ class SimpleKeyboard {
     }
   }
 
-  clearInput = () => {
-    this.input = '';
+  clearInput = (inputName) => {
+    inputName = inputName || this.options.inputName;
+    this.input[this.options.inputName] = '';
   }
 
-  getInput = () => {
-    return this.input;
+  getInput = (inputName) => {
+    inputName = inputName || this.options.inputName;
+    return this.input[this.options.inputName];
   }
 
-  setInput = input => {
-    this.input = input;
+  setInput = (input, inputName) => {
+    inputName = inputName || this.options.inputName;
+    this.input[inputName] = input;
   }
 
   setOptions = option => {
