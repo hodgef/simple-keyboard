@@ -246,7 +246,7 @@ For example:
   // Initialize simple-keyboard as usual
   var keyboard = new Keyboard({
     onChange: input => console.log(input),
-    onKeyPress: button => console.log(button),
+    onKeyPress: button => console.log(button)
   });
 
   // Add an event listener for the inputs to be tracked
@@ -260,8 +260,6 @@ For example:
     });
   }
 ```
-
-[Using several inputs](#using-several-inputs)
 
 ## Demo
 
