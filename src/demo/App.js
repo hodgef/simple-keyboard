@@ -1,5 +1,5 @@
 import Keyboard from '../lib';
-import './App.css';
+import './css/App.css';
 
 class App {
   constructor(){
@@ -17,6 +17,15 @@ class App {
     });
   
     this.keyboard.setInput("Hello World!");
+
+    /**
+     * Adding preview (demo only)
+     */
+    document.querySelector('.simple-keyboard').insertAdjacentHTML('beforebegin', `
+    <div class="simple-keyboard-preview">
+      <textarea class="input" readonly>Hello World!</textarea>
+    </div>
+    `);
   
     console.log(this.keyboard);
   }

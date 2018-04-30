@@ -1,0 +1,40 @@
+#root {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+#root .screenContainer {
+  background: rgba(0,0,0,0.8);
+  border: 20px solid;
+  height: 300px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#root .inputContainer {
+  color: white;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: monospace;
+  width: 100%;
+  height: 100%;
+}
+
+.simple-keyboard.hg-layout-custom {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+input {
+  padding: 10px;
+  margin: 10px 0;
+}
+
+label {
+  display: block;
+}
