@@ -181,6 +181,30 @@ newLineOnEnter: false
 inputName: "default"
 ```
 
+### onKeyPress
+
+> Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
+
+```js
+onKeyPress: (button) => console.log(button)
+```
+
+### onChange
+
+> Executes the callback function on input change. Returns the current input's string.
+
+```js
+onChange: (input) => console.log(input)
+```
+
+### onChangeAll
+
+> Executes the callback function on input change. Returns the input object with all defined inputs. This is useful if you're handling several inputs with simple-keyboard, as specified in the "*[Using several inputs](#using-several-inputs)*" guide.
+
+```js
+onChangeAll: (inputs) => console.log(inputs)
+```
+
 ## Methods
 
 simple-keyboard has a few methods you can use to further control it's behavior.
@@ -201,7 +225,12 @@ keyboard.methodName(params);
 > Clear the keyboard's input.
 
 ```js
+// For default input (i.e. if you have only one)
 keyboard.clearInput();
+
+// For specific input
+// Must have been previously set using the "inputName" prop.
+keyboard.clearInput("inputName");
 ```
 
 ### getInput
@@ -209,7 +238,12 @@ keyboard.clearInput();
 > Get the keyboard's input (You can also get it from the _onChange_ prop).
 
 ```js
+// For default input (i.e. if you have only one)
 let input = keyboard.getInput();
+
+// For specific input
+// Must have been previously set using the "inputName" prop.
+let input = keyboard.getInput("inputName");
 ```
 
 ### setInput
@@ -217,7 +251,12 @@ let input = keyboard.getInput();
 > Set the keyboard's input. Useful if you want the keybord to initialize with a default value, for example.
 
 ```js
+// For default input (i.e. if you have only one)
 keyboard.setInput("Hello World!");
+
+// For specific input
+// Must have been previously set using the "inputName" prop.
+keyboard.setInput("Hello World!", "inputName");
 ```
 
 ### setOptions
@@ -260,6 +299,7 @@ For example:
     });
   }
 ```
+> [See full example](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/MultipleInputsDemo.js).
 
 ## Demo
 
