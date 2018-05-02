@@ -276,29 +276,53 @@ keyboard.setOptions({
 Set the *[inputName](#inputname)* option for each input you want to handle with simple-keyboard.
 
 For example:
+
 ```html
   <input class="input" id="input1" value=""/>
   <input class="input" id="input2" value=""/>
 ```
 
 ```js
+  // Here we'll store the input id that simple-keyboard will be using.
+  var selectedInput;
+
   // Initialize simple-keyboard as usual
   var keyboard = new Keyboard({
-    onChange: input => console.log(input),
-    onKeyPress: button => console.log(button)
+    onChange: input => onChange(input)
   });
 
   // Add an event listener for the inputs to be tracked
   document.querySelectorAll('.input')
     .forEach(input => input.addEventListener('focus', onInputFocus));
 
-  // Set the inputName option on the fly !
-  function onInputFocus(event){
+  /**
+   * When an input is focused, it will be marked as selected (selectedInput)
+   * This is so we can replace it's value on the onChange function
+   *
+   * Also, we will set the inputName option to a unique string identifying the input (id)
+   * simple-keyboard save the input in this key and report changes through onChange
+   */
+  onInputFocus = event => {
+    // Setting input as selected
+    selectedInput = `#${event.target.id}`;
+
+    // Set the inputName option on the fly !
     keyboard.setOptions({
       inputName: event.target.id
     });
   }
+
+  // When the current input is changed, this is called
+  onChange = input => {
+    // If the input is not defined, grabbing the first ".input".
+    let currentInput = selectedInput || '.input';
+
+    // Updating the selected input's value
+    document.querySelector(currentInput).value = input;
+  }
+
 ```
+
 > [See full example](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/MultipleInputsDemo.js).
 
 ## Demo
