@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 
 <a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard.png" align="center"></a>
-> An easily customisable and responsive on-screen virtual keyboard for Javascript project.
+> The easily customisable and responsive on-screen virtual keyboard for Javascript projects.
 
 <img src="https://franciscohodge.com/project-pages/simple-keyboard/images/keyboard.png" align="center" width="100%">
 
