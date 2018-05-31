@@ -3,13 +3,9 @@
 [![npm](https://img.shields.io/npm/v/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 
 <a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard.png" align="center"></a>
-> An easily customisable and responsive on-screen virtual keyboard for Javascript projects.
-
-> Want the React.js version? Get [react-simple-keyboard](https://www.npmjs.com/package/react-simple-keyboard) instead!
+> An easily customisable and responsive on-screen virtual keyboard for Javascript project.
 
 <img src="https://franciscohodge.com/project-pages/simple-keyboard/images/keyboard.png" align="center" width="100%">
-
-<b>[Live Demo](https://franciscohodge.com/simple-keyboard/demo)</b>
 
 
 ## Installation
@@ -32,35 +28,29 @@
 import Keyboard from 'simple-keyboard';
 import 'simple-keyboard/build/css/index.css';
 
-class App {
-  constructor(){
-    document.addEventListener('DOMContentLoaded', this.onDOMLoaded);
-  }
+let keyboard = new Keyboard({
+  onChange: input => this.onChange(input),
+  onKeyPress: button => this.onKeyPress(button)
+});
 
-  onDOMLoaded = () => {
-    this.keyboard = new Keyboard({
-      onChange: input => this.onChange(input),
-      onKeyPress: button => this.onKeyPress(button)
-    });
-  }
-
-  onChange = input => {
-    console.log("Input changed", input);
-  }
-
-  onKeyPress = button => {
-    console.log("Button pressed", button);
-  }
+function onChange(input){
+  document.querySelector(".input").value = input;
+  console.log("Input changed", input);
 }
 
-export default App;
+function onKeyPress(button){
+  console.log("Button pressed", button);
+}
 ````
 
 ### html
 
 ````html
+<input class="input" />
 <div class="simple-keyboard"></div>
 ````
+
+[![Edit krzkx19rr](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/krzkx19rr)
 
 > Need a more extensive example? [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/App.js).
 
@@ -69,31 +59,53 @@ export default App;
 ### html
 
 ````html
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <link rel="stylesheet" href="https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/css/index.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/css/index.css">
 </head>
+
 <body>
-    <div class="simple-keyboard"></div>
-    <script src="https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/index.js"></script>
-    <script>
-      function keyboard_onChange(input){
-        console.log("Input changed", input);
-      }
+  <input class="input" placeholder="Tap on the virtual keyboard to start" />
+  <div class="simple-keyboard"></div>
 
-      function keyboard_onKeyPress(button){
-        console.log("Button pressed", button);
-      }
-
-      var myKeyboard = new Keyboard({
-        onChange: input => keyboard_onChange(input),
-        onKeyPress: button => keyboard_onKeyPress(button)
-      });
-    </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.js"></script>
+  <script src="src/index.js"></script>
 </body>
+
 </html>
 ````
+
+### js (index.js)
+
+````js
+window.require.config({
+  paths: {
+    "keyboard": "https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/index"
+  }
+});
+
+window.require(["keyboard"],
+  function (SimpleKeyboard) {
+    let Keyboard = SimpleKeyboard.default;
+
+    let myKeyboard = new Keyboard({
+      onChange: input => onChange(input),
+      onKeyPress: button => onKeyPress(button)
+    });
+
+    function onChange(input) {
+      document.querySelector(".input").value = input;
+      console.log("Input changed", input);
+    }
+
+    function onKeyPress(button) {
+      console.log("Button pressed", button);
+    }
+  }
+);
+````
+
+[![Edit 6n0wzxjmjk](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/6n0wzxjmjk)
 
 ## Options
 
@@ -329,9 +341,9 @@ For example:
 
 <img src="https://franciscohodge.com/project-pages/simple-keyboard/images/demo.gif" align="center" width="600">
 
-### Live demo
-
 [https://franciscohodge.com/simple-keyboard/demo](https://franciscohodge.com/simple-keyboard/demo)
+
+[![Edit krzkx19rr](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/krzkx19rr)
 
 ### To run demo on your own computer
 
