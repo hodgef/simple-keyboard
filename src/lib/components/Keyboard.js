@@ -172,4 +172,3 @@ class SimpleKeyboard {
 }
 
 export default SimpleKeyboard;
-export {SimpleKeyboard};
