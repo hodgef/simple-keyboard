@@ -68,7 +68,7 @@ function onKeyPress(button){
   <input class="input" placeholder="Tap on the virtual keyboard to start" />
   <div class="simple-keyboard"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.js"></script>
+  <script src="https://cdn.rawgit.com/hodgef/simple-keyboard/3b75d11b9c1d782d92103d1df0970734e6d6df83/build/index.js"></script>
   <script src="src/index.js"></script>
 </body>
 
@@ -78,31 +78,21 @@ function onKeyPress(button){
 ### js (index.js)
 
 ````js
-window.require.config({
-  paths: {
-    "keyboard": "https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/index"
-  }
+let Keyboard = window.SimpleKeyboard.default;
+
+let myKeyboard = new Keyboard({
+  onChange: input => onChange(input),
+  onKeyPress: button => onKeyPress(button)
 });
 
-window.require(["keyboard"],
-  function (SimpleKeyboard) {
-    let Keyboard = SimpleKeyboard.default;
+function onChange(input) {
+  document.querySelector(".input").value = input;
+  console.log("Input changed", input);
+}
 
-    let myKeyboard = new Keyboard({
-      onChange: input => onChange(input),
-      onKeyPress: button => onKeyPress(button)
-    });
-
-    function onChange(input) {
-      document.querySelector(".input").value = input;
-      console.log("Input changed", input);
-    }
-
-    function onKeyPress(button) {
-      console.log("Button pressed", button);
-    }
-  }
-);
+function onKeyPress(button) {
+  console.log("Button pressed", button);
+}
 ````
 
 [![Edit 6n0wzxjmjk](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/6n0wzxjmjk)
