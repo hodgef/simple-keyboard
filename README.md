@@ -342,7 +342,11 @@ For example:
 * `npm start`
 * Visit [http://localhost:3000/](http://localhost:3000/)
 
-## Note
+### Other versions
 
-This is a work in progress. Feel free to submit any issues you have at:
+* ReactJS - [react-simple-keyboard](https://github.com/hodgef/react-simple-keyboard)
+
+## Contributing
+
+PR's and issues are welcome. Feel free to submit any issues you have at:
 [https://github.com/hodgef/simple-keyboard/issues](https://github.com/hodgef/simple-keyboard/issues)
