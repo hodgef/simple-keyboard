@@ -82,7 +82,7 @@ class Utilities {
       output = output + "\t";
     else if(button === "{enter}" && newLineOnEnter)
       output = output + "\n";
-    else if(!button.includes("{") && !button.includes("{"))
+    else if(!button.includes("{") && !button.includes("}"))
       output = output + button;
 
     return output;
