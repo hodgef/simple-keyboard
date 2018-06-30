@@ -123,7 +123,13 @@ class SimpleKeyboard {
 
           if(Array.isArray(themeButtons)){
             themeButtons.forEach(themeButton => {
-              buttonThemesParsed[themeButton] = themeObj.class;
+              let themeParsed = buttonThemesParsed[themeButton];
+
+              // If the button has already been added
+              if(themeParsed)
+                buttonThemesParsed[themeButton] = `${themeParsed} ${themeObj.class}`;
+              else
+                buttonThemesParsed[themeButton] = themeObj.class;
             });
           }
         } else {
