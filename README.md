@@ -68,7 +68,7 @@ function onKeyPress(button){
   <input class="input" placeholder="Tap on the virtual keyboard to start" />
   <div class="simple-keyboard"></div>
 
-  <script src="https://cdn.rawgit.com/hodgef/simple-keyboard/3b75d11b9c1d782d92103d1df0970734e6d6df83/build/index.js"></script>
+  <script src="https://cdn.rawgit.com/hodgef/simple-keyboard/d88912cd23d224a22a38da34cac7b645c6a8560c/build/index.js"></script>
   <script src="src/index.js"></script>
 </body>
 
