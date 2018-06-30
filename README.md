@@ -5,7 +5,7 @@
 <a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard.png" align="center"></a>
 > The easily customisable and responsive on-screen virtual keyboard for Javascript projects.
 
-<img src="https://franciscohodge.com/project-pages/simple-keyboard/images/keyboard.png" align="center" width="100%">
+<img src="https://franciscohodge.com/project-pages/simple-keyboard/images/k2.png" align="center" width="100%">
 
 
 ## Installation
@@ -153,11 +153,32 @@ display: {
 
 ### theme
 
-> A prop to add your own css classes. You can add multiple classes separated by a space.
+> A prop to add your own css classes _to the keyboard wrapper_. You can add multiple classes separated by a space.
 
 ```js
 theme: "hg-theme-default"
 ```
+
+### buttonTheme
+
+> A prop to add your own css classes _to one or several buttons_. You can add multiple classes separated by a space.
+
+```js
+buttonTheme: [
+  {
+    class: "myCustomClass",
+    buttons: "Q W E R T Y q w e r t y"
+  },
+  {
+    class: "anotherCustomClass",
+    buttons: "Q q"
+  },
+  ...
+]
+```
+
+[![Edit simple-keyboard customization demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/vj8jvz2q4l?module=%2Fsrc%2Findex.js)
+
 
 ### debug
 
@@ -328,8 +349,6 @@ For example:
 > [See full example](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/MultipleInputsDemo.js).
 
 ## Demo
-
-<img src="https://franciscohodge.com/project-pages/simple-keyboard/images/demo.gif" align="center" width="600">
 
 [https://franciscohodge.com/simple-keyboard/demo](https://franciscohodge.com/simple-keyboard/demo)
 
