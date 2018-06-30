@@ -61,7 +61,7 @@ function onKeyPress(button){
 ````html
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.rawgit.com/hodgef/simple-keyboard/d477c35c/build/css/index.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/hodgef/simple-keyboard/0581247fbeda4b2fb670ceaf3facebd3258fa04f/build/css/index.css">
 </head>
 
 <body>
