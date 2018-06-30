@@ -113,6 +113,26 @@ class SimpleKeyboard {
     let layout = this.options.layout || KeyboardLayout.getLayout(this.options.layoutName);
 
     /**
+     * Account for buttonTheme, if set
+     */
+    let buttonThemesParsed = {};
+    if(Array.isArray(this.options.buttonTheme)){
+      this.options.buttonTheme.forEach(themeObj => {
+        if(themeObj.buttons && themeObj.class){
+          let themeButtons = themeObj.buttons.split(' ');
+
+          if(Array.isArray(themeButtons)){
+            themeButtons.forEach(themeButton => {
+              buttonThemesParsed[themeButton] = themeObj.class;
+            });
+          }
+        } else {
+          console.warn(`buttonTheme row is missing the "buttons" or the "class". Please check the documentation.`)
+        }
+      });
+    }
+
+    /**
      * Adding themeClass, layoutClass to keyboardDOM
      */
     this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass}`;
@@ -120,7 +140,7 @@ class SimpleKeyboard {
     /**
      * Iterating through each row
      */
-    layout[this.options.layoutName].forEach((row, index) => {
+    layout[this.options.layoutName].forEach((row) => {
       let rowArray = row.split(' ');
 
       /**
@@ -132,15 +152,16 @@ class SimpleKeyboard {
       /**
        * Iterating through each button in row
        */
-      rowArray.forEach((button, index) => {
+      rowArray.forEach((button) => {
         let fctBtnClass = Utilities.getButtonClass(button);
+        let buttonThemeClass = buttonThemesParsed[button];
         let buttonDisplayName = Utilities.getButtonDisplayName(button, this.options.display);
 
         /**
          * Creating button
          */
         var buttonDOM = document.createElement('div');
-        buttonDOM.className += `hg-button ${fctBtnClass}`;
+        buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? " "+buttonThemeClass : ""}`;
         buttonDOM.onclick = () => this.handleButtonClicked(button);
 
         /**
