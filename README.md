@@ -271,7 +271,7 @@ let input = keyboard.getInput("inputName");
 
 ### setInput
 
-> Set the keyboard's input. Useful if you want the keybord to initialize with a default value, for example.
+> Set the keyboard's input. Useful if you want to track input changes made outside simple-keyboard.
 
 ```js
 // For default input (i.e. if you have only one)
@@ -347,6 +347,8 @@ For example:
 ```
 
 > [See full example](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/MultipleInputsDemo.js).
+
+[![Edit simple-keyboard multiple inputs demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/43nm6v4xyx?module=%2Fsrc%2Findex.js)
 
 ## Demo
 
