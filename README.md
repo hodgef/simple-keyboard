@@ -18,7 +18,7 @@
 
 [Click here to download the latest release (zip format).](https://github.com/hodgef/simple-keyboard/zipball/master)
 
-> Want to use a CDN instead of self-host? Scroll down to the "Usage from CDN" instructions below.
+> Want to use a CDN instead of self-host? Scroll down to the "Usage with CDN" instructions below.
 
 ## Usage with npm
 
@@ -54,7 +54,7 @@ function onKeyPress(button){
 
 > Need a more extensive example? [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/App.js).
 
-## Usage from CDN
+## Usage with CDN
 
 ### html
 
