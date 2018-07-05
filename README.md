@@ -5,7 +5,7 @@
 <a href="https://franciscohodge.com/projects/simple-keyboard/"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard.png" align="center"></a>
 > The easily customisable and responsive on-screen virtual keyboard for Javascript projects.
 
-<img src="https://franciscohodge.com/project-pages/simple-keyboard/images/k2.png" align="center" width="100%">
+<a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/k2.png" align="center" width="100%"></a>
 
 
 ## Installation
