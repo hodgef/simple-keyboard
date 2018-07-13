@@ -61,14 +61,14 @@ function onKeyPress(button){
 ````html
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.rawgit.com/hodgef/simple-keyboard/0581247fbeda4b2fb670ceaf3facebd3258fa04f/build/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
 </head>
 
 <body>
   <input class="input" placeholder="Tap on the virtual keyboard to start" />
   <div class="simple-keyboard"></div>
 
-  <script src="https://cdn.rawgit.com/hodgef/simple-keyboard/d88912cd23d224a22a38da34cac7b645c6a8560c/build/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.min.js"></script>
   <script src="src/index.js"></script>
 </body>
 
