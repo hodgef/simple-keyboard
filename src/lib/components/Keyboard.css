@@ -9,6 +9,7 @@ body, html {
   user-select: none;
   box-sizing: border-box;
   overflow: hidden;
+  touch-action: manipulation;
 }
 
 .simple-keyboard .hg-row {
