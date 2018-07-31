@@ -137,11 +137,11 @@ layoutName: "default"
 
 ### display
 
-> Replaces variable buttons (such as `{bksp}`) with a human-friendly name (e.g.: "delete").
+> Replaces variable buttons (such as `{bksp}`) with a human-friendly name (e.g.: "backspace").
 
 ```js
 display: {
-  '{bksp}': 'delete',
+  '{bksp}': 'backspace',
   '{enter}': '< enter',
   '{shift}': 'shift',
   '{s}': 'shift',

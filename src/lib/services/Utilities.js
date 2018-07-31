@@ -53,7 +53,7 @@ class Utilities {
 
   static getDefaultDiplay(){
     return {
-      '{bksp}': 'delete',
+      '{bksp}': 'backspace',
       '{enter}': '< enter',
       '{shift}': 'shift',
       '{s}': 'shift',
