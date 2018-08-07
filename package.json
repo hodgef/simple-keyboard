@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "2.3.12",
+  "version": "2.3.15",
   "description": "On-screen Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "node scripts/build.js",
     "demo": "node scripts/demo.js",
     "test": "node scripts/test.js --env=jsdom",
-    "postinstall": "node scripts/postinstall.js",
+    "postinstall": "node bin/postinstall",
     "prepublish": "npm run build"
   },
   "repository": {
