@@ -30,7 +30,7 @@ body, html {
   cursor: pointer;
 }
 
-.simple-keyboard.hg-layout-default .hg-button.hg-standardBtn {
+.hg-standardBtn {
   max-width: 100px;
 }
 

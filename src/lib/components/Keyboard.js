@@ -22,7 +22,7 @@ class SimpleKeyboard {
     this.options.inputName = this.options.inputName || "default";
     this.input = {};
     this.input[this.options.inputName] = '';
-
+    this.keyboardDOMClass = keyboardDOMQuery.split('.').join("");
 
     /**
      * Rendering keyboard
@@ -101,6 +101,7 @@ class SimpleKeyboard {
 
   clear = () => {
     this.keyboardDOM.innerHTML = '';
+    this.keyboardDOM.className = this.keyboardDOMClass;
   }
 
   render = () => {
