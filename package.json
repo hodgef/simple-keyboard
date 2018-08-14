@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "2.3.17",
+  "version": "2.3.19",
   "description": "On-screen Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
