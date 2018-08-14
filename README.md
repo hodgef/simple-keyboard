@@ -349,13 +349,13 @@ For example:
 
 [![Edit simple-keyboard multiple inputs demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/43nm6v4xyx?module=%2Fsrc%2Findex.js)
 
-# Having keys in a different language configuration
+### Having keys in a different language configuration
 
 There's a number of key layouts available. To apply them, check out [simple-keyboard-layouts](https://github.com/hodgef/simple-keyboard-layouts).
 
 <a href="https://github.com/hodgef/simple-keyboard-layouts" title="simple-keyboard-layouts repository"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard-banner3layouts.png" align="center"></a>
 
-If you'd like to contribute your own layouts, please submit your pull request there.
+If you'd like to contribute your own layouts, please submit your pull request at the simple-keyboard-layouts repository.
 
 ## Demo
 
