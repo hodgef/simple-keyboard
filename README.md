@@ -26,8 +26,8 @@ import Keyboard from 'simple-keyboard';
 import 'simple-keyboard/build/css/index.css';
 
 let keyboard = new Keyboard({
-  onChange: input => this.onChange(input),
-  onKeyPress: button => this.onKeyPress(button)
+  onChange: input => onChange(input),
+  onKeyPress: button => onKeyPress(button)
 });
 
 function onChange(input){
