@@ -74,9 +74,20 @@ class Utilities {
     let output = input;
     let newLineOnEnter = options.newLineOnEnter;
 
-    if(button === "{bksp}" && output.length > 0)
-      output = output.slice(0, -1);
-    else if(button === "{space}")
+    if(button === "{bksp}" && output.length > 0){
+      /**
+       * Emojis are made out of two characters, so we must take a custom approach to trim them.
+       * For more info: https://mathiasbynens.be/notes/javascript-unicode
+       */
+      let lastTwoChars = output.slice(-2);
+      let emojiMatched = lastTwoChars.match(/([\uD800-\uDBFF][\uDC00-\uDFFF])/g);
+
+      if(emojiMatched){
+        output = output.slice(0, -2);
+      } else {
+        output = output.slice(0, -1);
+      }
+    } else if(button === "{space}")
       output = output + ' ';
     else if(button === "{tab}")
       output = output + "\t";
