@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "2.3.24",
+  "version": "2.3.25",
   "description": "On-screen Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
@@ -30,7 +30,8 @@
     "component",
     "virtual-keyboard",
     "touchscreen",
-    "touch-screen"
+    "touch-screen",
+    "osk"
   ],
   "license": "MIT",
   "dependencies": {},
