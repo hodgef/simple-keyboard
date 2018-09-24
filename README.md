@@ -2,7 +2,7 @@
 [![](https://data.jsdelivr.com/v1/package/npm/simple-keyboard/badge)](https://www.jsdelivr.com/package/npm/simple-keyboard)
 
 <a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simplekeyboard-banner_B.png" align="center" width="100%"></a>
-<a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/skeyboard.gif" align="center" width="100%"></a>
+<a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard-240-demo-2.gif" align="center" width="100%"></a>
 
 > The easily customisable and responsive on-screen virtual keyboard for Javascript projects.
 
@@ -204,6 +204,14 @@ newLineOnEnter: false
 inputName: "default"
 ```
 
+### syncInstanceInputs
+
+> When set to true, this option synchronizes the internal input of every simple-keyboard instance.
+
+```js
+syncInstanceInputs: false
+```
+
 ### onKeyPress
 
 > Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
@@ -292,7 +300,70 @@ keyboard.setOptions({
 });
 ```
 
-## Use-cases
+### dispatch
+
+> Send a command to all simple-keyboard instances at once (if you have multiple instances).
+
+```js
+keyboard.dispatch(instance => {
+  instance.setOptions({
+    buttonTheme: [
+      {
+        class: "myClass",
+        buttons: `a b c`
+      }
+    ]
+  })
+});
+```
+
+[![Edit simple-keyboard dispatch demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/rjnlp4pp2q?module=%2Fsrc%2Findex.js)
+
+
+## Q&A / Use-cases
+
+### How to give a different base class to my keyboard?
+
+As you may have seen on the code samples, this is the default setup that simple-keyboard uses:
+
+```html
+  <div class="simple-keyboard"></div>
+```
+
+```js
+let keyboard = new Keyboard({
+  // Add options here
+});
+```
+
+You can however change this by setting up simple-keyboard like so:
+
+```html
+  <div class="myFavouriteClass"></div>
+```
+
+```js
+let keyboard = new Keyboard(".myFavouriteClass", {
+  // Add options here
+});
+```
+
+This can come in handy especially when dealing with multiple simple keyboard instances.
+
+### How to syncronize multiple instances of simple-keyboard
+
+As shown above, you can run multiple instances of simple-keyboard. To keep their internal inputs in sync, set the *[syncInstanceInputs](#syncInstanceInputs)* option to `true`. 
+
+If you want to send a command to all your simple-keyboard instances at once, you can use the *[dispatch](#syncInstanceInputs)* method.
+
+Here's a demo with both these features in action:
+
+[![Edit simple-keyboard dispatch demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/rjnlp4pp2q?module=%2Fsrc%2Findex.js)
+
+Here's an example of a full keyboard made out of multiple simple-keyboard instances:
+
+[![Edit simple-keyboard extended keyboard demo - cdn (Experimental)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrxrn5kprp?module=%2Fsrc%2Findex.js)
+
 
 ### Using several inputs
 
@@ -355,6 +426,38 @@ For example:
 There's a number of key layouts available. To apply them, check out [simple-keyboard-layouts](https://github.com/hodgef/simple-keyboard-layouts).
 
 If you'd like to contribute your own layouts, please submit your pull request at the simple-keyboard-layouts repository.
+
+
+### How to customize my keyboard layout?
+
+If you'd like to create a layout in a language not currently supported by [simple-keyboard-layouts](https://github.com/hodgef/simple-keyboard-layouts), you definitely can.
+
+Take following demo as an example:
+
+[![Edit Use-case: simple-keyboard layout customization demo - cdn](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/v388k9zvk0?module=%2Fsrc%2Findex.js)
+
+If you have issues displaying a character, you might need its unicode code to display it. Here an useful converter tool:
+
+[r12a Unicode converter](https://r12a.github.io/app-conversion/)
+
+### Why is the caps lock button working like shift button?
+
+For the sake of simplicity, caps lock and shift do the same action in the main demos.
+If you'd like to show a different layout when you press caps lock, check out the following demo:
+
+[![Edit simple-keyboard handling shift and caps lock demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/l3n84qn5oq?module=%2Fsrc%2Findex.js)
+
+
+### How to display a full keyboard
+
+You can display a full keyboard by linking together multiple Simple Keyboard instances.
+This is because you might want different sections of your keyboard to have different spacing and styling.
+
+Please refer to the documentation on the *[syncInstanceInputs](#syncInstanceInputs)* option, which allows you to sync the input of all your simple-keyboard instances.
+
+Also, check out this demo:
+
+[![Edit simple-keyboard extended keyboard demo - cdn (Experimental)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/0ywkn0k7pp?module=%2Fsrc%2Findex.js)
 
 ## Demo
 
