@@ -1,6 +1,6 @@
 #root {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  max-width: 1000px;
+  max-width: 850px;
   margin: 0 auto;
   padding-top: 20px;
 }
@@ -8,7 +8,7 @@
 #root .simple-keyboard-preview {
   background: rgba(0,0,0,0.8);
   border: 20px solid rgba(0,0,0,0.1);
-  height: 300px;
+  height: 260px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   padding: 10px;

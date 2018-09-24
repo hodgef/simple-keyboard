@@ -1,6 +1,6 @@
 #root {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  max-width: 1000px;
+  max-width: 850px;
   margin: 0 auto;
   padding-top: 20px;
 }
@@ -33,6 +33,8 @@
 input {
   padding: 10px;
   margin: 10px 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 label {
