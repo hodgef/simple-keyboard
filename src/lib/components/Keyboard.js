@@ -1,6 +1,7 @@
 import './Keyboard.css';
 
 // Services
+import PhysicalKeyboard from '../services/PhysicalKeyboard';
 import KeyboardLayout from '../services/KeyboardLayout';
 import Utilities from '../services/Utilities';
 
@@ -42,6 +43,10 @@ class SimpleKeyboard {
       
     window['SimpleKeyboardInstances'][Utilities.camelCase(this.keyboardDOMClass)] = this;
 
+    /**
+     * Physical Keyboard support
+     */
+    this.physicalKeyboardInterface = new PhysicalKeyboard(this);
   }
 
   handleButtonClicked = (button) => {
