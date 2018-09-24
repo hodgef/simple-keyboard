@@ -51,6 +51,10 @@ body, html {
   padding: 5px;
   background: white;
   border-bottom: 1px solid #b5b5b5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
  }
 
  .simple-keyboard.hg-theme-default .hg-button:active {
@@ -63,4 +67,24 @@ body, html {
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+.simple-keyboard.hg-theme-default .hg-button.hg-button-numpadadd {
+  height: 85px;
+}
+
+.simple-keyboard.hg-theme-default .hg-button.hg-button-numpadenter {
+  height: 85px;
+}
+
+.simple-keyboard.hg-theme-default .hg-button.hg-button-numpad0 {
+  width: 105px;
+}
+
+.simple-keyboard.hg-theme-default .hg-button.hg-button-com {
+  max-width: 85px;
+}
+
+.simple-keyboard.hg-theme-default .hg-button.hg-standardBtn.hg-button-at {
+  max-width: 45px;
 }
