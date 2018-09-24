@@ -224,7 +224,7 @@ class SimpleKeyboard {
       rowArray.forEach((button) => {
         let fctBtnClass = Utilities.getButtonClass(button);
         let buttonThemeClass = buttonThemesParsed[button];
-        let buttonDisplayName = Utilities.getButtonDisplayName(button, this.options.display);
+        let buttonDisplayName = Utilities.getButtonDisplayName(button, this.options.display, this.options.mergeDisplay);
 
         /**
          * Creating button
