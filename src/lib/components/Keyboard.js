@@ -23,6 +23,7 @@ class SimpleKeyboard {
     this.input = {};
     this.input[this.options.inputName] = '';
     this.keyboardDOMClass = keyboardDOMQuery.split('.').join("");
+    this.timers = {};
 
     /**
      * Rendering keyboard
@@ -31,6 +32,16 @@ class SimpleKeyboard {
       this.render();
     else
       console.error(`"${keyboardDOMQuery}" was not found in the DOM.`);
+
+    /**
+     * Saving instance
+     * This enables multiple simple-keyboard support with easier management
+     */
+    if(!window['SimpleKeyboardInstances'])
+      window['SimpleKeyboardInstances'] = {};
+      
+    window['SimpleKeyboardInstances'][Utilities.camelCase(this.keyboardDOMClass)] = this;
+
   }
 
   handleButtonClicked = (button) => {
@@ -67,6 +78,12 @@ class SimpleKeyboard {
         console.log('Input changed:', this.input);
 
       /**
+       * syncInstanceInputs
+       */
+      if(this.options.syncInstanceInputs)
+        this.syncInstanceInputs(this.input);
+
+      /**
        * Calling onChange
        */
       if(typeof this.options.onChange === "function")
@@ -78,19 +95,48 @@ class SimpleKeyboard {
     }
   }
 
+  syncInstanceInputs = () => {
+    this.dispatch((section) => {
+      section.replaceInput(this.input);
+    });
+  }
+
   clearInput = (inputName) => {
     inputName = inputName || this.options.inputName;
     this.input[this.options.inputName] = '';
+
+    /**
+     * syncInstanceInputs
+     */
+    if(this.options.syncInstanceInputs)
+      this.syncInstanceInputs(this.input);
   }
 
   getInput = (inputName) => {
     inputName = inputName || this.options.inputName;
+
+    /**
+     * syncInstanceInputs
+     */
+    if(this.options.syncInstanceInputs)
+      this.syncInstanceInputs(this.input);
+
     return this.input[this.options.inputName];
   }
 
   setInput = (input, inputName) => {
     inputName = inputName || this.options.inputName;
     this.input[inputName] = input;
+
+    /**
+     * syncInstanceInputs
+     */
+    if(this.options.syncInstanceInputs)
+      this.syncInstanceInputs(this.input);
+  }
+
+  replaceInput = (inputObj) => {
+    this.input = inputObj;
   }
 
   setOptions = option => {
@@ -102,6 +148,17 @@ class SimpleKeyboard {
   clear = () => {
     this.keyboardDOM.innerHTML = '';
     this.keyboardDOM.className = this.keyboardDOMClass;
+  }
+
+  dispatch = (callback) => {
+    if(!window['SimpleKeyboardInstances']){
+      console.error("SimpleKeyboardInstances is not defined. Dispatch cannot be called.")
+      return false;
+    }
+    
+    return Object.keys(window['SimpleKeyboardInstances']).forEach((key) => {
+      callback(window['SimpleKeyboardInstances'][key], key);
+    })
   }
 
   render = () => {
