@@ -212,6 +212,20 @@ inputName: "default"
 syncInstanceInputs: false
 ```
 
+### physicalKeyboardHighlight
+
+When set to true, this option adds the special class (`hg-selectedButton`) to the key that matches the event.
+For example, when you press the `a` key, that key in simple-keyboard will have the special class until the key is released.
+
+For functional keys such as `shift`, note that the key's `event.code` is used. In that instance, pressing the left key will result in the code `ShiftLeft`. Therefore, the key must be named `{shiftleft}`.
+[Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/lib/services/Utilities.js#L58) for some of keys supported out of the box.
+
+If in doubt, you can also set the `debug` option to `true`.
+
+```js
+physicalKeyboardHighlight: true
+```
+
 ### onKeyPress
 
 > Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
@@ -352,9 +366,9 @@ This can come in handy especially when dealing with multiple simple keyboard ins
 
 ### How to syncronize multiple instances of simple-keyboard
 
-As shown above, you can run multiple instances of simple-keyboard. To keep their internal inputs in sync, set the *[syncInstanceInputs](#syncInstanceInputs)* option to `true`. 
+As shown above, you can run multiple instances of simple-keyboard. To keep their internal inputs in sync, set the *[syncInstanceInputs](#syncinstanceinputs)* option to `true`. 
 
-If you want to send a command to all your simple-keyboard instances at once, you can use the *[dispatch](#syncInstanceInputs)* method.
+If you want to send a command to all your simple-keyboard instances at once, you can use the *[dispatch](#dispatch)* method.
 
 Here's a demo with both these features in action:
 

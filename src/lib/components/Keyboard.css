@@ -88,3 +88,8 @@ body, html {
 .simple-keyboard.hg-theme-default .hg-button.hg-standardBtn.hg-button-at {
   max-width: 45px;
 }
+
+.simple-keyboard.hg-theme-default .hg-button.hg-selectedButton {
+  background: rgba(5, 25, 70, 0.53);
+  color: white;
+}
