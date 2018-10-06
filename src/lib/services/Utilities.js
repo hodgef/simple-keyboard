@@ -1,5 +1,9 @@
 class Utilities {
-  static normalizeString(string){
+  constructor(simpleKeyboardInstance){
+    this.simpleKeyboardInstance = simpleKeyboardInstance;
+  }
+
+  normalizeString(string){
     let output;
 
     if(string === "@")
@@ -166,7 +170,15 @@ class Utilities {
     else if(button === "{numpaddecimal}")
       output = output + '.';
     else if(!button.includes("{") && !button.includes("}"))
-      output = output + button;
+
+  updateCaretPos = (length, minus) => {
+    if(minus){
+      this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition - length
+    } else {
+      this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition + length;
+    }
+  }
+
 
     return output;
   }

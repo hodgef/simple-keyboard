@@ -167,6 +167,8 @@ class SimpleKeyboard {
   clear = () => {
     this.keyboardDOM.innerHTML = '';
     this.keyboardDOM.className = this.keyboardDOMClass;
+    this.buttonElements = {};
+    this.caretPosition = null;
   }
 
   dispatch = (callback) => {
@@ -194,6 +196,31 @@ class SimpleKeyboard {
     }
 
     return output;
+  }
+
+  handleCaret = () => {
+    if(this.options.debug){
+      console.log("Caret handling started");
+    }
+
+    let handler = (event) => {
+      let targetTagName = event.target.tagName.toLowerCase();
+
+      if(
+        targetTagName === "textarea" ||
+        targetTagName === "input"
+      ){
+        this.caretPosition = event.target.selectionStart;
+
+        if(this.options.debug){
+          console.log('Caret at: ', event.target.selectionStart, event.target.tagName.toLowerCase());
+        }     
+      }
+    };
+
+    document.addEventListener("keyup", handler);
+    document.addEventListener("mouseup", handler);
+    document.addEventListener("touchend", handler);
   }
 
   render = () => {
