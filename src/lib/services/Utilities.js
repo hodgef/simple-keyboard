@@ -46,7 +46,7 @@ class Utilities {
     return output ? ` hg-button-${output}` : '';
   }
 
-  static getButtonClass = button => {
+  getButtonClass = button => {
     let buttonTypeClass = (button.includes("{") && button !== '{//}') ? "functionBtn" : "standardBtn";
     let buttonWithoutBraces = button.replace("{", "").replace("}", "");
 
@@ -57,7 +57,7 @@ class Utilities {
     return `hg-${buttonTypeClass}${buttonNormalized}`;
   }
 
-  static getDefaultDiplay(){
+  getDefaultDiplay(){
     return {
       '{bksp}': 'backspace',
       '{backspace}': 'backspace',
@@ -121,7 +121,7 @@ class Utilities {
     };
   }
 
-  static getButtonDisplayName = (button, display, mergeDisplay) => {
+  getButtonDisplayName = (button, display, mergeDisplay) => {
     if(mergeDisplay){
       display = Object.assign({}, this.getDefaultDiplay(), display);
     } else {
