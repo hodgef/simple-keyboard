@@ -6,6 +6,10 @@
 
 > The easily customisable and responsive on-screen virtual keyboard for Javascript projects.
 
+This package works with <a href="https://codesandbox.io/s/krzkx19rr" title="View Vanilla JS Demo" target="_blank">**Vanilla JS**</a> projects, yet it is also compatible with <a href="https://codesandbox.io/s/48qqy8mn84" title="View Angular Demo" target="_blank">**Angular**</a>, <a href="https://codesandbox.io/s/53orr7mmq4" title="View Vue Demo" target="_blank">**Vue**</a>, and other libraries and frameworks.
+
+Looking for **React** support? Check out [react-simple-keyboard](https://www.npmjs.com/package/react-simple-keyboard) !
+
 ## Installation
 
 ### npm
@@ -407,6 +411,8 @@ keyboard.dispatch(instance => {
 });
 ```
 
+[![Edit simple-keyboard dispatch demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/rjnlp4pp2q?module=%2Fsrc%2Findex.js)
+
 ### getButtonElement
 
 > Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.
@@ -437,8 +443,6 @@ Unlike the `buttonTheme` property, which replaces entries, `removeButtonTheme` r
 ```js
 this.keyboard.removeButtonTheme("b c", "myClass1 myClass2");
 ```
-
-[![Edit simple-keyboard dispatch demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/rjnlp4pp2q?module=%2Fsrc%2Findex.js)
 
 ## Q&A / Use-cases
 
