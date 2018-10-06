@@ -131,45 +131,47 @@ class Utilities {
     return display[button] || button;
   }
 
-  static getUpdatedInput = (button, input, options) => {
+  getUpdatedInput = (button, input, options, caretPos) => {
+    
     let output = input;
-    let newLineOnEnter = options.newLineOnEnter;
 
     if((button === "{bksp}" || button === "{backspace}") && output.length > 0){
-      /**
-       * Emojis are made out of two characters, so we must take a custom approach to trim them.
-       * For more info: https://mathiasbynens.be/notes/javascript-unicode
-       */
-      let lastTwoChars = output.slice(-2);
-      let emojiMatched = lastTwoChars.match(/([\uD800-\uDBFF][\uDC00-\uDFFF])/g);
+      output = this.removeAt(output, caretPos);
 
-      if(emojiMatched){
-        output = output.slice(0, -2);
-      } else {
-        output = output.slice(0, -1);
-      }
     } else if(button === "{space}")
-      output = output + ' ';
-    else if(button === "{tab}")
-      output = output + "\t";
-    else if((button === "{enter}" || button === "{numpadenter}") && newLineOnEnter)
-      output = output + "\n";
+      output = this.addStringAt(output, " ", caretPos);
+
+    else if(button === "{tab}" && !(typeof options.tabCharOnTab === "boolean" && options.tabCharOnTab === false)){
+      output = this.addStringAt(output, "\t", caretPos);
+
+    } else if((button === "{enter}" || button === "{numpadenter}") && options.newLineOnEnter)
+      output = this.addStringAt(output, "\n", caretPos);
+
     else if(button.includes("numpad") && Number.isInteger(Number(button[button.length - 2]))){
-      output = output + button[button.length - 2];
+      output = this.addStringAt(output, button[button.length - 2], caretPos);
     }
     else if(button === "{numpaddivide}")
-      output = output + '/';
+      output = this.addStringAt(output, '/', caretPos);
+
     else if(button === "{numpadmultiply}")
-      output = output + '*';
+      output = this.addStringAt(output, '*', caretPos);
     else if(button === "{numpadsubtract}")
-      output = output + '-';
+      output = this.addStringAt(output, '-', caretPos);
+
     else if(button === "{numpadadd}")
-      output = output + '+';
+      output = this.addStringAt(output, '+', caretPos);
+
     else if(button === "{numpadadd}")
-      output = output + '+';
+      output = this.addStringAt(output, '+', caretPos);
+
     else if(button === "{numpaddecimal}")
-      output = output + '.';
+      output = this.addStringAt(output, '.', caretPos);
+
     else if(!button.includes("{") && !button.includes("}"))
+      output = this.addStringAt(output, button, caretPos);
+
+    return output;
+  }
 
   updateCaretPos = (length, minus) => {
     if(minus){
@@ -179,6 +181,60 @@ class Utilities {
     }
   }
 
+  addStringAt(source, string, position){
+    let output;
+
+    if(this.simpleKeyboardInstance.options.debug){
+      console.log("Caret at:", position);
+    }
+
+    if(!position && position !== 0){
+      output = source + string;
+    } else {
+      output = [source.slice(0, position), string, source.slice(position)].join('');
+
+      /**
+       * Update caret position
+       */
+      this.updateCaretPos(string.length);
+    }
+
+    return output;
+  }
+
+  removeAt(source, position){
+    let output;
+    let prevTwoChars;
+    let emojiMatched;
+    let emojiMatchedReg = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
+
+    /**
+     * Emojis are made out of two characters, so we must take a custom approach to trim them.
+     * For more info: https://mathiasbynens.be/notes/javascript-unicode
+     */
+    if(position){
+      prevTwoChars = source.substring(position - 2, position)
+      emojiMatched = prevTwoChars.match(emojiMatchedReg);
+
+      if(emojiMatched){
+        output = source.substr(0, (position - 2)) + source.substr(position);
+        this.updateCaretPos(2, true);
+      } else {
+        output = source.substr(0, (position - 1)) + source.substr(position);
+        this.updateCaretPos(1, true);
+      }
+    } else {
+      prevTwoChars = source.slice(-2);
+      emojiMatched = prevTwoChars.match(emojiMatchedReg);
+
+      if(emojiMatched){
+        output = source.slice(0, -2);
+        this.updateCaretPos(2, true);
+      } else {
+        output = source.slice(0, -1);
+        this.updateCaretPos(1, true);
+      }
+    }
 
     return output;
   }
