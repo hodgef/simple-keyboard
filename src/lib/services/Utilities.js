@@ -171,7 +171,50 @@ class Utilities {
     return output;
   }
 
-  static camelCase = (string) => {
+  handleMaxLength(inputObj, options, updatedInput){
+    let maxLength = options.maxLength;
+    let currentInput = inputObj[options.inputName];
+    let condition = currentInput.length === maxLength;
+
+
+    if(
+      /**
+       * If pressing this button won't add more characters
+       * We exit out of this limiter function
+       */
+      updatedInput.length <= currentInput.length
+    ){
+      return false;
+    }
+
+    if(Number.isInteger(maxLength)){
+      if(options.debug){
+        console.log("maxLength (num) reached:", condition);
+      }
+
+      if(condition){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    if(typeof maxLength === "object"){
+      let condition = currentInput.length === maxLength[options.inputName];
+
+      if(options.debug){
+        console.log("maxLength (obj) reached:", condition);
+      }
+
+      if(condition){
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  camelCase = (string) => {
     return string.toLowerCase().trim().split(/[.\-_\s]/g).reduce((string, word) => string + word[0].toUpperCase() + word.slice(1));
   };
 

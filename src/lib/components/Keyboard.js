@@ -80,9 +80,17 @@ class SimpleKeyboard {
     if(!this.input[this.options.inputName])
       this.input[this.options.inputName] = '';
 
-    let updatedInput = Utilities.getUpdatedInput(button, this.input[this.options.inputName], options);
+    let updatedInput = this.utilities.getUpdatedInput(button, this.input[this.options.inputName], this.options, this.caretPosition);
 
     if(this.input[this.options.inputName] !== updatedInput){
+
+      /**
+       * If maxLength and handleMaxLength yield true, halting
+       */
+      if(this.options.maxLength && this.utilities.handleMaxLength(this.input, this.options, updatedInput)){
+        return false;
+      }
+
       this.input[this.options.inputName] = updatedInput;
 
       if(debug)
