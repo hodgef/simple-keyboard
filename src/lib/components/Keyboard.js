@@ -14,6 +14,11 @@ class SimpleKeyboard {
       options = {};
 
     /**
+     * Initializing Utilities
+     */
+    this.utilities = new Utilities(this);
+
+    /**
      * Processing options
      */
     this.keyboardDOM = document.querySelector(keyboardDOMQuery);
@@ -41,7 +46,7 @@ class SimpleKeyboard {
     if(!window['SimpleKeyboardInstances'])
       window['SimpleKeyboardInstances'] = {};
       
-    window['SimpleKeyboardInstances'][Utilities.camelCase(this.keyboardDOMClass)] = this;
+    window['SimpleKeyboardInstances'][this.utilities.camelCase(this.keyboardDOMClass)] = this;
 
     /**
      * Physical Keyboard support
@@ -221,10 +226,9 @@ class SimpleKeyboard {
       /**
        * Iterating through each button in row
        */
-      rowArray.forEach((button) => {
-        let fctBtnClass = Utilities.getButtonClass(button);
+        let fctBtnClass = this.utilities.getButtonClass(button);
         let buttonThemeClass = buttonThemesParsed[button];
-        let buttonDisplayName = Utilities.getButtonDisplayName(button, this.options.display, this.options.mergeDisplay);
+        let buttonDisplayName = this.utilities.getButtonDisplayName(button, this.options.display, this.options.mergeDisplay);
 
         /**
          * Creating button

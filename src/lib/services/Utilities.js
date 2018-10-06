@@ -48,7 +48,7 @@ class Utilities {
 
     let buttonNormalized =
       buttonTypeClass === "standardBtn" ?
-        Utilities.normalizeString(buttonWithoutBraces) : ` hg-button-${buttonWithoutBraces}`;
+        this.normalizeString(buttonWithoutBraces) : ` hg-button-${buttonWithoutBraces}`;
 
     return `hg-${buttonTypeClass}${buttonNormalized}`;
   }
@@ -119,9 +119,9 @@ class Utilities {
 
   static getButtonDisplayName = (button, display, mergeDisplay) => {
     if(mergeDisplay){
-      display = Object.assign({}, Utilities.getDefaultDiplay(), display);
+      display = Object.assign({}, this.getDefaultDiplay(), display);
     } else {
-      display = display || Utilities.getDefaultDiplay();
+      display = display || this.getDefaultDiplay();
     }
 
     return display[button] || button;
