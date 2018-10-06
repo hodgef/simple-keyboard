@@ -285,7 +285,7 @@ class SimpleKeyboard {
     /**
      * Iterating through each row
      */
-    layout[this.options.layoutName].forEach((row) => {
+    layout[this.options.layoutName].forEach((row, rIndex) => {
       let rowArray = row.split(' ');
 
       /**
@@ -297,6 +297,7 @@ class SimpleKeyboard {
       /**
        * Iterating through each button in row
        */
+      rowArray.forEach((button, bIndex) => {
         let fctBtnClass = this.utilities.getButtonClass(button);
         let buttonThemeClass = buttonThemesParsed[button];
         let buttonDisplayName = this.utilities.getButtonDisplayName(button, this.options.display, this.options.mergeDisplay);
@@ -307,6 +308,18 @@ class SimpleKeyboard {
         var buttonDOM = document.createElement('div');
         buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? " "+buttonThemeClass : ""}`;
         buttonDOM.onclick = () => this.handleButtonClicked(button);
+
+        /**
+         * Adding identifier
+         */
+        buttonDOM.setAttribute("data-skBtn", button);
+
+        /**
+         * Adding unique id
+         * Since there's no limit on spawning same buttons, the unique id ensures you can style every button
+         */
+        let buttonUID = `${this.options.layoutName}-r${rIndex}b${bIndex}`;
+        buttonDOM.setAttribute("data-skBtnUID", buttonUID);
 
         /**
          * Adding button label to button
@@ -324,10 +337,9 @@ class SimpleKeyboard {
         this.buttonElements[button].push(buttonDOM);
 
         /**
-         * Calling onInit
+         * Appending button to row
          */
-        if(typeof this.options.onInit === "function")
-        this.options.onInit();
+        rowDOM.appendChild(buttonDOM);
 
       });
 
