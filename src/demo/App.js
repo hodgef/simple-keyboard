@@ -14,7 +14,8 @@ class App {
       layoutName: this.layoutName,
       onChange: input => this.onChange(input),
       onKeyPress: button => this.onKeyPress(button),
-      newLineOnEnter: true
+      newLineOnEnter: true,
+      physicalKeyboardHighlight: true
     });
   
     /**
