@@ -16,15 +16,13 @@ class PhysicalKeyboard {
       if(this.simpleKeyboardInstance.options.physicalKeyboardHighlight){
         let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
-        this.simpleKeyboardInstance.dispatch(section => {
-          section.setOptions({
-            buttonTheme: [
-              {
-                class: "hg-selectedButton",
-                buttons: `${buttonPressed} {${buttonPressed}}`
-              }
-            ]
-          })
+        this.simpleKeyboardInstance.dispatch(instance => {
+          let buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);
+
+          if(buttonDOM){
+            buttonDOM.style.backgroundColor = this.simpleKeyboardInstance.options.physicalKeyboardHighlightTextColor || "#9ab4d0";
+            buttonDOM.style.color = this.simpleKeyboardInstance.options.physicalKeyboardHighlightBgColor || "white";
+          }
         });
       }
     });
@@ -32,11 +30,14 @@ class PhysicalKeyboard {
     // Removing button style on keyup
     document.addEventListener("keyup", (event) => {
       if(this.simpleKeyboardInstance.options.physicalKeyboardHighlight){
+        let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
-        this.simpleKeyboardInstance.dispatch(section => {
-          section.setOptions({
-            buttonTheme: []
-          })
+        this.simpleKeyboardInstance.dispatch(instance => {
+          let buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);
+
+          if(buttonDOM){
+            buttonDOM.removeAttribute("style");
+          }
         });
       }
     });
