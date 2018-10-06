@@ -17,17 +17,19 @@ class App {
       newLineOnEnter: true
     });
   
-    this.keyboard.setInput("Hello World!");
-
     /**
      * Adding preview (demo only)
      */
     document.querySelector('.simple-keyboard').insertAdjacentHTML('beforebegin', `
     <div class="simple-keyboard-preview">
-      <textarea class="input" readonly>Hello World!</textarea>
+      <textarea class="input"></textarea>
     </div>
     `);
   
+    document.querySelector('.input').addEventListener('change', (event) => {
+      this.keyboard.setInput(event.target.value);
+    });
+
     console.log(this.keyboard);
   }
 
