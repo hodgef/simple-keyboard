@@ -30,6 +30,7 @@ class SimpleKeyboard {
     this.input[this.options.inputName] = '';
     this.keyboardDOMClass = keyboardDOMQuery.split('.').join("");
     this.timers = {};
+    this.buttonElements = {};
 
     /**
      * Rendering keyboard
@@ -171,6 +172,22 @@ class SimpleKeyboard {
     })
   }
 
+
+  getButtonElement = (button) => {
+    let output;
+
+    let buttonArr = this.buttonElements[button];
+    if(buttonArr){
+      if(buttonArr.length > 1){
+        output = buttonArr;
+      } else {
+        output = buttonArr[0];
+      }
+    }
+
+    return output;
+  }
+
   render = () => {
     /**
      * Clear keyboard
@@ -245,9 +262,12 @@ class SimpleKeyboard {
         buttonDOM.appendChild(buttonSpanDOM);
 
         /**
-         * Appending button to row
+         * Adding to buttonElements
          */
-        rowDOM.appendChild(buttonDOM);
+        if(!this.buttonElements[button])
+          this.buttonElements[button] = [];
+
+        this.buttonElements[button].push(buttonDOM);
 
         /**
          * Calling onInit
