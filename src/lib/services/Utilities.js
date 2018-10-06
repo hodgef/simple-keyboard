@@ -195,9 +195,12 @@ class Utilities {
       output = [source.slice(0, position), string, source.slice(position)].join('');
 
       /**
-       * Update caret position
+       * Avoid caret position change when maxLength is set
        */
-      this.updateCaretPos(string.length);
+      if(!this.isMaxLengthReached()){
+        this.updateCaretPos(string.length);
+      }
+
     }
 
     return output;
@@ -262,8 +265,10 @@ class Utilities {
       }
 
       if(condition){
+        this.maxLengthReached = true;
         return true;
       } else {
+        this.maxLengthReached = false;
         return false;
       }
     }
@@ -276,11 +281,17 @@ class Utilities {
       }
 
       if(condition){
+        this.maxLengthReached = true;
         return true;
       } else {
+        this.maxLengthReached = false;
         return false;
       }
     }
+  }
+
+  isMaxLengthReached = () => {
+    return Boolean(this.maxLengthReached);
   }
 
   camelCase = (string) => {
