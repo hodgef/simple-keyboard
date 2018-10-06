@@ -57,7 +57,7 @@ class SimpleKeyboard {
 
   handleButtonClicked = (button) => {
     let debug = this.options.debug;
-    
+
     /**
      * Ignoring placeholder buttons
      */
@@ -69,13 +69,6 @@ class SimpleKeyboard {
      */
     if(typeof this.options.onKeyPress === "function")
       this.options.onKeyPress(button);
-
-    /**
-     * Updating input
-     */
-    let options = {
-      newLineOnEnter: (this.options.newLineOnEnter === true)
-    }
     
     if(!this.input[this.options.inputName])
       this.input[this.options.inputName] = '';
