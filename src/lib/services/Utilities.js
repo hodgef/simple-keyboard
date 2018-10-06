@@ -175,7 +175,8 @@ class Utilities {
 
   updateCaretPos = (length, minus) => {
     if(minus){
-      this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition - length
+      if(this.simpleKeyboardInstance.caretPosition > 0)
+        this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition - length
     } else {
       this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition + length;
     }
@@ -212,7 +213,7 @@ class Utilities {
      * Emojis are made out of two characters, so we must take a custom approach to trim them.
      * For more info: https://mathiasbynens.be/notes/javascript-unicode
      */
-    if(position){
+    if(position && position >= 0){
       prevTwoChars = source.substring(position - 2, position)
       emojiMatched = prevTwoChars.match(emojiMatchedReg);
 
