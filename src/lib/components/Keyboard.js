@@ -237,6 +237,11 @@ class SimpleKeyboard {
       this.options.onInit();
   }
 
+  onRender = () => {
+    if(typeof this.options.onRender === "function")
+      this.options.onRender();
+  }
+
   render = () => {
     /**
      * Clear keyboard
@@ -331,6 +336,20 @@ class SimpleKeyboard {
        */
       this.keyboardDOM.appendChild(rowDOM);
     });
+
+    /**
+     * Calling onRender
+     */
+    this.onRender();
+
+    if(!this.initialized){
+      this.initialized = true;
+
+      /**
+       * Calling onInit
+       */
+      this.onInit();
+    }
   }
 }
 
