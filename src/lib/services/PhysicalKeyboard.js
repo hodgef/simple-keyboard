@@ -20,8 +20,8 @@ class PhysicalKeyboard {
           let buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);
 
           if(buttonDOM){
-            buttonDOM.style.backgroundColor = this.simpleKeyboardInstance.options.physicalKeyboardHighlightTextColor || "#9ab4d0";
-            buttonDOM.style.color = this.simpleKeyboardInstance.options.physicalKeyboardHighlightBgColor || "white";
+            buttonDOM.style.backgroundColor = this.simpleKeyboardInstance.options.physicalKeyboardHighlightBgColor || "#9ab4d0";
+            buttonDOM.style.color = this.simpleKeyboardInstance.options.physicalKeyboardHighlightTextColor || "white";
           }
         });
       }
