@@ -182,6 +182,102 @@ class SimpleKeyboard {
     })
   }
 
+  addButtonTheme = (buttons, className) => {
+    if(!className || !buttons)
+      return false;
+
+    buttons.split(" ").forEach(button => {
+      className.split(" ").forEach(classNameItem => {
+        if(!this.options.buttonTheme)
+          this.options.buttonTheme = [];
+
+        let classNameFound = false;
+  
+        /**
+         * If class is already defined, we add button to class definition
+         */
+        this.options.buttonTheme.map(buttonTheme => {
+
+          if(buttonTheme.class.split(" ").includes(classNameItem)){
+            classNameFound = true;
+            
+            let buttonThemeArray = buttonTheme.buttons.split(" ");
+            if(!buttonThemeArray.includes(button)){
+              classNameFound = true;
+              buttonThemeArray.push(button);
+              buttonTheme.buttons = buttonThemeArray.join(" ");
+            }
+          }
+          return buttonTheme;
+        });
+
+        /**
+         * If class is not defined, we create a new entry
+         */
+        if(!classNameFound){
+          this.options.buttonTheme.push({
+            class: classNameItem,
+            buttons: buttons
+          });
+        }
+
+      });
+    });
+
+    this.render();
+  }
+
+  removeButtonTheme = (buttons, className) => {
+    /**
+     * When called with empty parameters, remove all button themes
+     */
+    if(!buttons && !className){
+      this.options.buttonTheme = [];
+      this.render();
+      return false;
+    }
+
+    /**
+     * If buttons are passed and buttonTheme has items
+     */
+    if(buttons && Array.isArray(this.options.buttonTheme) && this.options.buttonTheme.length){
+      let buttonArray = buttons.split(" ");
+      buttonArray.forEach((button, key) => {
+        this.options.buttonTheme.map((buttonTheme, index) => {
+
+          /**
+           * If className is set, we affect the buttons only for that class
+           * Otherwise, we afect all classes
+           */
+          if(
+            (className && className.includes(buttonTheme.class)) ||
+            !className
+          ){
+            let filteredButtonArray;
+
+            if(buttonArray.includes(button)){
+              filteredButtonArray = buttonTheme.buttons.split(" ").filter(item => item !== button);
+            }
+
+            /**
+             * If buttons left, return them, otherwise, remove button Theme
+             */
+            if(filteredButtonArray.length){
+              buttonTheme.buttons = filteredButtonArray.join(" ");
+            } else {
+              this.options.buttonTheme.splice(index, 1);
+              buttonTheme = null;
+            }
+ 
+          }
+
+          return buttonTheme;
+        });
+      });
+
+      this.render();
+    }
+  }
 
   getButtonElement = (button) => {
     let output;
