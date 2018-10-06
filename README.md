@@ -142,12 +142,28 @@ display: {
   '{bksp}': 'backspace',
   '{enter}': '< enter',
   '{shift}': 'shift',
-  '{s}': 'shift',
-  '{tab}': 'tab',
-  '{lock}': 'caps',
-  '{accept}': 'Submit',
-  '{space}': ' ',
-  '{//}': ' '
+  ...
+}
+```
+
+### mergeDisplay
+
+By default, when you set the `display` property, you replace the default one. This setting merges them instead.
+
+```js
+mergeDisplay: true,
+
+display: {
+  '{bksp}': 'delete',
+  '{enter}': 'submit',
+}
+
+// Result:
+{
+  '{bksp}': 'delete'
+  '{enter}': 'submit',
+  '{shift}': 'shift', // < Merged from default among others
+  ....
 }
 ```
 
@@ -161,7 +177,9 @@ theme: "hg-theme-default"
 
 ### buttonTheme
 
-> A prop to add your own css classes _to one or several buttons_. You can add multiple classes separated by a space.
+A prop to add your own css classes _to one or several buttons_.
+
+To add or remove individual `buttonTheme` entries, check out the methods `addButtonTheme` and `removeButtonTheme` below.
 
 ```js
 buttonTheme: [
@@ -179,7 +197,6 @@ buttonTheme: [
 
 [![Edit simple-keyboard customization demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/vj8jvz2q4l?module=%2Fsrc%2Findex.js)
 
-
 ### debug
 
 > Runs a console.log every time a key is pressed. Displays the buttons pressed and the current input.
@@ -196,13 +213,40 @@ debug: false
 newLineOnEnter: false
 ```
 
+### tabCharOnTab
+
+> Specifies whether clicking the "TAB" button will input a tab character (`\t`) or not.
+
+```js
+tabCharOnTab: true
+```
+
 ### inputName
 
-> Allows you to use a single simple-keyboard instance for several inputs. 
+> Allows you to use a single simple-keyboard instance for several inputs.
 
 ```js
 inputName: "default"
 ```
+
+[![Edit simple-keyboard multiple inputs demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/43nm6v4xyx?module=%2Fsrc%2Findex.js)
+
+### maxLength
+
+> Restrains simple-keyboard's input to a certain length. This should be used in addition to the input element's `maxlength` attribute.
+
+```js
+// Applies to all internal inputs
+maxLength: 5
+
+// Specifies different limiters for each input set, in case you are using the "inputName" option
+maxLength: {
+  'default': 5,
+  'myFancyInput': 10
+}
+```
+
+[![Edit simple-keyboard maxLength demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/7wk625q650?module=%2Fsrc%2Findex.js)
 
 ### syncInstanceInputs
 
@@ -214,16 +258,33 @@ syncInstanceInputs: false
 
 ### physicalKeyboardHighlight
 
-When set to true, this option adds the special class (`hg-selectedButton`) to the key that matches the event.
-For example, when you press the `a` key, that key in simple-keyboard will have the special class until the key is released.
+Enable highlighting of keys pressed on physical keyboard.
 
 For functional keys such as `shift`, note that the key's `event.code` is used. In that instance, pressing the left key will result in the code `ShiftLeft`. Therefore, the key must be named `{shiftleft}`.
 [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/lib/services/Utilities.js#L58) for some of keys supported out of the box.
 
-If in doubt, you can also set the `debug` option to `true`.
+[![Edit simple-keyboard extended  full keyboard demo - cdn (Experimental)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrxrn5kprp?module=%2Fsrc%2Findex.js)
+
+If in doubt, you can also set the `debug` option to `true` to see the key events.
 
 ```js
 physicalKeyboardHighlight: true
+```
+
+### physicalKeyboardHighlightTextColor
+
+Define the text color that the physical keyboard highlighted key should have. Used when `physicalKeyboardHighlight` is set to true.
+
+```js
+physicalKeyboardHighlightTextColor: "white"
+```
+
+### physicalKeyboardHighlightBgColor
+
+Define the background color that the physical keyboard highlighted key should have. Used when `physicalKeyboardHighlight` is set to true.
+
+```js
+physicalKeyboardHighlightBgColor: "#9ab4d0"
 ```
 
 ### onKeyPress
@@ -240,6 +301,22 @@ onKeyPress: (button) => console.log(button)
 
 ```js
 onChange: (input) => console.log(input)
+```
+
+### onRender
+
+> Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
+
+```js
+onRender: () => console.log("simple-keyboard refreshed")
+```
+
+### onInit
+
+> Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
+
+```js
+onInit: () => console.log("simple-keyboard initialized")
 ```
 
 ### onChangeAll
@@ -259,7 +336,6 @@ To access these functions, you need the instance the simple-keyboard component, 
 var keyboard = new Keyboard({
   ...
 });
-/>
 
 // Then, use as follows...
 keyboard.methodName(params);
@@ -275,7 +351,7 @@ keyboard.clearInput();
 
 // For specific input
 // Must have been previously set using the "inputName" prop.
-keyboard.clearInput("inputName");
+keyboard.clearInput("myInputName");
 ```
 
 ### getInput
@@ -288,7 +364,7 @@ let input = keyboard.getInput();
 
 // For specific input
 // Must have been previously set using the "inputName" prop.
-let input = keyboard.getInput("inputName");
+let input = keyboard.getInput("myInputName");
 ```
 
 ### setInput
@@ -301,7 +377,7 @@ keyboard.setInput("Hello World!");
 
 // For specific input
 // Must have been previously set using the "inputName" prop.
-keyboard.setInput("Hello World!", "inputName");
+keyboard.setInput("Hello World!", "myInputName");
 ```
 
 ### setOptions
@@ -331,12 +407,42 @@ keyboard.dispatch(instance => {
 });
 ```
 
-[![Edit simple-keyboard dispatch demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/rjnlp4pp2q?module=%2Fsrc%2Findex.js)
+### getButtonElement
 
+> Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.
+
+```js
+this.keyboard.getButtonElement('a'); // Gets the "a" key as per your layout
+this.keyboard.getButtonElement('{shift}') // Gets all keys with that name in an array
+```
+
+[![Edit simple-keyboard getButtonElement demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ppol6ok7nq?module=%2Fsrc%2Findex.js)
+
+### addButtonTheme
+
+Adds an entry to the `buttonTheme`. Basically a way to add a class to a button.
+
+Unlike the `buttonTheme` property, which replaces entries, `addButtonTheme` creates entries or modifies existing ones.
+
+```js
+this.keyboard.addButtonTheme("a b c {enter}", "myClass1 myClass2");
+```
+
+### removeButtonTheme
+
+Removes an entry to the `buttonTheme`. Basically a way to remove a class previously added to a button through `buttonTheme` or `addButtonTheme`.
+
+Unlike the `buttonTheme` property, which replaces entries, `removeButtonTheme` removes entries or modifies existing ones.
+
+```js
+this.keyboard.removeButtonTheme("b c", "myClass1 myClass2");
+```
+
+[![Edit simple-keyboard dispatch demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/rjnlp4pp2q?module=%2Fsrc%2Findex.js)
 
 ## Q&A / Use-cases
 
-### How to give a different base class to my keyboard?
+### How to give a different base class to my keyboard
 
 As you may have seen on the code samples, this is the default setup that simple-keyboard uses:
 
@@ -366,7 +472,7 @@ This can come in handy especially when dealing with multiple simple keyboard ins
 
 ### How to syncronize multiple instances of simple-keyboard
 
-As shown above, you can run multiple instances of simple-keyboard. To keep their internal inputs in sync, set the *[syncInstanceInputs](#syncinstanceinputs)* option to `true`. 
+As shown above, you can run multiple instances of simple-keyboard. To keep their internal inputs in sync, set the *[syncInstanceInputs](#syncinstanceinputs)* option to `true`.
 
 If you want to send a command to all your simple-keyboard instances at once, you can use the *[dispatch](#dispatch)* method.
 
@@ -377,7 +483,6 @@ Here's a demo with both these features in action:
 Here's an example of a full keyboard made out of multiple simple-keyboard instances:
 
 [![Edit simple-keyboard extended keyboard demo - cdn (Experimental)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrxrn5kprp?module=%2Fsrc%2Findex.js)
-
 
 ### Using several inputs
 
@@ -441,8 +546,7 @@ There's a number of key layouts available. To apply them, check out [simple-keyb
 
 If you'd like to contribute your own layouts, please submit your pull request at the simple-keyboard-layouts repository.
 
-
-### How to customize my keyboard layout?
+### How to customize my keyboard layout
 
 If you'd like to create a layout in a language not currently supported by [simple-keyboard-layouts](https://github.com/hodgef/simple-keyboard-layouts), you definitely can.
 
@@ -454,13 +558,12 @@ If you have issues displaying a character, you might need its unicode code to di
 
 [r12a Unicode converter](https://r12a.github.io/app-conversion/)
 
-### Why is the caps lock button working like shift button?
+### Why is the caps lock button working like shift button
 
 For the sake of simplicity, caps lock and shift do the same action in the main demos.
 If you'd like to show a different layout when you press caps lock, check out the following demo:
 
 [![Edit simple-keyboard handling shift and caps lock demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/l3n84qn5oq?module=%2Fsrc%2Findex.js)
-
 
 ### How to display a full keyboard
 
