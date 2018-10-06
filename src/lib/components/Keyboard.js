@@ -223,6 +223,20 @@ class SimpleKeyboard {
     document.addEventListener("touchend", handler);
   }
 
+  onInit = () => {
+    if(this.options.debug){
+      console.log("Initialized");
+    }
+
+    /**
+     * Caret handling
+     */
+    this.handleCaret();
+
+    if(typeof this.options.onInit === "function")
+      this.options.onInit();
+  }
+
   render = () => {
     /**
      * Clear keyboard
