@@ -161,7 +161,6 @@ class SimpleKeyboard {
     this.keyboardDOM.innerHTML = '';
     this.keyboardDOM.className = this.keyboardDOMClass;
     this.buttonElements = {};
-    this.caretPosition = null;
   }
 
   dispatch = (callback) => {
