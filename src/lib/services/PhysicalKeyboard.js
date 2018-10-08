@@ -54,7 +54,10 @@ class PhysicalKeyboard {
       event.code.includes("Numpad") ||
       event.code.includes("Shift") ||
       event.code.includes("Space") ||
-      event.code.includes("Backspace")
+      event.code.includes("Backspace") ||
+      event.code.includes("Control") ||
+      event.code.includes("Alt") ||
+      event.code.includes("Meta")
     ){
       output = event.code;
     } else {
