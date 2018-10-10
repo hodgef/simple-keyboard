@@ -16,7 +16,6 @@ class App {
       onKeyPress: button => this.onKeyPress(button),
       newLineOnEnter: true,
       physicalKeyboardHighlight: true,
-      maxLength: 5
     });
   
     /**
