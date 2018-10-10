@@ -47,7 +47,7 @@ class Utilities {
   }
 
   getButtonClass = button => {
-    let buttonTypeClass = (button.includes("{") && button !== '{//}') ? "functionBtn" : "standardBtn";
+    let buttonTypeClass = (button.includes("{") && button.includes("}") && button !== '{//}') ? "functionBtn" : "standardBtn";
     let buttonWithoutBraces = button.replace("{", "").replace("}", "");
 
     let buttonNormalized =
@@ -166,6 +166,9 @@ class Utilities {
 
     else if(button === "{numpaddecimal}")
       output = this.addStringAt(output, '.', caretPos);
+
+    else if(button === "{" || button === "}")
+      output = this.addStringAt(output, button, caretPos);
 
     else if(!button.includes("{") && !button.includes("}"))
       output = this.addStringAt(output, button, caretPos);
