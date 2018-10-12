@@ -210,6 +210,10 @@ class Utilities {
   }
 
   removeAt(source, position){
+    if(this.simpleKeyboardInstance.caretPosition === 0){
+      return source;
+    }
+
     let output;
     let prevTwoChars;
     let emojiMatched;
