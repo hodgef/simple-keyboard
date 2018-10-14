@@ -7,7 +7,7 @@
 
 > The easily customisable and responsive on-screen virtual keyboard for Javascript projects.
 
-This package works with <a href="https://codesandbox.io/s/krzkx19rr" title="View Vanilla JS Demo" target="_blank">**Vanilla JS**</a> projects, yet it is also compatible with <a href="https://codesandbox.io/s/48qqy8mn84" title="View Angular Demo" target="_blank">**Angular**</a>, <a href="https://codesandbox.io/s/53orr7mmq4" title="View Vue Demo" target="_blank">**Vue**</a>, and other libraries and frameworks.
+This package works with <a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard" title="View Vanilla JS Demo" target="_blank">**Vanilla JS**</a> projects, yet it is also compatible with <a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_angular-js" title="View Angular Demo" target="_blank">**Angular**</a>, <a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_vue-js" title="View Vue Demo" target="_blank">**Vue**</a>, and other libraries and frameworks.
 
 Looking for **React** support? Check out [react-simple-keyboard](https://www.npmjs.com/package/react-simple-keyboard) !
 
