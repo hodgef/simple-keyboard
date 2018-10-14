@@ -1,5 +1,6 @@
 [![npm version](https://badge.fury.io/js/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 [![](https://data.jsdelivr.com/v1/package/npm/simple-keyboard/badge)](https://www.jsdelivr.com/package/npm/simple-keyboard)
+[![](https://img.shields.io/badge/discord--chat-join-green.svg?longCache=true&style=flat-square&colorB=7289DA&logo=discord)](http://franciscohodge.com/simple-keyboard/chat/join) 
 
 <a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simplekeyboard-banner_B.png" align="center" width="100%"></a>
 <a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard-240-demo-2.gif" align="center" width="100%"></a>
@@ -52,7 +53,7 @@ function onKeyPress(button){
 <div class="simple-keyboard"></div>
 ````
 
-[![Edit krzkx19rr](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/krzkx19rr)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
 > Need a more extensive example? [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/App.js).
 
@@ -97,7 +98,7 @@ function onKeyPress(button) {
 }
 ````
 
-[![Edit 6n0wzxjmjk](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/6n0wzxjmjk)
+<a href="https://codesandbox.io/s/github/hodgef/demo_cdn_simple-keyboard" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
 ## Options
 
@@ -199,7 +200,8 @@ buttonTheme: [
 ]
 ```
 
-[![Edit simple-keyboard customization demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/vj8jvz2q4l?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_customization" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
+
 
 ### debug
 
@@ -233,7 +235,8 @@ tabCharOnTab: true
 inputName: "default"
 ```
 
-[![Edit simple-keyboard multiple inputs demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/43nm6v4xyx?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_multiple-inputs" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
+
 
 ### maxLength
 
@@ -250,7 +253,8 @@ maxLength: {
 }
 ```
 
-[![Edit simple-keyboard maxLength demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/7wk625q650?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_max-length" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
+
 
 ### syncInstanceInputs
 
@@ -267,13 +271,13 @@ Enable highlighting of keys pressed on physical keyboard.
 For functional keys such as `shift`, note that the key's `event.code` is used. In that instance, pressing the left key will result in the code `ShiftLeft`. Therefore, the key must be named `{shiftleft}`.
 [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/lib/services/Utilities.js#L58) for some of keys supported out of the box.
 
-[![Edit simple-keyboard extended  full keyboard demo - cdn (Experimental)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrxrn5kprp?module=%2Fsrc%2Findex.js)
-
 If in doubt, you can also set the `debug` option to `true` to see the key events.
 
 ```js
 physicalKeyboardHighlight: true
 ```
+
+<a href="https://codesandbox.io/s/github/hodgef/demo_cdn_simple-keyboard_extended-full-keyboard" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
 ### physicalKeyboardHighlightTextColor
 
@@ -411,7 +415,8 @@ keyboard.dispatch(instance => {
 });
 ```
 
-[![Edit simple-keyboard dispatch demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/rjnlp4pp2q?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_dispatch-method" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
+
 
 ### getButtonElement
 
@@ -422,7 +427,8 @@ this.keyboard.getButtonElement('a'); // Gets the "a" key as per your layout
 this.keyboard.getButtonElement('{shift}') // Gets all keys with that name in an array
 ```
 
-[![Edit simple-keyboard getButtonElement demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ppol6ok7nq?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_get-button-element" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
+
 
 ### addButtonTheme
 
@@ -482,11 +488,12 @@ If you want to send a command to all your simple-keyboard instances at once, you
 
 Here's a demo with both these features in action:
 
-[![Edit simple-keyboard dispatch demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/rjnlp4pp2q?module=%2Fsrc%2Findex.js)
+
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_dispatch-method" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
 Here's an example of a full keyboard made out of multiple simple-keyboard instances:
 
-[![Edit simple-keyboard extended keyboard demo - cdn (Experimental)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrxrn5kprp?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_cdn_simple-keyboard_extended-full-keyboard" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
 ### Using several inputs
 
@@ -542,7 +549,8 @@ For example:
 
 > [See full example](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/MultipleInputsDemo.js).
 
-[![Edit simple-keyboard multiple inputs demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/43nm6v4xyx?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_multiple-inputs" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
+
 
 ### Having keys in a different language configuration
 
@@ -556,7 +564,7 @@ If you'd like to create a layout in a language not currently supported by [simpl
 
 Take following demo as an example:
 
-[![Edit Use-case: simple-keyboard layout customization demo - cdn](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/v388k9zvk0?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_customization" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
 If you have issues displaying a character, you might need its unicode code to display it. Here an useful converter tool:
 
@@ -567,7 +575,8 @@ If you have issues displaying a character, you might need its unicode code to di
 For the sake of simplicity, caps lock and shift do the same action in the main demos.
 If you'd like to show a different layout when you press caps lock, check out the following demo:
 
-[![Edit simple-keyboard handling shift and caps lock demo - npm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/l3n84qn5oq?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_handling-shift-caps-lock" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
+
 
 ### How to display a full keyboard
 
@@ -578,13 +587,13 @@ Please refer to the documentation on the *[syncInstanceInputs](#syncInstanceInpu
 
 Also, check out this demo:
 
-[![Edit simple-keyboard extended keyboard demo - cdn (Experimental)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/0ywkn0k7pp?module=%2Fsrc%2Findex.js)
+<a href="https://codesandbox.io/s/github/hodgef/demo_cdn_simple-keyboard_extended-full-keyboard" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
 ## Demo
 
 [https://franciscohodge.com/simple-keyboard/demo](https://franciscohodge.com/simple-keyboard/demo)
 
-[![Edit krzkx19rr](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/krzkx19rr)
+<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
 ### To run demo on your own computer
 
