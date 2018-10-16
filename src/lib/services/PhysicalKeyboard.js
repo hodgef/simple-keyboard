@@ -2,11 +2,6 @@ class PhysicalKeyboard {
   constructor(simpleKeyboardInstance){
     this.simpleKeyboardInstance = simpleKeyboardInstance;
 
-    if(!window['SimpleKeyboardPhysicalKeyboardInit'])
-      window['SimpleKeyboardPhysicalKeyboardInit'] = true;
-    else
-      return false;
-
     this.initKeyboardListener();
   }
 

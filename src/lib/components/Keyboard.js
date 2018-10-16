@@ -37,8 +37,10 @@ class SimpleKeyboard {
      */
     if(this.keyboardDOM)
       this.render();
-    else
-      console.error(`"${keyboardDOMQuery}" was not found in the DOM.`);
+    else {
+      console.warn(`"${keyboardDOMQuery}" was not found in the DOM.`);
+      throw new Error("KEYBOARD_DOM_ERROR");
+    }
 
     /**
      * Saving instance
@@ -165,8 +167,8 @@ class SimpleKeyboard {
 
   dispatch = (callback) => {
     if(!window['SimpleKeyboardInstances']){
-      console.error("SimpleKeyboardInstances is not defined. Dispatch cannot be called.")
-      return false;
+      console.warn(`SimpleKeyboardInstances is not defined. Dispatch cannot be called.`);
+      throw new Error("INSTANCES_VAR_ERROR");
     }
     
     return Object.keys(window['SimpleKeyboardInstances']).forEach((key) => {
@@ -245,11 +247,7 @@ class SimpleKeyboard {
             (className && className.includes(buttonTheme.class)) ||
             !className
           ){
-            let filteredButtonArray;
-
-            if(buttonArray.includes(button)){
-              filteredButtonArray = buttonTheme.buttons.split(" ").filter(item => item !== button);
-            }
+            let filteredButtonArray = buttonTheme.buttons.split(" ").filter(item => item !== button);
 
             /**
              * If buttons left, return them, otherwise, remove button Theme
@@ -291,24 +289,24 @@ class SimpleKeyboard {
       console.log("Caret handling started");
     }
 
-    let handler = (event) => {
-      let targetTagName = event.target.tagName.toLowerCase();
+    document.addEventListener("keyup", this.caretEventHandler);
+    document.addEventListener("mouseup", this.caretEventHandler);
+    document.addEventListener("touchend", this.caretEventHandler);
+  }
 
-      if(
-        targetTagName === "textarea" ||
-        targetTagName === "input"
-      ){
-        this.caretPosition = event.target.selectionStart;
+  caretEventHandler = (event) => {
+    let targetTagName = event.target.tagName.toLowerCase();
 
-        if(this.options.debug){
-          console.log('Caret at: ', event.target.selectionStart, event.target.tagName.toLowerCase());
-        }     
-      }
-    };
+    if(
+      targetTagName === "textarea" ||
+      targetTagName === "input"
+    ){
+      this.caretPosition = event.target.selectionStart;
 
-    document.addEventListener("keyup", handler);
-    document.addEventListener("mouseup", handler);
-    document.addEventListener("touchend", handler);
+      if(this.options.debug){
+        console.log('Caret at: ', event.target.selectionStart, event.target.tagName.toLowerCase());
+      }     
+    }
   }
 
   onInit = () => {
@@ -337,7 +335,7 @@ class SimpleKeyboard {
     this.clear();
 
     let layoutClass = this.options.layout ? "hg-layout-custom" : `hg-layout-${this.options.layoutName}`;
-    let layout = this.options.layout || KeyboardLayout.getLayout(this.options.layoutName);
+    let layout = this.options.layout || KeyboardLayout.getDefaultLayout();
 
     /**
      * Account for buttonTheme, if set
@@ -346,17 +344,25 @@ class SimpleKeyboard {
     if(Array.isArray(this.options.buttonTheme)){
       this.options.buttonTheme.forEach(themeObj => {
         if(themeObj.buttons && themeObj.class){
-          let themeButtons = themeObj.buttons.split(' ');
+          let themeButtons;
 
-          if(Array.isArray(themeButtons)){
+          if(typeof themeObj.buttons === "string"){
+            themeButtons = themeObj.buttons.split(' ');
+          }
+
+          if(themeButtons){
             themeButtons.forEach(themeButton => {
               let themeParsed = buttonThemesParsed[themeButton];
 
               // If the button has already been added
-              if(themeParsed)
-                buttonThemesParsed[themeButton] = `${themeParsed} ${themeObj.class}`;
-              else
+              if(themeParsed){
+                // Making sure we don't add duplicate classes, even when buttonTheme has duplicates
+                if(!this.utilities.countInArray(themeParsed.split(" "), themeObj.class)){
+                  buttonThemesParsed[themeButton] = `${themeParsed} ${themeObj.class}`;
+                }
+              } else {
                 buttonThemesParsed[themeButton] = themeObj.class;
+              }
             });
           }
         } else {
@@ -408,6 +414,11 @@ class SimpleKeyboard {
          */
         let buttonUID = `${this.options.layoutName}-r${rIndex}b${bIndex}`;
         buttonDOM.setAttribute("data-skBtnUID", buttonUID);
+
+        /**
+         * Adding display label
+         */
+        buttonDOM.setAttribute("data-displayLabel", buttonDisplayName);
 
         /**
          * Adding button label to button

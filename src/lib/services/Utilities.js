@@ -3,56 +3,13 @@ class Utilities {
     this.simpleKeyboardInstance = simpleKeyboardInstance;
   }
 
-  normalizeString(string){
-    let output;
-
-    if(string === "@")
-      output = 'at';
-    else if(string === ",")
-      output = 'comma';
-    else if(string === ".")
-      output = 'dot';
-    else if(string === "\\")
-      output = 'backslash';
-    else if(string === "/")
-      output = 'fordardslash';
-    else if(string === "*")
-      output = 'asterisk';
-    else if(string === "&")
-      output = 'ampersand';
-    else if(string === "$")
-      output = 'dollarsign';
-    else if(string === "=")
-      output = 'equals';
-    else if(string === "+")
-      output = 'plus';
-    else if(string === "-")
-      output = 'minus';
-    else if(string === "'")
-      output = 'apostrophe';
-    else if(string === ";")
-      output = 'colon';
-    else if(string === "[")
-      output = 'openbracket';
-    else if(string === "]")
-      output = 'closebracket';
-    else if(string === "//")
-      output = 'emptybutton';
-    else if(string === ".com")
-      output = 'com';
-    else
-      output = '';
-
-    return output ? ` hg-button-${output}` : '';
-  }
-
   getButtonClass = button => {
     let buttonTypeClass = (button.includes("{") && button.includes("}") && button !== '{//}') ? "functionBtn" : "standardBtn";
     let buttonWithoutBraces = button.replace("{", "").replace("}", "");
+    let buttonNormalized = '';
 
-    let buttonNormalized =
-      buttonTypeClass === "standardBtn" ?
-        this.normalizeString(buttonWithoutBraces) : ` hg-button-${buttonWithoutBraces}`;
+    if(buttonTypeClass !== "standardBtn")
+      buttonNormalized = ` hg-button-${buttonWithoutBraces}`;
 
     return `hg-${buttonTypeClass}${buttonNormalized}`;
   }
@@ -157,9 +114,6 @@ class Utilities {
       output = this.addStringAt(output, '*', caretPos);
     else if(button === "{numpadsubtract}")
       output = this.addStringAt(output, '-', caretPos);
-
-    else if(button === "{numpadadd}")
-      output = this.addStringAt(output, '+', caretPos);
 
     else if(button === "{numpadadd}")
       output = this.addStringAt(output, '+', caretPos);
@@ -304,6 +258,10 @@ class Utilities {
   camelCase = (string) => {
     return string.toLowerCase().trim().split(/[.\-_\s]/g).reduce((string, word) => string + word[0].toUpperCase() + word.slice(1));
   };
+
+  countInArray = (array, value) => {
+    return array.reduce((n, x) => n + (x === value), 0);
+  }
 
 }
 
