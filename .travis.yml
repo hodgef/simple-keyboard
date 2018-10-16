@@ -6,7 +6,6 @@ install:
   - npm install
 script:
 - npm run test -- --coverage
-- istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
 - codecov
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
