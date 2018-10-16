@@ -56,8 +56,6 @@ function onKeyPress(button){
 
 <a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
-> Need a more extensive example? [Click here](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/App.js).
-
 ## Usage with CDN
 
 ### html
@@ -547,8 +545,6 @@ For example:
   }
 
 ```
-
-> [See full example](https://github.com/hodgef/simple-keyboard/blob/master/src/demo/MultipleInputsDemo.js).
 
 <a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard_multiple-inputs" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
