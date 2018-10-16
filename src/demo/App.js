@@ -4,7 +4,6 @@ import './css/App.css';
 class App {
   constructor(){
     document.addEventListener('DOMContentLoaded', this.onDOMLoaded);
-
     this.layoutName = "default";
   }
 
