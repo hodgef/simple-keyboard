@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/simple-keyboard.svg)](https://www.npmjs.com/package/simple-keyboard)
 [![Build Status](https://travis-ci.org/hodgef/simple-keyboard.svg?branch=master)](https://travis-ci.org/hodgef/simple-keyboard)
-[![](https://data.jsdelivr.com/v1/package/npm/simple-keyboard/badge)](https://www.jsdelivr.com/package/npm/simple-keyboard)
+[![codecov](https://codecov.io/gh/hodgef/simple-keyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/hodgef/simple-keyboard)
 [![](https://img.shields.io/badge/discord--chat-join-green.svg?longCache=true&style=flat-square&colorB=7289DA&logo=discord)](http://franciscohodge.com/simple-keyboard/chat/join) 
 
 <a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simplekeyboard-banner_B.png" align="center" width="100%"></a>
