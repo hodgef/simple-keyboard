@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/discord--chat-join-green.svg?longCache=true&style=flat-square&colorB=7289DA&logo=discord)](http://franciscohodge.com/simple-keyboard/chat/join) 
 
 <a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simplekeyboard-banner_B.png" align="center" width="100%"></a>
-<a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard-240-demo-2.gif" align="center" width="100%"></a>
+<a href="https://franciscohodge.com/simple-keyboard/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard-10172018.gif" align="center" width="100%"></a>
 
 > The easily customisable and responsive on-screen virtual keyboard for Javascript projects.
 
