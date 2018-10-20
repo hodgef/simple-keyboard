@@ -21,9 +21,8 @@ Feel free to browse the [Q&A / Use-cases](https://simple-keyboard.com/qa-use-cas
 
 ## Demo
 
-[https://franciscohodge.com/simple-keyboard/demo](https://franciscohodge.com/simple-keyboard/demo)
+[https://simple-keyboard.com/demo](https://simple-keyboard.com/demo)
 
-<a href="https://codesandbox.io/s/github/hodgef/demo_npm_simple-keyboard" title="run demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/rundemo200.png" width="150" align="center"></a>
 
 ### To run demo on your own computer
 
