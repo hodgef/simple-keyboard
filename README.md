@@ -10,7 +10,7 @@
 > The easily customisable and responsive on-screen virtual keyboard for Javascript projects.
 
 ## Installation
-You can use simple-keyboard as a <script> tag from a CDN, or install it from npm.
+You can use simple-keyboard as a `<script>` tag from a CDN, or install it from npm.
   
 Check out the [**Getting Started**](https://simple-keyboard.com/getting-started) docs for more info.
 
