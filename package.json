@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "2.6.2",
+  "version": "2.6.3",
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/hodgef/simple-keyboard/issues"
   },
-  "homepage": "https://franciscohodge.com/simple-keyboard",
+  "homepage": "https://virtual-keyboard-javascript.github.io",
   "keywords": [
     "javascript",
     "es6",
