@@ -12,10 +12,10 @@
 ## Installation
 You can use simple-keyboard as a `<script>` tag from a CDN, or install it from npm.
   
-Check out the [**Getting Started**](https://simple-keyboard.com/getting-started) docs for more info.
+Check out the [Getting Started](https://simple-keyboard.com/getting-started) docs to begin.
 
-## Usage
-You can find the **simple-keyboard documentation** [on the website](https://simple-keyboard.com/documentation).
+## Documentation
+Check out the [simple-keyboard documentation](https://simple-keyboard.com/documentation) site.
 
 Feel free to browse the [Q&A / Use-cases](https://simple-keyboard.com/qa-use-cases/) page for advanced use-cases.
 
