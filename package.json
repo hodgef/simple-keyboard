@@ -1,15 +1,16 @@
 {
   "name": "simple-keyboard",
-  "version": "2.6.5",
+  "version": "2.6.6",
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "npm run docs && node scripts/build.js",
     "demo": "node scripts/demo.js",
     "test": "node scripts/test.js --env=jsdom",
     "postinstall": "node bin/postinstall",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "docs": "esdoc"
   },
   "repository": {
     "type": "git",
@@ -48,6 +49,9 @@
     "copy-webpack-plugin": "^4.3.1",
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.0.1",
     "eslint-loader": "1.9.0",
