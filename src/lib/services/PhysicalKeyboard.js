@@ -55,10 +55,6 @@ class PhysicalKeyboard {
    * @param  {object} event The KeyboardEvent
    */
   getSimpleKeyboardLayoutKey = (event) => {
-    if(this.simpleKeyboardInstance.options.debug){
-      console.log(event);
-    }
-    
     let output;
 
     if(
