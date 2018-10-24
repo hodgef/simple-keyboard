@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "npm run docs && node scripts/build.js",
+    "build": "node scripts/build.js",
     "demo": "node scripts/demo.js",
     "test": "node scripts/test.js --env=jsdom",
     "postinstall": "node bin/postinstall",
