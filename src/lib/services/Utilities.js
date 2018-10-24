@@ -1,8 +1,23 @@
+/**
+ * Utility Service
+ */
 class Utilities {
+  /**
+   * Creates an instance of the Utility service
+   */
   constructor(simpleKeyboardInstance){
+    /**
+     * @type {object} A simple-keyboard instance
+     */
     this.simpleKeyboardInstance = simpleKeyboardInstance;
   }
 
+  /**
+   * Adds default classes to a given button
+   * 
+   * @param  {string} button The button's layout name
+   * @return {string} The classes to be added to the button
+   */
   getButtonClass = button => {
     let buttonTypeClass = (button.includes("{") && button.includes("}") && button !== '{//}') ? "functionBtn" : "standardBtn";
     let buttonWithoutBraces = button.replace("{", "").replace("}", "");
@@ -14,6 +29,9 @@ class Utilities {
     return `hg-${buttonTypeClass}${buttonNormalized}`;
   }
 
+  /**
+   * Default button display labels
+   */
   getDefaultDiplay(){
     return {
       '{bksp}': 'backspace',
@@ -77,7 +95,13 @@ class Utilities {
       "{numpad9}": "9",
     };
   }
-
+  /**
+   * Returns the display (label) name for a given button
+   * 
+   * @param  {string} button The button's layout name
+   * @param  {object} display The provided display option
+   * @param  {boolean} mergeDisplay Whether the provided param value should be merged with the default one.
+   */
   getButtonDisplayName = (button, display, mergeDisplay) => {
     if(mergeDisplay){
       display = Object.assign({}, this.getDefaultDiplay(), display);
@@ -88,6 +112,15 @@ class Utilities {
     return display[button] || button;
   }
 
+  
+  /**
+   * Returns the updated input resulting from clicking a given button
+   * 
+   * @param  {string} button The button's layout name
+   * @param  {string} input The input string
+   * @param  {object} options The simple-keyboard options object
+   * @param  {number} caretPos The cursor's current position
+   */
   getUpdatedInput = (button, input, options, caretPos) => {
     
     let output = input;
@@ -129,7 +162,12 @@ class Utilities {
 
     return output;
   }
-
+  /**
+   * Moves the cursor position by a given amount
+   * 
+   * @param  {number} length Represents by how many characters the input should be moved
+   * @param  {boolean} minus Whether the cursor should be moved to the left or not.
+   */
   updateCaretPos = (length, minus) => {
     if(minus){
       if(this.simpleKeyboardInstance.caretPosition > 0)
@@ -139,6 +177,13 @@ class Utilities {
     }
   }
 
+  /**
+   * Adds a string to the input at a given position
+   * 
+   * @param  {string} source The source input
+   * @param  {string} string The string to add
+   * @param  {number} position The (cursor) position where the string should be added
+   */
   addStringAt(source, string, position){
     let output;
 
@@ -163,6 +208,12 @@ class Utilities {
     return output;
   }
 
+  /**
+   * Removes an amount of characters at a given position
+   * 
+   * @param  {string} source The source input
+   * @param  {number} position The (cursor) position from where the characters should be removed
+   */
   removeAt(source, position){
     if(this.simpleKeyboardInstance.caretPosition === 0){
       return source;
@@ -203,7 +254,13 @@ class Utilities {
 
     return output;
   }
-
+  /**
+   * Determines whether the maxLength has been reached. This function is called when the maxLength option it set.
+   * 
+   * @param  {object} inputObj
+   * @param  {object} options
+   * @param  {string} updatedInput
+   */
   handleMaxLength(inputObj, options, updatedInput){
     let maxLength = options.maxLength;
     let currentInput = inputObj[options.inputName];
@@ -226,6 +283,9 @@ class Utilities {
       }
 
       if(condition){
+        /**
+         * @type {boolean} Boolean value that shows whether maxLength has been reached
+         */
         this.maxLengthReached = true;
         return true;
       } else {
@@ -251,14 +311,28 @@ class Utilities {
     }
   }
 
+  /**
+   * Gets the current value of maxLengthReached
+   */
   isMaxLengthReached = () => {
     return Boolean(this.maxLengthReached);
   }
 
+  /**
+   * Transforms an arbitrary string to camelCase
+   * 
+   * @param  {string} string The string to transform.
+   */
   camelCase = (string) => {
     return string.toLowerCase().trim().split(/[.\-_\s]/g).reduce((string, word) => string + word[0].toUpperCase() + word.slice(1));
   };
 
+  /**
+   * Counts the number of duplicates in a given array
+   * 
+   * @param  {Array} array The haystack to search in
+   * @param  {string} value The needle to search for
+   */
   countInArray = (array, value) => {
     return array.reduce((n, x) => n + (x === value), 0);
   }

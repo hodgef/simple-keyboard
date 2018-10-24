@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/lib/services/Utilities.js | simple-keyboard</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="On-screen Javascript Virtual Keyboard"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="simple-keyboard"><meta property="twitter:description" content="On-screen Javascript Virtual Keyboard"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/hodgef/simple-keyboard"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#demo">demo</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/demo/App.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-components">lib/components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html">SimpleKeyboard</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-services">lib/services</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/services/KeyboardLayout.js~KeyboardLayout.html">KeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard.html">PhysicalKeyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/services/Utilities.js~Utilities.html">Utilities</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-tests">lib/tests</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/tests/TestUtility.js~TestUtility.html">TestUtility</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/services/Utilities.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Utility Service
+ */
+class Utilities {
+  /**
+   * Creates an instance of the Utility service
+   */
+  constructor(simpleKeyboardInstance){
+    /**
+     * @type {object} A simple-keyboard instance
+     */
+    this.simpleKeyboardInstance = simpleKeyboardInstance;
+  }
+
+  /**
+   * Adds default classes to a given button
+   * 
+   * @param  {string} button The button&apos;s layout name
+   * @return {string} The classes to be added to the button
+   */
+  getButtonClass = button =&gt; {
+    let buttonTypeClass = (button.includes(&quot;{&quot;) &amp;&amp; button.includes(&quot;}&quot;) &amp;&amp; button !== &apos;{//}&apos;) ? &quot;functionBtn&quot; : &quot;standardBtn&quot;;
+    let buttonWithoutBraces = button.replace(&quot;{&quot;, &quot;&quot;).replace(&quot;}&quot;, &quot;&quot;);
+    let buttonNormalized = &apos;&apos;;
+
+    if(buttonTypeClass !== &quot;standardBtn&quot;)
+      buttonNormalized = ` hg-button-${buttonWithoutBraces}`;
+
+    return `hg-${buttonTypeClass}${buttonNormalized}`;
+  }
+
+  /**
+   * Default button display labels
+   */
+  getDefaultDiplay(){
+    return {
+      &apos;{bksp}&apos;: &apos;backspace&apos;,
+      &apos;{backspace}&apos;: &apos;backspace&apos;,
+      &apos;{enter}&apos;: &apos;&lt; enter&apos;,
+      &apos;{shift}&apos;: &apos;shift&apos;,
+      &apos;{shiftleft}&apos;: &apos;shift&apos;,
+      &apos;{shiftright}&apos;: &apos;shift&apos;,
+      &apos;{alt}&apos;: &apos;alt&apos;,
+      &apos;{s}&apos;: &apos;shift&apos;,
+      &apos;{tab}&apos;: &apos;tab&apos;,
+      &apos;{lock}&apos;: &apos;caps&apos;,
+      &apos;{capslock}&apos;: &apos;caps&apos;,
+      &apos;{accept}&apos;: &apos;Submit&apos;,
+      &apos;{space}&apos;: &apos; &apos;,
+      &apos;{//}&apos;: &apos; &apos;,
+      &quot;{esc}&quot;: &quot;esc&quot;,
+      &quot;{escape}&quot;: &quot;esc&quot;,
+      &quot;{f1}&quot;: &quot;f1&quot;,
+      &quot;{f2}&quot;: &quot;f2&quot;,
+      &quot;{f3}&quot;: &quot;f3&quot;,
+      &quot;{f4}&quot;: &quot;f4&quot;,
+      &quot;{f5}&quot;: &quot;f5&quot;,
+      &quot;{f6}&quot;: &quot;f6&quot;,
+      &quot;{f7}&quot;: &quot;f7&quot;,
+      &quot;{f8}&quot;: &quot;f8&quot;,
+      &quot;{f9}&quot;: &quot;f9&quot;,
+      &quot;{f10}&quot;: &quot;f10&quot;,
+      &quot;{f11}&quot;: &quot;f11&quot;,
+      &quot;{f12}&quot;: &quot;f12&quot;,
+      &apos;{numpaddivide}&apos;: &apos;/&apos;,
+      &apos;{numlock}&apos;: &apos;lock&apos;,
+      &quot;{arrowup}&quot;: &quot;&#x2191;&quot;,
+      &quot;{arrowleft}&quot;: &quot;&#x2190;&quot;,
+      &quot;{arrowdown}&quot;: &quot;&#x2193;&quot;,
+      &quot;{arrowright}&quot;: &quot;&#x2192;&quot;,
+      &quot;{prtscr}&quot;: &quot;print&quot;,
+      &quot;{scrolllock}&quot;: &quot;scroll&quot;,
+      &quot;{pause}&quot;: &quot;pause&quot;,
+      &quot;{insert}&quot;: &quot;ins&quot;,
+      &quot;{home}&quot;: &quot;home&quot;,
+      &quot;{pageup}&quot;: &quot;up&quot;,
+      &quot;{delete}&quot;: &quot;del&quot;,
+      &quot;{end}&quot;: &quot;end&quot;,
+      &quot;{pagedown}&quot;: &quot;down&quot;,
+      &quot;{numpadmultiply}&quot;: &quot;*&quot;,
+      &quot;{numpadsubtract}&quot;: &quot;-&quot;,
+      &quot;{numpadadd}&quot;: &quot;+&quot;,
+      &quot;{numpadenter}&quot;: &quot;enter&quot;,
+      &quot;{period}&quot;: &quot;.&quot;,
+      &quot;{numpaddecimal}&quot;: &quot;.&quot;,
+      &quot;{numpad0}&quot;: &quot;0&quot;,
+      &quot;{numpad1}&quot;: &quot;1&quot;,
+      &quot;{numpad2}&quot;: &quot;2&quot;,
+      &quot;{numpad3}&quot;: &quot;3&quot;,
+      &quot;{numpad4}&quot;: &quot;4&quot;,
+      &quot;{numpad5}&quot;: &quot;5&quot;,
+      &quot;{numpad6}&quot;: &quot;6&quot;,
+      &quot;{numpad7}&quot;: &quot;7&quot;,
+      &quot;{numpad8}&quot;: &quot;8&quot;,
+      &quot;{numpad9}&quot;: &quot;9&quot;,
+    };
+  }
+  /**
+   * Returns the display (label) name for a given button
+   * 
+   * @param  {string} button The button&apos;s layout name
+   * @param  {object} display The provided display option
+   * @param  {boolean} mergeDisplay Whether the provided param value should be merged with the default one.
+   */
+  getButtonDisplayName = (button, display, mergeDisplay) =&gt; {
+    if(mergeDisplay){
+      display = Object.assign({}, this.getDefaultDiplay(), display);
+    } else {
+      display = display || this.getDefaultDiplay();
+    }
+
+    return display[button] || button;
+  }
+
+  
+  /**
+   * Returns the updated input resulting from clicking a given button
+   * 
+   * @param  {string} button The button&apos;s layout name
+   * @param  {string} input The input string
+   * @param  {object} options The simple-keyboard options object
+   * @param  {number} caretPos The cursor&apos;s current position
+   */
+  getUpdatedInput = (button, input, options, caretPos) =&gt; {
+    
+    let output = input;
+
+    if((button === &quot;{bksp}&quot; || button === &quot;{backspace}&quot;) &amp;&amp; output.length &gt; 0){
+      output = this.removeAt(output, caretPos);
+
+    } else if(button === &quot;{space}&quot;)
+      output = this.addStringAt(output, &quot; &quot;, caretPos);
+
+    else if(button === &quot;{tab}&quot; &amp;&amp; !(typeof options.tabCharOnTab === &quot;boolean&quot; &amp;&amp; options.tabCharOnTab === false)){
+      output = this.addStringAt(output, &quot;\t&quot;, caretPos);
+
+    } else if((button === &quot;{enter}&quot; || button === &quot;{numpadenter}&quot;) &amp;&amp; options.newLineOnEnter)
+      output = this.addStringAt(output, &quot;\n&quot;, caretPos);
+
+    else if(button.includes(&quot;numpad&quot;) &amp;&amp; Number.isInteger(Number(button[button.length - 2]))){
+      output = this.addStringAt(output, button[button.length - 2], caretPos);
+    }
+    else if(button === &quot;{numpaddivide}&quot;)
+      output = this.addStringAt(output, &apos;/&apos;, caretPos);
+
+    else if(button === &quot;{numpadmultiply}&quot;)
+      output = this.addStringAt(output, &apos;*&apos;, caretPos);
+    else if(button === &quot;{numpadsubtract}&quot;)
+      output = this.addStringAt(output, &apos;-&apos;, caretPos);
+
+    else if(button === &quot;{numpadadd}&quot;)
+      output = this.addStringAt(output, &apos;+&apos;, caretPos);
+
+    else if(button === &quot;{numpaddecimal}&quot;)
+      output = this.addStringAt(output, &apos;.&apos;, caretPos);
+
+    else if(button === &quot;{&quot; || button === &quot;}&quot;)
+      output = this.addStringAt(output, button, caretPos);
+
+    else if(!button.includes(&quot;{&quot;) &amp;&amp; !button.includes(&quot;}&quot;))
+      output = this.addStringAt(output, button, caretPos);
+
+    return output;
+  }
+  /**
+   * Moves the cursor position by a given amount
+   * 
+   * @param  {number} length Represents by how many characters the input should be moved
+   * @param  {boolean} minus Whether the cursor should be moved to the left or not.
+   */
+  updateCaretPos = (length, minus) =&gt; {
+    if(minus){
+      if(this.simpleKeyboardInstance.caretPosition &gt; 0)
+        this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition - length
+    } else {
+      this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition + length;
+    }
+  }
+
+  /**
+   * Adds a string to the input at a given position
+   * 
+   * @param  {string} source The source input
+   * @param  {string} string The string to add
+   * @param  {number} position The (cursor) position where the string should be added
+   */
+  addStringAt(source, string, position){
+    let output;
+
+    if(this.simpleKeyboardInstance.options.debug){
+      console.log(&quot;Caret at:&quot;, position);
+    }
+
+    if(!position &amp;&amp; position !== 0){
+      output = source + string;
+    } else {
+      output = [source.slice(0, position), string, source.slice(position)].join(&apos;&apos;);
+
+      /**
+       * Avoid caret position change when maxLength is set
+       */
+      if(!this.isMaxLengthReached()){
+        this.updateCaretPos(string.length);
+      }
+
+    }
+
+    return output;
+  }
+
+  /**
+   * Removes an amount of characters at a given position
+   * 
+   * @param  {string} source The source input
+   * @param  {number} position The (cursor) position from where the characters should be removed
+   */
+  removeAt(source, position){
+    if(this.simpleKeyboardInstance.caretPosition === 0){
+      return source;
+    }
+
+    let output;
+    let prevTwoChars;
+    let emojiMatched;
+    let emojiMatchedReg = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
+
+    /**
+     * Emojis are made out of two characters, so we must take a custom approach to trim them.
+     * For more info: https://mathiasbynens.be/notes/javascript-unicode
+     */
+    if(position &amp;&amp; position &gt;= 0){
+      prevTwoChars = source.substring(position - 2, position)
+      emojiMatched = prevTwoChars.match(emojiMatchedReg);
+
+      if(emojiMatched){
+        output = source.substr(0, (position - 2)) + source.substr(position);
+        this.updateCaretPos(2, true);
+      } else {
+        output = source.substr(0, (position - 1)) + source.substr(position);
+        this.updateCaretPos(1, true);
+      }
+    } else {
+      prevTwoChars = source.slice(-2);
+      emojiMatched = prevTwoChars.match(emojiMatchedReg);
+
+      if(emojiMatched){
+        output = source.slice(0, -2);
+        this.updateCaretPos(2, true);
+      } else {
+        output = source.slice(0, -1);
+        this.updateCaretPos(1, true);
+      }
+    }
+
+    return output;
+  }
+  /**
+   * Determines whether the maxLength has been reached. This function is called when the maxLength option it set.
+   * 
+   * @param  {object} inputObj
+   * @param  {object} options
+   * @param  {string} updatedInput
+   */
+  handleMaxLength(inputObj, options, updatedInput){
+    let maxLength = options.maxLength;
+    let currentInput = inputObj[options.inputName];
+    let condition = currentInput.length === maxLength;
+
+
+    if(
+      /**
+       * If pressing this button won&apos;t add more characters
+       * We exit out of this limiter function
+       */
+      updatedInput.length &lt;= currentInput.length
+    ){
+      return false;
+    }
+
+    if(Number.isInteger(maxLength)){
+      if(options.debug){
+        console.log(&quot;maxLength (num) reached:&quot;, condition);
+      }
+
+      if(condition){
+        /**
+         * @type {boolean} Boolean value that shows whether maxLength has been reached
+         */
+        this.maxLengthReached = true;
+        return true;
+      } else {
+        this.maxLengthReached = false;
+        return false;
+      }
+    }
+
+    if(typeof maxLength === &quot;object&quot;){
+      let condition = currentInput.length === maxLength[options.inputName];
+
+      if(options.debug){
+        console.log(&quot;maxLength (obj) reached:&quot;, condition);
+      }
+
+      if(condition){
+        this.maxLengthReached = true;
+        return true;
+      } else {
+        this.maxLengthReached = false;
+        return false;
+      }
+    }
+  }
+
+  /**
+   * Gets the current value of maxLengthReached
+   */
+  isMaxLengthReached = () =&gt; {
+    return Boolean(this.maxLengthReached);
+  }
+
+  /**
+   * Transforms an arbitrary string to camelCase
+   * 
+   * @param  {string} string The string to transform.
+   */
+  camelCase = (string) =&gt; {
+    return string.toLowerCase().trim().split(/[.\-_\s]/g).reduce((string, word) =&gt; string + word[0].toUpperCase() + word.slice(1));
+  };
+
+  /**
+   * Counts the number of duplicates in a given array
+   * 
+   * @param  {Array} array The haystack to search in
+   * @param  {string} value The needle to search for
+   */
+  countInArray = (array, value) =&gt; {
+    return array.reduce((n, x) =&gt; n + (x === value), 0);
+  }
+
+}
+
+export default Utilities;</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

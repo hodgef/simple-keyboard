@@ -1,12 +1,24 @@
+/**
+ * Physical Keyboard Service
+ */
 class PhysicalKeyboard {
+  /**
+   * Creates an instance of the PhysicalKeyboard service
+   */
   constructor(simpleKeyboardInstance){
+    /**
+     * @type {object} A simple-keyboard instance
+     */
     this.simpleKeyboardInstance = simpleKeyboardInstance;
 
     this.initKeyboardListener();
   }
 
+  /**
+   * Initializes key event listeners
+   */
   initKeyboardListener = () => {
-    // Normal Keyboard
+    // Adding button style on keydown
     document.addEventListener("keydown", (event) => {
       if(this.simpleKeyboardInstance.options.physicalKeyboardHighlight){
         let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
@@ -38,6 +50,10 @@ class PhysicalKeyboard {
     });
   }
 
+  /**
+   * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
+   * @param  {object} event The KeyboardEvent
+   */
   getSimpleKeyboardLayoutKey = (event) => {
     if(this.simpleKeyboardInstance.options.debug){
       console.log(event);

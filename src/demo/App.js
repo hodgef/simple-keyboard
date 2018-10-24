@@ -1,13 +1,30 @@
 import Keyboard from '../lib';
 import './css/App.css';
 
+/**
+ * simple-keyboard demo
+ */
 class App {
+  /**
+   * Instantiates the demo class
+   */
   constructor(){
     document.addEventListener('DOMContentLoaded', this.onDOMLoaded);
+
+    /**
+     * Default input name
+     * @type {string}
+     */
     this.layoutName = "default";
   }
 
+  /**
+   * Executed when the DOM is ready
+   */
   onDOMLoaded = () => {
+    /**
+     * Creates a new simple-keyboard instance
+     */
     this.keyboard = new Keyboard({
       debug: true,
       layoutName: this.layoutName,
@@ -33,6 +50,9 @@ class App {
     console.log(this.keyboard);
   }
 
+  /**
+   * 
+   */
   handleShiftButton = () => {
     let layoutName = this.layoutName;
     let shiftToggle = this.layoutName = layoutName === "default" ? "shift" : "default";
@@ -42,10 +62,16 @@ class App {
     });
   }
 
+  /**
+   * Called when simple-keyboard input has changed
+   */
   onChange = input => {
     document.querySelector('.input').value = input;
   }
 
+  /**
+   * Called when a simple-keyboard key is pressed
+   */
   onKeyPress = button => {
     console.log("Button pressed", button);
   

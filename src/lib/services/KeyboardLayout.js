@@ -1,4 +1,12 @@
+/**
+ * Keyboard Layout Service
+ */
 class KeyboardLayout {
+
+  /**
+   * Get default simple-keyboard layout
+   * @return {object} The default layout (US-QWERTY)
+   */
   static getDefaultLayout = () => {
     return {
       'default': [

@@ -93,3 +93,11 @@ body, html {
   background: rgba(5, 25, 70, 0.53);
   color: white;
 }
+
+.simple-keyboard.hg-theme-default .hg-button.hg-standardBtn[data-skbtn=".com"] {
+  max-width: 82px;
+}
+
+.simple-keyboard.hg-theme-default .hg-button.hg-standardBtn[data-skbtn="@"] {
+  max-width: 60px;
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="">
+  <title data-ice="title">Source | simple-keyboard</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="On-screen Javascript Virtual Keyboard"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="simple-keyboard"><meta property="twitter:description" content="On-screen Javascript Virtual Keyboard"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/hodgef/simple-keyboard"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#demo">demo</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/demo/App.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-components">lib/components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html">SimpleKeyboard</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-services">lib/services</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/services/KeyboardLayout.js~KeyboardLayout.html">KeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard.html">PhysicalKeyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/services/Utilities.js~Utilities.html">Utilities</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-tests">lib/tests</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/tests/TestUtility.js~TestUtility.html">TestUtility</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">64/64</span></h1>
+
+<table class="files-summary" data-ice="files" data-use-coverage="true">
+  <thead>
+    <tr>
+      <td>File</td>
+      <td>Identifier</td>
+      <td class="coverage">Document</td>
+      <td style="display: none;">Size</td>
+      <td style="display: none;">Lines</td>
+      <td style="display: none;">Updated</td>
+    </tr>
+  </thead>
+  <tbody>
+    
+  <tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/demo/App.js.html">src/demo/App.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/demo/App.js~App.html">App</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
+      <td style="display: none;" data-ice="size">1927 byte</td>
+      <td style="display: none;" data-ice="lines">86</td>
+      <td style="display: none;" data-ice="updated">2018-10-04 21:35:25 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/demo/index.js.html">src/demo/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">70 byte</td>
+      <td style="display: none;" data-ice="lines">5</td>
+      <td style="display: none;" data-ice="updated">2018-09-02 03:31:31 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/lib/components/Keyboard.js.html">src/lib/components/Keyboard.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html">SimpleKeyboard</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">28/28</span></td>
+      <td style="display: none;" data-ice="size">20070 byte</td>
+      <td style="display: none;" data-ice="lines">596</td>
+      <td style="display: none;" data-ice="updated">2018-10-04 21:20:37 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/lib/index.js.html">src/lib/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">85 byte</td>
+      <td style="display: none;" data-ice="lines">2</td>
+      <td style="display: none;" data-ice="updated">2018-06-06 23:02:53 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/lib/services/KeyboardLayout.js.html">src/lib/services/KeyboardLayout.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/lib/services/KeyboardLayout.js~KeyboardLayout.html">KeyboardLayout</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">755 byte</td>
+      <td style="display: none;" data-ice="lines">29</td>
+      <td style="display: none;" data-ice="updated">2018-10-04 21:39:14 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/lib/services/PhysicalKeyboard.js.html">src/lib/services/PhysicalKeyboard.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard.html">PhysicalKeyboard</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
+      <td style="display: none;" data-ice="size">2743 byte</td>
+      <td style="display: none;" data-ice="lines">91</td>
+      <td style="display: none;" data-ice="updated">2018-10-04 21:47:26 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/lib/services/Utilities.js.html">src/lib/services/Utilities.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/lib/services/Utilities.js~Utilities.html">Utilities</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">15/15</span></td>
+      <td style="display: none;" data-ice="size">10156 byte</td>
+      <td style="display: none;" data-ice="lines">341</td>
+      <td style="display: none;" data-ice="updated">2018-10-04 22:07:29 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/lib/tests/TestUtility.js.html">src/lib/tests/TestUtility.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/lib/tests/TestUtility.js~TestUtility.html">TestUtility</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">6/6</span></td>
+      <td style="display: none;" data-ice="size">2830 byte</td>
+      <td style="display: none;" data-ice="lines">106</td>
+      <td style="display: none;" data-ice="updated">2018-10-04 22:12:09 (UTC)</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

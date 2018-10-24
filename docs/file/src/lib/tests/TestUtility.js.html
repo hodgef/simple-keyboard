@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/lib/tests/TestUtility.js | simple-keyboard</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="On-screen Javascript Virtual Keyboard"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="simple-keyboard"><meta property="twitter:description" content="On-screen Javascript Virtual Keyboard"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/hodgef/simple-keyboard"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#demo">demo</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/demo/App.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-components">lib/components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html">SimpleKeyboard</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-services">lib/services</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/services/KeyboardLayout.js~KeyboardLayout.html">KeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard.html">PhysicalKeyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/services/Utilities.js~Utilities.html">Utilities</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-tests">lib/tests</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/tests/TestUtility.js~TestUtility.html">TestUtility</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/tests/TestUtility.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Test Utility Functions
+ */
+export default class TestUtility {
+  /**
+   * Set&apos;s a basic DOM structure to test in
+   */
+  setDOM = (divClass) =&gt; {
+    this.clear();
+    const div = document.createElement(&apos;div&apos;);
+    div.className += divClass || &quot;simple-keyboard&quot;;
+    document.body.appendChild(div);
+  }
+
+  /**
+   * Clears DOM structure
+   */
+  clear = () =&gt; {
+    document.body.innerHTML = &quot;&quot;;
+  }
+
+  /**
+   * Test if standard buttons respect maxLength and do input a value
+   */
+  testLayoutStdButtons = (keyboard) =&gt; {
+    let stdBtnCount = 0;
+    let fullInput = &apos;&apos;;
+
+    this.iterateButtons((button) =&gt; {
+      let label = button.getAttribute(&quot;data-skbtn&quot;);
+
+      if(label.includes(&quot;{&quot;))
+        return false;
+
+      // Click all standard buttons, respects maxLength
+      button.onclick();
+
+      // Recording fullInput, bypasses maxLength
+      fullInput = keyboard.utilities.getUpdatedInput(label, fullInput, keyboard.options, null);
+
+      stdBtnCount += label.length;
+    });
+
+    /**
+     * Check if maxLength is respected
+     */
+    if(
+      (
+        typeof keyboard.options.maxLength === &quot;object&quot; &amp;&amp;
+        keyboard.getInput().length !== keyboard.options.maxLength[keyboard.options.layoutName]
+      ) ||
+      (
+        typeof keyboard.options.maxLength !== &quot;object&quot; &amp;&amp;
+        keyboard.getInput().length !== keyboard.options.maxLength
+      )
+    )
+      throw new Error(&quot;MAX_LENGTH_ISSUE&quot;);
+    else
+      console.log(&quot;MAX_LENGTH PASSED:&quot;, keyboard.options.layoutName, keyboard.getInput().length, keyboard.options.maxLength);
+
+    /**
+     * Check if all standard buttons are inputting something
+     * (Regardless of maxLength)
+     */
+    if(stdBtnCount !== fullInput.length)
+      throw new Error(&quot;STANDARD_BUTTONS_ISSUE&quot;);
+    else
+      console.log(&quot;STANDARD_BUTTONS PASSED:&quot;, keyboard.options.layoutName, stdBtnCount, fullInput.length);
+  }
+
+  /**
+   * Test if function buttons are interactive (have an onclick)
+   */
+  testLayoutFctButtons = (callback) =&gt; {
+    let fctBtnCount = 0;
+    let fctBtnHasOnclickCount = 0;
+
+    this.iterateButtons((button) =&gt; {
+      let label = button.getAttribute(&quot;data-skbtn&quot;);
+
+      if(!label.includes(&quot;{&quot;) &amp;&amp; !label.includes(&quot;}&quot;))
+        return false;
+
+      fctBtnCount++;
+
+      if(button.onclick){
+        button.onclick();
+        fctBtnHasOnclickCount++;
+      }
+
+      callback(fctBtnCount, fctBtnHasOnclickCount);
+    });
+  }
+
+  /**
+   * Iterates on the keyboard buttons
+   */
+  iterateButtons = (callback, selector) =&gt; {
+    let rows = document.body.querySelector(selector || &apos;.simple-keyboard&apos;).children;
+
+    Array.from(rows).forEach(row =&gt; {
+      Array.from(row.children).forEach((button) =&gt; {
+        callback(button);
+      });
+    });
+  }
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

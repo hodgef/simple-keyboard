@@ -1,8 +1,10 @@
+/**
+ * Test Utility Functions
+ */
 export default class TestUtility {
   /**
-   * FUNCTIONS
+   * Set's a basic DOM structure to test in
    */
-
   setDOM = (divClass) => {
     this.clear();
     const div = document.createElement('div');
@@ -10,10 +12,16 @@ export default class TestUtility {
     document.body.appendChild(div);
   }
 
+  /**
+   * Clears DOM structure
+   */
   clear = () => {
     document.body.innerHTML = "";
   }
 
+  /**
+   * Test if standard buttons respect maxLength and do input a value
+   */
   testLayoutStdButtons = (keyboard) => {
     let stdBtnCount = 0;
     let fullInput = '';
@@ -60,6 +68,9 @@ export default class TestUtility {
       console.log("STANDARD_BUTTONS PASSED:", keyboard.options.layoutName, stdBtnCount, fullInput.length);
   }
 
+  /**
+   * Test if function buttons are interactive (have an onclick)
+   */
   testLayoutFctButtons = (callback) => {
     let fctBtnCount = 0;
     let fctBtnHasOnclickCount = 0;
@@ -81,6 +92,9 @@ export default class TestUtility {
     });
   }
 
+  /**
+   * Iterates on the keyboard buttons
+   */
   iterateButtons = (callback, selector) => {
     let rows = document.body.querySelector(selector || '.simple-keyboard').children;
 
