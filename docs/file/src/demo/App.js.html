@@ -88,12 +88,10 @@ class App {
     document.querySelector(&apos;.input&apos;).addEventListener(&apos;change&apos;, (event) =&gt; {
       this.keyboard.setInput(event.target.value);
     });
-
-    console.log(this.keyboard);
   }
 
   /**
-   * 
+   * Handles shift functionality
    */
   handleShiftButton = () =&gt; {
     let layoutName = this.layoutName;
