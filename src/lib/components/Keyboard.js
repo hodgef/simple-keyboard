@@ -181,7 +181,7 @@ class SimpleKeyboard {
   
   /**
    * Clear the keyboard’s input.
-   * @param  {string} [inputName] optional - the internal input to select
+   * @param {string} [inputName] optional - the internal input to select
    */
   clearInput = (inputName) => {
     inputName = inputName || this.options.inputName;

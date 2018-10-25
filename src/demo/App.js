@@ -49,7 +49,7 @@ class App {
   }
 
   /**
-   * 
+   * Handles shift functionality
    */
   handleShiftButton = () => {
     let layoutName = this.layoutName;
