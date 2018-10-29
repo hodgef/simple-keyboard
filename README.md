@@ -1,15 +1,16 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/hodgef/simple-keyboard/blob/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/simple-keyboard.svg?style=flat)](https://www.npmjs.com/package/simple-keyboard)
 [![Build Status](https://travis-ci.org/hodgef/simple-keyboard.svg?branch=master)](https://travis-ci.org/hodgef/simple-keyboard)
-[![codecov](https://codecov.io/gh/hodgef/simple-keyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/hodgef/simple-keyboard)
+[![codecov](https://img.shields.io/codecov/c/github/hodgef/simple-keyboard/master.svg?style=flat)](https://codecov.io/gh/hodgef/simple-keyboard)
 [![Documentation Status](https://doc.esdoc.org/github.com/hodgef/simple-keyboard/badge.svg
 )](https://doc.esdoc.org/github.com/hodgef/simple-keyboard)
 [![](https://img.shields.io/badge/discord--chat-join-green.svg?longCache=true&style=flat-square&colorB=7289DA&logo=discord)](http://franciscohodge.com/simple-keyboard/chat/join) 
 
+<div align="center">
 <a href="https://simple-keyboard.com/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simplekeyboard-banner_B.png" align="center" width="100%"></a>
 <a href="https://simple-keyboard.com/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simple-keyboard-10172018.gif" align="center" width="100%"></a>
-
-> The easily customisable and responsive on-screen virtual keyboard for Javascript projects.
+<blockquote>The easily customisable and responsive on-screen virtual keyboard for Javascript projects.</blockquote>
+</div>
 
 ## Installation & Usage
 You can use simple-keyboard as a `<script>` tag from a CDN, or install it from npm.
