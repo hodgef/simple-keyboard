@@ -9,7 +9,7 @@
   <a href="https://travis-ci.org/hodgef/simple-keyboard" target="_blank"><img src="https://travis-ci.org/hodgef/simple-keyboard.svg?branch=master" alt="Build Status"></a>
   <a href="https://codecov.io/gh/hodgef/simple-keyboard" target="_blank"><img src="https://img.shields.io/codecov/c/github/hodgef/simple-keyboard/master.svg?style=flat" alt="Coverage Status"></a>
   <a href="https://doc.esdoc.org/github.com/hodgef/simple-keyboard" target="_blank"><img src="https://doc.esdoc.org/github.com/hodgef/simple-keyboard/badge.svg" alt="Documentation Status"></a>
-  <a href="http://franciscohodge.com/simple-keyboard/chat/join" target="_blank"><img src="https://img.shields.io/badge/discord--chat-join-green.svg?longCache=true&style=flat-square&colorB=7289DA&logo=discord" alt="Join Chat"></a></blockquote>
+  </blockquote>
 </div>
 
 ## 📦 Installation & Usage
