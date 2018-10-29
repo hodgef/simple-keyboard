@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "2.6.7",
+  "version": "2.6.8",
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/hodgef/simple-keyboard/issues"
   },
-  "homepage": "https://virtual-keyboard-javascript.github.io",
+  "homepage": "https://virtual-keyboard.js.org/",
   "keywords": [
     "javascript",
     "es6",
@@ -28,10 +28,12 @@
     "keyboard",
     "onscreen",
     "virtual",
+    "screen-keyboard",
     "component",
     "virtual-keyboard",
     "touchscreen",
     "touch-screen",
+    "kiosk",
     "osk"
   ],
   "license": "MIT",
