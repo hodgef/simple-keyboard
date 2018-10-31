@@ -723,6 +723,26 @@ it('Keyboard can set a module', () => {
   expect(keyboard.getModuleProp("test", "foo")).toBe("bar");
 });
 
+it('Keyboard registerModule will return current module tree', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.modules.test = {
+    testy: "test"
+  };
+
+  keyboard.registerModule(
+    "test",
+    (module) => {
+      module.foo = "bar";
+    }
+  );
+
+  expect(keyboard.getModuleProp("test", "testy")).toBe("test");
+  expect(keyboard.getModuleProp("test", "foo")).toBe("bar");
+});
+
 it('Keyboard can set a module by amending the modules tree', () => {
   testUtil.setDOM();
 
@@ -765,4 +785,57 @@ it('Keyboard will get a list of modules', () => {
   );
 
   expect(keyboard.getModulesList()[0]).toBe("test");
+});
+
+it('Keyboard loadModules will load a simple module', () => {
+  testUtil.setDOM();
+
+  class myClass {
+    init = (module) => {
+      module.foo = "bar";
+    };
+  }
+
+  let keyboard = new Keyboard({
+    modules: [
+      myClass
+    ]
+  });  
+});
+
+it('Keyboard handleButtonMouseUp will set isMouseHold to false', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.isMouseHold = true;
+
+  document.onmouseup();
+
+  expect(keyboard.isMouseHold).toBeFalsy();
+});
+
+it('Keyboard handleButtonMouseUp clear holdInteractionTimeout', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.isMouseHold = true;
+  keyboard.holdInteractionTimeout = setTimeout(() => {}, 10000);
+
+  document.onmouseup();
+});
+
+it('Keyboard handleButtonMouseDown will work', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.handleButtonMouseDown("q", {
+    target: keyboard.getButtonElement("q")
+  });
+
+  keyboard.getButtonElement("q").onmousedown();
+  document.onmouseup();
+
 });
