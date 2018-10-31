@@ -707,3 +707,62 @@ it('Keyboard buttonTheme will be ignored if already added', () => {
     ]
   });
 });
+
+it('Keyboard can set a module', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.registerModule(
+    "test",
+    (module) => {
+      module.foo = "bar";
+    }
+  );
+
+  expect(keyboard.getModuleProp("test", "foo")).toBe("bar");
+});
+
+it('Keyboard can set a module by amending the modules tree', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.modules = {
+    testman: {
+      foo: "baz"
+    }
+  };
+
+  keyboard.registerModule(
+    "test",
+    (module) => {
+      module.foo = "bar";
+    }
+  );
+
+  expect(keyboard.getModuleProp("test", "foo")).toBe("bar");
+});
+
+it('Keyboard will not retrieve an option for an inexistent module', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  expect(keyboard.getModuleProp("test", "foo")).toBeFalsy();
+});
+
+it('Keyboard will get a list of modules', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.registerModule(
+    "test",
+    (module) => {
+      module.foo = "bar";
+    }
+  );
+
+  expect(keyboard.getModulesList()).toBe(["test"]);
+});
