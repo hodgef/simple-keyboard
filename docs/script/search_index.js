@@ -522,6 +522,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/lib/components/keyboard.js~simplekeyboard#keyboardpluginclasses",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-keyboardPluginClasses",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#keyboardPluginClasses",
+    "member"
+  ],
+  [
     "src/lib/components/keyboard.js~simplekeyboard#loadmodules",
     "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-loadModules",
     "src/lib/components/Keyboard.js~SimpleKeyboard#loadModules",
