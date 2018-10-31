@@ -328,11 +328,6 @@ class SimpleKeyboard {
     option = option || {};
     this.options = Object.assign(this.options, option);
     this.render();
-
-    /**
-     * Apply modules
-     */
-    this.loadModules();
   }
 
   /**
