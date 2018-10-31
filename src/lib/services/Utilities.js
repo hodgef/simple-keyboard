@@ -10,6 +10,17 @@ class Utilities {
      * @type {object} A simple-keyboard instance
      */
     this.simpleKeyboardInstance = simpleKeyboardInstance;
+
+    /**
+     * Bindings
+     */
+    this.getButtonClass = this.getButtonClass.bind(this);
+    this.getButtonDisplayName = this.getButtonDisplayName.bind(this);
+    this.getUpdatedInput = this.getUpdatedInput.bind(this);
+    this.updateCaretPos = this.updateCaretPos.bind(this);
+    this.isMaxLengthReached = this.isMaxLengthReached.bind(this);
+    this.camelCase = this.camelCase.bind(this);
+    this.countInArray = this.countInArray.bind(this);
   }
 
   /**
@@ -18,7 +29,7 @@ class Utilities {
    * @param  {string} button The button's layout name
    * @return {string} The classes to be added to the button
    */
-  getButtonClass = button => {
+  getButtonClass(button){
     let buttonTypeClass = (button.includes("{") && button.includes("}") && button !== '{//}') ? "functionBtn" : "standardBtn";
     let buttonWithoutBraces = button.replace("{", "").replace("}", "");
     let buttonNormalized = '';
@@ -102,7 +113,7 @@ class Utilities {
    * @param  {object} display The provided display option
    * @param  {boolean} mergeDisplay Whether the provided param value should be merged with the default one.
    */
-  getButtonDisplayName = (button, display, mergeDisplay) => {
+  getButtonDisplayName(button, display, mergeDisplay){
     if(mergeDisplay){
       display = Object.assign({}, this.getDefaultDiplay(), display);
     } else {
@@ -121,7 +132,7 @@ class Utilities {
    * @param  {object} options The simple-keyboard options object
    * @param  {number} caretPos The cursor's current position
    */
-  getUpdatedInput = (button, input, options, caretPos) => {
+  getUpdatedInput(button, input, options, caretPos){
     
     let output = input;
 
@@ -168,7 +179,7 @@ class Utilities {
    * @param  {number} length Represents by how many characters the input should be moved
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */
-  updateCaretPos = (length, minus) => {
+  updateCaretPos(length, minus){
     if(minus){
       if(this.simpleKeyboardInstance.caretPosition > 0)
         this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition - length
@@ -314,7 +325,7 @@ class Utilities {
   /**
    * Gets the current value of maxLengthReached
    */
-  isMaxLengthReached = () => {
+  isMaxLengthReached(){
     return Boolean(this.maxLengthReached);
   }
 
@@ -323,7 +334,7 @@ class Utilities {
    * 
    * @param  {string} string The string to transform.
    */
-  camelCase = (string) => {
+  camelCase(string){
     return string.toLowerCase().trim().split(/[.\-_\s]/g).reduce((string, word) => string + word[0].toUpperCase() + word.slice(1));
   };
 
@@ -333,7 +344,7 @@ class Utilities {
    * @param  {Array} array The haystack to search in
    * @param  {string} value The needle to search for
    */
-  countInArray = (array, value) => {
+  countInArray(array, value){
     return array.reduce((n, x) => n + (x === value), 0);
   }
 

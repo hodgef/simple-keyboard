@@ -64,6 +64,31 @@ class SimpleKeyboard {
     this.options.inputName = this.options.inputName || "default";
 
     /**
+     * Module namespace
+     */
+    this.modules = {};
+
+    /**
+     * Bindings
+     */
+    this.handleButtonClicked = this.handleButtonClicked.bind(this);
+    this.syncInstanceInputs = this.syncInstanceInputs.bind(this);
+    this.clearInput = this.clearInput.bind(this);
+    this.getInput = this.getInput.bind(this);
+    this.setInput = this.setInput.bind(this);
+    this.replaceInput = this.replaceInput.bind(this);
+    this.clear = this.clear.bind(this);
+    this.dispatch = this.dispatch.bind(this);
+    this.addButtonTheme = this.addButtonTheme.bind(this);
+    this.removeButtonTheme = this.removeButtonTheme.bind(this);
+    this.getButtonElement = this.getButtonElement.bind(this);
+    this.handleCaret = this.handleCaret.bind(this);
+    this.caretEventHandler = this.caretEventHandler.bind(this);
+    this.onInit = this.onInit.bind(this);
+    this.onRender = this.onRender.bind(this);
+    this.render = this.render.bind(this);
+
+    /**
      * simple-keyboard uses a non-persistent internal input to keep track of the entered string (the variable `keyboard.input`).
      * This removes any dependency to input DOM elements. You can type and directly display the value in a div element, for example.
      * @example
@@ -118,7 +143,7 @@ class SimpleKeyboard {
    * Handles clicks made to keyboard buttons
    * @param  {string} button The button's layout name.
    */
-  handleButtonClicked = (button) => {
+  handleButtonClicked(button){
     let debug = this.options.debug;
 
     /**
@@ -173,7 +198,7 @@ class SimpleKeyboard {
   /**
    * Send a command to all simple-keyboard instances (if you have several instances).
    */
-  syncInstanceInputs = () => {
+  syncInstanceInputs(){
     this.dispatch((instance) => {
       instance.replaceInput(this.input);
     });
@@ -183,7 +208,7 @@ class SimpleKeyboard {
    * Clear the keyboard’s input.
    * @param {string} [inputName] optional - the internal input to select
    */
-  clearInput = (inputName) => {
+  clearInput(inputName){
     inputName = inputName || this.options.inputName;
     this.input[this.options.inputName] = '';
 
@@ -198,7 +223,7 @@ class SimpleKeyboard {
    * Get the keyboard’s input (You can also get it from the onChange prop).
    * @param  {string} [inputName] optional - the internal input to select
    */
-  getInput = (inputName) => {
+  getInput(inputName){
     inputName = inputName || this.options.inputName;
 
     /**
@@ -215,7 +240,7 @@ class SimpleKeyboard {
    * @param  {string} input the input value
    * @param  {string} inputName optional - the internal input to select
    */
-  setInput = (input, inputName) => {
+  setInput(input, inputName){
     inputName = inputName || this.options.inputName;
     this.input[inputName] = input;
 
@@ -230,7 +255,7 @@ class SimpleKeyboard {
    * Replace the input object (`keyboard.input`)
    * @param  {object} inputObj The input object
    */
-  replaceInput = (inputObj) => {
+  replaceInput(inputObj){
     this.input = inputObj;
   }
 
@@ -248,7 +273,7 @@ class SimpleKeyboard {
    * Remove all keyboard rows and reset keyboard values.
    * Used interally between re-renders.
    */
-  clear = () => {
+  clear(){
     this.keyboardDOM.innerHTML = '';
     this.keyboardDOM.className = this.keyboardDOMClass;
     this.buttonElements = {};
@@ -258,7 +283,7 @@ class SimpleKeyboard {
    * Send a command to all simple-keyboard instances at once (if you have multiple instances).
    * @param  {function(instance: object, key: string)} callback Function to run on every instance
    */
-  dispatch = (callback) => {
+  dispatch(callback){
     if(!window['SimpleKeyboardInstances']){
       console.warn(`SimpleKeyboardInstances is not defined. Dispatch cannot be called.`);
       throw new Error("INSTANCES_VAR_ERROR");
@@ -274,7 +299,7 @@ class SimpleKeyboard {
    * @param  {string} buttons List of buttons to select (separated by a space).
    * @param  {string} className Classes to give to the selected buttons (separated by space).
    */
-  addButtonTheme = (buttons, className) => {
+  addButtonTheme(buttons, className){
     if(!className || !buttons)
       return false;
 
@@ -324,7 +349,7 @@ class SimpleKeyboard {
    * @param  {string} buttons List of buttons to select (separated by a space).
    * @param  {string} className Classes to give to the selected buttons (separated by space).
    */
-  removeButtonTheme = (buttons, className) => {
+  removeButtonTheme(buttons, className){
     /**
      * When called with empty parameters, remove all button themes
      */
@@ -376,7 +401,7 @@ class SimpleKeyboard {
    * Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.
    * @param  {string} button The button layout name to select
    */
-  getButtonElement = (button) => {
+  getButtonElement(button){
     let output;
 
     let buttonArr = this.buttonElements[button];
@@ -394,7 +419,7 @@ class SimpleKeyboard {
   /**
    * Retrieves the current cursor position within a input or textarea (if any)
    */
-  handleCaret = () => {
+  handleCaret(){
     if(this.options.debug){
       console.log("Caret handling started");
     }
@@ -407,7 +432,7 @@ class SimpleKeyboard {
   /**
    * Called by {@link handleCaret} when an event that warrants a cursor position update is triggered
    */
-  caretEventHandler = (event) => {
+  caretEventHandler(event){
     let targetTagName = event.target.tagName.toLowerCase();
 
     if(
@@ -429,7 +454,7 @@ class SimpleKeyboard {
   /**
    * Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
    */
-  onInit = () => {
+  onInit(){
     if(this.options.debug){
       console.log("Initialized");
     }
@@ -446,15 +471,41 @@ class SimpleKeyboard {
   /**
    * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
    */
-  onRender = () => {
+  onRender(){
     if(typeof this.options.onRender === "function")
       this.options.onRender();
   }
 
   /**
+   * Register module
+   */
+  registerModule = (name, initCallback) => {
+    this.modules[name] = {};
+
+    initCallback(this.modules[name]);
+  }
+
+  /**
+   * Get module prop
+   */
+  getModuleProp = (name, prop) => {
+    if(!this.modules[name])
+      return false;
+    
+    return this.modules[name][prop];
+  }
+
+  /**
+   * getModulesList
+   */
+  getModulesList = () => {
+    return Object.keys(this.modules);
+  }
+
+  /**
    * Renders rows and buttons as per options
    */
-  render = () => {
+  render(){
     /**
      * Clear keyboard
      */

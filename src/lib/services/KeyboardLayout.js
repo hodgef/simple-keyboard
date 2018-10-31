@@ -2,12 +2,11 @@
  * Keyboard Layout Service
  */
 class KeyboardLayout {
-
   /**
    * Get default simple-keyboard layout
    * @return {object} The default layout (US-QWERTY)
    */
-  static getDefaultLayout = () => {
+  static getDefaultLayout(){
     return {
       'default': [
         '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
