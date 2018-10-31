@@ -141,35 +141,6 @@ This class:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-addButtonTheme">addButtonTheme</a></span></span><span class="code" data-ice="signature">(buttons: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, className: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Adds/Modifies an entry to the <code>buttonTheme</code>.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
           <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-buttonElements">buttonElements</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
         </p>
       </div>
@@ -198,13 +169,14 @@ This class:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-caretEventHandler">caretEventHandler</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-caretPosition">caretPosition</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Called by <span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-handleCaret">handleCaret</a></span> when an event that warrants a cursor position update is triggered</p>
+        <div data-ice="description"><p>Tracks current cursor position
+As keys are pressed, text will be added/removed at that position within the input.</p>
 </div>
       </div>
     </td>
@@ -227,13 +199,13 @@ This class:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-clear">clear</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-getModuleProp">getModuleProp</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Remove all keyboard rows and reset keyboard values.</p>
+        <div data-ice="description"><p>Get module prop</p>
 </div>
       </div>
     </td>
@@ -256,13 +228,13 @@ This class:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-clearInput">clearInput</a></span></span><span class="code" data-ice="signature">(inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-getModulesList">getModulesList</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Clear the keyboard&#x2019;s input.</p>
+        <div data-ice="description"><p>getModulesList</p>
 </div>
       </div>
     </td>
@@ -285,129 +257,13 @@ This class:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-dispatch">dispatch</a></span></span><span class="code" data-ice="signature">(callback: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(instance: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, key: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-initialized">initialized</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Send a command to all simple-keyboard instances at once (if you have multiple instances).</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-getButtonElement">getButtonElement</a></span></span><span class="code" data-ice="signature">(button: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get the DOM Element of a button.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-getInput">getInput</a></span></span><span class="code" data-ice="signature">(inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get the keyboard&#x2019;s input (You can also get it from the onChange prop).</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-handleButtonClicked">handleButtonClicked</a></span></span><span class="code" data-ice="signature">(button: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Handles clicks made to keyboard buttons</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-handleCaret">handleCaret</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Retrieves the current cursor position within a input or textarea (if any)</p>
+        <div data-ice="description"><p>Ensures that onInit is only called once per instantiation</p>
 </div>
       </div>
     </td>
@@ -516,42 +372,13 @@ This class:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-onInit">onInit</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-modules">modules</a></span></span><span class="code" data-ice="signature">: {}</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Executes the callback function once simple-keyboard is rendered for the first time (on initialization).</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-onRender">onRender</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).</p>
+        <div data-ice="description"><p>Module namespace</p>
 </div>
       </div>
     </td>
@@ -631,100 +458,13 @@ This class:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-removeButtonTheme">removeButtonTheme</a></span></span><span class="code" data-ice="signature">(buttons: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, className: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-registerModule">registerModule</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Removes/Amends an entry to the <code>buttonTheme</code>.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-render">render</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Renders rows and buttons as per options</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-replaceInput">replaceInput</a></span></span><span class="code" data-ice="signature">(inputObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Replace the input object (<code>keyboard.input</code>)</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-setInput">setInput</a></span></span><span class="code" data-ice="signature">(input: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Set the keyboard&#x2019;s input.</p>
+        <div data-ice="description"><p>Register module</p>
 </div>
       </div>
     </td>
@@ -776,13 +516,49 @@ This class:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-syncInstanceInputs">syncInstanceInputs</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-utilities">utilities</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Send a command to all simple-keyboard instances (if you have several instances).</p>
+        <div data-ice="description"><p>Initializing Utilities</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-addButtonTheme">addButtonTheme</a></span></span><span class="code" data-ice="signature">(buttons: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, className: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Adds/Modifies an entry to the <code>buttonTheme</code>.</p>
 </div>
       </div>
     </td>
@@ -805,13 +581,419 @@ This class:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-utilities">utilities</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-caretEventHandler">caretEventHandler</a></span></span><span class="code" data-ice="signature">(event: <span>*</span>)</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Initializing Utilities</p>
+        <div data-ice="description"><p>Called by <span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleCaret">handleCaret</a></span> when an event that warrants a cursor position update is triggered</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-clear">clear</a></span></span><span class="code" data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Remove all keyboard rows and reset keyboard values.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-clearInput">clearInput</a></span></span><span class="code" data-ice="signature">(inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Clear the keyboard&#x2019;s input.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-dispatch">dispatch</a></span></span><span class="code" data-ice="signature">(callback: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(instance: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, key: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Send a command to all simple-keyboard instances at once (if you have multiple instances).</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-getButtonElement">getButtonElement</a></span></span><span class="code" data-ice="signature">(button: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get the DOM Element of a button.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-getInput">getInput</a></span></span><span class="code" data-ice="signature">(inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get the keyboard&#x2019;s input (You can also get it from the onChange prop).</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleButtonClicked">handleButtonClicked</a></span></span><span class="code" data-ice="signature">(button: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Handles clicks made to keyboard buttons</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleCaret">handleCaret</a></span></span><span class="code" data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Retrieves the current cursor position within a input or textarea (if any)</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-onInit">onInit</a></span></span><span class="code" data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Executes the callback function once simple-keyboard is rendered for the first time (on initialization).</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-onRender">onRender</a></span></span><span class="code" data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-removeButtonTheme">removeButtonTheme</a></span></span><span class="code" data-ice="signature">(buttons: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, className: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Removes/Amends an entry to the <code>buttonTheme</code>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-render">render</a></span></span><span class="code" data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Renders rows and buttons as per options</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-replaceInput">replaceInput</a></span></span><span class="code" data-ice="signature">(inputObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Replace the input object (<code>keyboard.input</code>)</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-setInput">setInput</a></span></span><span class="code" data-ice="signature">(input: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Set the keyboard&#x2019;s input.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-syncInstanceInputs">syncInstanceInputs</a></span></span><span class="code" data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Send a command to all simple-keyboard instances (if you have several instances).</p>
 </div>
       </div>
     </td>
@@ -823,7 +1005,6 @@ This class:</p>
 </tbody>
 </table>
 </div>
-
 
 
 
@@ -896,50 +1077,6 @@ This class:</p>
 <div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-addButtonTheme">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">addButtonTheme</span><span class="code" data-ice="signature">(buttons: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, className: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber277">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Adds/Modifies an entry to the <code>buttonTheme</code>. Basically a way to add a class to a button.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-buttonElements">
     <span class="access" data-ice="access">public</span>
     
@@ -951,7 +1088,7 @@ This class:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber91">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 
@@ -983,25 +1120,26 @@ This class:</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-caretEventHandler">
+  <h3 data-ice="anchor" id="instance-member-caretPosition">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">caretEventHandler</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">caretPosition</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber410">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber446">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Called by <span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-handleCaret">handleCaret</a></span> when an event that warrants a cursor position update is triggered</p>
+  <div data-ice="description"><p>Tracks current cursor position
+As keys are pressed, text will be added/removed at that position within the input.</p>
 </div>
 
   
@@ -1027,26 +1165,25 @@ This class:</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-clear">
+  <h3 data-ice="anchor" id="instance-member-getModuleProp">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">clear</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">getModuleProp</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber251">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber491">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Remove all keyboard rows and reset keyboard values.
-Used interally between re-renders.</p>
+  <div data-ice="description"><p>Get module prop</p>
 </div>
 
   
@@ -1072,25 +1209,25 @@ Used interally between re-renders.</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-clearInput">
+  <h3 data-ice="anchor" id="instance-member-getModulesList">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">clearInput</span><span class="code" data-ice="signature">(inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">getModulesList</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber186">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber501">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Clear the keyboard&#x2019;s input.</p>
+  <div data-ice="description"><p>getModulesList</p>
 </div>
 
   
@@ -1116,201 +1253,25 @@ Used interally between re-renders.</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-dispatch">
+  <h3 data-ice="anchor" id="instance-member-initialized">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">dispatch</span><span class="code" data-ice="signature">(callback: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(instance: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, key: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span></span>): <span>*</span></span>
+    <span class="code" data-ice="name">initialized</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber261">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber637">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Send a command to all simple-keyboard instances at once (if you have multiple instances).</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-getButtonElement">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">getButtonElement</span><span class="code" data-ice="signature">(button: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber379">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-getInput">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">getInput</span><span class="code" data-ice="signature">(inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber201">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Get the keyboard&#x2019;s input (You can also get it from the onChange prop).</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-handleButtonClicked">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">handleButtonClicked</span><span class="code" data-ice="signature">(button: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber121">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Handles clicks made to keyboard buttons</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-handleCaret">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">handleCaret</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber397">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Retrieves the current cursor position within a input or textarea (if any)</p>
+  <div data-ice="description"><p>Ensures that onInit is only called once per instantiation</p>
 </div>
 
   
@@ -1347,7 +1308,7 @@ Used interally between re-renders.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber80">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber105">source</a></span></span>
     </span>
   </h3>
 
@@ -1471,7 +1432,7 @@ keyboard.clearInput();</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber86">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber111">source</a></span></span>
     </span>
   </h3>
 
@@ -1503,69 +1464,25 @@ keyboard.clearInput();</code></pre>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-onInit">
+  <h3 data-ice="anchor" id="instance-member-modules">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">onInit</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">modules</span><span class="code" data-ice="signature">: {}</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber432">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber69">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Executes the callback function once simple-keyboard is rendered for the first time (on initialization).</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-onRender">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">onRender</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber449">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).</p>
+  <div data-ice="description"><p>Module namespace</p>
 </div>
 
   
@@ -1802,7 +1719,7 @@ keyboard.clearInput();</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber115">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber140">source</a></span></span>
     </span>
   </h3>
 
@@ -1835,157 +1752,25 @@ keyboard.clearInput();</code></pre>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-removeButtonTheme">
+  <h3 data-ice="anchor" id="instance-member-registerModule">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">removeButtonTheme</span><span class="code" data-ice="signature">(buttons: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, className: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">registerModule</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber327">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber482">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Removes/Amends an entry to the <code>buttonTheme</code>. Basically a way to remove a class previously added to a button through buttonTheme or addButtonTheme.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-render">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">render</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber457">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Renders rows and buttons as per options</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-replaceInput">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">replaceInput</span><span class="code" data-ice="signature">(inputObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber233">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Replace the input object (<code>keyboard.input</code>)</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-setInput">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">setInput</span><span class="code" data-ice="signature">(input: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber218">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Set the keyboard&#x2019;s input.</p>
+  <div data-ice="description"><p>Register module</p>
 </div>
 
   
@@ -2022,7 +1807,7 @@ keyboard.clearInput();</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber241">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber266">source</a></span></span>
     </span>
   </h3>
 
@@ -2030,50 +1815,6 @@ keyboard.clearInput();</code></pre>
   
   
   <div data-ice="description"><p>Set new option or modify existing ones after initialization. </p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-syncInstanceInputs">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">syncInstanceInputs</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber176">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Send a command to all simple-keyboard instances (if you have several instances).</p>
 </div>
 
   
@@ -2143,7 +1884,976 @@ keyboard.clearInput();</code></pre>
   
 </div>
 </div>
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-addButtonTheme">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">addButtonTheme</span><span class="code" data-ice="signature">(buttons: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, className: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber302">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Adds/Modifies an entry to the <code>buttonTheme</code>. Basically a way to add a class to a button.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buttons</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>List of buttons to select (separated by a space).</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">className</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Classes to give to the selected buttons (separated by space).</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-caretEventHandler">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">caretEventHandler</span><span class="code" data-ice="signature">(event: <span>*</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber435">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Called by <span><a href="class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleCaret">handleCaret</a></span> when an event that warrants a cursor position update is triggered</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">event</td>
+      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-clear">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">clear</span><span class="code" data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber276">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Remove all keyboard rows and reset keyboard values.
+Used interally between re-renders.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-clearInput">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">clearInput</span><span class="code" data-ice="signature">(inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber211">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Clear the keyboard&#x2019;s input.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">inputName</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>optional - the internal input to select</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-dispatch">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">dispatch</span><span class="code" data-ice="signature">(callback: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(instance: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, key: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber286">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Send a command to all simple-keyboard instances at once (if you have multiple instances).</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">callback</td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(instance: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, key: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Function to run on every instance</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getButtonElement">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getButtonElement</span><span class="code" data-ice="signature">(button: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber404">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">button</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The button layout name to select</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getInput">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getInput</span><span class="code" data-ice="signature">(inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber226">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get the keyboard&#x2019;s input (You can also get it from the onChange prop).</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">inputName</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>optional - the internal input to select</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-handleButtonClicked">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">handleButtonClicked</span><span class="code" data-ice="signature">(button: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber146">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Handles clicks made to keyboard buttons</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">button</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The button&apos;s layout name.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-handleCaret">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">handleCaret</span><span class="code" data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber422">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Retrieves the current cursor position within a input or textarea (if any)</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-onInit">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">onInit</span><span class="code" data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber457">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Executes the callback function once simple-keyboard is rendered for the first time (on initialization).</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-onRender">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">onRender</span><span class="code" data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber474">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-removeButtonTheme">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">removeButtonTheme</span><span class="code" data-ice="signature">(buttons: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, className: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber352">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Removes/Amends an entry to the <code>buttonTheme</code>. Basically a way to remove a class previously added to a button through buttonTheme or addButtonTheme.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buttons</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>List of buttons to select (separated by a space).</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">className</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Classes to give to the selected buttons (separated by space).</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-render">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">render</span><span class="code" data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber508">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Renders rows and buttons as per options</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-replaceInput">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">replaceInput</span><span class="code" data-ice="signature">(inputObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber258">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Replace the input object (<code>keyboard.input</code>)</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">inputObj</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The input object</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-setInput">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">setInput</span><span class="code" data-ice="signature">(input: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, inputName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber243">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Set the keyboard&#x2019;s input.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">input</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>the input value</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">inputName</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>optional - the internal input to select</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-syncInstanceInputs">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">syncInstanceInputs</span><span class="code" data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/lib/components/Keyboard.js.html#lineNumber201">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Send a command to all simple-keyboard instances (if you have several instances).</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
 </div>
 
 <footer class="footer">

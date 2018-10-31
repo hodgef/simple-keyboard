@@ -379,9 +379,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#addbuttontheme",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-addButtonTheme",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-addButtonTheme",
     "src/lib/components/Keyboard.js~SimpleKeyboard#addButtonTheme",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#buttonelements",
@@ -391,9 +391,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#careteventhandler",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-caretEventHandler",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-caretEventHandler",
     "src/lib/components/Keyboard.js~SimpleKeyboard#caretEventHandler",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#caretposition",
@@ -403,15 +403,15 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#clear",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-clear",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-clear",
     "src/lib/components/Keyboard.js~SimpleKeyboard#clear",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#clearinput",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-clearInput",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-clearInput",
     "src/lib/components/Keyboard.js~SimpleKeyboard#clearInput",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#constructor",
@@ -421,33 +421,45 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#dispatch",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-dispatch",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-dispatch",
     "src/lib/components/Keyboard.js~SimpleKeyboard#dispatch",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#getbuttonelement",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-getButtonElement",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-getButtonElement",
     "src/lib/components/Keyboard.js~SimpleKeyboard#getButtonElement",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#getinput",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-getInput",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-getInput",
     "src/lib/components/Keyboard.js~SimpleKeyboard#getInput",
+    "method"
+  ],
+  [
+    "src/lib/components/keyboard.js~simplekeyboard#getmoduleprop",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-getModuleProp",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#getModuleProp",
+    "member"
+  ],
+  [
+    "src/lib/components/keyboard.js~simplekeyboard#getmoduleslist",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-getModulesList",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#getModulesList",
     "member"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#handlebuttonclicked",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-handleButtonClicked",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleButtonClicked",
     "src/lib/components/Keyboard.js~SimpleKeyboard#handleButtonClicked",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#handlecaret",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-handleCaret",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleCaret",
     "src/lib/components/Keyboard.js~SimpleKeyboard#handleCaret",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#initialized",
@@ -474,16 +486,22 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/lib/components/keyboard.js~simplekeyboard#oninit",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-onInit",
-    "src/lib/components/Keyboard.js~SimpleKeyboard#onInit",
+    "src/lib/components/keyboard.js~simplekeyboard#modules",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-modules",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#modules",
     "member"
   ],
   [
+    "src/lib/components/keyboard.js~simplekeyboard#oninit",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-onInit",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#onInit",
+    "method"
+  ],
+  [
     "src/lib/components/keyboard.js~simplekeyboard#onrender",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-onRender",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-onRender",
     "src/lib/components/Keyboard.js~SimpleKeyboard#onRender",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#options",
@@ -498,28 +516,34 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/lib/components/keyboard.js~simplekeyboard#removebuttontheme",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-removeButtonTheme",
-    "src/lib/components/Keyboard.js~SimpleKeyboard#removeButtonTheme",
+    "src/lib/components/keyboard.js~simplekeyboard#registermodule",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-registerModule",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#registerModule",
     "member"
+  ],
+  [
+    "src/lib/components/keyboard.js~simplekeyboard#removebuttontheme",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-removeButtonTheme",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#removeButtonTheme",
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#render",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-render",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-render",
     "src/lib/components/Keyboard.js~SimpleKeyboard#render",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#replaceinput",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-replaceInput",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-replaceInput",
     "src/lib/components/Keyboard.js~SimpleKeyboard#replaceInput",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#setinput",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-setInput",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-setInput",
     "src/lib/components/Keyboard.js~SimpleKeyboard#setInput",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#setoptions",
@@ -529,9 +553,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#syncinstanceinputs",
-    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-syncInstanceInputs",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-syncInstanceInputs",
     "src/lib/components/Keyboard.js~SimpleKeyboard#syncInstanceInputs",
-    "member"
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#utilities",
@@ -553,9 +577,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/services/keyboardlayout.js~keyboardlayout.getdefaultlayout",
-    "class/src/lib/services/KeyboardLayout.js~KeyboardLayout.html#static-member-getDefaultLayout",
+    "class/src/lib/services/KeyboardLayout.js~KeyboardLayout.html#static-method-getDefaultLayout",
     "src/lib/services/KeyboardLayout.js~KeyboardLayout.getDefaultLayout",
-    "member"
+    "method"
   ],
   [
     "src/lib/services/physicalkeyboard.js",
@@ -571,15 +595,15 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/services/physicalkeyboard.js~physicalkeyboard#getsimplekeyboardlayoutkey",
-    "class/src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard.html#instance-member-getSimpleKeyboardLayoutKey",
+    "class/src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard.html#instance-method-getSimpleKeyboardLayoutKey",
     "src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard#getSimpleKeyboardLayoutKey",
-    "member"
+    "method"
   ],
   [
     "src/lib/services/physicalkeyboard.js~physicalkeyboard#initkeyboardlistener",
-    "class/src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard.html#instance-member-initKeyboardListener",
+    "class/src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard.html#instance-method-initKeyboardListener",
     "src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard#initKeyboardListener",
-    "member"
+    "method"
   ],
   [
     "src/lib/services/physicalkeyboard.js~physicalkeyboard#simplekeyboardinstance",
@@ -601,9 +625,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/services/utilities.js~utilities#camelcase",
-    "class/src/lib/services/Utilities.js~Utilities.html#instance-member-camelCase",
+    "class/src/lib/services/Utilities.js~Utilities.html#instance-method-camelCase",
     "src/lib/services/Utilities.js~Utilities#camelCase",
-    "member"
+    "method"
   ],
   [
     "src/lib/services/utilities.js~utilities#constructor",
@@ -613,21 +637,21 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/services/utilities.js~utilities#countinarray",
-    "class/src/lib/services/Utilities.js~Utilities.html#instance-member-countInArray",
+    "class/src/lib/services/Utilities.js~Utilities.html#instance-method-countInArray",
     "src/lib/services/Utilities.js~Utilities#countInArray",
-    "member"
+    "method"
   ],
   [
     "src/lib/services/utilities.js~utilities#getbuttonclass",
-    "class/src/lib/services/Utilities.js~Utilities.html#instance-member-getButtonClass",
+    "class/src/lib/services/Utilities.js~Utilities.html#instance-method-getButtonClass",
     "src/lib/services/Utilities.js~Utilities#getButtonClass",
-    "member"
+    "method"
   ],
   [
     "src/lib/services/utilities.js~utilities#getbuttondisplayname",
-    "class/src/lib/services/Utilities.js~Utilities.html#instance-member-getButtonDisplayName",
+    "class/src/lib/services/Utilities.js~Utilities.html#instance-method-getButtonDisplayName",
     "src/lib/services/Utilities.js~Utilities#getButtonDisplayName",
-    "member"
+    "method"
   ],
   [
     "src/lib/services/utilities.js~utilities#getdefaultdiplay",
@@ -637,9 +661,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/services/utilities.js~utilities#getupdatedinput",
-    "class/src/lib/services/Utilities.js~Utilities.html#instance-member-getUpdatedInput",
+    "class/src/lib/services/Utilities.js~Utilities.html#instance-method-getUpdatedInput",
     "src/lib/services/Utilities.js~Utilities#getUpdatedInput",
-    "member"
+    "method"
   ],
   [
     "src/lib/services/utilities.js~utilities#handlemaxlength",
@@ -649,9 +673,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/services/utilities.js~utilities#ismaxlengthreached",
-    "class/src/lib/services/Utilities.js~Utilities.html#instance-member-isMaxLengthReached",
+    "class/src/lib/services/Utilities.js~Utilities.html#instance-method-isMaxLengthReached",
     "src/lib/services/Utilities.js~Utilities#isMaxLengthReached",
-    "member"
+    "method"
   ],
   [
     "src/lib/services/utilities.js~utilities#maxlengthreached",
@@ -673,9 +697,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/lib/services/utilities.js~utilities#updatecaretpos",
-    "class/src/lib/services/Utilities.js~Utilities.html#instance-member-updateCaretPos",
+    "class/src/lib/services/Utilities.js~Utilities.html#instance-method-updateCaretPos",
     "src/lib/services/Utilities.js~Utilities#updateCaretPos",
-    "member"
+    "method"
   ],
   [
     "src/lib/tests/testutility.js",

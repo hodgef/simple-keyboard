@@ -53,13 +53,22 @@ class PhysicalKeyboard {
      */
     this.simpleKeyboardInstance = simpleKeyboardInstance;
 
+    /**
+     * Bindings
+     */
+    this.initKeyboardListener = this.initKeyboardListener.bind(this);
+    this.getSimpleKeyboardLayoutKey = this.getSimpleKeyboardLayoutKey.bind(this);
+
+    /**
+     * Initialize key listeners
+     */
     this.initKeyboardListener();
   }
 
   /**
    * Initializes key event listeners
    */
-  initKeyboardListener = () =&gt; {
+  initKeyboardListener(){
     // Adding button style on keydown
     document.addEventListener(&quot;keydown&quot;, (event) =&gt; {
       if(this.simpleKeyboardInstance.options.physicalKeyboardHighlight){
@@ -96,7 +105,7 @@ class PhysicalKeyboard {
    * Transforms a KeyboardEvent&apos;s &quot;key.code&quot; string into a simple-keyboard layout format
    * @param  {object} event The KeyboardEvent
    */
-  getSimpleKeyboardLayoutKey = (event) =&gt; {
+  getSimpleKeyboardLayoutKey(event){
     let output;
 
     if(
