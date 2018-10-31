@@ -764,5 +764,5 @@ it('Keyboard will get a list of modules', () => {
     }
   );
 
-  expect(keyboard.getModulesList()).toBe(["test"]);
+  expect(keyboard.getModulesList()[0]).toBe("test");
 });
