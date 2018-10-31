@@ -64,11 +64,6 @@ class SimpleKeyboard {
     this.options.inputName = this.options.inputName || "default";
 
     /**
-     * Module namespace
-     */
-    this.modules = {};
-
-    /**
      * Bindings
      */
     this.handleButtonClicked = this.handleButtonClicked.bind(this);
@@ -87,6 +82,10 @@ class SimpleKeyboard {
     this.onInit = this.onInit.bind(this);
     this.onRender = this.onRender.bind(this);
     this.render = this.render.bind(this);
+    this.loadModules = this.loadModules.bind(this);
+    this.handleButtonMouseUp = this.handleButtonMouseUp.bind(this);
+    this.handleButtonMouseDown = this.handleButtonMouseDown.bind(this);
+    this.handleButtonHold = this.handleButtonHold.bind(this);
 
     /**
      * simple-keyboard uses a non-persistent internal input to keep track of the entered string (the variable `keyboard.input`).
@@ -138,7 +137,14 @@ class SimpleKeyboard {
      * Physical Keyboard support
      */
     this.physicalKeyboardInterface = new PhysicalKeyboard(this);
+
+    /**
+     * Modules
+     */
+    this.modules = {};
+    this.loadModules();
   }
+
   /**
    * Handles clicks made to keyboard buttons
    * @param  {string} button The button's layout name.
@@ -193,6 +199,61 @@ class SimpleKeyboard {
     if(debug){
       console.log("Key pressed:", button);
     }
+  }
+
+  /**
+   * Handles button mousedown
+   */
+  /* istanbul ignore next */
+  handleButtonMouseDown(button, e){
+    /**
+     * @type {boolean} Whether the mouse is being held onKeyPress
+     */
+    this.isMouseHold = true;
+
+    /**
+     * @type {object} Time to wait until a key hold is detected
+     */
+    this.holdTimeout = setTimeout(() => {
+      if(
+        this.isMouseHold  &&
+        (
+          (!button.includes("{") && !button.includes("}")) ||
+          button === "{bksp}" ||
+          button === "{space}" ||
+          button === "{tab}"
+        )
+      ){
+        if(this.options.debug)
+          console.log("Button held:", button);
+
+        this.handleButtonHold(button, e);
+      }
+      clearTimeout(this.holdTimeout);
+    }, 500);
+  }
+
+  /**
+   * Handles button mouseup
+   */
+  handleButtonMouseUp(){
+    this.isMouseHold = false;
+    if(this.holdInteractionTimeout)
+      clearTimeout(this.holdInteractionTimeout);
+  }
+
+  /**
+   * Handles button hold
+   */
+  /* istanbul ignore next */
+  handleButtonHold(button){
+    /**
+     * @type {object} Timeout dictating the speed of key hold iterations
+     */
+    this.holdInteractionTimeout = setTimeout(() => {
+      this.handleButtonClicked(button);
+      this.handleButtonHold(button);
+    }, 100);
   }
 
   /**
@@ -267,6 +328,11 @@ class SimpleKeyboard {
     option = option || {};
     this.options = Object.assign(this.options, option);
     this.render();
+
+    /**
+     * Apply modules
+     */
+    this.loadModules();
   }
 
   /**
@@ -480,9 +546,30 @@ class SimpleKeyboard {
    * Register module
    */
   registerModule = (name, initCallback) => {
-    this.modules[name] = {};
+    if(!this.modules[name])
+      this.modules[name] = {};
 
     initCallback(this.modules[name]);
+  }
+
+  /**
+   * Load modules
+   */
+  loadModules(){
+    if(Array.isArray(this.options.modules)){
+      this.options.modules.forEach(Module => {
+        let module = new Module();
+
+        /* istanbul ignore next */
+        if(module.constructor.name && module.constructor.name !== "Function"){
+          this.keyboardDOM.classList.add(
+            `module-${this.utilities.camelCase(module.constructor.name)}`
+          );
+        }
+
+        module.init(this);
+      });
+    }
   }
 
   /**
@@ -579,6 +666,7 @@ class SimpleKeyboard {
         var buttonDOM = document.createElement('div');
         buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? " "+buttonThemeClass : ""}`;
         buttonDOM.onclick = () => this.handleButtonClicked(button);
+        buttonDOM.onmousedown = (e) => this.handleButtonMouseDown(button, e);
 
         /**
          * Adding identifier
@@ -635,6 +723,11 @@ class SimpleKeyboard {
        * Ensures that onInit is only called once per instantiation
        */
       this.initialized = true;
+
+      /**
+       * Handling mouseup
+       */
+      document.onmouseup = () => this.handleButtonMouseUp();
 
       /**
        * Calling onInit
