@@ -64,6 +64,11 @@ class SimpleKeyboard {
     this.options.inputName = this.options.inputName || "default";
 
     /**
+     * @type {object} Classes identifying loaded plugins
+     */
+    this.keyboardPluginClasses = '';
+
+    /**
      * Bindings
      */
     this.handleButtonClicked = this.handleButtonClicked.bind(this);
@@ -557,11 +562,11 @@ class SimpleKeyboard {
 
         /* istanbul ignore next */
         if(module.constructor.name && module.constructor.name !== "Function"){
-          this.keyboardDOM.classList.add(
-            `module-${this.utilities.camelCase(module.constructor.name)}`
-          );
+          let classStr = `module-${this.utilities.camelCase(module.constructor.name)}`;
+          this.keyboardPluginClasses = this.keyboardPluginClasses + ` ${classStr}`;
         }
 
+        this.render();
         module.init(this);
       });
     }
@@ -633,7 +638,7 @@ class SimpleKeyboard {
     /**
      * Adding themeClass, layoutClass to keyboardDOM
      */
-    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass}`;
+    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${this.keyboardPluginClasses}`;
 
     /**
      * Iterating through each row
