@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/demo/App.js",
-    "content": "import Keyboard from '../lib';\r\nimport './css/App.css';\r\n\r\n/**\r\n * simple-keyboard demo\r\n */\r\nclass App {\r\n  /**\r\n   * Instantiates the demo class\r\n   */\r\n  constructor(){\r\n    document.addEventListener('DOMContentLoaded', this.onDOMLoaded);\r\n\r\n    /**\r\n     * Default input name\r\n     * @type {string}\r\n     */\r\n    this.layoutName = \"default\";\r\n  }\r\n\r\n  /**\r\n   * Executed when the DOM is ready\r\n   */\r\n  onDOMLoaded = () => {\r\n    /**\r\n     * Creates a new simple-keyboard instance\r\n     */\r\n    this.keyboard = new Keyboard({\r\n      debug: true,\r\n      layoutName: this.layoutName,\r\n      onChange: input => this.onChange(input),\r\n      onKeyPress: button => this.onKeyPress(button),\r\n      newLineOnEnter: true,\r\n      physicalKeyboardHighlight: true,\r\n    });\r\n  \r\n    /**\r\n     * Adding preview (demo only)\r\n     */\r\n    document.querySelector('.simple-keyboard').insertAdjacentHTML('beforebegin', `\r\n    <div class=\"simple-keyboard-preview\">\r\n      <textarea class=\"input\"></textarea>\r\n    </div>\r\n    `);\r\n  \r\n    document.querySelector('.input').addEventListener('change', (event) => {\r\n      this.keyboard.setInput(event.target.value);\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Handles shift functionality\r\n   */\r\n  handleShiftButton = () => {\r\n    let layoutName = this.layoutName;\r\n    let shiftToggle = this.layoutName = layoutName === \"default\" ? \"shift\" : \"default\";\r\n  \r\n    this.keyboard.setOptions({\r\n      layoutName: shiftToggle\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Called when simple-keyboard input has changed\r\n   */\r\n  onChange = input => {\r\n    document.querySelector('.input').value = input;\r\n  }\r\n\r\n  /**\r\n   * Called when a simple-keyboard key is pressed\r\n   */\r\n  onKeyPress = button => {\r\n    console.log(\"Button pressed\", button);\r\n  \r\n      /**\r\n       * Shift functionality\r\n       */\r\n      if(button === \"{lock}\" || button === \"{shift}\")\r\n        this.handleShiftButton();\r\n  }\r\n\r\n}\r\n\r\nexport default App;",
+    "content": "import Keyboard from '../lib';\r\nimport './css/App.css';\r\n\r\n/**\r\n * simple-keyboard demo\r\n */\r\nclass App {\r\n  /**\r\n   * Instantiates the demo class\r\n   */\r\n  constructor(){\r\n    document.addEventListener('DOMContentLoaded', this.onDOMLoaded);\r\n\r\n    /**\r\n     * Default input name\r\n     * @type {string}\r\n     */\r\n    this.layoutName = \"default\";\r\n  }\r\n\r\n  /**\r\n   * Executed when the DOM is ready\r\n   */\r\n  onDOMLoaded = () => {\r\n    /**\r\n     * Creates a new simple-keyboard instance\r\n     */\r\n    this.keyboard = new Keyboard({\r\n      //debug: true,\r\n      layoutName: this.layoutName,\r\n      onChange: input => this.onChange(input),\r\n      onKeyPress: button => this.onKeyPress(button),\r\n      newLineOnEnter: true,\r\n      physicalKeyboardHighlight: true,\r\n    });\r\n  \r\n    /**\r\n     * Adding preview (demo only)\r\n     */\r\n    document.querySelector('.simple-keyboard').insertAdjacentHTML('beforebegin', `\r\n    <div class=\"simple-keyboard-preview\">\r\n      <textarea class=\"input\"></textarea>\r\n    </div>\r\n    `);\r\n  \r\n    document.querySelector('.input').addEventListener('change', (event) => {\r\n      this.keyboard.setInput(event.target.value);\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Handles shift functionality\r\n   */\r\n  handleShiftButton = () => {\r\n    let layoutName = this.layoutName;\r\n    let shiftToggle = this.layoutName = layoutName === \"default\" ? \"shift\" : \"default\";\r\n  \r\n    this.keyboard.setOptions({\r\n      layoutName: shiftToggle\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Called when simple-keyboard input has changed\r\n   */\r\n  onChange = input => {\r\n    document.querySelector('.input').value = input;\r\n  }\r\n\r\n  /**\r\n   * Called when a simple-keyboard key is pressed\r\n   */\r\n  onKeyPress = button => {\r\n    console.log(\"Button pressed\", button);\r\n  \r\n      /**\r\n       * Shift functionality\r\n       */\r\n      if(button === \"{lock}\" || button === \"{shift}\")\r\n        this.handleShiftButton();\r\n  }\r\n\r\n}\r\n\r\nexport default App;",
     "static": true,
     "longname": "X:/Dev/simple-keyboard/src/demo/App.js",
     "access": "public",
@@ -715,7 +715,7 @@
     "__docId__": 58,
     "kind": "file",
     "name": "src/lib/components/Keyboard.js",
-    "content": "import './Keyboard.css';\r\n\r\n// Services\r\nimport PhysicalKeyboard from '../services/PhysicalKeyboard';\r\nimport KeyboardLayout from '../services/KeyboardLayout';\r\nimport Utilities from '../services/Utilities';\r\n\r\n/**\r\n * Root class for simple-keyboard\r\n * This class:\r\n * - Parses the options\r\n * - Renders the rows and buttons\r\n * - Handles button functionality\r\n */\r\nclass SimpleKeyboard {\r\n  /**\r\n   * Creates an instance of SimpleKeyboard\r\n   * @param {Array} params If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.\r\n   */\r\n  constructor(...params){\r\n    let keyboardDOMQuery = typeof params[0] === \"string\" ? params[0] : '.simple-keyboard';\r\n    let options = typeof params[0] === \"object\" ? params[0] : params[1];\r\n\r\n    if(!options)\r\n      options = {};\r\n\r\n    /**\r\n     * Initializing Utilities\r\n     */\r\n    this.utilities = new Utilities(this);\r\n\r\n    /**\r\n     * Processing options\r\n     */\r\n    this.keyboardDOM = document.querySelector(keyboardDOMQuery);\r\n\r\n    /**\r\n     * @type {object}\r\n     * @property {object} layout Modify the keyboard layout.\r\n     * @property {string} layoutName Specifies which layout should be used.\r\n     * @property {object} display Replaces variable buttons (such as {bksp}) with a human-friendly name (e.g.: “backspace”).\r\n     * @property {boolean} mergeDisplay By default, when you set the display property, you replace the default one. This setting merges them instead.\r\n     * @property {string} theme A prop to add your own css classes to the keyboard wrapper. You can add multiple classes separated by a space.\r\n     * @property {Array} buttonTheme A prop to add your own css classes to one or several buttons.\r\n     * @property {boolean} debug Runs a console.log every time a key is pressed. Displays the buttons pressed and the current input.\r\n     * @property {boolean} newLineOnEnter Specifies whether clicking the “ENTER” button will input a newline (\\n) or not.\r\n     * @property {boolean} tabCharOnTab Specifies whether clicking the “TAB” button will input a tab character (\\t) or not.\r\n     * @property {string} inputName Allows you to use a single simple-keyboard instance for several inputs.\r\n     * @property {number} maxLength Restrains all of simple-keyboard inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.\r\n     * @property {object} maxLength Restrains simple-keyboard’s individual inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.\r\n     * @property {boolean} syncInstanceInputs When set to true, this option synchronizes the internal input of every simple-keyboard instance.\r\n     * @property {boolean} physicalKeyboardHighlight Enable highlighting of keys pressed on physical keyboard.\r\n     * @property {string} physicalKeyboardHighlightTextColor Define the text color that the physical keyboard highlighted key should have.\r\n     * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have. \r\n     * @property {function(button: string):string} onKeyPress Executes the callback function on key press. Returns button layout name (i.e.: “{shift}”).\r\n     * @property {function(input: string):string} onChange Executes the callback function on input change. Returns the current input’s string.\r\n     * @property {function} onRender Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).\r\n     * @property {function} onInit Executes the callback function once simple-keyboard is rendered for the first time (on initialization).\r\n     * @property {function(inputs: object):object} onChangeAll Executes the callback function on input change. Returns the input object with all defined inputs.\r\n     */\r\n    this.options = options;\r\n    this.options.layoutName = this.options.layoutName || \"default\";\r\n    this.options.theme = this.options.theme || \"hg-theme-default\";\r\n    this.options.inputName = this.options.inputName || \"default\";\r\n\r\n    /**\r\n     * Module namespace\r\n     */\r\n    this.modules = {};\r\n\r\n    /**\r\n     * Bindings\r\n     */\r\n    this.handleButtonClicked = this.handleButtonClicked.bind(this);\r\n    this.syncInstanceInputs = this.syncInstanceInputs.bind(this);\r\n    this.clearInput = this.clearInput.bind(this);\r\n    this.getInput = this.getInput.bind(this);\r\n    this.setInput = this.setInput.bind(this);\r\n    this.replaceInput = this.replaceInput.bind(this);\r\n    this.clear = this.clear.bind(this);\r\n    this.dispatch = this.dispatch.bind(this);\r\n    this.addButtonTheme = this.addButtonTheme.bind(this);\r\n    this.removeButtonTheme = this.removeButtonTheme.bind(this);\r\n    this.getButtonElement = this.getButtonElement.bind(this);\r\n    this.handleCaret = this.handleCaret.bind(this);\r\n    this.caretEventHandler = this.caretEventHandler.bind(this);\r\n    this.onInit = this.onInit.bind(this);\r\n    this.onRender = this.onRender.bind(this);\r\n    this.render = this.render.bind(this);\r\n\r\n    /**\r\n     * simple-keyboard uses a non-persistent internal input to keep track of the entered string (the variable `keyboard.input`).\r\n     * This removes any dependency to input DOM elements. You can type and directly display the value in a div element, for example.\r\n     * @example\r\n     * // To get entered input\r\n     * let input = keyboard.getInput();\r\n     * \r\n     * // To clear entered input.\r\n     * keyboard.clearInput();\r\n     * \r\n     * @type {object}\r\n     * @property {object} default Default SimpleKeyboard internal input.\r\n     * @property {object} myInputName Example input that can be set through `options.inputName:\"myInputName\"`.\r\n     */\r\n    this.input = {};\r\n    this.input[this.options.inputName] = '';\r\n\r\n    /**\r\n     * @type {string} DOM class of the keyboard wrapper, normally \"simple-keyboard\" by default.\r\n     */\r\n    this.keyboardDOMClass = keyboardDOMQuery.split('.').join(\"\");\r\n\r\n    /**\r\n     * @type {object} Contains the DOM elements of every rendered button, the key being the button's layout name (e.g.: \"{enter}\").\r\n     */\r\n    this.buttonElements = {};\r\n\r\n    /**\r\n     * Rendering keyboard\r\n     */\r\n    if(this.keyboardDOM)\r\n      this.render();\r\n    else {\r\n      console.warn(`\"${keyboardDOMQuery}\" was not found in the DOM.`);\r\n      throw new Error(\"KEYBOARD_DOM_ERROR\");\r\n    }\r\n\r\n    /**\r\n     * Saving instance\r\n     * This enables multiple simple-keyboard support with easier management\r\n     */\r\n    if(!window['SimpleKeyboardInstances'])\r\n      window['SimpleKeyboardInstances'] = {};\r\n      \r\n    window['SimpleKeyboardInstances'][this.utilities.camelCase(this.keyboardDOMClass)] = this;\r\n\r\n    /**\r\n     * Physical Keyboard support\r\n     */\r\n    this.physicalKeyboardInterface = new PhysicalKeyboard(this);\r\n  }\r\n  /**\r\n   * Handles clicks made to keyboard buttons\r\n   * @param  {string} button The button's layout name.\r\n   */\r\n  handleButtonClicked(button){\r\n    let debug = this.options.debug;\r\n\r\n    /**\r\n     * Ignoring placeholder buttons\r\n     */\r\n    if(button === '{//}')\r\n      return false;\r\n\r\n    /**\r\n     * Calling onKeyPress\r\n     */\r\n    if(typeof this.options.onKeyPress === \"function\")\r\n      this.options.onKeyPress(button);\r\n    \r\n    if(!this.input[this.options.inputName])\r\n      this.input[this.options.inputName] = '';\r\n\r\n    let updatedInput = this.utilities.getUpdatedInput(button, this.input[this.options.inputName], this.options, this.caretPosition);\r\n\r\n    if(this.input[this.options.inputName] !== updatedInput){\r\n\r\n      /**\r\n       * If maxLength and handleMaxLength yield true, halting\r\n       */\r\n      if(this.options.maxLength && this.utilities.handleMaxLength(this.input, this.options, updatedInput)){\r\n        return false;\r\n      }\r\n\r\n      this.input[this.options.inputName] = updatedInput;\r\n\r\n      if(debug)\r\n        console.log('Input changed:', this.input);\r\n\r\n      /**\r\n       * Enforce syncInstanceInputs, if set\r\n       */\r\n      if(this.options.syncInstanceInputs)\r\n        this.syncInstanceInputs(this.input);\r\n\r\n      /**\r\n       * Calling onChange\r\n       */\r\n      if(typeof this.options.onChange === \"function\")\r\n        this.options.onChange(this.input[this.options.inputName]);\r\n    }\r\n    \r\n    if(debug){\r\n      console.log(\"Key pressed:\", button);\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Send a command to all simple-keyboard instances (if you have several instances).\r\n   */\r\n  syncInstanceInputs(){\r\n    this.dispatch((instance) => {\r\n      instance.replaceInput(this.input);\r\n    });\r\n  }\r\n  \r\n  /**\r\n   * Clear the keyboard’s input.\r\n   * @param {string} [inputName] optional - the internal input to select\r\n   */\r\n  clearInput(inputName){\r\n    inputName = inputName || this.options.inputName;\r\n    this.input[this.options.inputName] = '';\r\n\r\n    /**\r\n     * Enforce syncInstanceInputs, if set\r\n     */\r\n    if(this.options.syncInstanceInputs)\r\n      this.syncInstanceInputs(this.input);\r\n  }\r\n\r\n  /**\r\n   * Get the keyboard’s input (You can also get it from the onChange prop).\r\n   * @param  {string} [inputName] optional - the internal input to select\r\n   */\r\n  getInput(inputName){\r\n    inputName = inputName || this.options.inputName;\r\n\r\n    /**\r\n     * Enforce syncInstanceInputs, if set\r\n     */\r\n    if(this.options.syncInstanceInputs)\r\n      this.syncInstanceInputs(this.input);\r\n\r\n    return this.input[this.options.inputName];\r\n  }\r\n\r\n  /**\r\n   * Set the keyboard’s input.\r\n   * @param  {string} input the input value\r\n   * @param  {string} inputName optional - the internal input to select\r\n   */\r\n  setInput(input, inputName){\r\n    inputName = inputName || this.options.inputName;\r\n    this.input[inputName] = input;\r\n\r\n    /**\r\n     * Enforce syncInstanceInputs, if set\r\n     */\r\n    if(this.options.syncInstanceInputs)\r\n      this.syncInstanceInputs(this.input);\r\n  }\r\n  \r\n  /**\r\n   * Replace the input object (`keyboard.input`)\r\n   * @param  {object} inputObj The input object\r\n   */\r\n  replaceInput(inputObj){\r\n    this.input = inputObj;\r\n  }\r\n\r\n  /**\r\n   * Set new option or modify existing ones after initialization. \r\n   * @param  {object} option The option to set\r\n   */\r\n  setOptions = option => {\r\n    option = option || {};\r\n    this.options = Object.assign(this.options, option);\r\n    this.render();\r\n  }\r\n\r\n  /**\r\n   * Remove all keyboard rows and reset keyboard values.\r\n   * Used interally between re-renders.\r\n   */\r\n  clear(){\r\n    this.keyboardDOM.innerHTML = '';\r\n    this.keyboardDOM.className = this.keyboardDOMClass;\r\n    this.buttonElements = {};\r\n  }\r\n\r\n  /**\r\n   * Send a command to all simple-keyboard instances at once (if you have multiple instances).\r\n   * @param  {function(instance: object, key: string)} callback Function to run on every instance\r\n   */\r\n  dispatch(callback){\r\n    if(!window['SimpleKeyboardInstances']){\r\n      console.warn(`SimpleKeyboardInstances is not defined. Dispatch cannot be called.`);\r\n      throw new Error(\"INSTANCES_VAR_ERROR\");\r\n    }\r\n    \r\n    return Object.keys(window['SimpleKeyboardInstances']).forEach((key) => {\r\n      callback(window['SimpleKeyboardInstances'][key], key);\r\n    })\r\n  }\r\n\r\n  /**\r\n   * Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.\r\n   * @param  {string} buttons List of buttons to select (separated by a space).\r\n   * @param  {string} className Classes to give to the selected buttons (separated by space).\r\n   */\r\n  addButtonTheme(buttons, className){\r\n    if(!className || !buttons)\r\n      return false;\r\n\r\n    buttons.split(\" \").forEach(button => {\r\n      className.split(\" \").forEach(classNameItem => {\r\n        if(!this.options.buttonTheme)\r\n          this.options.buttonTheme = [];\r\n\r\n        let classNameFound = false;\r\n  \r\n        /**\r\n         * If class is already defined, we add button to class definition\r\n         */\r\n        this.options.buttonTheme.map(buttonTheme => {\r\n\r\n          if(buttonTheme.class.split(\" \").includes(classNameItem)){\r\n            classNameFound = true;\r\n            \r\n            let buttonThemeArray = buttonTheme.buttons.split(\" \");\r\n            if(!buttonThemeArray.includes(button)){\r\n              classNameFound = true;\r\n              buttonThemeArray.push(button);\r\n              buttonTheme.buttons = buttonThemeArray.join(\" \");\r\n            }\r\n          }\r\n          return buttonTheme;\r\n        });\r\n\r\n        /**\r\n         * If class is not defined, we create a new entry\r\n         */\r\n        if(!classNameFound){\r\n          this.options.buttonTheme.push({\r\n            class: classNameItem,\r\n            buttons: buttons\r\n          });\r\n        }\r\n\r\n      });\r\n    });\r\n\r\n    this.render();\r\n  }\r\n\r\n  /**\r\n   * Removes/Amends an entry to the `buttonTheme`. Basically a way to remove a class previously added to a button through buttonTheme or addButtonTheme.\r\n   * @param  {string} buttons List of buttons to select (separated by a space).\r\n   * @param  {string} className Classes to give to the selected buttons (separated by space).\r\n   */\r\n  removeButtonTheme(buttons, className){\r\n    /**\r\n     * When called with empty parameters, remove all button themes\r\n     */\r\n    if(!buttons && !className){\r\n      this.options.buttonTheme = [];\r\n      this.render();\r\n      return false;\r\n    }\r\n\r\n    /**\r\n     * If buttons are passed and buttonTheme has items\r\n     */\r\n    if(buttons && Array.isArray(this.options.buttonTheme) && this.options.buttonTheme.length){\r\n      let buttonArray = buttons.split(\" \");\r\n      buttonArray.forEach((button, key) => {\r\n        this.options.buttonTheme.map((buttonTheme, index) => {\r\n\r\n          /**\r\n           * If className is set, we affect the buttons only for that class\r\n           * Otherwise, we afect all classes\r\n           */\r\n          if(\r\n            (className && className.includes(buttonTheme.class)) ||\r\n            !className\r\n          ){\r\n            let filteredButtonArray = buttonTheme.buttons.split(\" \").filter(item => item !== button);\r\n\r\n            /**\r\n             * If buttons left, return them, otherwise, remove button Theme\r\n             */\r\n            if(filteredButtonArray.length){\r\n              buttonTheme.buttons = filteredButtonArray.join(\" \");\r\n            } else {\r\n              this.options.buttonTheme.splice(index, 1);\r\n              buttonTheme = null;\r\n            }\r\n \r\n          }\r\n\r\n          return buttonTheme;\r\n        });\r\n      });\r\n\r\n      this.render();\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.\r\n   * @param  {string} button The button layout name to select\r\n   */\r\n  getButtonElement(button){\r\n    let output;\r\n\r\n    let buttonArr = this.buttonElements[button];\r\n    if(buttonArr){\r\n      if(buttonArr.length > 1){\r\n        output = buttonArr;\r\n      } else {\r\n        output = buttonArr[0];\r\n      }\r\n    }\r\n\r\n    return output;\r\n  }\r\n\r\n  /**\r\n   * Retrieves the current cursor position within a input or textarea (if any)\r\n   */\r\n  handleCaret(){\r\n    if(this.options.debug){\r\n      console.log(\"Caret handling started\");\r\n    }\r\n\r\n    document.addEventListener(\"keyup\", this.caretEventHandler);\r\n    document.addEventListener(\"mouseup\", this.caretEventHandler);\r\n    document.addEventListener(\"touchend\", this.caretEventHandler);\r\n  }\r\n\r\n  /**\r\n   * Called by {@link handleCaret} when an event that warrants a cursor position update is triggered\r\n   */\r\n  caretEventHandler(event){\r\n    let targetTagName = event.target.tagName.toLowerCase();\r\n\r\n    if(\r\n      targetTagName === \"textarea\" ||\r\n      targetTagName === \"input\"\r\n    ){\r\n      /**\r\n       * Tracks current cursor position\r\n       * As keys are pressed, text will be added/removed at that position within the input.\r\n       */\r\n      this.caretPosition = event.target.selectionStart;\r\n\r\n      if(this.options.debug){\r\n        console.log('Caret at: ', event.target.selectionStart, event.target.tagName.toLowerCase());\r\n      }     \r\n    }\r\n  }\r\n\r\n  /**\r\n   * Executes the callback function once simple-keyboard is rendered for the first time (on initialization).\r\n   */\r\n  onInit(){\r\n    if(this.options.debug){\r\n      console.log(\"Initialized\");\r\n    }\r\n\r\n    /**\r\n     * Caret handling\r\n     */\r\n    this.handleCaret();\r\n\r\n    if(typeof this.options.onInit === \"function\")\r\n      this.options.onInit();\r\n  }\r\n\r\n  /**\r\n   * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).\r\n   */\r\n  onRender(){\r\n    if(typeof this.options.onRender === \"function\")\r\n      this.options.onRender();\r\n  }\r\n\r\n  /**\r\n   * Register module\r\n   */\r\n  registerModule = (name, initCallback) => {\r\n    this.modules[name] = {};\r\n\r\n    initCallback(this.modules[name]);\r\n  }\r\n\r\n  /**\r\n   * Get module prop\r\n   */\r\n  getModuleProp = (name, prop) => {\r\n    if(!this.modules[name])\r\n      return false;\r\n    \r\n    return this.modules[name][prop];\r\n  }\r\n\r\n  /**\r\n   * getModulesList\r\n   */\r\n  getModulesList = () => {\r\n    return Object.keys(this.modules);\r\n  }\r\n\r\n  /**\r\n   * Renders rows and buttons as per options\r\n   */\r\n  render(){\r\n    /**\r\n     * Clear keyboard\r\n     */\r\n    this.clear();\r\n\r\n    let layoutClass = this.options.layout ? \"hg-layout-custom\" : `hg-layout-${this.options.layoutName}`;\r\n    let layout = this.options.layout || KeyboardLayout.getDefaultLayout();\r\n\r\n    /**\r\n     * Account for buttonTheme, if set\r\n     */\r\n    let buttonThemesParsed = {};\r\n    if(Array.isArray(this.options.buttonTheme)){\r\n      this.options.buttonTheme.forEach(themeObj => {\r\n        if(themeObj.buttons && themeObj.class){\r\n          let themeButtons;\r\n\r\n          if(typeof themeObj.buttons === \"string\"){\r\n            themeButtons = themeObj.buttons.split(' ');\r\n          }\r\n\r\n          if(themeButtons){\r\n            themeButtons.forEach(themeButton => {\r\n              let themeParsed = buttonThemesParsed[themeButton];\r\n\r\n              // If the button has already been added\r\n              if(themeParsed){\r\n                // Making sure we don't add duplicate classes, even when buttonTheme has duplicates\r\n                if(!this.utilities.countInArray(themeParsed.split(\" \"), themeObj.class)){\r\n                  buttonThemesParsed[themeButton] = `${themeParsed} ${themeObj.class}`;\r\n                }\r\n              } else {\r\n                buttonThemesParsed[themeButton] = themeObj.class;\r\n              }\r\n            });\r\n          }\r\n        } else {\r\n          console.warn(`buttonTheme row is missing the \"buttons\" or the \"class\". Please check the documentation.`)\r\n        }\r\n      });\r\n    }\r\n\r\n    /**\r\n     * Adding themeClass, layoutClass to keyboardDOM\r\n     */\r\n    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass}`;\r\n\r\n    /**\r\n     * Iterating through each row\r\n     */\r\n    layout[this.options.layoutName].forEach((row, rIndex) => {\r\n      let rowArray = row.split(' ');\r\n\r\n      /**\r\n       * Creating empty row\r\n       */\r\n      var rowDOM = document.createElement('div');\r\n      rowDOM.className += \"hg-row\";\r\n\r\n      /**\r\n       * Iterating through each button in row\r\n       */\r\n      rowArray.forEach((button, bIndex) => {\r\n        let fctBtnClass = this.utilities.getButtonClass(button);\r\n        let buttonThemeClass = buttonThemesParsed[button];\r\n        let buttonDisplayName = this.utilities.getButtonDisplayName(button, this.options.display, this.options.mergeDisplay);\r\n\r\n        /**\r\n         * Creating button\r\n         */\r\n        var buttonDOM = document.createElement('div');\r\n        buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? \" \"+buttonThemeClass : \"\"}`;\r\n        buttonDOM.onclick = () => this.handleButtonClicked(button);\r\n\r\n        /**\r\n         * Adding identifier\r\n         */\r\n        buttonDOM.setAttribute(\"data-skBtn\", button);\r\n\r\n        /**\r\n         * Adding unique id\r\n         * Since there's no limit on spawning same buttons, the unique id ensures you can style every button\r\n         */\r\n        let buttonUID = `${this.options.layoutName}-r${rIndex}b${bIndex}`;\r\n        buttonDOM.setAttribute(\"data-skBtnUID\", buttonUID);\r\n\r\n        /**\r\n         * Adding display label\r\n         */\r\n        buttonDOM.setAttribute(\"data-displayLabel\", buttonDisplayName);\r\n\r\n        /**\r\n         * Adding button label to button\r\n         */\r\n        var buttonSpanDOM = document.createElement('span');\r\n        buttonSpanDOM.innerHTML = buttonDisplayName;\r\n        buttonDOM.appendChild(buttonSpanDOM);\r\n\r\n        /**\r\n         * Adding to buttonElements\r\n         */\r\n        if(!this.buttonElements[button])\r\n          this.buttonElements[button] = [];\r\n\r\n        this.buttonElements[button].push(buttonDOM);\r\n\r\n        /**\r\n         * Appending button to row\r\n         */\r\n        rowDOM.appendChild(buttonDOM);\r\n\r\n      });\r\n\r\n      /**\r\n       * Appending row to keyboard\r\n       */\r\n      this.keyboardDOM.appendChild(rowDOM);\r\n    });\r\n\r\n    /**\r\n     * Calling onRender\r\n     */\r\n    this.onRender();\r\n\r\n    if(!this.initialized){\r\n      /**\r\n       * Ensures that onInit is only called once per instantiation\r\n       */\r\n      this.initialized = true;\r\n\r\n      /**\r\n       * Calling onInit\r\n       */\r\n      this.onInit();\r\n    }\r\n  }\r\n}\r\n\r\nexport default SimpleKeyboard;\r\n",
+    "content": "import './Keyboard.css';\r\n\r\n// Services\r\nimport PhysicalKeyboard from '../services/PhysicalKeyboard';\r\nimport KeyboardLayout from '../services/KeyboardLayout';\r\nimport Utilities from '../services/Utilities';\r\n\r\n/**\r\n * Root class for simple-keyboard\r\n * This class:\r\n * - Parses the options\r\n * - Renders the rows and buttons\r\n * - Handles button functionality\r\n */\r\nclass SimpleKeyboard {\r\n  /**\r\n   * Creates an instance of SimpleKeyboard\r\n   * @param {Array} params If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.\r\n   */\r\n  constructor(...params){\r\n    let keyboardDOMQuery = typeof params[0] === \"string\" ? params[0] : '.simple-keyboard';\r\n    let options = typeof params[0] === \"object\" ? params[0] : params[1];\r\n\r\n    if(!options)\r\n      options = {};\r\n\r\n    /**\r\n     * Initializing Utilities\r\n     */\r\n    this.utilities = new Utilities(this);\r\n\r\n    /**\r\n     * Processing options\r\n     */\r\n    this.keyboardDOM = document.querySelector(keyboardDOMQuery);\r\n\r\n    /**\r\n     * @type {object}\r\n     * @property {object} layout Modify the keyboard layout.\r\n     * @property {string} layoutName Specifies which layout should be used.\r\n     * @property {object} display Replaces variable buttons (such as {bksp}) with a human-friendly name (e.g.: “backspace”).\r\n     * @property {boolean} mergeDisplay By default, when you set the display property, you replace the default one. This setting merges them instead.\r\n     * @property {string} theme A prop to add your own css classes to the keyboard wrapper. You can add multiple classes separated by a space.\r\n     * @property {Array} buttonTheme A prop to add your own css classes to one or several buttons.\r\n     * @property {boolean} debug Runs a console.log every time a key is pressed. Displays the buttons pressed and the current input.\r\n     * @property {boolean} newLineOnEnter Specifies whether clicking the “ENTER” button will input a newline (\\n) or not.\r\n     * @property {boolean} tabCharOnTab Specifies whether clicking the “TAB” button will input a tab character (\\t) or not.\r\n     * @property {string} inputName Allows you to use a single simple-keyboard instance for several inputs.\r\n     * @property {number} maxLength Restrains all of simple-keyboard inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.\r\n     * @property {object} maxLength Restrains simple-keyboard’s individual inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.\r\n     * @property {boolean} syncInstanceInputs When set to true, this option synchronizes the internal input of every simple-keyboard instance.\r\n     * @property {boolean} physicalKeyboardHighlight Enable highlighting of keys pressed on physical keyboard.\r\n     * @property {string} physicalKeyboardHighlightTextColor Define the text color that the physical keyboard highlighted key should have.\r\n     * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have. \r\n     * @property {function(button: string):string} onKeyPress Executes the callback function on key press. Returns button layout name (i.e.: “{shift}”).\r\n     * @property {function(input: string):string} onChange Executes the callback function on input change. Returns the current input’s string.\r\n     * @property {function} onRender Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).\r\n     * @property {function} onInit Executes the callback function once simple-keyboard is rendered for the first time (on initialization).\r\n     * @property {function(inputs: object):object} onChangeAll Executes the callback function on input change. Returns the input object with all defined inputs.\r\n     */\r\n    this.options = options;\r\n    this.options.layoutName = this.options.layoutName || \"default\";\r\n    this.options.theme = this.options.theme || \"hg-theme-default\";\r\n    this.options.inputName = this.options.inputName || \"default\";\r\n\r\n    /**\r\n     * Bindings\r\n     */\r\n    this.handleButtonClicked = this.handleButtonClicked.bind(this);\r\n    this.syncInstanceInputs = this.syncInstanceInputs.bind(this);\r\n    this.clearInput = this.clearInput.bind(this);\r\n    this.getInput = this.getInput.bind(this);\r\n    this.setInput = this.setInput.bind(this);\r\n    this.replaceInput = this.replaceInput.bind(this);\r\n    this.clear = this.clear.bind(this);\r\n    this.dispatch = this.dispatch.bind(this);\r\n    this.addButtonTheme = this.addButtonTheme.bind(this);\r\n    this.removeButtonTheme = this.removeButtonTheme.bind(this);\r\n    this.getButtonElement = this.getButtonElement.bind(this);\r\n    this.handleCaret = this.handleCaret.bind(this);\r\n    this.caretEventHandler = this.caretEventHandler.bind(this);\r\n    this.onInit = this.onInit.bind(this);\r\n    this.onRender = this.onRender.bind(this);\r\n    this.render = this.render.bind(this);\r\n    this.loadModules = this.loadModules.bind(this);\r\n    this.handleButtonMouseUp = this.handleButtonMouseUp.bind(this);\r\n    this.handleButtonMouseDown = this.handleButtonMouseDown.bind(this);\r\n    this.handleButtonHold = this.handleButtonHold.bind(this);\r\n\r\n    /**\r\n     * simple-keyboard uses a non-persistent internal input to keep track of the entered string (the variable `keyboard.input`).\r\n     * This removes any dependency to input DOM elements. You can type and directly display the value in a div element, for example.\r\n     * @example\r\n     * // To get entered input\r\n     * let input = keyboard.getInput();\r\n     * \r\n     * // To clear entered input.\r\n     * keyboard.clearInput();\r\n     * \r\n     * @type {object}\r\n     * @property {object} default Default SimpleKeyboard internal input.\r\n     * @property {object} myInputName Example input that can be set through `options.inputName:\"myInputName\"`.\r\n     */\r\n    this.input = {};\r\n    this.input[this.options.inputName] = '';\r\n\r\n    /**\r\n     * @type {string} DOM class of the keyboard wrapper, normally \"simple-keyboard\" by default.\r\n     */\r\n    this.keyboardDOMClass = keyboardDOMQuery.split('.').join(\"\");\r\n\r\n    /**\r\n     * @type {object} Contains the DOM elements of every rendered button, the key being the button's layout name (e.g.: \"{enter}\").\r\n     */\r\n    this.buttonElements = {};\r\n\r\n    /**\r\n     * Rendering keyboard\r\n     */\r\n    if(this.keyboardDOM)\r\n      this.render();\r\n    else {\r\n      console.warn(`\"${keyboardDOMQuery}\" was not found in the DOM.`);\r\n      throw new Error(\"KEYBOARD_DOM_ERROR\");\r\n    }\r\n\r\n    /**\r\n     * Saving instance\r\n     * This enables multiple simple-keyboard support with easier management\r\n     */\r\n    if(!window['SimpleKeyboardInstances'])\r\n      window['SimpleKeyboardInstances'] = {};\r\n      \r\n    window['SimpleKeyboardInstances'][this.utilities.camelCase(this.keyboardDOMClass)] = this;\r\n\r\n    /**\r\n     * Physical Keyboard support\r\n     */\r\n    this.physicalKeyboardInterface = new PhysicalKeyboard(this);\r\n\r\n    /**\r\n     * Modules\r\n     */\r\n    this.modules = {};\r\n    this.loadModules();\r\n  }\r\n\r\n  /**\r\n   * Handles clicks made to keyboard buttons\r\n   * @param  {string} button The button's layout name.\r\n   */\r\n  handleButtonClicked(button){\r\n    let debug = this.options.debug;\r\n\r\n    /**\r\n     * Ignoring placeholder buttons\r\n     */\r\n    if(button === '{//}')\r\n      return false;\r\n\r\n    /**\r\n     * Calling onKeyPress\r\n     */\r\n    if(typeof this.options.onKeyPress === \"function\")\r\n      this.options.onKeyPress(button);\r\n    \r\n    if(!this.input[this.options.inputName])\r\n      this.input[this.options.inputName] = '';\r\n\r\n    let updatedInput = this.utilities.getUpdatedInput(button, this.input[this.options.inputName], this.options, this.caretPosition);\r\n\r\n    if(this.input[this.options.inputName] !== updatedInput){\r\n\r\n      /**\r\n       * If maxLength and handleMaxLength yield true, halting\r\n       */\r\n      if(this.options.maxLength && this.utilities.handleMaxLength(this.input, this.options, updatedInput)){\r\n        return false;\r\n      }\r\n\r\n      this.input[this.options.inputName] = updatedInput;\r\n\r\n      if(debug)\r\n        console.log('Input changed:', this.input);\r\n\r\n      /**\r\n       * Enforce syncInstanceInputs, if set\r\n       */\r\n      if(this.options.syncInstanceInputs)\r\n        this.syncInstanceInputs(this.input);\r\n\r\n      /**\r\n       * Calling onChange\r\n       */\r\n      if(typeof this.options.onChange === \"function\")\r\n        this.options.onChange(this.input[this.options.inputName]);\r\n    }\r\n    \r\n    if(debug){\r\n      console.log(\"Key pressed:\", button);\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Handles button mousedown\r\n   */\r\n  /* istanbul ignore next */\r\n  handleButtonMouseDown(button, e){\r\n    /**\r\n     * @type {boolean} Whether the mouse is being held onKeyPress\r\n     */\r\n    this.isMouseHold = true;\r\n\r\n    /**\r\n     * @type {object} Time to wait until a key hold is detected\r\n     */\r\n    this.holdTimeout = setTimeout(() => {\r\n      if(\r\n        this.isMouseHold  &&\r\n        (\r\n          (!button.includes(\"{\") && !button.includes(\"}\")) ||\r\n          button === \"{bksp}\" ||\r\n          button === \"{space}\" ||\r\n          button === \"{tab}\"\r\n        )\r\n      ){\r\n        if(this.options.debug)\r\n          console.log(\"Button held:\", button);\r\n\r\n        this.handleButtonHold(button, e);\r\n      }\r\n      clearTimeout(this.holdTimeout);\r\n    }, 500);\r\n  }\r\n\r\n  /**\r\n   * Handles button mouseup\r\n   */\r\n  handleButtonMouseUp(){\r\n    this.isMouseHold = false;\r\n    if(this.holdInteractionTimeout)\r\n      clearTimeout(this.holdInteractionTimeout);\r\n  }\r\n\r\n  /**\r\n   * Handles button hold\r\n   */\r\n  /* istanbul ignore next */\r\n  handleButtonHold(button){\r\n    /**\r\n     * @type {object} Timeout dictating the speed of key hold iterations\r\n     */\r\n    this.holdInteractionTimeout = setTimeout(() => {\r\n      this.handleButtonClicked(button);\r\n      this.handleButtonHold(button);\r\n    }, 100);\r\n  }\r\n\r\n  /**\r\n   * Send a command to all simple-keyboard instances (if you have several instances).\r\n   */\r\n  syncInstanceInputs(){\r\n    this.dispatch((instance) => {\r\n      instance.replaceInput(this.input);\r\n    });\r\n  }\r\n  \r\n  /**\r\n   * Clear the keyboard’s input.\r\n   * @param {string} [inputName] optional - the internal input to select\r\n   */\r\n  clearInput(inputName){\r\n    inputName = inputName || this.options.inputName;\r\n    this.input[this.options.inputName] = '';\r\n\r\n    /**\r\n     * Enforce syncInstanceInputs, if set\r\n     */\r\n    if(this.options.syncInstanceInputs)\r\n      this.syncInstanceInputs(this.input);\r\n  }\r\n\r\n  /**\r\n   * Get the keyboard’s input (You can also get it from the onChange prop).\r\n   * @param  {string} [inputName] optional - the internal input to select\r\n   */\r\n  getInput(inputName){\r\n    inputName = inputName || this.options.inputName;\r\n\r\n    /**\r\n     * Enforce syncInstanceInputs, if set\r\n     */\r\n    if(this.options.syncInstanceInputs)\r\n      this.syncInstanceInputs(this.input);\r\n\r\n    return this.input[this.options.inputName];\r\n  }\r\n\r\n  /**\r\n   * Set the keyboard’s input.\r\n   * @param  {string} input the input value\r\n   * @param  {string} inputName optional - the internal input to select\r\n   */\r\n  setInput(input, inputName){\r\n    inputName = inputName || this.options.inputName;\r\n    this.input[inputName] = input;\r\n\r\n    /**\r\n     * Enforce syncInstanceInputs, if set\r\n     */\r\n    if(this.options.syncInstanceInputs)\r\n      this.syncInstanceInputs(this.input);\r\n  }\r\n  \r\n  /**\r\n   * Replace the input object (`keyboard.input`)\r\n   * @param  {object} inputObj The input object\r\n   */\r\n  replaceInput(inputObj){\r\n    this.input = inputObj;\r\n  }\r\n\r\n  /**\r\n   * Set new option or modify existing ones after initialization. \r\n   * @param  {object} option The option to set\r\n   */\r\n  setOptions = option => {\r\n    option = option || {};\r\n    this.options = Object.assign(this.options, option);\r\n    this.render();\r\n\r\n    /**\r\n     * Apply modules\r\n     */\r\n    this.loadModules();\r\n  }\r\n\r\n  /**\r\n   * Remove all keyboard rows and reset keyboard values.\r\n   * Used interally between re-renders.\r\n   */\r\n  clear(){\r\n    this.keyboardDOM.innerHTML = '';\r\n    this.keyboardDOM.className = this.keyboardDOMClass;\r\n    this.buttonElements = {};\r\n  }\r\n\r\n  /**\r\n   * Send a command to all simple-keyboard instances at once (if you have multiple instances).\r\n   * @param  {function(instance: object, key: string)} callback Function to run on every instance\r\n   */\r\n  dispatch(callback){\r\n    if(!window['SimpleKeyboardInstances']){\r\n      console.warn(`SimpleKeyboardInstances is not defined. Dispatch cannot be called.`);\r\n      throw new Error(\"INSTANCES_VAR_ERROR\");\r\n    }\r\n    \r\n    return Object.keys(window['SimpleKeyboardInstances']).forEach((key) => {\r\n      callback(window['SimpleKeyboardInstances'][key], key);\r\n    })\r\n  }\r\n\r\n  /**\r\n   * Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.\r\n   * @param  {string} buttons List of buttons to select (separated by a space).\r\n   * @param  {string} className Classes to give to the selected buttons (separated by space).\r\n   */\r\n  addButtonTheme(buttons, className){\r\n    if(!className || !buttons)\r\n      return false;\r\n\r\n    buttons.split(\" \").forEach(button => {\r\n      className.split(\" \").forEach(classNameItem => {\r\n        if(!this.options.buttonTheme)\r\n          this.options.buttonTheme = [];\r\n\r\n        let classNameFound = false;\r\n  \r\n        /**\r\n         * If class is already defined, we add button to class definition\r\n         */\r\n        this.options.buttonTheme.map(buttonTheme => {\r\n\r\n          if(buttonTheme.class.split(\" \").includes(classNameItem)){\r\n            classNameFound = true;\r\n            \r\n            let buttonThemeArray = buttonTheme.buttons.split(\" \");\r\n            if(!buttonThemeArray.includes(button)){\r\n              classNameFound = true;\r\n              buttonThemeArray.push(button);\r\n              buttonTheme.buttons = buttonThemeArray.join(\" \");\r\n            }\r\n          }\r\n          return buttonTheme;\r\n        });\r\n\r\n        /**\r\n         * If class is not defined, we create a new entry\r\n         */\r\n        if(!classNameFound){\r\n          this.options.buttonTheme.push({\r\n            class: classNameItem,\r\n            buttons: buttons\r\n          });\r\n        }\r\n\r\n      });\r\n    });\r\n\r\n    this.render();\r\n  }\r\n\r\n  /**\r\n   * Removes/Amends an entry to the `buttonTheme`. Basically a way to remove a class previously added to a button through buttonTheme or addButtonTheme.\r\n   * @param  {string} buttons List of buttons to select (separated by a space).\r\n   * @param  {string} className Classes to give to the selected buttons (separated by space).\r\n   */\r\n  removeButtonTheme(buttons, className){\r\n    /**\r\n     * When called with empty parameters, remove all button themes\r\n     */\r\n    if(!buttons && !className){\r\n      this.options.buttonTheme = [];\r\n      this.render();\r\n      return false;\r\n    }\r\n\r\n    /**\r\n     * If buttons are passed and buttonTheme has items\r\n     */\r\n    if(buttons && Array.isArray(this.options.buttonTheme) && this.options.buttonTheme.length){\r\n      let buttonArray = buttons.split(\" \");\r\n      buttonArray.forEach((button, key) => {\r\n        this.options.buttonTheme.map((buttonTheme, index) => {\r\n\r\n          /**\r\n           * If className is set, we affect the buttons only for that class\r\n           * Otherwise, we afect all classes\r\n           */\r\n          if(\r\n            (className && className.includes(buttonTheme.class)) ||\r\n            !className\r\n          ){\r\n            let filteredButtonArray = buttonTheme.buttons.split(\" \").filter(item => item !== button);\r\n\r\n            /**\r\n             * If buttons left, return them, otherwise, remove button Theme\r\n             */\r\n            if(filteredButtonArray.length){\r\n              buttonTheme.buttons = filteredButtonArray.join(\" \");\r\n            } else {\r\n              this.options.buttonTheme.splice(index, 1);\r\n              buttonTheme = null;\r\n            }\r\n \r\n          }\r\n\r\n          return buttonTheme;\r\n        });\r\n      });\r\n\r\n      this.render();\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.\r\n   * @param  {string} button The button layout name to select\r\n   */\r\n  getButtonElement(button){\r\n    let output;\r\n\r\n    let buttonArr = this.buttonElements[button];\r\n    if(buttonArr){\r\n      if(buttonArr.length > 1){\r\n        output = buttonArr;\r\n      } else {\r\n        output = buttonArr[0];\r\n      }\r\n    }\r\n\r\n    return output;\r\n  }\r\n\r\n  /**\r\n   * Retrieves the current cursor position within a input or textarea (if any)\r\n   */\r\n  handleCaret(){\r\n    if(this.options.debug){\r\n      console.log(\"Caret handling started\");\r\n    }\r\n\r\n    document.addEventListener(\"keyup\", this.caretEventHandler);\r\n    document.addEventListener(\"mouseup\", this.caretEventHandler);\r\n    document.addEventListener(\"touchend\", this.caretEventHandler);\r\n  }\r\n\r\n  /**\r\n   * Called by {@link handleCaret} when an event that warrants a cursor position update is triggered\r\n   */\r\n  caretEventHandler(event){\r\n    let targetTagName = event.target.tagName.toLowerCase();\r\n\r\n    if(\r\n      targetTagName === \"textarea\" ||\r\n      targetTagName === \"input\"\r\n    ){\r\n      /**\r\n       * Tracks current cursor position\r\n       * As keys are pressed, text will be added/removed at that position within the input.\r\n       */\r\n      this.caretPosition = event.target.selectionStart;\r\n\r\n      if(this.options.debug){\r\n        console.log('Caret at: ', event.target.selectionStart, event.target.tagName.toLowerCase());\r\n      }     \r\n    }\r\n  }\r\n\r\n  /**\r\n   * Executes the callback function once simple-keyboard is rendered for the first time (on initialization).\r\n   */\r\n  onInit(){\r\n    if(this.options.debug){\r\n      console.log(\"Initialized\");\r\n    }\r\n\r\n    /**\r\n     * Caret handling\r\n     */\r\n    this.handleCaret();\r\n\r\n    if(typeof this.options.onInit === \"function\")\r\n      this.options.onInit();\r\n  }\r\n\r\n  /**\r\n   * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).\r\n   */\r\n  onRender(){\r\n    if(typeof this.options.onRender === \"function\")\r\n      this.options.onRender();\r\n  }\r\n\r\n  /**\r\n   * Register module\r\n   */\r\n  registerModule = (name, initCallback) => {\r\n    if(!this.modules[name])\r\n      this.modules[name] = {};\r\n\r\n    initCallback(this.modules[name]);\r\n  }\r\n\r\n  /**\r\n   * Load modules\r\n   */\r\n  loadModules(){\r\n    if(Array.isArray(this.options.modules)){\r\n      this.options.modules.forEach(Module => {\r\n        let module = new Module();\r\n\r\n        /* istanbul ignore next */\r\n        if(module.constructor.name && module.constructor.name !== \"Function\"){\r\n          this.keyboardDOM.classList.add(\r\n            `module-${this.utilities.camelCase(module.constructor.name)}`\r\n          );\r\n        }\r\n\r\n        module.init(this);\r\n      });\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Get module prop\r\n   */\r\n  getModuleProp = (name, prop) => {\r\n    if(!this.modules[name])\r\n      return false;\r\n    \r\n    return this.modules[name][prop];\r\n  }\r\n\r\n  /**\r\n   * getModulesList\r\n   */\r\n  getModulesList = () => {\r\n    return Object.keys(this.modules);\r\n  }\r\n\r\n  /**\r\n   * Renders rows and buttons as per options\r\n   */\r\n  render(){\r\n    /**\r\n     * Clear keyboard\r\n     */\r\n    this.clear();\r\n\r\n    let layoutClass = this.options.layout ? \"hg-layout-custom\" : `hg-layout-${this.options.layoutName}`;\r\n    let layout = this.options.layout || KeyboardLayout.getDefaultLayout();\r\n\r\n    /**\r\n     * Account for buttonTheme, if set\r\n     */\r\n    let buttonThemesParsed = {};\r\n    if(Array.isArray(this.options.buttonTheme)){\r\n      this.options.buttonTheme.forEach(themeObj => {\r\n        if(themeObj.buttons && themeObj.class){\r\n          let themeButtons;\r\n\r\n          if(typeof themeObj.buttons === \"string\"){\r\n            themeButtons = themeObj.buttons.split(' ');\r\n          }\r\n\r\n          if(themeButtons){\r\n            themeButtons.forEach(themeButton => {\r\n              let themeParsed = buttonThemesParsed[themeButton];\r\n\r\n              // If the button has already been added\r\n              if(themeParsed){\r\n                // Making sure we don't add duplicate classes, even when buttonTheme has duplicates\r\n                if(!this.utilities.countInArray(themeParsed.split(\" \"), themeObj.class)){\r\n                  buttonThemesParsed[themeButton] = `${themeParsed} ${themeObj.class}`;\r\n                }\r\n              } else {\r\n                buttonThemesParsed[themeButton] = themeObj.class;\r\n              }\r\n            });\r\n          }\r\n        } else {\r\n          console.warn(`buttonTheme row is missing the \"buttons\" or the \"class\". Please check the documentation.`)\r\n        }\r\n      });\r\n    }\r\n\r\n    /**\r\n     * Adding themeClass, layoutClass to keyboardDOM\r\n     */\r\n    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass}`;\r\n\r\n    /**\r\n     * Iterating through each row\r\n     */\r\n    layout[this.options.layoutName].forEach((row, rIndex) => {\r\n      let rowArray = row.split(' ');\r\n\r\n      /**\r\n       * Creating empty row\r\n       */\r\n      var rowDOM = document.createElement('div');\r\n      rowDOM.className += \"hg-row\";\r\n\r\n      /**\r\n       * Iterating through each button in row\r\n       */\r\n      rowArray.forEach((button, bIndex) => {\r\n        let fctBtnClass = this.utilities.getButtonClass(button);\r\n        let buttonThemeClass = buttonThemesParsed[button];\r\n        let buttonDisplayName = this.utilities.getButtonDisplayName(button, this.options.display, this.options.mergeDisplay);\r\n\r\n        /**\r\n         * Creating button\r\n         */\r\n        var buttonDOM = document.createElement('div');\r\n        buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? \" \"+buttonThemeClass : \"\"}`;\r\n        buttonDOM.onclick = () => this.handleButtonClicked(button);\r\n        buttonDOM.onmousedown = (e) => this.handleButtonMouseDown(button, e);\r\n\r\n        /**\r\n         * Adding identifier\r\n         */\r\n        buttonDOM.setAttribute(\"data-skBtn\", button);\r\n\r\n        /**\r\n         * Adding unique id\r\n         * Since there's no limit on spawning same buttons, the unique id ensures you can style every button\r\n         */\r\n        let buttonUID = `${this.options.layoutName}-r${rIndex}b${bIndex}`;\r\n        buttonDOM.setAttribute(\"data-skBtnUID\", buttonUID);\r\n\r\n        /**\r\n         * Adding display label\r\n         */\r\n        buttonDOM.setAttribute(\"data-displayLabel\", buttonDisplayName);\r\n\r\n        /**\r\n         * Adding button label to button\r\n         */\r\n        var buttonSpanDOM = document.createElement('span');\r\n        buttonSpanDOM.innerHTML = buttonDisplayName;\r\n        buttonDOM.appendChild(buttonSpanDOM);\r\n\r\n        /**\r\n         * Adding to buttonElements\r\n         */\r\n        if(!this.buttonElements[button])\r\n          this.buttonElements[button] = [];\r\n\r\n        this.buttonElements[button].push(buttonDOM);\r\n\r\n        /**\r\n         * Appending button to row\r\n         */\r\n        rowDOM.appendChild(buttonDOM);\r\n\r\n      });\r\n\r\n      /**\r\n       * Appending row to keyboard\r\n       */\r\n      this.keyboardDOM.appendChild(rowDOM);\r\n    });\r\n\r\n    /**\r\n     * Calling onRender\r\n     */\r\n    this.onRender();\r\n\r\n    if(!this.initialized){\r\n      /**\r\n       * Ensures that onInit is only called once per instantiation\r\n       */\r\n      this.initialized = true;\r\n\r\n      /**\r\n       * Handling mouseup\r\n       */\r\n      document.onmouseup = () => this.handleButtonMouseUp();\r\n\r\n      /**\r\n       * Calling onInit\r\n       */\r\n      this.onInit();\r\n    }\r\n  }\r\n}\r\n\r\nexport default SimpleKeyboard;\r\n",
     "static": true,
     "longname": "X:/Dev/simple-keyboard/src/lib/components/Keyboard.js",
     "access": "public",
@@ -1026,23 +1026,7 @@
     }
   },
   {
-    "__docId__": 64,
-    "kind": "member",
-    "name": "modules",
-    "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
-    "static": false,
-    "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#modules",
-    "access": "public",
-    "description": "Module namespace",
-    "lineNumber": 69,
-    "type": {
-      "types": [
-        "{}"
-      ]
-    }
-  },
-  {
-    "__docId__": 81,
+    "__docId__": 84,
     "kind": "member",
     "name": "input",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1053,7 +1037,7 @@
     "examples": [
       "// To get entered input\nlet input = keyboard.getInput();\n\n// To clear entered input.\nkeyboard.clearInput();"
     ],
-    "lineNumber": 105,
+    "lineNumber": 104,
     "properties": [
       {
         "nullable": null,
@@ -1086,7 +1070,7 @@
     }
   },
   {
-    "__docId__": 82,
+    "__docId__": 85,
     "kind": "member",
     "name": "keyboardDOMClass",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1094,7 +1078,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#keyboardDOMClass",
     "access": "public",
     "description": "",
-    "lineNumber": 111,
+    "lineNumber": 110,
     "type": {
       "nullable": null,
       "types": [
@@ -1105,7 +1089,7 @@
     }
   },
   {
-    "__docId__": 83,
+    "__docId__": 86,
     "kind": "member",
     "name": "buttonElements",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1113,7 +1097,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#buttonElements",
     "access": "public",
     "description": "",
-    "lineNumber": 116,
+    "lineNumber": 115,
     "type": {
       "nullable": null,
       "types": [
@@ -1124,7 +1108,7 @@
     }
   },
   {
-    "__docId__": 84,
+    "__docId__": 87,
     "kind": "member",
     "name": "physicalKeyboardInterface",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1132,7 +1116,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#physicalKeyboardInterface",
     "access": "public",
     "description": "Physical Keyboard support",
-    "lineNumber": 140,
+    "lineNumber": 139,
     "type": {
       "types": [
         "*"
@@ -1140,7 +1124,23 @@
     }
   },
   {
-    "__docId__": 85,
+    "__docId__": 88,
+    "kind": "member",
+    "name": "modules",
+    "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
+    "static": false,
+    "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#modules",
+    "access": "public",
+    "description": "Modules",
+    "lineNumber": 144,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 89,
     "kind": "method",
     "name": "handleButtonClicked",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1150,7 +1150,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#handleButtonClicked",
     "access": "public",
     "description": "Handles clicks made to keyboard buttons",
-    "lineNumber": 146,
+    "lineNumber": 152,
     "params": [
       {
         "nullable": null,
@@ -1170,7 +1170,129 @@
     }
   },
   {
-    "__docId__": 86,
+    "__docId__": 90,
+    "kind": "method",
+    "name": "handleButtonMouseDown",
+    "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#handleButtonMouseDown",
+    "access": "public",
+    "description": "Handles button mousedown",
+    "lineNumber": 208,
+    "params": [
+      {
+        "name": "button",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "e",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 91,
+    "kind": "member",
+    "name": "isMouseHold",
+    "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
+    "static": false,
+    "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#isMouseHold",
+    "access": "public",
+    "description": "",
+    "lineNumber": 212,
+    "type": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 92,
+    "kind": "member",
+    "name": "holdTimeout",
+    "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
+    "static": false,
+    "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#holdTimeout",
+    "access": "public",
+    "description": "",
+    "lineNumber": 217,
+    "type": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 93,
+    "kind": "method",
+    "name": "handleButtonMouseUp",
+    "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#handleButtonMouseUp",
+    "access": "public",
+    "description": "Handles button mouseup",
+    "lineNumber": 239,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 95,
+    "kind": "method",
+    "name": "handleButtonHold",
+    "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#handleButtonHold",
+    "access": "public",
+    "description": "Handles button hold",
+    "lineNumber": 249,
+    "params": [
+      {
+        "name": "button",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 96,
+    "kind": "member",
+    "name": "holdInteractionTimeout",
+    "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
+    "static": false,
+    "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#holdInteractionTimeout",
+    "access": "public",
+    "description": "",
+    "lineNumber": 253,
+    "type": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 97,
     "kind": "method",
     "name": "syncInstanceInputs",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1180,12 +1302,12 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#syncInstanceInputs",
     "access": "public",
     "description": "Send a command to all simple-keyboard instances (if you have several instances).",
-    "lineNumber": 201,
+    "lineNumber": 262,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 87,
+    "__docId__": 98,
     "kind": "method",
     "name": "clearInput",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1195,7 +1317,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#clearInput",
     "access": "public",
     "description": "Clear the keyboard’s input.",
-    "lineNumber": 211,
+    "lineNumber": 272,
     "params": [
       {
         "nullable": null,
@@ -1211,7 +1333,7 @@
     "return": null
   },
   {
-    "__docId__": 88,
+    "__docId__": 99,
     "kind": "method",
     "name": "getInput",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1221,7 +1343,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#getInput",
     "access": "public",
     "description": "Get the keyboard’s input (You can also get it from the onChange prop).",
-    "lineNumber": 226,
+    "lineNumber": 287,
     "params": [
       {
         "nullable": null,
@@ -1241,7 +1363,7 @@
     }
   },
   {
-    "__docId__": 89,
+    "__docId__": 100,
     "kind": "method",
     "name": "setInput",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1251,7 +1373,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#setInput",
     "access": "public",
     "description": "Set the keyboard’s input.",
-    "lineNumber": 243,
+    "lineNumber": 304,
     "params": [
       {
         "nullable": null,
@@ -1277,7 +1399,7 @@
     "return": null
   },
   {
-    "__docId__": 90,
+    "__docId__": 101,
     "kind": "method",
     "name": "replaceInput",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1287,7 +1409,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#replaceInput",
     "access": "public",
     "description": "Replace the input object (`keyboard.input`)",
-    "lineNumber": 258,
+    "lineNumber": 319,
     "params": [
       {
         "nullable": null,
@@ -1303,7 +1425,7 @@
     "return": null
   },
   {
-    "__docId__": 92,
+    "__docId__": 103,
     "kind": "member",
     "name": "setOptions",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1311,7 +1433,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#setOptions",
     "access": "public",
     "description": "Set new option or modify existing ones after initialization. ",
-    "lineNumber": 266,
+    "lineNumber": 327,
     "params": [
       {
         "nullable": null,
@@ -1331,7 +1453,7 @@
     }
   },
   {
-    "__docId__": 94,
+    "__docId__": 105,
     "kind": "method",
     "name": "clear",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1341,12 +1463,12 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#clear",
     "access": "public",
     "description": "Remove all keyboard rows and reset keyboard values.\nUsed interally between re-renders.",
-    "lineNumber": 276,
+    "lineNumber": 342,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 96,
+    "__docId__": 107,
     "kind": "method",
     "name": "dispatch",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1356,7 +1478,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#dispatch",
     "access": "public",
     "description": "Send a command to all simple-keyboard instances at once (if you have multiple instances).",
-    "lineNumber": 286,
+    "lineNumber": 352,
     "params": [
       {
         "nullable": null,
@@ -1376,7 +1498,7 @@
     }
   },
   {
-    "__docId__": 97,
+    "__docId__": 108,
     "kind": "method",
     "name": "addButtonTheme",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1386,7 +1508,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#addButtonTheme",
     "access": "public",
     "description": "Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.",
-    "lineNumber": 302,
+    "lineNumber": 368,
     "params": [
       {
         "nullable": null,
@@ -1416,7 +1538,7 @@
     }
   },
   {
-    "__docId__": 98,
+    "__docId__": 109,
     "kind": "method",
     "name": "removeButtonTheme",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1426,7 +1548,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#removeButtonTheme",
     "access": "public",
     "description": "Removes/Amends an entry to the `buttonTheme`. Basically a way to remove a class previously added to a button through buttonTheme or addButtonTheme.",
-    "lineNumber": 352,
+    "lineNumber": 418,
     "params": [
       {
         "nullable": null,
@@ -1456,7 +1578,7 @@
     }
   },
   {
-    "__docId__": 99,
+    "__docId__": 110,
     "kind": "method",
     "name": "getButtonElement",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1466,7 +1588,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#getButtonElement",
     "access": "public",
     "description": "Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.",
-    "lineNumber": 404,
+    "lineNumber": 470,
     "params": [
       {
         "nullable": null,
@@ -1486,7 +1608,7 @@
     }
   },
   {
-    "__docId__": 100,
+    "__docId__": 111,
     "kind": "method",
     "name": "handleCaret",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1496,12 +1618,12 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#handleCaret",
     "access": "public",
     "description": "Retrieves the current cursor position within a input or textarea (if any)",
-    "lineNumber": 422,
+    "lineNumber": 488,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 101,
+    "__docId__": 112,
     "kind": "method",
     "name": "caretEventHandler",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1511,7 +1633,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#caretEventHandler",
     "access": "public",
     "description": "Called by {@link handleCaret} when an event that warrants a cursor position update is triggered",
-    "lineNumber": 435,
+    "lineNumber": 501,
     "params": [
       {
         "name": "event",
@@ -1523,7 +1645,7 @@
     "return": null
   },
   {
-    "__docId__": 102,
+    "__docId__": 113,
     "kind": "member",
     "name": "caretPosition",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1531,7 +1653,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#caretPosition",
     "access": "public",
     "description": "Tracks current cursor position\nAs keys are pressed, text will be added/removed at that position within the input.",
-    "lineNumber": 446,
+    "lineNumber": 512,
     "type": {
       "types": [
         "*"
@@ -1539,7 +1661,7 @@
     }
   },
   {
-    "__docId__": 103,
+    "__docId__": 114,
     "kind": "method",
     "name": "onInit",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1549,12 +1671,12 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#onInit",
     "access": "public",
     "description": "Executes the callback function once simple-keyboard is rendered for the first time (on initialization).",
-    "lineNumber": 457,
+    "lineNumber": 523,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 104,
+    "__docId__": 115,
     "kind": "method",
     "name": "onRender",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1564,12 +1686,12 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#onRender",
     "access": "public",
     "description": "Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).",
-    "lineNumber": 474,
+    "lineNumber": 540,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 105,
+    "__docId__": 116,
     "kind": "member",
     "name": "registerModule",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1577,7 +1699,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#registerModule",
     "access": "public",
     "description": "Register module",
-    "lineNumber": 482,
+    "lineNumber": 548,
     "type": {
       "types": [
         "*"
@@ -1585,7 +1707,22 @@
     }
   },
   {
-    "__docId__": 106,
+    "__docId__": 117,
+    "kind": "method",
+    "name": "loadModules",
+    "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#loadModules",
+    "access": "public",
+    "description": "Load modules",
+    "lineNumber": 558,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 118,
     "kind": "member",
     "name": "getModuleProp",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1593,7 +1730,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#getModuleProp",
     "access": "public",
     "description": "Get module prop",
-    "lineNumber": 491,
+    "lineNumber": 578,
     "type": {
       "types": [
         "*"
@@ -1601,7 +1738,7 @@
     }
   },
   {
-    "__docId__": 107,
+    "__docId__": 119,
     "kind": "member",
     "name": "getModulesList",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1609,7 +1746,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#getModulesList",
     "access": "public",
     "description": "getModulesList",
-    "lineNumber": 501,
+    "lineNumber": 588,
     "type": {
       "types": [
         "*"
@@ -1617,7 +1754,7 @@
     }
   },
   {
-    "__docId__": 108,
+    "__docId__": 120,
     "kind": "method",
     "name": "render",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1627,12 +1764,12 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#render",
     "access": "public",
     "description": "Renders rows and buttons as per options",
-    "lineNumber": 508,
+    "lineNumber": 595,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 109,
+    "__docId__": 121,
     "kind": "member",
     "name": "initialized",
     "memberof": "src/lib/components/Keyboard.js~SimpleKeyboard",
@@ -1640,7 +1777,7 @@
     "longname": "src/lib/components/Keyboard.js~SimpleKeyboard#initialized",
     "access": "public",
     "description": "Ensures that onInit is only called once per instantiation",
-    "lineNumber": 637,
+    "lineNumber": 725,
     "type": {
       "types": [
         "boolean"
@@ -1648,7 +1785,7 @@
     }
   },
   {
-    "__docId__": 110,
+    "__docId__": 122,
     "kind": "file",
     "name": "src/lib/index.js",
     "content": "import SimpleKeyboard from './components/Keyboard';\r\nexport default SimpleKeyboard;\r\n",
@@ -1659,7 +1796,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 111,
+    "__docId__": 123,
     "kind": "file",
     "name": "src/lib/services/KeyboardLayout.js",
     "content": "/**\r\n * Keyboard Layout Service\r\n */\r\nclass KeyboardLayout {\r\n  /**\r\n   * Get default simple-keyboard layout\r\n   * @return {object} The default layout (US-QWERTY)\r\n   */\r\n  static getDefaultLayout(){\r\n    return {\r\n      'default': [\r\n        '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',\r\n        '{tab} q w e r t y u i o p [ ] \\\\',\r\n        '{lock} a s d f g h j k l ; \\' {enter}',\r\n        '{shift} z x c v b n m , . / {shift}',\r\n        '.com @ {space}'\r\n      ],\r\n      'shift': [\r\n        '~ ! @ # $ % ^ & * ( ) _ + {bksp}',\r\n        '{tab} Q W E R T Y U I O P { } |',\r\n        '{lock} A S D F G H J K L : \" {enter}',\r\n        '{shift} Z X C V B N M < > ? {shift}',\r\n        '.com @ {space}'\r\n      ]\r\n    } \r\n  }\r\n}\r\n\r\nexport default KeyboardLayout;",
@@ -1670,7 +1807,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 112,
+    "__docId__": 124,
     "kind": "class",
     "name": "KeyboardLayout",
     "memberof": "src/lib/services/KeyboardLayout.js",
@@ -1685,7 +1822,7 @@
     "interface": false
   },
   {
-    "__docId__": 113,
+    "__docId__": 125,
     "kind": "method",
     "name": "getDefaultLayout",
     "memberof": "src/lib/services/KeyboardLayout.js~KeyboardLayout",
@@ -1707,7 +1844,7 @@
     "params": []
   },
   {
-    "__docId__": 114,
+    "__docId__": 126,
     "kind": "file",
     "name": "src/lib/services/PhysicalKeyboard.js",
     "content": "/**\r\n * Physical Keyboard Service\r\n */\r\nclass PhysicalKeyboard {\r\n  /**\r\n   * Creates an instance of the PhysicalKeyboard service\r\n   */\r\n  constructor(simpleKeyboardInstance){\r\n    /**\r\n     * @type {object} A simple-keyboard instance\r\n     */\r\n    this.simpleKeyboardInstance = simpleKeyboardInstance;\r\n\r\n    /**\r\n     * Bindings\r\n     */\r\n    this.initKeyboardListener = this.initKeyboardListener.bind(this);\r\n    this.getSimpleKeyboardLayoutKey = this.getSimpleKeyboardLayoutKey.bind(this);\r\n\r\n    /**\r\n     * Initialize key listeners\r\n     */\r\n    this.initKeyboardListener();\r\n  }\r\n\r\n  /**\r\n   * Initializes key event listeners\r\n   */\r\n  initKeyboardListener(){\r\n    // Adding button style on keydown\r\n    document.addEventListener(\"keydown\", (event) => {\r\n      if(this.simpleKeyboardInstance.options.physicalKeyboardHighlight){\r\n        let buttonPressed = this.getSimpleKeyboardLayoutKey(event);\r\n\r\n        this.simpleKeyboardInstance.dispatch(instance => {\r\n          let buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);\r\n\r\n          if(buttonDOM){\r\n            buttonDOM.style.backgroundColor = this.simpleKeyboardInstance.options.physicalKeyboardHighlightBgColor || \"#9ab4d0\";\r\n            buttonDOM.style.color = this.simpleKeyboardInstance.options.physicalKeyboardHighlightTextColor || \"white\";\r\n          }\r\n        });\r\n      }\r\n    });\r\n\r\n    // Removing button style on keyup\r\n    document.addEventListener(\"keyup\", (event) => {\r\n      if(this.simpleKeyboardInstance.options.physicalKeyboardHighlight){\r\n        let buttonPressed = this.getSimpleKeyboardLayoutKey(event);\r\n\r\n        this.simpleKeyboardInstance.dispatch(instance => {\r\n          let buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);\r\n\r\n          if(buttonDOM){\r\n            buttonDOM.removeAttribute(\"style\");\r\n          }\r\n        });\r\n      }\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Transforms a KeyboardEvent's \"key.code\" string into a simple-keyboard layout format\r\n   * @param  {object} event The KeyboardEvent\r\n   */\r\n  getSimpleKeyboardLayoutKey(event){\r\n    let output;\r\n\r\n    if(\r\n      event.code.includes(\"Numpad\") ||\r\n      event.code.includes(\"Shift\") ||\r\n      event.code.includes(\"Space\") ||\r\n      event.code.includes(\"Backspace\") ||\r\n      event.code.includes(\"Control\") ||\r\n      event.code.includes(\"Alt\") ||\r\n      event.code.includes(\"Meta\")\r\n    ){\r\n      output = event.code;\r\n    } else {\r\n      output = event.key;\r\n    }\r\n\r\n    /**\r\n     * If button is not uppercase, casting to lowercase\r\n     */\r\n    if (\r\n      output !== output.toUpperCase() ||\r\n      (event.code[0] === \"F\" && Number.isInteger(Number(event.code[1])) && event.code.length <= 3)\r\n    ) {\r\n      output = output.toLowerCase();\r\n    }\r\n\r\n    return output;\r\n  }\r\n}\r\n\r\nexport default PhysicalKeyboard;",
@@ -1718,7 +1855,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 115,
+    "__docId__": 127,
     "kind": "class",
     "name": "PhysicalKeyboard",
     "memberof": "src/lib/services/PhysicalKeyboard.js",
@@ -1733,7 +1870,7 @@
     "interface": false
   },
   {
-    "__docId__": 116,
+    "__docId__": 128,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard",
@@ -1746,7 +1883,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 117,
+    "__docId__": 129,
     "kind": "member",
     "name": "simpleKeyboardInstance",
     "memberof": "src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard",
@@ -1765,7 +1902,7 @@
     }
   },
   {
-    "__docId__": 120,
+    "__docId__": 132,
     "kind": "method",
     "name": "initKeyboardListener",
     "memberof": "src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard",
@@ -1780,7 +1917,7 @@
     "return": null
   },
   {
-    "__docId__": 121,
+    "__docId__": 133,
     "kind": "method",
     "name": "getSimpleKeyboardLayoutKey",
     "memberof": "src/lib/services/PhysicalKeyboard.js~PhysicalKeyboard",
@@ -1810,7 +1947,7 @@
     }
   },
   {
-    "__docId__": 122,
+    "__docId__": 134,
     "kind": "file",
     "name": "src/lib/services/Utilities.js",
     "content": "/**\r\n * Utility Service\r\n */\r\nclass Utilities {\r\n  /**\r\n   * Creates an instance of the Utility service\r\n   */\r\n  constructor(simpleKeyboardInstance){\r\n    /**\r\n     * @type {object} A simple-keyboard instance\r\n     */\r\n    this.simpleKeyboardInstance = simpleKeyboardInstance;\r\n\r\n    /**\r\n     * Bindings\r\n     */\r\n    this.getButtonClass = this.getButtonClass.bind(this);\r\n    this.getButtonDisplayName = this.getButtonDisplayName.bind(this);\r\n    this.getUpdatedInput = this.getUpdatedInput.bind(this);\r\n    this.updateCaretPos = this.updateCaretPos.bind(this);\r\n    this.isMaxLengthReached = this.isMaxLengthReached.bind(this);\r\n    this.camelCase = this.camelCase.bind(this);\r\n    this.countInArray = this.countInArray.bind(this);\r\n  }\r\n\r\n  /**\r\n   * Adds default classes to a given button\r\n   * \r\n   * @param  {string} button The button's layout name\r\n   * @return {string} The classes to be added to the button\r\n   */\r\n  getButtonClass(button){\r\n    let buttonTypeClass = (button.includes(\"{\") && button.includes(\"}\") && button !== '{//}') ? \"functionBtn\" : \"standardBtn\";\r\n    let buttonWithoutBraces = button.replace(\"{\", \"\").replace(\"}\", \"\");\r\n    let buttonNormalized = '';\r\n\r\n    if(buttonTypeClass !== \"standardBtn\")\r\n      buttonNormalized = ` hg-button-${buttonWithoutBraces}`;\r\n\r\n    return `hg-${buttonTypeClass}${buttonNormalized}`;\r\n  }\r\n\r\n  /**\r\n   * Default button display labels\r\n   */\r\n  getDefaultDiplay(){\r\n    return {\r\n      '{bksp}': 'backspace',\r\n      '{backspace}': 'backspace',\r\n      '{enter}': '< enter',\r\n      '{shift}': 'shift',\r\n      '{shiftleft}': 'shift',\r\n      '{shiftright}': 'shift',\r\n      '{alt}': 'alt',\r\n      '{s}': 'shift',\r\n      '{tab}': 'tab',\r\n      '{lock}': 'caps',\r\n      '{capslock}': 'caps',\r\n      '{accept}': 'Submit',\r\n      '{space}': ' ',\r\n      '{//}': ' ',\r\n      \"{esc}\": \"esc\",\r\n      \"{escape}\": \"esc\",\r\n      \"{f1}\": \"f1\",\r\n      \"{f2}\": \"f2\",\r\n      \"{f3}\": \"f3\",\r\n      \"{f4}\": \"f4\",\r\n      \"{f5}\": \"f5\",\r\n      \"{f6}\": \"f6\",\r\n      \"{f7}\": \"f7\",\r\n      \"{f8}\": \"f8\",\r\n      \"{f9}\": \"f9\",\r\n      \"{f10}\": \"f10\",\r\n      \"{f11}\": \"f11\",\r\n      \"{f12}\": \"f12\",\r\n      '{numpaddivide}': '/',\r\n      '{numlock}': 'lock',\r\n      \"{arrowup}\": \"↑\",\r\n      \"{arrowleft}\": \"←\",\r\n      \"{arrowdown}\": \"↓\",\r\n      \"{arrowright}\": \"→\",\r\n      \"{prtscr}\": \"print\",\r\n      \"{scrolllock}\": \"scroll\",\r\n      \"{pause}\": \"pause\",\r\n      \"{insert}\": \"ins\",\r\n      \"{home}\": \"home\",\r\n      \"{pageup}\": \"up\",\r\n      \"{delete}\": \"del\",\r\n      \"{end}\": \"end\",\r\n      \"{pagedown}\": \"down\",\r\n      \"{numpadmultiply}\": \"*\",\r\n      \"{numpadsubtract}\": \"-\",\r\n      \"{numpadadd}\": \"+\",\r\n      \"{numpadenter}\": \"enter\",\r\n      \"{period}\": \".\",\r\n      \"{numpaddecimal}\": \".\",\r\n      \"{numpad0}\": \"0\",\r\n      \"{numpad1}\": \"1\",\r\n      \"{numpad2}\": \"2\",\r\n      \"{numpad3}\": \"3\",\r\n      \"{numpad4}\": \"4\",\r\n      \"{numpad5}\": \"5\",\r\n      \"{numpad6}\": \"6\",\r\n      \"{numpad7}\": \"7\",\r\n      \"{numpad8}\": \"8\",\r\n      \"{numpad9}\": \"9\",\r\n    };\r\n  }\r\n  /**\r\n   * Returns the display (label) name for a given button\r\n   * \r\n   * @param  {string} button The button's layout name\r\n   * @param  {object} display The provided display option\r\n   * @param  {boolean} mergeDisplay Whether the provided param value should be merged with the default one.\r\n   */\r\n  getButtonDisplayName(button, display, mergeDisplay){\r\n    if(mergeDisplay){\r\n      display = Object.assign({}, this.getDefaultDiplay(), display);\r\n    } else {\r\n      display = display || this.getDefaultDiplay();\r\n    }\r\n\r\n    return display[button] || button;\r\n  }\r\n\r\n  \r\n  /**\r\n   * Returns the updated input resulting from clicking a given button\r\n   * \r\n   * @param  {string} button The button's layout name\r\n   * @param  {string} input The input string\r\n   * @param  {object} options The simple-keyboard options object\r\n   * @param  {number} caretPos The cursor's current position\r\n   */\r\n  getUpdatedInput(button, input, options, caretPos){\r\n    \r\n    let output = input;\r\n\r\n    if((button === \"{bksp}\" || button === \"{backspace}\") && output.length > 0){\r\n      output = this.removeAt(output, caretPos);\r\n\r\n    } else if(button === \"{space}\")\r\n      output = this.addStringAt(output, \" \", caretPos);\r\n\r\n    else if(button === \"{tab}\" && !(typeof options.tabCharOnTab === \"boolean\" && options.tabCharOnTab === false)){\r\n      output = this.addStringAt(output, \"\\t\", caretPos);\r\n\r\n    } else if((button === \"{enter}\" || button === \"{numpadenter}\") && options.newLineOnEnter)\r\n      output = this.addStringAt(output, \"\\n\", caretPos);\r\n\r\n    else if(button.includes(\"numpad\") && Number.isInteger(Number(button[button.length - 2]))){\r\n      output = this.addStringAt(output, button[button.length - 2], caretPos);\r\n    }\r\n    else if(button === \"{numpaddivide}\")\r\n      output = this.addStringAt(output, '/', caretPos);\r\n\r\n    else if(button === \"{numpadmultiply}\")\r\n      output = this.addStringAt(output, '*', caretPos);\r\n    else if(button === \"{numpadsubtract}\")\r\n      output = this.addStringAt(output, '-', caretPos);\r\n\r\n    else if(button === \"{numpadadd}\")\r\n      output = this.addStringAt(output, '+', caretPos);\r\n\r\n    else if(button === \"{numpaddecimal}\")\r\n      output = this.addStringAt(output, '.', caretPos);\r\n\r\n    else if(button === \"{\" || button === \"}\")\r\n      output = this.addStringAt(output, button, caretPos);\r\n\r\n    else if(!button.includes(\"{\") && !button.includes(\"}\"))\r\n      output = this.addStringAt(output, button, caretPos);\r\n\r\n    return output;\r\n  }\r\n  /**\r\n   * Moves the cursor position by a given amount\r\n   * \r\n   * @param  {number} length Represents by how many characters the input should be moved\r\n   * @param  {boolean} minus Whether the cursor should be moved to the left or not.\r\n   */\r\n  updateCaretPos(length, minus){\r\n    if(minus){\r\n      if(this.simpleKeyboardInstance.caretPosition > 0)\r\n        this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition - length\r\n    } else {\r\n      this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition + length;\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Adds a string to the input at a given position\r\n   * \r\n   * @param  {string} source The source input\r\n   * @param  {string} string The string to add\r\n   * @param  {number} position The (cursor) position where the string should be added\r\n   */\r\n  addStringAt(source, string, position){\r\n    let output;\r\n\r\n    if(this.simpleKeyboardInstance.options.debug){\r\n      console.log(\"Caret at:\", position);\r\n    }\r\n\r\n    if(!position && position !== 0){\r\n      output = source + string;\r\n    } else {\r\n      output = [source.slice(0, position), string, source.slice(position)].join('');\r\n\r\n      /**\r\n       * Avoid caret position change when maxLength is set\r\n       */\r\n      if(!this.isMaxLengthReached()){\r\n        this.updateCaretPos(string.length);\r\n      }\r\n\r\n    }\r\n\r\n    return output;\r\n  }\r\n\r\n  /**\r\n   * Removes an amount of characters at a given position\r\n   * \r\n   * @param  {string} source The source input\r\n   * @param  {number} position The (cursor) position from where the characters should be removed\r\n   */\r\n  removeAt(source, position){\r\n    if(this.simpleKeyboardInstance.caretPosition === 0){\r\n      return source;\r\n    }\r\n\r\n    let output;\r\n    let prevTwoChars;\r\n    let emojiMatched;\r\n    let emojiMatchedReg = /([\\uD800-\\uDBFF][\\uDC00-\\uDFFF])/g;\r\n\r\n    /**\r\n     * Emojis are made out of two characters, so we must take a custom approach to trim them.\r\n     * For more info: https://mathiasbynens.be/notes/javascript-unicode\r\n     */\r\n    if(position && position >= 0){\r\n      prevTwoChars = source.substring(position - 2, position)\r\n      emojiMatched = prevTwoChars.match(emojiMatchedReg);\r\n\r\n      if(emojiMatched){\r\n        output = source.substr(0, (position - 2)) + source.substr(position);\r\n        this.updateCaretPos(2, true);\r\n      } else {\r\n        output = source.substr(0, (position - 1)) + source.substr(position);\r\n        this.updateCaretPos(1, true);\r\n      }\r\n    } else {\r\n      prevTwoChars = source.slice(-2);\r\n      emojiMatched = prevTwoChars.match(emojiMatchedReg);\r\n\r\n      if(emojiMatched){\r\n        output = source.slice(0, -2);\r\n        this.updateCaretPos(2, true);\r\n      } else {\r\n        output = source.slice(0, -1);\r\n        this.updateCaretPos(1, true);\r\n      }\r\n    }\r\n\r\n    return output;\r\n  }\r\n  /**\r\n   * Determines whether the maxLength has been reached. This function is called when the maxLength option it set.\r\n   * \r\n   * @param  {object} inputObj\r\n   * @param  {object} options\r\n   * @param  {string} updatedInput\r\n   */\r\n  handleMaxLength(inputObj, options, updatedInput){\r\n    let maxLength = options.maxLength;\r\n    let currentInput = inputObj[options.inputName];\r\n    let condition = currentInput.length === maxLength;\r\n\r\n\r\n    if(\r\n      /**\r\n       * If pressing this button won't add more characters\r\n       * We exit out of this limiter function\r\n       */\r\n      updatedInput.length <= currentInput.length\r\n    ){\r\n      return false;\r\n    }\r\n\r\n    if(Number.isInteger(maxLength)){\r\n      if(options.debug){\r\n        console.log(\"maxLength (num) reached:\", condition);\r\n      }\r\n\r\n      if(condition){\r\n        /**\r\n         * @type {boolean} Boolean value that shows whether maxLength has been reached\r\n         */\r\n        this.maxLengthReached = true;\r\n        return true;\r\n      } else {\r\n        this.maxLengthReached = false;\r\n        return false;\r\n      }\r\n    }\r\n\r\n    if(typeof maxLength === \"object\"){\r\n      let condition = currentInput.length === maxLength[options.inputName];\r\n\r\n      if(options.debug){\r\n        console.log(\"maxLength (obj) reached:\", condition);\r\n      }\r\n\r\n      if(condition){\r\n        this.maxLengthReached = true;\r\n        return true;\r\n      } else {\r\n        this.maxLengthReached = false;\r\n        return false;\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Gets the current value of maxLengthReached\r\n   */\r\n  isMaxLengthReached(){\r\n    return Boolean(this.maxLengthReached);\r\n  }\r\n\r\n  /**\r\n   * Transforms an arbitrary string to camelCase\r\n   * \r\n   * @param  {string} string The string to transform.\r\n   */\r\n  camelCase(string){\r\n    return string.toLowerCase().trim().split(/[.\\-_\\s]/g).reduce((string, word) => string + word[0].toUpperCase() + word.slice(1));\r\n  };\r\n\r\n  /**\r\n   * Counts the number of duplicates in a given array\r\n   * \r\n   * @param  {Array} array The haystack to search in\r\n   * @param  {string} value The needle to search for\r\n   */\r\n  countInArray(array, value){\r\n    return array.reduce((n, x) => n + (x === value), 0);\r\n  }\r\n\r\n}\r\n\r\nexport default Utilities;",
@@ -1821,7 +1958,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 123,
+    "__docId__": 135,
     "kind": "class",
     "name": "Utilities",
     "memberof": "src/lib/services/Utilities.js",
@@ -1836,7 +1973,7 @@
     "interface": false
   },
   {
-    "__docId__": 124,
+    "__docId__": 136,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -1849,7 +1986,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 125,
+    "__docId__": 137,
     "kind": "member",
     "name": "simpleKeyboardInstance",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -1868,7 +2005,7 @@
     }
   },
   {
-    "__docId__": 133,
+    "__docId__": 145,
     "kind": "method",
     "name": "getButtonClass",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -1901,7 +2038,7 @@
     }
   },
   {
-    "__docId__": 134,
+    "__docId__": 146,
     "kind": "method",
     "name": "getDefaultDiplay",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -1920,7 +2057,7 @@
     }
   },
   {
-    "__docId__": 135,
+    "__docId__": 147,
     "kind": "method",
     "name": "getButtonDisplayName",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -1970,7 +2107,7 @@
     }
   },
   {
-    "__docId__": 136,
+    "__docId__": 148,
     "kind": "method",
     "name": "getUpdatedInput",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -2030,7 +2167,7 @@
     }
   },
   {
-    "__docId__": 137,
+    "__docId__": 149,
     "kind": "method",
     "name": "updateCaretPos",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -2066,7 +2203,7 @@
     "return": null
   },
   {
-    "__docId__": 138,
+    "__docId__": 150,
     "kind": "method",
     "name": "addStringAt",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -2116,7 +2253,7 @@
     }
   },
   {
-    "__docId__": 139,
+    "__docId__": 151,
     "kind": "method",
     "name": "removeAt",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -2156,7 +2293,7 @@
     }
   },
   {
-    "__docId__": 140,
+    "__docId__": 152,
     "kind": "method",
     "name": "handleMaxLength",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -2206,7 +2343,7 @@
     }
   },
   {
-    "__docId__": 141,
+    "__docId__": 153,
     "kind": "member",
     "name": "maxLengthReached",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -2225,7 +2362,7 @@
     }
   },
   {
-    "__docId__": 145,
+    "__docId__": 157,
     "kind": "method",
     "name": "isMaxLengthReached",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -2244,7 +2381,7 @@
     }
   },
   {
-    "__docId__": 146,
+    "__docId__": 158,
     "kind": "method",
     "name": "camelCase",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -2274,7 +2411,7 @@
     }
   },
   {
-    "__docId__": 147,
+    "__docId__": 159,
     "kind": "method",
     "name": "countInArray",
     "memberof": "src/lib/services/Utilities.js~Utilities",
@@ -2314,7 +2451,7 @@
     }
   },
   {
-    "__docId__": 148,
+    "__docId__": 160,
     "kind": "file",
     "name": "src/lib/tests/TestUtility.js",
     "content": "/**\r\n * Test Utility Functions\r\n */\r\nexport default class TestUtility {\r\n  /**\r\n   * Set's a basic DOM structure to test in\r\n   */\r\n  setDOM = (divClass) => {\r\n    this.clear();\r\n    const div = document.createElement('div');\r\n    div.className += divClass || \"simple-keyboard\";\r\n    document.body.appendChild(div);\r\n  }\r\n\r\n  /**\r\n   * Clears DOM structure\r\n   */\r\n  clear = () => {\r\n    document.body.innerHTML = \"\";\r\n  }\r\n\r\n  /**\r\n   * Test if standard buttons respect maxLength and do input a value\r\n   */\r\n  testLayoutStdButtons = (keyboard) => {\r\n    let stdBtnCount = 0;\r\n    let fullInput = '';\r\n\r\n    this.iterateButtons((button) => {\r\n      let label = button.getAttribute(\"data-skbtn\");\r\n\r\n      if(label.includes(\"{\"))\r\n        return false;\r\n\r\n      // Click all standard buttons, respects maxLength\r\n      button.onclick();\r\n\r\n      // Recording fullInput, bypasses maxLength\r\n      fullInput = keyboard.utilities.getUpdatedInput(label, fullInput, keyboard.options, null);\r\n\r\n      stdBtnCount += label.length;\r\n    });\r\n\r\n    /**\r\n     * Check if maxLength is respected\r\n     */\r\n    if(\r\n      (\r\n        typeof keyboard.options.maxLength === \"object\" &&\r\n        keyboard.getInput().length !== keyboard.options.maxLength[keyboard.options.layoutName]\r\n      ) ||\r\n      (\r\n        typeof keyboard.options.maxLength !== \"object\" &&\r\n        keyboard.getInput().length !== keyboard.options.maxLength\r\n      )\r\n    )\r\n      throw new Error(\"MAX_LENGTH_ISSUE\");\r\n    else\r\n      console.log(\"MAX_LENGTH PASSED:\", keyboard.options.layoutName, keyboard.getInput().length, keyboard.options.maxLength);\r\n\r\n    /**\r\n     * Check if all standard buttons are inputting something\r\n     * (Regardless of maxLength)\r\n     */\r\n    if(stdBtnCount !== fullInput.length)\r\n      throw new Error(\"STANDARD_BUTTONS_ISSUE\");\r\n    else\r\n      console.log(\"STANDARD_BUTTONS PASSED:\", keyboard.options.layoutName, stdBtnCount, fullInput.length);\r\n  }\r\n\r\n  /**\r\n   * Test if function buttons are interactive (have an onclick)\r\n   */\r\n  testLayoutFctButtons = (callback) => {\r\n    let fctBtnCount = 0;\r\n    let fctBtnHasOnclickCount = 0;\r\n\r\n    this.iterateButtons((button) => {\r\n      let label = button.getAttribute(\"data-skbtn\");\r\n\r\n      if(!label.includes(\"{\") && !label.includes(\"}\"))\r\n        return false;\r\n\r\n      fctBtnCount++;\r\n\r\n      if(button.onclick){\r\n        button.onclick();\r\n        fctBtnHasOnclickCount++;\r\n      }\r\n\r\n      callback(fctBtnCount, fctBtnHasOnclickCount);\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Iterates on the keyboard buttons\r\n   */\r\n  iterateButtons = (callback, selector) => {\r\n    let rows = document.body.querySelector(selector || '.simple-keyboard').children;\r\n\r\n    Array.from(rows).forEach(row => {\r\n      Array.from(row.children).forEach((button) => {\r\n        callback(button);\r\n      });\r\n    });\r\n  }\r\n}",
@@ -2325,7 +2462,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 149,
+    "__docId__": 161,
     "kind": "class",
     "name": "TestUtility",
     "memberof": "src/lib/tests/TestUtility.js",
@@ -2340,7 +2477,7 @@
     "interface": false
   },
   {
-    "__docId__": 150,
+    "__docId__": 162,
     "kind": "member",
     "name": "setDOM",
     "memberof": "src/lib/tests/TestUtility.js~TestUtility",
@@ -2356,7 +2493,7 @@
     }
   },
   {
-    "__docId__": 151,
+    "__docId__": 163,
     "kind": "member",
     "name": "clear",
     "memberof": "src/lib/tests/TestUtility.js~TestUtility",
@@ -2372,7 +2509,7 @@
     }
   },
   {
-    "__docId__": 152,
+    "__docId__": 164,
     "kind": "member",
     "name": "testLayoutStdButtons",
     "memberof": "src/lib/tests/TestUtility.js~TestUtility",
@@ -2388,7 +2525,7 @@
     }
   },
   {
-    "__docId__": 153,
+    "__docId__": 165,
     "kind": "member",
     "name": "testLayoutFctButtons",
     "memberof": "src/lib/tests/TestUtility.js~TestUtility",
@@ -2404,7 +2541,7 @@
     }
   },
   {
-    "__docId__": 154,
+    "__docId__": 166,
     "kind": "member",
     "name": "iterateButtons",
     "memberof": "src/lib/tests/TestUtility.js~TestUtility",
@@ -2429,7 +2566,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\r\n  \"name\": \"simple-keyboard\",\r\n  \"version\": \"2.7.0\",\r\n  \"description\": \"On-screen Javascript Virtual Keyboard\",\r\n  \"main\": \"build/index.js\",\r\n  \"scripts\": {\r\n    \"start\": \"node scripts/start.js\",\r\n    \"build\": \"node scripts/build.js\",\r\n    \"demo\": \"node scripts/demo.js\",\r\n    \"test\": \"node scripts/test.js --env=jsdom\",\r\n    \"postinstall\": \"node bin/postinstall\",\r\n    \"prepublish\": \"npm run docs && npm run build\",\r\n    \"docs\": \"esdoc\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"https://github.com/hodgef/simple-keyboard\"\r\n  },\r\n  \"author\": \"Francisco Hodge <hello@franciscohodge.com> (https://github.com/hodgef)\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/hodgef/simple-keyboard/issues\"\r\n  },\r\n  \"homepage\": \"https://virtual-keyboard.js.org/\",\r\n  \"keywords\": [\r\n    \"javascript\",\r\n    \"es6\",\r\n    \"digital\",\r\n    \"keyboard\",\r\n    \"onscreen\",\r\n    \"virtual\",\r\n    \"screen-keyboard\",\r\n    \"component\",\r\n    \"virtual-keyboard\",\r\n    \"touchscreen\",\r\n    \"touch-screen\",\r\n    \"kiosk\",\r\n    \"osk\"\r\n  ],\r\n  \"license\": \"MIT\",\r\n  \"dependencies\": {},\r\n  \"devDependencies\": {\r\n    \"autoprefixer\": \"7.1.6\",\r\n    \"babel-core\": \"^6.26.3\",\r\n    \"babel-eslint\": \"7.2.3\",\r\n    \"babel-jest\": \"20.0.3\",\r\n    \"babel-loader\": \"7.1.2\",\r\n    \"babel-preset-react-app\": \"^3.1.2\",\r\n    \"babel-runtime\": \"6.26.0\",\r\n    \"case-sensitive-paths-webpack-plugin\": \"2.1.1\",\r\n    \"chalk\": \"1.1.3\",\r\n    \"copy-webpack-plugin\": \"^4.3.1\",\r\n    \"css-loader\": \"0.28.7\",\r\n    \"dotenv\": \"4.0.0\",\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"eslint\": \"4.10.0\",\r\n    \"eslint-config-react-app\": \"^2.0.1\",\r\n    \"eslint-loader\": \"1.9.0\",\r\n    \"eslint-plugin-flowtype\": \"2.39.1\",\r\n    \"eslint-plugin-import\": \"2.8.0\",\r\n    \"eslint-plugin-jsx-a11y\": \"5.1.1\",\r\n    \"eslint-plugin-react\": \"7.4.0\",\r\n    \"extract-text-webpack-plugin\": \"3.0.2\",\r\n    \"file-loader\": \"1.1.5\",\r\n    \"fs-extra\": \"3.0.1\",\r\n    \"html-webpack-plugin\": \"2.29.0\",\r\n    \"istanbul\": \"^0.4.5\",\r\n    \"istanbul-api\": \"^2.0.6\",\r\n    \"istanbul-reports\": \"^2.0.1\",\r\n    \"jest\": \"20.0.4\",\r\n    \"object-assign\": \"4.1.1\",\r\n    \"postcss-flexbugs-fixes\": \"3.2.0\",\r\n    \"postcss-loader\": \"2.0.8\",\r\n    \"promise\": \"8.0.1\",\r\n    \"prop-types\": \"^15.6.1\",\r\n    \"raf\": \"3.4.0\",\r\n    \"react\": \"^16.2.0\",\r\n    \"react-dev-utils\": \"^4.2.1\",\r\n    \"react-dom\": \"^16.2.0\",\r\n    \"style-loader\": \"0.19.0\",\r\n    \"sw-precache-webpack-plugin\": \"0.11.4\",\r\n    \"url-loader\": \"0.6.2\",\r\n    \"webpack\": \"3.8.1\",\r\n    \"webpack-dev-server\": \"2.9.4\",\r\n    \"webpack-manifest-plugin\": \"1.3.2\",\r\n    \"whatwg-fetch\": \"2.0.3\"\r\n  },\r\n  \"jest\": {\r\n    \"collectCoverageFrom\": [\r\n      \"src/**/*.{js,jsx,mjs}\",\r\n      \"!**/tests/**\"\r\n    ],\r\n    \"setupFiles\": [\r\n      \"<rootDir>/config/polyfills.js\"\r\n    ],\r\n    \"testMatch\": [\r\n      \"<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}\",\r\n      \"<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}\"\r\n    ],\r\n    \"testEnvironment\": \"node\",\r\n    \"testURL\": \"http://localhost\",\r\n    \"transform\": {\r\n      \"^.+\\\\.(js|jsx|mjs)$\": \"<rootDir>/node_modules/babel-jest\",\r\n      \"^.+\\\\.css$\": \"<rootDir>/config/jest/cssTransform.js\",\r\n      \"^(?!.*\\\\.(js|jsx|mjs|css|json)$)\": \"<rootDir>/config/jest/fileTransform.js\"\r\n    },\r\n    \"transformIgnorePatterns\": [\r\n      \"[/\\\\\\\\]node_modules[/\\\\\\\\].+\\\\.(js|jsx|mjs)$\"\r\n    ],\r\n    \"moduleNameMapper\": {\r\n      \"^react-native$\": \"react-native-web\"\r\n    },\r\n    \"moduleFileExtensions\": [\r\n      \"web.js\",\r\n      \"mjs\",\r\n      \"js\",\r\n      \"json\",\r\n      \"web.jsx\",\r\n      \"jsx\",\r\n      \"node\"\r\n    ]\r\n  },\r\n  \"babel\": {\r\n    \"presets\": [\r\n      \"react-app\"\r\n    ]\r\n  },\r\n  \"eslintConfig\": {\r\n    \"extends\": \"react-app\"\r\n  }\r\n}\r\n",
+    "content": "{\r\n  \"name\": \"simple-keyboard\",\r\n  \"version\": \"2.7.1\",\r\n  \"description\": \"On-screen Javascript Virtual Keyboard\",\r\n  \"main\": \"build/index.js\",\r\n  \"scripts\": {\r\n    \"start\": \"node scripts/start.js\",\r\n    \"build\": \"node scripts/build.js\",\r\n    \"demo\": \"node scripts/demo.js\",\r\n    \"test\": \"node scripts/test.js --env=jsdom\",\r\n    \"postinstall\": \"node bin/postinstall\",\r\n    \"prepublish\": \"npm run docs && npm run build\",\r\n    \"docs\": \"esdoc\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"https://github.com/hodgef/simple-keyboard\"\r\n  },\r\n  \"author\": \"Francisco Hodge <hello@franciscohodge.com> (https://github.com/hodgef)\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/hodgef/simple-keyboard/issues\"\r\n  },\r\n  \"homepage\": \"https://virtual-keyboard.js.org/\",\r\n  \"keywords\": [\r\n    \"javascript\",\r\n    \"es6\",\r\n    \"digital\",\r\n    \"keyboard\",\r\n    \"onscreen\",\r\n    \"virtual\",\r\n    \"screen-keyboard\",\r\n    \"component\",\r\n    \"virtual-keyboard\",\r\n    \"touchscreen\",\r\n    \"touch-screen\",\r\n    \"kiosk\",\r\n    \"osk\"\r\n  ],\r\n  \"license\": \"MIT\",\r\n  \"dependencies\": {},\r\n  \"devDependencies\": {\r\n    \"autoprefixer\": \"7.1.6\",\r\n    \"babel-core\": \"^6.26.3\",\r\n    \"babel-eslint\": \"7.2.3\",\r\n    \"babel-jest\": \"20.0.3\",\r\n    \"babel-loader\": \"7.1.2\",\r\n    \"babel-preset-react-app\": \"^3.1.2\",\r\n    \"babel-runtime\": \"6.26.0\",\r\n    \"case-sensitive-paths-webpack-plugin\": \"2.1.1\",\r\n    \"chalk\": \"1.1.3\",\r\n    \"copy-webpack-plugin\": \"^4.3.1\",\r\n    \"css-loader\": \"0.28.7\",\r\n    \"dotenv\": \"4.0.0\",\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"eslint\": \"4.10.0\",\r\n    \"eslint-config-react-app\": \"^2.0.1\",\r\n    \"eslint-loader\": \"1.9.0\",\r\n    \"eslint-plugin-flowtype\": \"2.39.1\",\r\n    \"eslint-plugin-import\": \"2.8.0\",\r\n    \"eslint-plugin-jsx-a11y\": \"5.1.1\",\r\n    \"eslint-plugin-react\": \"7.4.0\",\r\n    \"extract-text-webpack-plugin\": \"3.0.2\",\r\n    \"file-loader\": \"1.1.5\",\r\n    \"fs-extra\": \"3.0.1\",\r\n    \"html-webpack-plugin\": \"2.29.0\",\r\n    \"istanbul\": \"^0.4.5\",\r\n    \"istanbul-api\": \"^2.0.6\",\r\n    \"istanbul-reports\": \"^2.0.1\",\r\n    \"jest\": \"20.0.4\",\r\n    \"object-assign\": \"4.1.1\",\r\n    \"postcss-flexbugs-fixes\": \"3.2.0\",\r\n    \"postcss-loader\": \"2.0.8\",\r\n    \"promise\": \"8.0.1\",\r\n    \"prop-types\": \"^15.6.1\",\r\n    \"raf\": \"3.4.0\",\r\n    \"react\": \"^16.2.0\",\r\n    \"react-dev-utils\": \"^4.2.1\",\r\n    \"react-dom\": \"^16.2.0\",\r\n    \"style-loader\": \"0.19.0\",\r\n    \"sw-precache-webpack-plugin\": \"0.11.4\",\r\n    \"url-loader\": \"0.6.2\",\r\n    \"webpack\": \"3.8.1\",\r\n    \"webpack-dev-server\": \"2.9.4\",\r\n    \"webpack-manifest-plugin\": \"1.3.2\",\r\n    \"whatwg-fetch\": \"2.0.3\"\r\n  },\r\n  \"jest\": {\r\n    \"collectCoverageFrom\": [\r\n      \"src/**/*.{js,jsx,mjs}\",\r\n      \"!**/tests/**\"\r\n    ],\r\n    \"setupFiles\": [\r\n      \"<rootDir>/config/polyfills.js\"\r\n    ],\r\n    \"testMatch\": [\r\n      \"<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}\",\r\n      \"<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}\"\r\n    ],\r\n    \"testEnvironment\": \"node\",\r\n    \"testURL\": \"http://localhost\",\r\n    \"transform\": {\r\n      \"^.+\\\\.(js|jsx|mjs)$\": \"<rootDir>/node_modules/babel-jest\",\r\n      \"^.+\\\\.css$\": \"<rootDir>/config/jest/cssTransform.js\",\r\n      \"^(?!.*\\\\.(js|jsx|mjs|css|json)$)\": \"<rootDir>/config/jest/fileTransform.js\"\r\n    },\r\n    \"transformIgnorePatterns\": [\r\n      \"[/\\\\\\\\]node_modules[/\\\\\\\\].+\\\\.(js|jsx|mjs)$\"\r\n    ],\r\n    \"moduleNameMapper\": {\r\n      \"^react-native$\": \"react-native-web\"\r\n    },\r\n    \"moduleFileExtensions\": [\r\n      \"web.js\",\r\n      \"mjs\",\r\n      \"js\",\r\n      \"json\",\r\n      \"web.jsx\",\r\n      \"jsx\",\r\n      \"node\"\r\n    ]\r\n  },\r\n  \"babel\": {\r\n    \"presets\": [\r\n      \"react-app\"\r\n    ]\r\n  },\r\n  \"eslintConfig\": {\r\n    \"extends\": \"react-app\"\r\n  }\r\n}\r\n",
     "longname": "X:\\Dev\\simple-keyboard\\package.json",
     "name": "package.json",
     "static": true,

@@ -456,10 +456,40 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/lib/components/keyboard.js~simplekeyboard#handlebuttonhold",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleButtonHold",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#handleButtonHold",
+    "method"
+  ],
+  [
+    "src/lib/components/keyboard.js~simplekeyboard#handlebuttonmousedown",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleButtonMouseDown",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#handleButtonMouseDown",
+    "method"
+  ],
+  [
+    "src/lib/components/keyboard.js~simplekeyboard#handlebuttonmouseup",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleButtonMouseUp",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#handleButtonMouseUp",
+    "method"
+  ],
+  [
     "src/lib/components/keyboard.js~simplekeyboard#handlecaret",
     "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-handleCaret",
     "src/lib/components/Keyboard.js~SimpleKeyboard#handleCaret",
     "method"
+  ],
+  [
+    "src/lib/components/keyboard.js~simplekeyboard#holdinteractiontimeout",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-holdInteractionTimeout",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#holdInteractionTimeout",
+    "member"
+  ],
+  [
+    "src/lib/components/keyboard.js~simplekeyboard#holdtimeout",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-holdTimeout",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#holdTimeout",
+    "member"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#initialized",
@@ -474,6 +504,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/lib/components/keyboard.js~simplekeyboard#ismousehold",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-isMouseHold",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#isMouseHold",
+    "member"
+  ],
+  [
     "src/lib/components/keyboard.js~simplekeyboard#keyboarddom",
     "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-keyboardDOM",
     "src/lib/components/Keyboard.js~SimpleKeyboard#keyboardDOM",
@@ -484,6 +520,12 @@ window.esdocSearchIndex = [
     "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-member-keyboardDOMClass",
     "src/lib/components/Keyboard.js~SimpleKeyboard#keyboardDOMClass",
     "member"
+  ],
+  [
+    "src/lib/components/keyboard.js~simplekeyboard#loadmodules",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-loadModules",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#loadModules",
+    "method"
   ],
   [
     "src/lib/components/keyboard.js~simplekeyboard#modules",
