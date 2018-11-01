@@ -546,6 +546,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/lib/components/keyboard.js~simplekeyboard#onmodulesloaded",
+    "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-onModulesLoaded",
+    "src/lib/components/Keyboard.js~SimpleKeyboard#onModulesLoaded",
+    "method"
+  ],
+  [
     "src/lib/components/keyboard.js~simplekeyboard#onrender",
     "class/src/lib/components/Keyboard.js~SimpleKeyboard.html#instance-method-onRender",
     "src/lib/components/Keyboard.js~SimpleKeyboard#onRender",

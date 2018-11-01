@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 76,
-  "actualCount": 76,
+  "expectCount": 77,
+  "actualCount": 77,
   "files": {
     "src/demo/App.js": {
       "expectCount": 8,
@@ -9,8 +9,8 @@
       "undocumentLines": []
     },
     "src/lib/components/Keyboard.js": {
-      "expectCount": 40,
-      "actualCount": 40,
+      "expectCount": 41,
+      "actualCount": 41,
       "undocumentLines": []
     },
     "src/lib/services/KeyboardLayout.js": {
