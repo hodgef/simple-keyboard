@@ -217,6 +217,12 @@ class SimpleKeyboard {
      */
     this.isMouseHold = true;
 
+    if(this.holdInteractionTimeout)
+      clearTimeout(this.holdInteractionTimeout);
+
+    if(this.holdTimeout)
+      clearTimeout(this.holdTimeout);
+
     /**
      * @type {object} Time to wait until a key hold is detected
      */
