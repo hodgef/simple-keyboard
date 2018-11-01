@@ -839,3 +839,26 @@ it('Keyboard handleButtonMouseDown will work', () => {
   document.onmouseup();
 
 });
+
+it('Keyboard onModulesLoaded will work', () => {
+  testUtil.setDOM();
+
+  class myClass {
+    init = (module) => {
+      module.foo = "bar";
+    };
+  }
+
+  let foo;
+
+  let keyboard = new Keyboard({
+    modules: [
+      myClass
+    ],
+    onModulesLoaded: () => {
+      foo = "bar";
+    }
+  });
+
+  expect(foo).toBe("bar");
+});

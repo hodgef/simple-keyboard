@@ -91,6 +91,7 @@ class SimpleKeyboard {
     this.handleButtonMouseUp = this.handleButtonMouseUp.bind(this);
     this.handleButtonMouseDown = this.handleButtonMouseDown.bind(this);
     this.handleButtonHold = this.handleButtonHold.bind(this);
+    this.onModulesLoaded = this.onModulesLoaded.bind(this);
 
     /**
      * simple-keyboard uses a non-persistent internal input to keep track of the entered string (the variable `keyboard.input`).
@@ -542,6 +543,14 @@ class SimpleKeyboard {
       this.options.onRender();
   }
 
+ /**
+  * Executes the callback function once all modules have been loaded
+  */
+  onModulesLoaded(){
+    if(typeof this.options.onModulesLoaded === "function")
+      this.options.onModulesLoaded();
+  }
+
   /**
    * Register module
    */
@@ -566,9 +575,13 @@ class SimpleKeyboard {
           this.keyboardPluginClasses = this.keyboardPluginClasses + ` ${classStr}`;
         }
 
-        this.render();
         module.init(this);
       });
+
+      this.keyboardPluginClasses = this.keyboardPluginClasses + ' modules-loaded';
+
+      this.render();
+      this.onModulesLoaded();
     }
   }
 
