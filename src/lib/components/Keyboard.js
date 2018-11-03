@@ -259,12 +259,19 @@ class SimpleKeyboard {
    */
   /* istanbul ignore next */
   handleButtonHold(button){
+    if(this.holdInteractionTimeout)
+      clearTimeout(this.holdInteractionTimeout);
+
     /**
      * @type {object} Timeout dictating the speed of key hold iterations
      */
     this.holdInteractionTimeout = setTimeout(() => {
-      this.handleButtonClicked(button);
-      this.handleButtonHold(button);
+      if(this.isMouseHold){
+        this.handleButtonClicked(button);
+        this.handleButtonHold(button);
+      } else {
+        clearTimeout(this.holdInteractionTimeout);
+      }
     }, 100);
   }
 
@@ -684,7 +691,10 @@ class SimpleKeyboard {
          */
         var buttonDOM = document.createElement('div');
         buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? " "+buttonThemeClass : ""}`;
-        buttonDOM.onclick = () => this.handleButtonClicked(button);
+        buttonDOM.onclick = () => {
+          this.isMouseHold = false;
+          this.handleButtonClicked(button);
+        }
         buttonDOM.onmousedown = (e) => this.handleButtonMouseDown(button, e);
 
         /**
@@ -737,16 +747,16 @@ class SimpleKeyboard {
      */
     this.onRender();
 
+    /**
+     * Handling mouseup
+     */
+    document.onmouseup = () => this.handleButtonMouseUp();
+
     if(!this.initialized){
       /**
        * Ensures that onInit is only called once per instantiation
        */
       this.initialized = true;
-
-      /**
-       * Handling mouseup
-       */
-      document.onmouseup = () => this.handleButtonMouseUp();
 
       /**
        * Calling onInit
