@@ -516,8 +516,9 @@ class SimpleKeyboard {
     let targetTagName = event.target.tagName.toLowerCase();
 
     if(
-      targetTagName === "textarea" ||
-      targetTagName === "input"
+      (targetTagName === "textarea" ||
+      targetTagName === "input") &&
+      !this.options.disableCaretPositioning
     ){
       /**
        * Tracks current cursor position
