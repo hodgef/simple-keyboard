@@ -131,48 +131,51 @@ class Utilities {
    * @param  {string} input The input string
    * @param  {object} options The simple-keyboard options object
    * @param  {number} caretPos The cursor's current position
+   * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
-  getUpdatedInput(button, input, options, caretPos){
+  getUpdatedInput(button, input, options, caretPos, moveCaret){
     
     let output = input;
 
     if((button === "{bksp}" || button === "{backspace}") && output.length > 0){
-      output = this.removeAt(output, caretPos);
+      output = this.removeAt(output, caretPos, moveCaret);
 
     } else if(button === "{space}")
-      output = this.addStringAt(output, " ", caretPos);
+      output = this.addStringAt(output, " ", caretPos, moveCaret);
 
     else if(button === "{tab}" && !(typeof options.tabCharOnTab === "boolean" && options.tabCharOnTab === false)){
-      output = this.addStringAt(output, "\t", caretPos);
+      output = this.addStringAt(output, "\t", caretPos, moveCaret);
 
     } else if((button === "{enter}" || button === "{numpadenter}") && options.newLineOnEnter)
-      output = this.addStringAt(output, "\n", caretPos);
+      output = this.addStringAt(output, "\n", caretPos, moveCaret);
 
     else if(button.includes("numpad") && Number.isInteger(Number(button[button.length - 2]))){
       output = this.addStringAt(output, button[button.length - 2], caretPos);
     }
     else if(button === "{numpaddivide}")
-      output = this.addStringAt(output, '/', caretPos);
+      output = this.addStringAt(output, '/', caretPos, moveCaret);
 
     else if(button === "{numpadmultiply}")
-      output = this.addStringAt(output, '*', caretPos);
+      output = this.addStringAt(output, '*', caretPos, moveCaret);
+
     else if(button === "{numpadsubtract}")
-      output = this.addStringAt(output, '-', caretPos);
+      output = this.addStringAt(output, '-', caretPos, moveCaret);
 
     else if(button === "{numpadadd}")
-      output = this.addStringAt(output, '+', caretPos);
+      output = this.addStringAt(output, '+', caretPos, moveCaret);
 
     else if(button === "{numpaddecimal}")
-      output = this.addStringAt(output, '.', caretPos);
+      output = this.addStringAt(output, '.', caretPos, moveCaret);
 
     else if(button === "{" || button === "}")
-      output = this.addStringAt(output, button, caretPos);
+      output = this.addStringAt(output, button, caretPos, moveCaret);
 
     else if(!button.includes("{") && !button.includes("}"))
-      output = this.addStringAt(output, button, caretPos);
+      output = this.addStringAt(output, button, caretPos, moveCaret);
 
     return output;
   }
+
   /**
    * Moves the cursor position by a given amount
    * 
@@ -182,7 +185,7 @@ class Utilities {
   updateCaretPos(length, minus){
     if(minus){
       if(this.simpleKeyboardInstance.caretPosition > 0)
-        this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition - length
+        this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition - length;
     } else {
       this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition + length;
     }
@@ -194,13 +197,10 @@ class Utilities {
    * @param  {string} source The source input
    * @param  {string} string The string to add
    * @param  {number} position The (cursor) position where the string should be added
+   * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
-  addStringAt(source, string, position){
+  addStringAt(source, string, position, moveCaret){
     let output;
-
-    if(this.simpleKeyboardInstance.options.debug){
-      console.log("Caret at:", position);
-    }
 
     if(!position && position !== 0){
       output = source + string;
@@ -211,9 +211,13 @@ class Utilities {
        * Avoid caret position change when maxLength is set
        */
       if(!this.isMaxLengthReached()){
-        this.updateCaretPos(string.length);
+        if(moveCaret) this.updateCaretPos(string.length);
       }
 
+    }
+
+    if(this.simpleKeyboardInstance.options.debug && moveCaret){
+      console.log("Caret at:", position);
     }
 
     return output;
@@ -224,8 +228,9 @@ class Utilities {
    * 
    * @param  {string} source The source input
    * @param  {number} position The (cursor) position from where the characters should be removed
+   * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
-  removeAt(source, position){
+  removeAt(source, position, moveCaret){
     if(this.simpleKeyboardInstance.caretPosition === 0){
       return source;
     }
@@ -245,10 +250,10 @@ class Utilities {
 
       if(emojiMatched){
         output = source.substr(0, (position - 2)) + source.substr(position);
-        this.updateCaretPos(2, true);
+        if(moveCaret) this.updateCaretPos(2, true);
       } else {
         output = source.substr(0, (position - 1)) + source.substr(position);
-        this.updateCaretPos(1, true);
+        if(moveCaret) this.updateCaretPos(1, true);
       }
     } else {
       prevTwoChars = source.slice(-2);
@@ -256,11 +261,15 @@ class Utilities {
 
       if(emojiMatched){
         output = source.slice(0, -2);
-        this.updateCaretPos(2, true);
+        if(moveCaret) this.updateCaretPos(2, true);
       } else {
         output = source.slice(0, -1);
-        this.updateCaretPos(1, true);
+        if(moveCaret) this.updateCaretPos(1, true);
       }
+    }
+
+    if(this.simpleKeyboardInstance.options.debug && moveCaret){
+      console.log("Caret at:", this.simpleKeyboardInstance.caretPosition);
     }
 
     return output;
@@ -276,7 +285,6 @@ class Utilities {
     let maxLength = options.maxLength;
     let currentInput = inputObj[options.inputName];
     let condition = currentInput.length === maxLength;
-
 
     if(
       /**

@@ -416,11 +416,14 @@ it('Keyboard removeAt will exit out on caretPosition:0', () => {
   let keyboard = new Keyboard();
 
   keyboard.setInput("test");
-
   keyboard.caretPosition = 0;
   keyboard.utilities.removeAt(keyboard.getInput(), 0);
-
   expect(keyboard.getInput()).toBe("test");
+
+  keyboard.setInput("test");
+  keyboard.caretPosition = 5;
+  keyboard.utilities.removeAt(keyboard.getInput(), 0, true);
+  expect(keyboard.caretPosition).toBe(4);
 });
 
 it('Keyboard removeAt will remove multi-byte unicodes with caretPos>0', () => {
@@ -430,27 +433,36 @@ it('Keyboard removeAt will remove multi-byte unicodes with caretPos>0', () => {
 
   keyboard.caretPosition = 6;
   let output = keyboard.utilities.removeAt("test\uD83D\uDE00", 6);
-
   expect(output).toBe("test");
+
+  keyboard.caretPosition = 6;
+  output = keyboard.utilities.removeAt("test\uD83D\uDE00", 6, true);
+  expect(keyboard.caretPosition).toBe(4);
 });
 
 it('Keyboard removeAt will not remove multi-byte unicodes with caretPos:0', () => {
   testUtil.setDOM();
 
   let keyboard = new Keyboard();
-
   let output = keyboard.utilities.removeAt("\uD83D\uDE00");
+  expect(output).toBeFalsy();
 
+  output = keyboard.utilities.removeAt("\uD83D\uDE00", 0,  true);
   expect(output).toBeFalsy();
 });
 
 it('Keyboard removeAt will remove regular strings', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  let keyboard = new Keyboard({
+    debug: true
+  });
 
   keyboard.caretPosition = 6;
   let output = keyboard.utilities.removeAt("testie", 6);
-
   expect(output).toBe("testi");
+
+  keyboard.caretPosition = 6;
+  output = keyboard.utilities.removeAt("testie", 6, true);
+  expect(keyboard.caretPosition).toBe(5);
 });

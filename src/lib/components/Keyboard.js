@@ -173,7 +173,9 @@ class SimpleKeyboard {
     if(!this.input[this.options.inputName])
       this.input[this.options.inputName] = '';
 
-    let updatedInput = this.utilities.getUpdatedInput(button, this.input[this.options.inputName], this.options, this.caretPosition);
+    let updatedInput = this.utilities.getUpdatedInput(
+      button, this.input[this.options.inputName], this.options, this.caretPosition
+    );
 
     if(this.input[this.options.inputName] !== updatedInput){
 
@@ -184,7 +186,9 @@ class SimpleKeyboard {
         return false;
       }
 
-      this.input[this.options.inputName] = updatedInput;
+      this.input[this.options.inputName]  = this.utilities.getUpdatedInput(
+        button, this.input[this.options.inputName], this.options, this.caretPosition, true
+      );
 
       if(debug)
         console.log('Input changed:', this.input);
