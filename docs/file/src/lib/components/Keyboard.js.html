@@ -215,7 +215,9 @@ class SimpleKeyboard {
     if(!this.input[this.options.inputName])
       this.input[this.options.inputName] = &apos;&apos;;
 
-    let updatedInput = this.utilities.getUpdatedInput(button, this.input[this.options.inputName], this.options, this.caretPosition);
+    let updatedInput = this.utilities.getUpdatedInput(
+      button, this.input[this.options.inputName], this.options, this.caretPosition
+    );
 
     if(this.input[this.options.inputName] !== updatedInput){
 
@@ -226,7 +228,9 @@ class SimpleKeyboard {
         return false;
       }
 
-      this.input[this.options.inputName] = updatedInput;
+      this.input[this.options.inputName]  = this.utilities.getUpdatedInput(
+        button, this.input[this.options.inputName], this.options, this.caretPosition, true
+      );
 
       if(debug)
         console.log(&apos;Input changed:&apos;, this.input);
@@ -301,12 +305,19 @@ class SimpleKeyboard {
    */
   /* istanbul ignore next */
   handleButtonHold(button){
+    if(this.holdInteractionTimeout)
+      clearTimeout(this.holdInteractionTimeout);
+
     /**
      * @type {object} Timeout dictating the speed of key hold iterations
      */
     this.holdInteractionTimeout = setTimeout(() =&gt; {
-      this.handleButtonClicked(button);
-      this.handleButtonHold(button);
+      if(this.isMouseHold){
+        this.handleButtonClicked(button);
+        this.handleButtonHold(button);
+      } else {
+        clearTimeout(this.holdInteractionTimeout);
+      }
     }, 100);
   }
 
@@ -551,8 +562,9 @@ class SimpleKeyboard {
     let targetTagName = event.target.tagName.toLowerCase();
 
     if(
-      targetTagName === &quot;textarea&quot; ||
-      targetTagName === &quot;input&quot;
+      (targetTagName === &quot;textarea&quot; ||
+      targetTagName === &quot;input&quot;) &amp;&amp;
+      !this.options.disableCaretPositioning
     ){
       /**
        * Tracks current cursor position
@@ -726,7 +738,10 @@ class SimpleKeyboard {
          */
         var buttonDOM = document.createElement(&apos;div&apos;);
         buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? &quot; &quot;+buttonThemeClass : &quot;&quot;}`;
-        buttonDOM.onclick = () =&gt; this.handleButtonClicked(button);
+        buttonDOM.onclick = () =&gt; {
+          this.isMouseHold = false;
+          this.handleButtonClicked(button);
+        }
         buttonDOM.onmousedown = (e) =&gt; this.handleButtonMouseDown(button, e);
 
         /**
@@ -779,16 +794,16 @@ class SimpleKeyboard {
      */
     this.onRender();
 
+    /**
+     * Handling mouseup
+     */
+    document.onmouseup = () =&gt; this.handleButtonMouseUp();
+
     if(!this.initialized){
       /**
        * Ensures that onInit is only called once per instantiation
        */
       this.initialized = true;
-
-      /**
-       * Handling mouseup
-       */
-      document.onmouseup = () =&gt; this.handleButtonMouseUp();
 
       /**
        * Calling onInit
