@@ -42,7 +42,7 @@
     "autoprefixer": "9.3.1",
     "babel-core": "^6.26.3",
     "babel-eslint": "7.2.3",
-    "babel-jest": "20.0.3",
+    "babel-jest": "23.6.0",
     "babel-loader": "7.1.2",
     "babel-preset-react-app": "^3.1.2",
     "babel-runtime": "6.26.0",
