@@ -74,10 +74,6 @@ class App {
       onKeyPress: button =&gt; this.onKeyPress(button),
       newLineOnEnter: true,
       physicalKeyboardHighlight: true,
-      inputName: &quot;inputPhone&quot;,
-      maxLength: {
-        inputPhone: 11
-      }
     });
   
     /**
@@ -85,7 +81,7 @@ class App {
      */
     document.querySelector(&apos;.simple-keyboard&apos;).insertAdjacentHTML(&apos;beforebegin&apos;, `
     &lt;div class=&quot;simple-keyboard-preview&quot;&gt;
-      &lt;textarea class=&quot;input&quot; maxlength=&quot;11&quot;&gt;&lt;/textarea&gt;
+      &lt;textarea class=&quot;input&quot;&gt;&lt;/textarea&gt;
     &lt;/div&gt;
     `);
   

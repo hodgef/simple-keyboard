@@ -559,7 +559,11 @@ class SimpleKeyboard {
    * Called by {@link handleCaret} when an event that warrants a cursor position update is triggered
    */
   caretEventHandler(event){
-    let targetTagName = event.target.tagName.toLowerCase();
+    let targetTagName;
+
+    if(event.target.tagName){
+      targetTagName = event.target.tagName.toLowerCase();
+    }
 
     if(
       (targetTagName === &quot;textarea&quot; ||

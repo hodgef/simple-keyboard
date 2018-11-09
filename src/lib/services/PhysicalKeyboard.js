@@ -51,7 +51,7 @@ class PhysicalKeyboard {
         this.simpleKeyboardInstance.dispatch(instance => {
           let buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);
 
-          if(buttonDOM){
+          if(buttonDOM && buttonDOM.removeAttribute){
             buttonDOM.removeAttribute("style");
           }
         });
