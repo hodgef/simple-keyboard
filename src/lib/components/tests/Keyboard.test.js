@@ -45,6 +45,31 @@ it('Keyboard will run with debug option set', () => {
   expect(keyboard.options.debug).toBeTruthy();
 });
 
+it('Keyboard will use touch events', () => {
+  let touched = false
+
+  testUtil.clear()
+
+  document.body.innerHTML = `
+    <div id="keyboard"></div>
+  `;
+
+  const keyboard = new Keyboard('#keyboard', {
+    useTouchEvents: true,
+    onChange: () => touched = true,
+    layout: {
+      default: ["q"]
+    }
+  });
+
+  keyboard.getButtonElement("q").ontouchstart();
+  keyboard.getButtonElement("q").ontouchend();
+  
+  expect(keyboard.options.useTouchEvents).toBeTruthy();
+  expect(touched).toBeTruthy();
+  expect(keyboard.getInput()).toBe('q');
+})
+
 it('Keyboard standard buttons will work', () => {
   testUtil.setDOM();
   let keyboard = new Keyboard({
