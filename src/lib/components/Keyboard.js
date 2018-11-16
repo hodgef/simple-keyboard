@@ -635,6 +635,7 @@ class SimpleKeyboard {
 
     let layoutClass = this.options.layout ? "hg-layout-custom" : `hg-layout-${this.options.layoutName}`;
     let layout = this.options.layout || KeyboardLayout.getDefaultLayout();
+    let useTouchEvents = this.options.useTouchEvents || false
 
     /**
      * Account for buttonTheme, if set
@@ -700,12 +701,22 @@ class SimpleKeyboard {
          */
         var buttonDOM = document.createElement('div');
         buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? " "+buttonThemeClass : ""}`;
-        buttonDOM.onclick = () => {
-          this.isMouseHold = false;
-          this.handleButtonClicked(button);
+        
+        if (useTouchEvents) {
+          buttonDOM.ontouchstart = (e) => {
+            this.handleButtonClicked(button);
+            this.handleButtonMouseDown(button, e);
+          }
+          buttonDOM.ontouchend = e => this.handleButtonMouseUp();
+          buttonDOM.ontouchcancel = e => this.handleButtonMouseUp();
+        } else {
+          buttonDOM.onclick = () => {
+            this.isMouseHold = false;
+            this.handleButtonClicked(button);
+          }
+          buttonDOM.onmousedown = (e) => this.handleButtonMouseDown(button, e);
         }
-        buttonDOM.onmousedown = (e) => this.handleButtonMouseDown(button, e);
-
+        
         /**
          * Adding identifier
          */
@@ -759,7 +770,9 @@ class SimpleKeyboard {
     /**
      * Handling mouseup
      */
-    document.onmouseup = () => this.handleButtonMouseUp();
+    if (!useTouchEvents) {
+      document.onmouseup = () => this.handleButtonMouseUp();
+    }
 
     if(!this.initialized){
       /**
