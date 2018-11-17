@@ -64,6 +64,7 @@ it('Keyboard will use touch events', () => {
 
   keyboard.getButtonElement("q").ontouchstart();
   keyboard.getButtonElement("q").ontouchend();
+  keyboard.getButtonElement("q").ontouchcancel();
   
   expect(keyboard.options.useTouchEvents).toBeTruthy();
   expect(touched).toBeTruthy();
