@@ -326,10 +326,13 @@ module.exports = {
               configFile: false,
               compact: false,
               presets: [
-                [
-                  require.resolve('babel-preset-react-app/dependencies'),
-                  { helpers: true },
-                ],
+                "@babel/preset-env",
+                "@babel/preset-react"
+              ],
+              plugins: [
+                  [
+                    "@babel/plugin-proposal-class-properties"
+                  ]
               ],
               cacheDirectory: true,
               // Save disk space when time isn't as important
