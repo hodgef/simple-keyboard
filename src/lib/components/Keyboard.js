@@ -294,7 +294,7 @@ class SimpleKeyboard {
    */
   clearInput(inputName){
     inputName = inputName || this.options.inputName;
-    this.input[this.options.inputName] = '';
+    this.input[inputName] = '';
 
     /**
      * Enforce syncInstanceInputs, if set
