@@ -601,6 +601,8 @@ it('Keyboard caretEventHandler ignore positioning if input, textarea is blur', (
 
   let keyboard = new Keyboard();
 
+  keyboard.isMouseHold = true;
+
   keyboard.caretEventHandler({
     charCode: 0,
     code: "KeyF",
