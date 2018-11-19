@@ -519,6 +519,10 @@ class SimpleKeyboard {
   caretEventHandler(event){
     let targetTagName;
 
+    if(this.isMouseHold){
+      this.isMouseHold = false;
+    }
+
     if(event.target.tagName){
       targetTagName = event.target.tagName.toLowerCase();
     }
@@ -767,18 +771,18 @@ class SimpleKeyboard {
      */
     this.onRender();
 
-    /**
-     * Handling mouseup
-     */
-    if (!useTouchEvents) {
-      document.onmouseup = () => this.handleButtonMouseUp();
-    }
-
     if(!this.initialized){
       /**
        * Ensures that onInit is only called once per instantiation
        */
       this.initialized = true;
+
+      /**
+       * Handling mouseup
+       */
+      if (!useTouchEvents) {
+        document.onmouseup = () => this.handleButtonMouseUp();
+      }
 
       /**
        * Calling onInit
