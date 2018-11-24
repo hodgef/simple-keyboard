@@ -50,8 +50,9 @@ class SimpleKeyboard {
      * @property {object} maxLength Restrains simple-keyboard’s individual inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.
      * @property {boolean} syncInstanceInputs When set to true, this option synchronizes the internal input of every simple-keyboard instance.
      * @property {boolean} physicalKeyboardHighlight Enable highlighting of keys pressed on physical keyboard.
+     * @property {boolean} preventMouseDownDefault Calling preventDefault for the mousedown events keeps the focus on the input.
      * @property {string} physicalKeyboardHighlightTextColor Define the text color that the physical keyboard highlighted key should have.
-     * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have. 
+     * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have.
      * @property {function(button: string):string} onKeyPress Executes the callback function on key press. Returns button layout name (i.e.: “{shift}”).
      * @property {function(input: string):string} onChange Executes the callback function on input change. Returns the current input’s string.
      * @property {function} onRender Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
@@ -62,6 +63,7 @@ class SimpleKeyboard {
     this.options.layoutName = this.options.layoutName || "default";
     this.options.theme = this.options.theme || "hg-theme-default";
     this.options.inputName = this.options.inputName || "default";
+    this.options.preventMouseDownDefault = this.options.preventMouseDownDefault || true;
 
     /**
      * @type {object} Classes identifying loaded plugins
@@ -718,7 +720,10 @@ class SimpleKeyboard {
             this.isMouseHold = false;
             this.handleButtonClicked(button);
           }
-          buttonDOM.onmousedown = (e) => this.handleButtonMouseDown(button, e);
+          buttonDOM.onmousedown = (e) => {
+            if (this.options.preventMouseDownDefault) e.preventDefault();
+            this.handleButtonMouseDown(button, e);
+          }
         }
         
         /**
