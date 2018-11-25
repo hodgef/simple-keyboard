@@ -92,8 +92,9 @@ class SimpleKeyboard {
      * @property {object} maxLength Restrains simple-keyboard&#x2019;s individual inputs to a certain length. This should be used in addition to the input element&#x2019;s maxlengthattribute.
      * @property {boolean} syncInstanceInputs When set to true, this option synchronizes the internal input of every simple-keyboard instance.
      * @property {boolean} physicalKeyboardHighlight Enable highlighting of keys pressed on physical keyboard.
+     * @property {boolean} preventMouseDownDefault Calling preventDefault for the mousedown events keeps the focus on the input.
      * @property {string} physicalKeyboardHighlightTextColor Define the text color that the physical keyboard highlighted key should have.
-     * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have. 
+     * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have.
      * @property {function(button: string):string} onKeyPress Executes the callback function on key press. Returns button layout name (i.e.: &#x201C;{shift}&#x201D;).
      * @property {function(input: string):string} onChange Executes the callback function on input change. Returns the current input&#x2019;s string.
      * @property {function} onRender Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
@@ -104,6 +105,7 @@ class SimpleKeyboard {
     this.options.layoutName = this.options.layoutName || &quot;default&quot;;
     this.options.theme = this.options.theme || &quot;hg-theme-default&quot;;
     this.options.inputName = this.options.inputName || &quot;default&quot;;
+    this.options.preventMouseDownDefault = this.options.preventMouseDownDefault === false ? false : true;
 
     /**
      * @type {object} Classes identifying loaded plugins
@@ -336,7 +338,7 @@ class SimpleKeyboard {
    */
   clearInput(inputName){
     inputName = inputName || this.options.inputName;
-    this.input[this.options.inputName] = &apos;&apos;;
+    this.input[inputName] = &apos;&apos;;
 
     /**
      * Enforce syncInstanceInputs, if set
@@ -561,6 +563,10 @@ class SimpleKeyboard {
   caretEventHandler(event){
     let targetTagName;
 
+    if(this.isMouseHold){
+      this.isMouseHold = false;
+    }
+
     if(event.target.tagName){
       targetTagName = event.target.tagName.toLowerCase();
     }
@@ -677,6 +683,7 @@ class SimpleKeyboard {
 
     let layoutClass = this.options.layout ? &quot;hg-layout-custom&quot; : `hg-layout-${this.options.layoutName}`;
     let layout = this.options.layout || KeyboardLayout.getDefaultLayout();
+    let useTouchEvents = this.options.useTouchEvents || false
 
     /**
      * Account for buttonTheme, if set
@@ -742,12 +749,25 @@ class SimpleKeyboard {
          */
         var buttonDOM = document.createElement(&apos;div&apos;);
         buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? &quot; &quot;+buttonThemeClass : &quot;&quot;}`;
-        buttonDOM.onclick = () =&gt; {
-          this.isMouseHold = false;
-          this.handleButtonClicked(button);
+        
+        if (useTouchEvents) {
+          buttonDOM.ontouchstart = (e) =&gt; {
+            this.handleButtonClicked(button);
+            this.handleButtonMouseDown(button, e);
+          }
+          buttonDOM.ontouchend = e =&gt; this.handleButtonMouseUp();
+          buttonDOM.ontouchcancel = e =&gt; this.handleButtonMouseUp();
+        } else {
+          buttonDOM.onclick = () =&gt; {
+            this.isMouseHold = false;
+            this.handleButtonClicked(button);
+          }
+          buttonDOM.onmousedown = (e) =&gt; {
+            if (this.options.preventMouseDownDefault) e.preventDefault();
+            this.handleButtonMouseDown(button, e);
+          }
         }
-        buttonDOM.onmousedown = (e) =&gt; this.handleButtonMouseDown(button, e);
-
+        
         /**
          * Adding identifier
          */
@@ -798,16 +818,18 @@ class SimpleKeyboard {
      */
     this.onRender();
 
-    /**
-     * Handling mouseup
-     */
-    document.onmouseup = () =&gt; this.handleButtonMouseUp();
-
     if(!this.initialized){
       /**
        * Ensures that onInit is only called once per instantiation
        */
       this.initialized = true;
+
+      /**
+       * Handling mouseup
+       */
+      if (!useTouchEvents) {
+        document.onmouseup = () =&gt; this.handleButtonMouseUp();
+      }
 
       /**
        * Calling onInit
