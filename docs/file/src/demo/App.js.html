@@ -85,7 +85,7 @@ class App {
     &lt;/div&gt;
     `);
   
-    document.querySelector(&apos;.input&apos;).addEventListener(&apos;change&apos;, (event) =&gt; {
+    document.querySelector(&apos;.input&apos;).addEventListener(&apos;input&apos;, (event) =&gt; {
       this.keyboard.setInput(event.target.value);
     });
   }

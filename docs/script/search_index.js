@@ -756,6 +756,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/lib/services/utilities.js~utilities#updatecaretposaction",
+    "class/src/lib/services/Utilities.js~Utilities.html#instance-method-updateCaretPosAction",
+    "src/lib/services/Utilities.js~Utilities#updateCaretPosAction",
+    "method"
+  ],
+  [
     "src/lib/tests/testutility.js",
     "file/src/lib/tests/TestUtility.js.html",
     "src/lib/tests/TestUtility.js",

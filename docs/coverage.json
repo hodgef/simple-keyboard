@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 77,
-  "actualCount": 77,
+  "expectCount": 78,
+  "actualCount": 78,
   "files": {
     "src/demo/App.js": {
       "expectCount": 8,
@@ -24,8 +24,8 @@
       "undocumentLines": []
     },
     "src/lib/services/Utilities.js": {
-      "expectCount": 15,
-      "actualCount": 15,
+      "expectCount": 16,
+      "actualCount": 16,
       "undocumentLines": []
     },
     "src/lib/tests/TestUtility.js": {
