@@ -48,7 +48,7 @@ it('Demo input change will work', () => {
   demo.onDOMLoaded();
 
   document.body.querySelector('.input').value = "test";
-  document.body.querySelector('.input').dispatchEvent(new Event('change'));
+  document.body.querySelector('.input').dispatchEvent(new Event('input'));
   
   expect(demo.keyboard.getInput()).toBe("test");
 });
