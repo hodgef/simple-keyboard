@@ -43,7 +43,7 @@ class App {
     </div>
     `);
   
-    document.querySelector('.input').addEventListener('change', (event) => {
+    document.querySelector('.input').addEventListener('input', (event) => {
       this.keyboard.setInput(event.target.value);
     });
   }
