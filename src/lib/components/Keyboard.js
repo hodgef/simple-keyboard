@@ -63,7 +63,7 @@ class SimpleKeyboard {
     this.options.layoutName = this.options.layoutName || "default";
     this.options.theme = this.options.theme || "hg-theme-default";
     this.options.inputName = this.options.inputName || "default";
-    this.options.preventMouseDownDefault = this.options.preventMouseDownDefault === false ? false : true;
+    this.options.preventMouseDownDefault = this.options.preventMouseDownDefault || false;
 
     /**
      * @type {object} Classes identifying loaded plugins
