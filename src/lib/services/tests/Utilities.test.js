@@ -214,6 +214,18 @@ it('Keyboard updateCaretPos will work with minus', () => {
   testUtil.setDOM();
 
   let keyboard = new Keyboard();
+  keyboard.options.syncInstanceInputs = true;
+
+  keyboard.caretPosition = 5;
+  keyboard.utilities.updateCaretPos(2, true);
+
+  expect(keyboard.caretPosition).toBe(3);
+});
+
+it('Keyboard updateCaretPos will work with minus', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
 
   keyboard.caretPosition = 5;
   keyboard.utilities.updateCaretPos(2, true);

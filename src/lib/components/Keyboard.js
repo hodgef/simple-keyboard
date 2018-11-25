@@ -506,13 +506,27 @@ class SimpleKeyboard {
    * Retrieves the current cursor position within a input or textarea (if any)
    */
   handleCaret(){
+    /**
+     * Only first instance should insall the caret handling events
+     */
+    this.caretPosition = null;
+    let simpleKeyboardInstances = window['SimpleKeyboardInstances'];
+
+    if(
+      (
+        simpleKeyboardInstances &&
+        Object.keys(simpleKeyboardInstances)[0] === this.utilities.camelCase(this.keyboardDOMClass)
+      ) ||
+      !simpleKeyboardInstances
+    ){
     if(this.options.debug){
-      console.log("Caret handling started");
+        console.log(`Caret handling started (${this.keyboardDOMClass})`)
     }
 
     document.addEventListener("keyup", this.caretEventHandler);
     document.addEventListener("mouseup", this.caretEventHandler);
     document.addEventListener("touchend", this.caretEventHandler);
+  }
   }
 
   /**
@@ -520,30 +534,31 @@ class SimpleKeyboard {
    */
   caretEventHandler(event){
     let targetTagName;
-
-    if(this.isMouseHold){
-      this.isMouseHold = false;
-    }
-
     if(event.target.tagName){
       targetTagName = event.target.tagName.toLowerCase();
+    }
+
+    this.dispatch(instance => {
+      if(instance.isMouseHold){
+        instance.isMouseHold = false;
     }
 
     if(
       (targetTagName === "textarea" ||
       targetTagName === "input") &&
-      !this.options.disableCaretPositioning
+        !instance.options.disableCaretPositioning
     ){
       /**
        * Tracks current cursor position
        * As keys are pressed, text will be added/removed at that position within the input.
        */
-      this.caretPosition = event.target.selectionStart;
+        instance.caretPosition = event.target.selectionStart;
 
-      if(this.options.debug){
-        console.log('Caret at: ', event.target.selectionStart, event.target.tagName.toLowerCase());
+        if(instance.options.debug){
+          console.log('Caret at: ', event.target.selectionStart, event.target.tagName.toLowerCase(), `(${instance.keyboardDOMClass})`);
       }     
     }
+    });
   }
 
   /**
@@ -551,7 +566,7 @@ class SimpleKeyboard {
    */
   onInit(){
     if(this.options.debug){
-      console.log("Initialized");
+      console.log(`${this.keyboardDOMClass} Initialized`)
     }
 
     /**

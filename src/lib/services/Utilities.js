@@ -18,6 +18,7 @@ class Utilities {
     this.getButtonDisplayName = this.getButtonDisplayName.bind(this);
     this.getUpdatedInput = this.getUpdatedInput.bind(this);
     this.updateCaretPos = this.updateCaretPos.bind(this);
+    this.updateCaretPosAction = this.updateCaretPosAction.bind(this);
     this.isMaxLengthReached = this.isMaxLengthReached.bind(this);
     this.camelCase = this.camelCase.bind(this);
     this.countInArray = this.countInArray.bind(this);
@@ -183,11 +184,32 @@ class Utilities {
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */
   updateCaretPos(length, minus){
-    if(minus){
-      if(this.simpleKeyboardInstance.caretPosition > 0)
-        this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition - length;
+    if(this.simpleKeyboardInstance.options.syncInstanceInputs){
+      this.simpleKeyboardInstance.dispatch(instance => {
+        this.updateCaretPosAction(instance, length, minus);
+      });
     } else {
-      this.simpleKeyboardInstance.caretPosition = this.simpleKeyboardInstance.caretPosition + length;
+      this.updateCaretPosAction(this.simpleKeyboardInstance, length, minus);
+    }
+  }
+
+  /**
+   * Action method of updateCaretPos
+   * 
+   * @param  {object} instance The instance whose position should be updated
+   * @param  {number} length Represents by how many characters the input should be moved
+   * @param  {boolean} minus Whether the cursor should be moved to the left or not.
+   */
+  updateCaretPosAction(instance, length, minus){
+    if(minus){
+      if(instance.caretPosition > 0)
+      instance.caretPosition = instance.caretPosition - length;
+    } else {
+      instance.caretPosition = instance.caretPosition + length;
+    }
+
+    if(this.simpleKeyboardInstance.options.debug){
+      console.log("Caret at:", instance.caretPosition, `(${instance.keyboardDOMClass})`);
     }
   }
 
@@ -214,10 +236,6 @@ class Utilities {
         if(moveCaret) this.updateCaretPos(string.length);
       }
 
-    }
-
-    if(this.simpleKeyboardInstance.options.debug && moveCaret){
-      console.log("Caret at:", position);
     }
 
     return output;
@@ -266,10 +284,6 @@ class Utilities {
         output = source.slice(0, -1);
         if(moveCaret) this.updateCaretPos(1, true);
       }
-    }
-
-    if(this.simpleKeyboardInstance.options.debug && moveCaret){
-      console.log("Caret at:", this.simpleKeyboardInstance.caretPosition);
     }
 
     return output;
@@ -355,7 +369,6 @@ class Utilities {
   countInArray(array, value){
     return array.reduce((n, x) => n + (x === value), 0);
   }
-
 }
 
 export default Utilities;
