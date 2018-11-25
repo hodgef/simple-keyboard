@@ -870,6 +870,24 @@ it('Keyboard handleButtonMouseDown will work', () => {
 
 });
 
+it('Keyboard handleButtonMouseDown will work with preventMouseDownDefault', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.options.preventMouseDownDefault = true;
+
+  keyboard.handleButtonMouseDown("q", {
+    target: keyboard.getButtonElement("q")
+  });
+
+  var clickEvent = document.createEvent('MouseEvents');
+  clickEvent.initEvent('mousedown', true, true);
+  keyboard.getButtonElement("q").dispatchEvent(clickEvent);
+  document.onmouseup();
+
+});
+
 it('Keyboard onModulesLoaded will work', () => {
   testUtil.setDOM();
 
