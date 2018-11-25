@@ -863,7 +863,9 @@ it('Keyboard handleButtonMouseDown will work', () => {
     target: keyboard.getButtonElement("q")
   });
 
-  keyboard.getButtonElement("q").onmousedown();
+  var clickEvent = document.createEvent('MouseEvents');
+  clickEvent.initEvent('mousedown', true, true);
+  keyboard.getButtonElement("q").dispatchEvent(clickEvent);
   document.onmouseup();
 
 });
