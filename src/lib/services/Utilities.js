@@ -151,7 +151,7 @@ class Utilities {
       output = this.addStringAt(output, "\n", caretPos, moveCaret);
 
     else if(button.includes("numpad") && Number.isInteger(Number(button[button.length - 2]))){
-      output = this.addStringAt(output, button[button.length - 2], caretPos);
+      output = this.addStringAt(output, button[button.length - 2], caretPos, moveCaret);
     }
     else if(button === "{numpaddivide}")
       output = this.addStringAt(output, '/', caretPos, moveCaret);
@@ -184,12 +184,12 @@ class Utilities {
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */
   updateCaretPos(length, minus){
+    let newCaretPos = this.updateCaretPosAction(this.simpleKeyboardInstance, length, minus);
+
     if(this.simpleKeyboardInstance.options.syncInstanceInputs){
       this.simpleKeyboardInstance.dispatch(instance => {
-        this.updateCaretPosAction(instance, length, minus);
+        instance.caretPosition = newCaretPos;
       });
-    } else {
-      this.updateCaretPosAction(this.simpleKeyboardInstance, length, minus);
     }
   }
 
@@ -211,6 +211,8 @@ class Utilities {
     if(this.simpleKeyboardInstance.options.debug){
       console.log("Caret at:", instance.caretPosition, `(${instance.keyboardDOMClass})`);
     }
+
+    return instance.caretPosition;
   }
 
   /**
