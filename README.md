@@ -35,7 +35,9 @@ Feel free to browse the [Q&A / Use-cases](https://simple-keyboard.com/qa-use-cas
 
 ### Other versions
 
-* ReactJS - [react-simple-keyboard](https://github.com/hodgef/react-simple-keyboard)
+* [React.js](https://github.com/hodgef/react-simple-keyboard)
+* [Angular](https://simple-keyboard.com/demo)
+* [Vue.js](https://simple-keyboard.com/demo)
 
 ### Questions?
 
