@@ -1,6 +1,57 @@
-declare module 'simple-keyboard' {
+declare module "simple-keyboard" {
   class SimpleKeyboard {
     constructor(selector: string, options: SimpleKeyboardOptions);
+
+    /**
+     * Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.
+     * @param  {string} buttons List of buttons to select (separated by a space).
+     * @param  {string} className Classes to give to the selected buttons (separated by space).
+     */
+    addButtonTheme(buttons: string, className: string): void;
+
+    /**
+     * Removes/Amends an entry to the `buttonTheme`. Basically a way to remove a class previously added to a button through buttonTheme or addButtonTheme.
+     * @param  {string} buttons List of buttons to select (separated by a space).
+     * @param  {string} className Classes to give to the selected buttons (separated by space).
+     */
+    removeButtonTheme(buttons: string, className: string): void;
+
+    /**
+     * Clear the keyboard’s input.
+     * @param {string} [inputName] optional - the internal input to select
+     */
+    clearInput(inputName: string): void;
+
+    /**
+     * Get the keyboard’s input (You can also get it from the onChange prop).
+     * @param  {string} [inputName] optional - the internal input to select
+     */
+    getInput(inputName: string): void;
+
+    /**
+     * Set the keyboard’s input.
+     * @param  {string} input the input value
+     * @param  {string} inputName optional - the internal input to select
+     */
+    setInput(input: string, inputName: string): void;
+
+    /**
+     * Set new option or modify existing ones after initialization.
+     * @param  {SimpleKeyboardOptions} option The option to set
+     */
+    setOptions(options: SimpleKeyboardOptions): void;
+
+    /**
+     * Send a command to all simple-keyboard instances at once (if you have multiple instances).
+     * @param  {function(instance: object, key: string)} callback Function to run on every instance
+     */
+    dispatch(callback: (instance: any, key: string) => void): void;
+
+    /**
+     * Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.
+     * @param  {string} button The button layout name to select
+     */
+    getButtonElement(button: string);
   }
 
   interface SimpleKeyboardOptions {
@@ -48,8 +99,69 @@ declare module 'simple-keyboard' {
      * Specifies whether clicking the “TAB” button will input a tab character (\t) or not.
      */
     tabCharOnTab: boolean;
+
+    /**
+     * Allows you to use a single simple-keyboard instance for several inputs.
+     */
+    inputName: string;
+
+    /**
+     * number: Restrains all of simple-keyboard inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.
+     * any: Restrains simple-keyboard’s individual inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.
+     */
+    // @TODO: specify type for `any`;
+    maxLength: number | any;
+
+    /**
+     * When set to true, this option synchronizes the internal input of every simple-keyboard instance.
+     */
+    syncInstanceInputs: boolean;
+
+    /**
+     * Enable highlighting of keys pressed on physical keyboard.
+     */
+    physicalKeyboardHighlight: boolean;
+
+    /**
+     * Calling preventDefault for the mousedown events keeps the focus on the input.
+     */
+    preventMouseDownDefault: boolean;
+
+    /**
+     * Define the text color that the physical keyboard highlighted key should have.
+     */
+    physicalKeyboardHighlightTextColor: string;
+
+    /**
+     * Define the background color that the physical keyboard highlighted key should have.
+     */
+    physicalKeyboardHighlightBgColor: string;
+
+    /**
+     * Executes the callback function on key press. Returns button layout name (i.e.: “{shift}”).
+     */
+    onKeyPress: (button: string) => string;
+
+    /**
+     * Executes the callback function on input change. Returns the current input’s string.
+     */
+    onChange: (input: string) => string;
+
+    /**
+     * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
+     */
+    onRender: () => any;
+
+    /**
+     * Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
+     */
+    onInit: () => any;
+
+    /**
+     * Executes the callback function on input change. Returns the input object with all defined inputs.
+     */
+    onChangeAll: (inputs: any) => any;
   }
 
   export default SimpleKeyboard;
 }
-
