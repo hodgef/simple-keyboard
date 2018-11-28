@@ -124,6 +124,7 @@ declare module 'simple-keyboard' {
 
   export class Keyboard {
     constructor(selector: string, options: KeyboardOptions);
+    constructor(options: KeyboardOptions);
 
     /**
      * Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.
