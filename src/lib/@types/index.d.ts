@@ -9,7 +9,7 @@ declare module 'simple-keyboard' {
     buttons: string;
   }
 
-  export interface KeyboardOptions {
+  interface KeyboardOptions {
     /**
      * Modify the keyboard layout.
      */
