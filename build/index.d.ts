@@ -99,12 +99,12 @@ declare module 'simple-keyboard' {
     /**
      * Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
      */
-    onKeyPress?: (button: string) => string;
+    onKeyPress?: (button: string) => any;
 
     /**
      * Executes the callback function on input change. Returns the current input's string.
      */
-    onChange?: (input: string) => string;
+    onChange?: (input: string) => any;
 
     /**
      * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
@@ -122,9 +122,10 @@ declare module 'simple-keyboard' {
     onChangeAll?: (inputs: any) => any;
   }
 
-  export class Keyboard {
+  class Keyboard {
     constructor(selector: string, options: KeyboardOptions);
     constructor(options: KeyboardOptions);
+    options: KeyboardOptions;
 
     /**
      * Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.
