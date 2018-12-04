@@ -177,7 +177,7 @@ declare module 'simple-keyboard' {
      * Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.
      * @param  {string} button The button layout name to select
      */
-    getButtonElement(button: string): void;
+    getButtonElement(button: string): HTMLElement | HTMLElement[];
   }
 
   export default Keyboard;
