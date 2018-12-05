@@ -5,17 +5,11 @@ class PhysicalKeyboard {
   /**
    * Creates an instance of the PhysicalKeyboard service
    */
-  constructor(simpleKeyboardInstance){
+  constructor(simpleKeyboardInstance) {
     /**
      * @type {object} A simple-keyboard instance
      */
     this.simpleKeyboardInstance = simpleKeyboardInstance;
-
-    /**
-     * Bindings
-     */
-    this.initKeyboardListener = this.initKeyboardListener.bind(this);
-    this.getSimpleKeyboardLayoutKey = this.getSimpleKeyboardLayoutKey.bind(this);
 
     /**
      * Initialize key listeners
@@ -26,33 +20,33 @@ class PhysicalKeyboard {
   /**
    * Initializes key event listeners
    */
-  initKeyboardListener(){
+  initKeyboardListener = () => {
     // Adding button style on keydown
-    document.addEventListener("keydown", (event) => {
-      if(this.simpleKeyboardInstance.options.physicalKeyboardHighlight){
-        let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+    document.addEventListener('keydown', (event) => {
+      if (this.simpleKeyboardInstance.options.physicalKeyboardHighlight) {
+        const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
         this.simpleKeyboardInstance.dispatch(instance => {
-          let buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);
+          const buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);
 
-          if(buttonDOM){
-            buttonDOM.style.backgroundColor = this.simpleKeyboardInstance.options.physicalKeyboardHighlightBgColor || "#9ab4d0";
-            buttonDOM.style.color = this.simpleKeyboardInstance.options.physicalKeyboardHighlightTextColor || "white";
+          if (buttonDOM) {
+            buttonDOM.style.backgroundColor = this.simpleKeyboardInstance.options.physicalKeyboardHighlightBgColor || '#9ab4d0';
+            buttonDOM.style.color = this.simpleKeyboardInstance.options.physicalKeyboardHighlightTextColor || 'white';
           }
         });
       }
     });
 
     // Removing button style on keyup
-    document.addEventListener("keyup", (event) => {
-      if(this.simpleKeyboardInstance.options.physicalKeyboardHighlight){
-        let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+    document.addEventListener('keyup', event => {
+      if (this.simpleKeyboardInstance.options.physicalKeyboardHighlight) {
+        const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
         this.simpleKeyboardInstance.dispatch(instance => {
-          let buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);
+          const buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);
 
-          if(buttonDOM && buttonDOM.removeAttribute){
-            buttonDOM.removeAttribute("style");
+          if (buttonDOM && buttonDOM.removeAttribute) {
+            buttonDOM.removeAttribute('style');
           }
         });
       }
@@ -60,24 +54,24 @@ class PhysicalKeyboard {
   }
 
   /**
-   * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
+   * Transforms a KeyboardEvent's 'key.code' string into a simple-keyboard layout format
    * @param  {object} event The KeyboardEvent
    */
-  getSimpleKeyboardLayoutKey(event){
+  getSimpleKeyboardLayoutKey = ({ code, key }) => {
     let output;
 
-    if(
-      event.code.includes("Numpad") ||
-      event.code.includes("Shift") ||
-      event.code.includes("Space") ||
-      event.code.includes("Backspace") ||
-      event.code.includes("Control") ||
-      event.code.includes("Alt") ||
-      event.code.includes("Meta")
-    ){
-      output = event.code;
+    if (
+      code.includes('Numpad') ||
+      code.includes('Shift') ||
+      code.includes('Space') ||
+      code.includes('Backspace') ||
+      code.includes('Control') ||
+      code.includes('Alt') ||
+      code.includes('Meta')
+    ) {
+      output = code;
     } else {
-      output = event.key;
+      output = key;
     }
 
     /**
@@ -85,7 +79,7 @@ class PhysicalKeyboard {
      */
     if (
       output !== output.toUpperCase() ||
-      (event.code[0] === "F" && Number.isInteger(Number(event.code[1])) && event.code.length <= 3)
+      (code[0] === 'F' && Number.isInteger(Number(code[1])) && code.length <= 3)
     ) {
       output = output.toLowerCase();
     }

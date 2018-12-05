@@ -1,48 +1,33 @@
 import Keyboard from '../Keyboard';
 import TestUtility from '../../tests/TestUtility';
 
-let testUtil = new TestUtility();
+const testUtil = new TestUtility();
 
 it('Keyboard will not render without target element', () => {
-  try {
+  expect(() => new Keyboard()).toThrowError('KEYBOARD_DOM_ERROR');
+});
+
+describe('options', () => {
+  beforeEach(() => testUtil.setDOM());
+
+  it('Keyboard will run without options', () => {
+    // No options
     new Keyboard();
-    expect(true).toBe(false);
-  } catch (e) {
-    expect(e.message).toBe("KEYBOARD_DOM_ERROR");
-  }
-});
-
-it('Keyboard will run without options', () => {
-  // Prepare target DOM element
-  testUtil.setDOM();
-
-  // No options
-  new Keyboard();
-});
-
-it('Keyboard will run with empty options', () => {
-  // Prepare target DOM element
-  testUtil.setDOM();
-
-  // No options
-  new Keyboard({});
-});
-
-it('Keyboard will run with custom DOM target', () => {
-  testUtil.setDOM("myTestDiv");
-
-  new Keyboard(".myTestDiv");
-  expect(document.body.querySelector(".myTestDiv")).toBeDefined();
-});
-
-it('Keyboard will run with debug option set', () => {
-  testUtil.setDOM();
-  
-  let keyboard = new Keyboard({
-    debug: true
   });
-
-  expect(keyboard.options.debug).toBeTruthy();
+  
+  it('Keyboard will run with custom DOM target', () => {
+    testUtil.setDOM("myTestDiv");
+  
+    new Keyboard(".myTestDiv");
+  
+    expect(document.body.querySelector(".myTestDiv")).toBeDefined();
+  });
+  
+  it('Keyboard will run with debug option set', () => {  
+    const keyboard = new Keyboard({ debug: true });
+  
+    expect(keyboard.options.debug).toBeTruthy();
+  });
 });
 
 it('Keyboard will use touch events', () => {

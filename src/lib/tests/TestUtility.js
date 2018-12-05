@@ -96,12 +96,8 @@ export default class TestUtility {
    * Iterates on the keyboard buttons
    */
   iterateButtons = (callback, selector) => {
-    let rows = document.body.querySelector(selector || '.simple-keyboard').children;
+    const rows = document.body.querySelector(selector || '.simple-keyboard').children;
 
-    Array.from(rows).forEach(row => {
-      Array.from(row.children).forEach((button) => {
-        callback(button);
-      });
-    });
+    Array.from(rows).forEach(row => Array.from(row.children).forEach(button => callback(button)))
   }
 }
