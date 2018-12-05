@@ -152,7 +152,7 @@ declare module 'simple-keyboard' {
      * Get the keyboard’s input (You can also get it from the onChange prop).
      * @param  {string} [inputName] optional - the internal input to select
      */
-    getInput(inputName?: string): void;
+    getInput(inputName?: string): string;
 
     /**
      * Set the keyboard’s input.
