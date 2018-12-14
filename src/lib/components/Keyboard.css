@@ -57,6 +57,13 @@ body, html {
   justify-content: center;
  }
 
+ /* When using option "useButtonTag" */
+ .simple-keyboard button.hg-button {
+  border-width: 0;
+  outline: 0;
+  font-size: inherit;
+}
+
  .simple-keyboard.hg-theme-default .hg-button:active {
   background: #e4e4e4;
  }

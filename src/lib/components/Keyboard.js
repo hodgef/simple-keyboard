@@ -18,7 +18,7 @@ class SimpleKeyboard {
    * @param {Array} params If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.
    */
   constructor(...params){
-    let keyboardDOMQuery = typeof params[0] === "string" ? params[0] : '.simple-keyboard';
+    let keyboardDOMQuery = typeof params[0] === "string" ? params[0] : ".simple-keyboard";
     let options = typeof params[0] === "object" ? params[0] : params[1];
 
     if(!options)
@@ -58,6 +58,7 @@ class SimpleKeyboard {
      * @property {function} onRender Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
      * @property {function} onInit Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
      * @property {function(inputs: object):object} onChangeAll Executes the callback function on input change. Returns the input object with all defined inputs.
+     * @property {boolean} useButtonTag Render buttons as a button element instead of a div element.
      */
     this.options = options;
     this.options.layoutName = this.options.layoutName || "default";
@@ -555,7 +556,7 @@ class SimpleKeyboard {
         instance.caretPosition = event.target.selectionStart;
 
         if(instance.options.debug){
-          console.log('Caret at: ', event.target.selectionStart, event.target.tagName.toLowerCase(), `(${instance.keyboardDOMClass})`);
+          console.log("Caret at: ", event.target.selectionStart, event.target.tagName.toLowerCase(), `(${instance.keyboardDOMClass})`);
       }     
     }
     });
@@ -621,7 +622,7 @@ class SimpleKeyboard {
         module.init(this);
       });
 
-      this.keyboardPluginClasses = this.keyboardPluginClasses + ' modules-loaded';
+      this.keyboardPluginClasses = this.keyboardPluginClasses + " modules-loaded";
 
       this.render();
       this.onModulesLoaded();
@@ -668,7 +669,7 @@ class SimpleKeyboard {
           let themeButtons;
 
           if(typeof themeObj.buttons === "string"){
-            themeButtons = themeObj.buttons.split(' ');
+            themeButtons = themeObj.buttons.split(" ");
           }
 
           if(themeButtons){
@@ -701,12 +702,12 @@ class SimpleKeyboard {
      * Iterating through each row
      */
     layout[this.options.layoutName].forEach((row, rIndex) => {
-      let rowArray = row.split(' ');
+      let rowArray = row.split(" ");
 
       /**
        * Creating empty row
        */
-      var rowDOM = document.createElement('div');
+      let rowDOM = document.createElement("div");
       rowDOM.className += "hg-row";
 
       /**
@@ -720,7 +721,8 @@ class SimpleKeyboard {
         /**
          * Creating button
          */
-        var buttonDOM = document.createElement('div');
+        let buttonType = this.options.useButtonTag ? "button" : "div";
+        let buttonDOM = document.createElement(buttonType);
         buttonDOM.className += `hg-button ${fctBtnClass}${buttonThemeClass ? " "+buttonThemeClass : ""}`;
         
         if (useTouchEvents) {
@@ -761,7 +763,7 @@ class SimpleKeyboard {
         /**
          * Adding button label to button
          */
-        var buttonSpanDOM = document.createElement('span');
+        let buttonSpanDOM = document.createElement('span');
         buttonSpanDOM.innerHTML = buttonDisplayName;
         buttonDOM.appendChild(buttonSpanDOM);
 

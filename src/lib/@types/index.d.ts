@@ -97,6 +97,11 @@ declare module 'simple-keyboard' {
     physicalKeyboardHighlightBgColor?: string;
 
     /**
+     * Render buttons as a button element instead of a div element.
+     */
+    useButtonTag?: boolean;
+
+    /**
      * Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
      */
     onKeyPress?: (button: string) => any;

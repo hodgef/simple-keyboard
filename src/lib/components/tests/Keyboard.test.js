@@ -137,7 +137,9 @@ it('Keyboard onKeyPress will work', () => {
 it('Keyboard standard function buttons will not change input', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  let keyboard = new Keyboard({
+    useButtonTag: true
+  });
 
   testUtil.iterateButtons((button) => {
     if(button.getAttribute("data-skbtn") === "{shift}"){
