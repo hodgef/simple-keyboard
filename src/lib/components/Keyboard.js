@@ -655,7 +655,7 @@ class SimpleKeyboard {
      */
     this.clear();
 
-    let layoutClass = this.options.layout ? "hg-layout-custom" : `hg-layout-${this.options.layoutName}`;
+    let layoutClass = `hg-layout-${this.options.layoutName}`;
     let layout = this.options.layout || KeyboardLayout.getDefaultLayout();
     let useTouchEvents = this.options.useTouchEvents || false
 
