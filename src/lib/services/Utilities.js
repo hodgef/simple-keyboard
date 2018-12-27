@@ -359,7 +359,14 @@ class Utilities {
    * @param  {string} string The string to transform.
    */
   camelCase(string){
-    return string.toLowerCase().trim().split(/[.\-_\s]/g).reduce((string, word) => string + word[0].toUpperCase() + word.slice(1));
+    return string
+      .toLowerCase()
+      .trim()
+      .split(/[.\-_\s]/g)
+      .reduce(
+        (string, word) =>
+          word.length ? string + word[0].toUpperCase() + word.slice(1) : string
+      );
   };
 
   /**
