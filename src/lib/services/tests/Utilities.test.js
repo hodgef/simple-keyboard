@@ -478,3 +478,9 @@ it('Keyboard removeAt will remove regular strings', () => {
   output = keyboard.utilities.removeAt("testie", 6, true);
   expect(keyboard.caretPosition).toBe(5);
 });
+
+it('Keyboard will work with custom (and weird) class', () => {
+  testUtil.setDOM("my--weird--class");
+  let keyboard = new Keyboard(".my--weird--class");
+  expect(keyboard.keyboardDOMClass).toBe("my--weird--class");
+});
