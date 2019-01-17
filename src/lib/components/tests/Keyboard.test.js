@@ -598,6 +598,42 @@ it('Keyboard caretEventHandler will detect input, textarea focus', () => {
   expect(keyboard.caretPosition).toBe(3);
 });
 
+it('Keyboard caretEventHandler will not set caretPosition on disableCaretPositioning', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.caretEventHandler({
+    charCode: 0,
+    code: "KeyF",
+    key: "f",
+    which: 70,
+    target: {
+      tagName: "input",
+      selectionStart: 3
+    }
+  });
+
+  expect(keyboard.caretPosition).toBe(3);
+
+  keyboard.setOptions({
+    disableCaretPositioning: true
+  });
+
+  keyboard.caretEventHandler({
+    charCode: 0,
+    code: "KeyF",
+    key: "f",
+    which: 70,
+    target: {
+      tagName: "input",
+      selectionStart: 3
+    }
+  });
+
+  expect(keyboard.caretPosition).toBeFalsy();
+});
+
 it('Keyboard caretEventHandler ignore positioning if input, textarea is blur', () => {
   testUtil.setDOM();
 
