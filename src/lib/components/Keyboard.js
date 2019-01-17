@@ -542,24 +542,29 @@ class SimpleKeyboard {
 
     this.dispatch(instance => {
       if(instance.isMouseHold){
-        instance.isMouseHold = false;
-    }
+          instance.isMouseHold = false;
+      }
 
-    if(
-      (targetTagName === "textarea" ||
-      targetTagName === "input") &&
-        !instance.options.disableCaretPositioning
-    ){
-      /**
-       * Tracks current cursor position
-       * As keys are pressed, text will be added/removed at that position within the input.
-       */
-        instance.caretPosition = event.target.selectionStart;
+      if(
+        (targetTagName === "textarea" ||
+        targetTagName === "input") &&
+          !instance.options.disableCaretPositioning
+      ){
+        /**
+         * Tracks current cursor position
+         * As keys are pressed, text will be added/removed at that position within the input.
+         */
+          instance.caretPosition = event.target.selectionStart;
 
-        if(instance.options.debug){
-          console.log("Caret at: ", event.target.selectionStart, event.target.tagName.toLowerCase(), `(${instance.keyboardDOMClass})`);
-      }     
-    }
+          if(instance.options.debug){
+            console.log("Caret at: ", event.target.selectionStart, event.target.tagName.toLowerCase(), `(${instance.keyboardDOMClass})`);
+        }     
+      } else if(instance.options.disableCaretPositioning){
+        /**
+         * If we toggled off disableCaretPositioning, we must ensure caretPosition doesn't persist once reactivated.
+         */
+        instance.caretPosition = null;
+      }
     });
   }
 
