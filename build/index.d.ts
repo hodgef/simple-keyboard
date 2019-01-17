@@ -102,6 +102,11 @@ declare module 'simple-keyboard' {
     useButtonTag?: boolean;
 
     /**
+     * A prop to ensure characters are always be added/removed at the end of the string.
+     */
+    disableCaretPositioning?: boolean;
+
+    /**
      * Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
      */
     onKeyPress?: (button: string) => any;

@@ -59,6 +59,7 @@ class SimpleKeyboard {
      * @property {function} onInit Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
      * @property {function(inputs: object):object} onChangeAll Executes the callback function on input change. Returns the input object with all defined inputs.
      * @property {boolean} useButtonTag Render buttons as a button element instead of a div element.
+     * @property {boolean} disableCaretPositioning A prop to ensure characters are always be added/removed at the end of the string.
      */
     this.options = options;
     this.options.layoutName = this.options.layoutName || "default";
