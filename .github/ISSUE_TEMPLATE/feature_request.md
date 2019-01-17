@@ -1,6 +1,9 @@
 ---
 name: Feature request
 about: Suggest an idea you'd like to see in simple-keyboard
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
