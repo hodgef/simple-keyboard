@@ -60,6 +60,7 @@ class SimpleKeyboard {
      * @property {function(inputs: object):object} onChangeAll Executes the callback function on input change. Returns the input object with all defined inputs.
      * @property {boolean} useButtonTag Render buttons as a button element instead of a div element.
      * @property {boolean} disableCaretPositioning A prop to ensure characters are always be added/removed at the end of the string.
+     * @property {object} inputPattern Restrains input(s) change to the defined regular expression pattern.
      */
     this.options = options;
     this.options.layoutName = this.options.layoutName || "default";
@@ -96,6 +97,7 @@ class SimpleKeyboard {
     this.handleButtonMouseDown = this.handleButtonMouseDown.bind(this);
     this.handleButtonHold = this.handleButtonHold.bind(this);
     this.onModulesLoaded = this.onModulesLoaded.bind(this);
+    this.inputPatternIsValid = this.inputPatternIsValid.bind(this);
 
     /**
      * simple-keyboard uses a non-persistent internal input to keep track of the entered string (the variable `keyboard.input`).
@@ -181,7 +183,17 @@ class SimpleKeyboard {
       button, this.input[this.options.inputName], this.options, this.caretPosition
     );
 
-    if(this.input[this.options.inputName] !== updatedInput){
+    if(
+      // If input will change as a result of this button press
+      this.input[this.options.inputName] !== updatedInput &&
+      // This pertains to the "inputPattern" option:
+      (
+        // If inputPattern isn't set
+        !this.options.inputPattern ||
+        // Or, if it is set and if the pattern is valid - we proceed.
+        (this.options.inputPattern && this.inputPatternIsValid(updatedInput))
+      )
+    ){
 
       /**
        * If maxLength and handleMaxLength yield true, halting
@@ -502,6 +514,39 @@ class SimpleKeyboard {
     }
 
     return output;
+  }
+
+  /**
+   * This handles the "inputPattern" option
+   * by checking if the provided inputPattern passes
+   */
+  inputPatternIsValid(inputVal){
+    let inputPatternRaw = this.options.inputPattern;
+    let inputPattern;
+
+    /**
+     * Check if input pattern is global or targeted to individual inputs
+     */
+    if(inputPatternRaw instanceof RegExp){
+      inputPattern = inputPatternRaw;
+    } else {
+      inputPattern = inputPatternRaw[this.options.inputName];
+    }
+    
+    if(inputPattern && inputVal){
+      let didInputMatch = inputPattern.test(inputVal);
+
+      if(this.options.debug){
+        console.log(`inputPattern ("${inputPattern}"): ${didInputMatch ? "passed" : "did not pass!"}`);
+      }
+
+      return didInputMatch;
+    } else {
+      /**
+       * inputPattern doesn't seem to be set for the current input, or input is empty. Pass.
+       */
+      return true;
+    }
   }
 
   /**
