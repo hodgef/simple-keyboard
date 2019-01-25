@@ -948,3 +948,45 @@ it('Keyboard onModulesLoaded will work', () => {
 
   expect(foo).toBe("bar");
 });
+
+it('Keyboard inputPattern will work globally', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({
+    inputPattern: /^\d+$/
+  });
+
+  keyboard.getButtonElement("q").onclick();
+
+  expect(keyboard.getInput()).toBeFalsy();
+
+  keyboard.getButtonElement("1").onclick();
+
+  expect(keyboard.getInput()).toBe("1");
+});
+
+it('Keyboard inputPattern will work by input name', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({
+    debug: true,
+    inputName: "test1",
+    inputPattern: {
+      test1: /^\d+$/
+    }
+  });
+
+  keyboard.getButtonElement("q").onclick();
+  keyboard.getButtonElement("1").onclick();
+
+  expect(keyboard.getInput()).toBe("1");
+
+  keyboard.setOptions({
+    inputName: "default"
+  });
+
+  keyboard.getButtonElement("q").onclick();
+  keyboard.getButtonElement("1").onclick();
+
+  expect(keyboard.getInput()).toBe("q1");
+});
