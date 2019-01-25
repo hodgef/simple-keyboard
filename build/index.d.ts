@@ -107,6 +107,11 @@ declare module 'simple-keyboard' {
     disableCaretPositioning?: boolean;
 
     /**
+     * Restrains input(s) change to the defined regular expression pattern.
+     */
+    inputPattern?: any;
+
+    /**
      * Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
      */
     onKeyPress?: (button: string) => any;
