@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "2.14.1",
+  "version": "2.14.2",
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -38,7 +38,7 @@
     "osk",
     "js"
   ],
-  "license": "MIT",
+  "license": "(MIT or GPL-3.0)",
   "devDependencies": {
     "@babel/core": "7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.0",
