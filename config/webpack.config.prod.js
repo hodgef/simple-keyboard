@@ -514,7 +514,7 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: `${paths.appSrcLibTypes}`,
-        to: paths.appLayoutsBuild
+        to: paths.appBuild
       }
     ]),
     // Generate a service worker script that will precache, and keep up to date,
