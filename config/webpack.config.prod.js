@@ -11,9 +11,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
-const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const paths = require('./paths');
@@ -23,7 +21,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt')
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const getPackageJson = require('./getPackageJson');
-
+var PrettierPlugin = require("prettier-webpack-plugin");
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -517,6 +515,7 @@ module.exports = {
         to: paths.appBuild
       }
     ]),
+    new PrettierPlugin(),
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
     /*new WorkboxWebpackPlugin.GenerateSW({

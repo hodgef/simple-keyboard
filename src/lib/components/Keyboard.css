@@ -1,10 +1,12 @@
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
 }
 
 .simple-keyboard {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
   width: 100%;
   user-select: none;
   box-sizing: border-box;
@@ -38,13 +40,13 @@ body, html {
  * hg-theme-default theme
  */
 .simple-keyboard.hg-theme-default {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   padding: 5px;
   border-radius: 5px;
- }
+}
 
 .simple-keyboard.hg-theme-default .hg-button {
-  box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 3px -1px rgba(0, 0, 0, 0.3);
   height: 40px;
   border-radius: 5px;
   box-sizing: border-box;
@@ -55,18 +57,18 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
- }
+}
 
- /* When using option "useButtonTag" */
- .simple-keyboard button.hg-button {
+/* When using option "useButtonTag" */
+.simple-keyboard button.hg-button {
   border-width: 0;
   outline: 0;
   font-size: inherit;
 }
 
- .simple-keyboard.hg-theme-default .hg-button:active {
+.simple-keyboard.hg-theme-default .hg-button:active {
   background: #e4e4e4;
- }
+}
 
 .simple-keyboard.hg-theme-default.hg-layout-numeric .hg-button {
   width: 33.3%;
