@@ -1,11 +1,11 @@
 /*!
  * 
- *   simple-keyboard v2.15.2 (Non-minified build)
+ *   simple-keyboard v2.15.3 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
  * 
- *   This source code is licensed under a dual license system (MIT or GPL-3.0), as found in the
+ *   This source code is licensed under the MIT license found in the
  *   LICENSE file in the root directory of this source tree.
  *   
  */
