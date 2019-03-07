@@ -191,20 +191,6 @@ it('Keyboard clearInput will work', () => {
 
   let keyboard = new Keyboard();
 
-  keyboard.input = {
-    "default": "hello"
-  };
-
-  keyboard.clearInput();
-
-  expect(keyboard.getInput()).toBeFalsy();
-});
-
-it('Keyboard clearInput will work', () => {
-  testUtil.setDOM();
-
-  let keyboard = new Keyboard();
-
   /**
    * Avoid setInput for this test
    */
@@ -989,4 +975,71 @@ it('Keyboard inputPattern will work by input name', () => {
   keyboard.getButtonElement("1").onclick();
 
   expect(keyboard.getInput()).toBe("q1");
+});
+
+it('Keyboard processAutoTouchEvents will work', () => {
+  testUtil.setDOM();
+
+  navigator.maxTouchPoints = true;
+
+  let keyboard = new Keyboard({
+    autoUseTouchEvents: true
+  });
+
+  expect(keyboard.options.useTouchEvents).toBeTruthy();
+});
+
+it('Keyboard processAutoTouchEvents will work with debugging enabled', () => {
+  testUtil.setDOM();
+
+  navigator.maxTouchPoints = true;
+
+  let keyboard = new Keyboard({
+    autoUseTouchEvents: true,
+    debug: true
+  });
+
+  expect(keyboard.options.useTouchEvents).toBeTruthy();
+});
+
+it('Keyboard beforeFirstRender method will work', () => {
+  testUtil.setDOM();
+
+  let timesCalled = 0;
+
+  let keyboard = new Keyboard({
+    beforeFirstRender: () => {
+      timesCalled++;
+    }
+  });
+
+  /**
+   * Triggering another render
+   */
+  keyboard.setOptions({
+    layoutName: "shift"
+  });
+
+  expect(timesCalled).toBe(1);
+});
+
+it('Keyboard beforeRender method will work', () => {
+  testUtil.setDOM();
+
+  let timesCalled = 0;
+
+  let keyboard = new Keyboard({
+    beforeRender: () => {
+      timesCalled++;
+    }
+  });
+
+  /**
+   * Triggering another render
+   */
+  keyboard.setOptions({
+    layoutName: "shift"
+  });
+
+  expect(timesCalled).toBe(2);
 });
