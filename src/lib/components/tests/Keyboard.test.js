@@ -1023,6 +1023,23 @@ it('Keyboard beforeFirstRender method will work', () => {
   expect(timesCalled).toBe(1);
 });
 
+it('Keyboard beforeFirstRender will show PointerEvents warning', () => {
+  testUtil.setDOM();
+
+  let timesCalled = 0;
+
+  window.PointerEvent = window.PointerEvent ? window.PointerEvent : () => {};
+
+  let keyboard = new Keyboard({
+    debug: true,
+    beforeFirstRender: () => {
+      timesCalled++;
+    }
+  });
+
+  expect(timesCalled).toBe(1);
+});
+
 it('Keyboard beforeRender method will work', () => {
   testUtil.setDOM();
 
