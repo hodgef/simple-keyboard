@@ -79,28 +79,7 @@ class SimpleKeyboard {
     /**
      * Bindings
      */
-    this.handleButtonClicked = this.handleButtonClicked.bind(this);
-    this.syncInstanceInputs = this.syncInstanceInputs.bind(this);
-    this.clearInput = this.clearInput.bind(this);
-    this.getInput = this.getInput.bind(this);
-    this.setInput = this.setInput.bind(this);
-    this.replaceInput = this.replaceInput.bind(this);
-    this.clear = this.clear.bind(this);
-    this.dispatch = this.dispatch.bind(this);
-    this.addButtonTheme = this.addButtonTheme.bind(this);
-    this.removeButtonTheme = this.removeButtonTheme.bind(this);
-    this.getButtonElement = this.getButtonElement.bind(this);
-    this.handleCaret = this.handleCaret.bind(this);
-    this.caretEventHandler = this.caretEventHandler.bind(this);
-    this.onInit = this.onInit.bind(this);
-    this.onRender = this.onRender.bind(this);
-    this.render = this.render.bind(this);
-    this.loadModules = this.loadModules.bind(this);
-    this.handleButtonMouseUp = this.handleButtonMouseUp.bind(this);
-    this.handleButtonMouseDown = this.handleButtonMouseDown.bind(this);
-    this.handleButtonHold = this.handleButtonHold.bind(this);
-    this.onModulesLoaded = this.onModulesLoaded.bind(this);
-    this.inputPatternIsValid = this.inputPatternIsValid.bind(this);
+    Utilities.bindMethods(SimpleKeyboard, this);
 
     /**
      * simple-keyboard uses a non-persistent internal input to keep track of the entered string (the variable `keyboard.input`).
