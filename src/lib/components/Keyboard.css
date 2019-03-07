@@ -66,7 +66,7 @@ html {
   font-size: inherit;
 }
 
-.simple-keyboard.hg-theme-default .hg-button:active {
+.simple-keyboard.hg-theme-default:not(.hg-touch-events) .hg-button:active {
   background: #e4e4e4;
 }
 

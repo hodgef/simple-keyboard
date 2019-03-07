@@ -61,6 +61,8 @@ class SimpleKeyboard {
      * @property {boolean} useButtonTag Render buttons as a button element instead of a div element.
      * @property {boolean} disableCaretPositioning A prop to ensure characters are always be added/removed at the end of the string.
      * @property {object} inputPattern Restrains input(s) change to the defined regular expression pattern.
+     * @property {boolean} useTouchEvents Instructs simple-keyboard to use touch events instead of click events.
+     * @property {boolean} autoUseTouchEvents Enable useTouchEvents automatically when touch device is detected.
      */
     this.options = options;
     this.options.layoutName = this.options.layoutName || "default";
@@ -616,6 +618,20 @@ class SimpleKeyboard {
         instance.caretPosition = null;
       }
     });
+  }
+
+
+  /**
+   * Process autoTouchEvents option
+   */
+  processAutoTouchEvents(){
+    if (this.options.autoUseTouchEvents){
+      this.options.useTouchEvents = true;
+
+      if (this.options.debug) {
+        console.log(`autoUseTouchEvents: Touch device detected, useTouchEvents enabled.`);
+      }
+    }
   }
 
   /**
