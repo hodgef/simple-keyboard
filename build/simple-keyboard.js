@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.16.0 (Non-minified build)
+ *   simple-keyboard v2.17.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -658,6 +658,13 @@
         key: "isTouchDevice",
         value: function isTouchDevice() {
           return "ontouchstart" in window || navigator.maxTouchPoints;
+        }
+        /**
+   * Determines whether pointer events are supported
+   */      }, {
+        key: "pointerEventsSupported",
+        value: function pointerEventsSupported() {
+          return window.PointerEvent;
         }
         /**
    * Bind all methods in a given class
@@ -1363,6 +1370,20 @@
           }
           if (typeof this.options.beforeFirstRender === "function") {
             this.options.beforeFirstRender();
+            /**
+     * Notify about PointerEvents usage
+     */          }
+          if (this.utilities.pointerEventsSupported() && !this.options.useTouchEvents) {
+            if (this.options.debug) {
+              console.log("Using PointerEvents as it is supported by this browser");
+            }
+          }
+          /**
+     * Notify about touch events usage
+     */          if (this.options.useTouchEvents) {
+            if (this.options.debug) {
+              console.log("useTouchEvents has been enabled. Only touch events will be used.");
+            }
           }
         }
         /**
@@ -1462,28 +1483,53 @@
          */              var buttonType = _this9.options.useButtonTag ? "button" : "div";
               var buttonDOM = document.createElement(buttonType);
               buttonDOM.className += "hg-button ".concat(fctBtnClass).concat(buttonThemeClass ? " " + buttonThemeClass : "");
-              if (useTouchEvents) {
-                buttonDOM.ontouchstart = function(e) {
-                  _this9.handleButtonClicked(button);
-                  _this9.handleButtonMouseDown(button, e);
-                };
-                buttonDOM.ontouchend = function(e) {
-                  return _this9.handleButtonMouseUp();
-                };
-                buttonDOM.ontouchcancel = function(e) {
-                  return _this9.handleButtonMouseUp();
-                };
-              } else {
-                buttonDOM.onclick = function() {
-                  _this9.isMouseHold = false;
-                  _this9.handleButtonClicked(button);
-                };
-                buttonDOM.onmousedown = function(e) {
+              /**
+         * Handle button click event
+         */ /* istanbul ignore next */              if (_this9.utilities.pointerEventsSupported() && !useTouchEvents) {
+                /**
+           * PointerEvents support
+           */ buttonDOM.onpointerdown = function(e) {
                   if (_this9.options.preventMouseDownDefault) {
                     e.preventDefault();
                   }
+                  _this9.handleButtonClicked(button);
                   _this9.handleButtonMouseDown(button, e);
                 };
+                buttonDOM.onpointerup = function(e) {
+                  if (_this9.options.preventMouseDownDefault) {
+                    e.preventDefault();
+                  }
+                  _this9.handleButtonMouseUp();
+                };
+                buttonDOM.onpointercancel = function(e) {
+                  return _this9.handleButtonMouseUp();
+                };
+              } else {
+                /**
+           * Fallback for browsers not supporting PointerEvents
+           */ if (useTouchEvents) {
+                  buttonDOM.ontouchstart = function(e) {
+                    _this9.handleButtonClicked(button);
+                    _this9.handleButtonMouseDown(button, e);
+                  };
+                  buttonDOM.ontouchend = function(e) {
+                    return _this9.handleButtonMouseUp();
+                  };
+                  buttonDOM.ontouchcancel = function(e) {
+                    return _this9.handleButtonMouseUp();
+                  };
+                } else {
+                  buttonDOM.onclick = function() {
+                    _this9.isMouseHold = false;
+                    _this9.handleButtonClicked(button);
+                  };
+                  buttonDOM.onmousedown = function(e) {
+                    if (_this9.options.preventMouseDownDefault) {
+                      e.preventDefault();
+                    }
+                    _this9.handleButtonMouseDown(button, e);
+                  };
+                }
               }
               /**
          * Adding identifier
