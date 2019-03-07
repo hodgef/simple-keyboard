@@ -717,6 +717,29 @@ class SimpleKeyboard {
 
     if (typeof this.options.beforeFirstRender === "function")
       this.options.beforeFirstRender();
+
+    /**
+     * Notify about PointerEvents usage
+     */
+    if (
+      this.utilities.pointerEventsSupported() &&
+      !this.options.useTouchEvents
+    ) {
+      if (this.options.debug) {
+        console.log("Using PointerEvents as it is supported by this browser");
+      }
+    }
+
+    /**
+     * Notify about touch events usage
+     */
+    if (this.options.useTouchEvents) {
+      if (this.options.debug) {
+        console.log(
+          "useTouchEvents has been enabled. Only touch events will be used."
+        );
+      }
+    }
   }
 
   /**
@@ -868,22 +891,45 @@ class SimpleKeyboard {
           buttonThemeClass ? " " + buttonThemeClass : ""
         }`;
 
-        if (useTouchEvents) {
-          buttonDOM.ontouchstart = e => {
-            this.handleButtonClicked(button);
-            this.handleButtonMouseDown(button, e);
-          };
-          buttonDOM.ontouchend = e => this.handleButtonMouseUp();
-          buttonDOM.ontouchcancel = e => this.handleButtonMouseUp();
-        } else {
-          buttonDOM.onclick = () => {
-            this.isMouseHold = false;
-            this.handleButtonClicked(button);
-          };
-          buttonDOM.onmousedown = e => {
+        /**
+         * Handle button click event
+         */
+        /* istanbul ignore next */
+        if (this.utilities.pointerEventsSupported() && !useTouchEvents) {
+          /**
+           * PointerEvents support
+           */
+          buttonDOM.onpointerdown = e => {
             if (this.options.preventMouseDownDefault) e.preventDefault();
+            this.handleButtonClicked(button);
             this.handleButtonMouseDown(button, e);
           };
+          buttonDOM.onpointerup = e => {
+            if (this.options.preventMouseDownDefault) e.preventDefault();
+            this.handleButtonMouseUp();
+          };
+          buttonDOM.onpointercancel = e => this.handleButtonMouseUp();
+        } else {
+          /**
+           * Fallback for browsers not supporting PointerEvents
+           */
+          if (useTouchEvents) {
+            buttonDOM.ontouchstart = e => {
+              this.handleButtonClicked(button);
+              this.handleButtonMouseDown(button, e);
+            };
+            buttonDOM.ontouchend = e => this.handleButtonMouseUp();
+            buttonDOM.ontouchcancel = e => this.handleButtonMouseUp();
+          } else {
+            buttonDOM.onclick = () => {
+              this.isMouseHold = false;
+              this.handleButtonClicked(button);
+            };
+            buttonDOM.onmousedown = e => {
+              if (this.options.preventMouseDownDefault) e.preventDefault();
+              this.handleButtonMouseDown(button, e);
+            };
+          }
         }
 
         /**

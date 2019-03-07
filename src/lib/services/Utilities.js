@@ -373,6 +373,13 @@ class Utilities {
   }
 
   /**
+   * Determines whether pointer events are supported
+   */
+  pointerEventsSupported() {
+    return window.PointerEvent;
+  }
+
+  /**
    * Bind all methods in a given class
    */
 
