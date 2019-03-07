@@ -647,6 +647,7 @@ class SimpleKeyboard {
     return buttonThemesParsed;
   }
 
+  /* istanbul ignore next */
   onTouchDeviceDetected() {
     /**
      * Processing autoTouchEvents
@@ -676,6 +677,7 @@ class SimpleKeyboard {
   /**
    * Process autoTouchEvents option
    */
+  /* istanbul ignore next */
   processAutoTouchEvents() {
     if (this.options.autoUseTouchEvents) {
       this.options.useTouchEvents = true;
@@ -711,6 +713,7 @@ class SimpleKeyboard {
     /**
      * Performing actions when touch device detected
      */
+    /* istanbul ignore next */
     if (this.utilities.isTouchDevice()) {
       this.onTouchDeviceDetected();
     }
