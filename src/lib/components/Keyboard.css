@@ -32,6 +32,10 @@ html {
   cursor: pointer;
 }
 
+.simple-keyboard .hg-button span {
+  pointer-events: none;
+}
+
 /**
  * hg-theme-default theme
  */
