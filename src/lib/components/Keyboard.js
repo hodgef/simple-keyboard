@@ -620,6 +620,52 @@ class SimpleKeyboard {
     });
   }
 
+  /**
+   * Process buttonTheme option
+   */
+  getButtonTheme(){
+    let buttonThemesParsed = {};
+    
+    this.options.buttonTheme.forEach(themeObj => {
+      if (themeObj.buttons && themeObj.class) {
+        let themeButtons;
+
+        if (typeof themeObj.buttons === "string") {
+          themeButtons = themeObj.buttons.split(" ");
+        }
+
+        if (themeButtons) {
+          themeButtons.forEach(themeButton => {
+            let themeParsed = buttonThemesParsed[themeButton];
+
+            // If the button has already been added
+            if (themeParsed) {
+              // Making sure we don't add duplicate classes, even when buttonTheme has duplicates
+              if (
+                !this.utilities.countInArray(
+                  themeParsed.split(" "),
+                  themeObj.class
+                )
+              ) {
+                buttonThemesParsed[themeButton] = `${themeParsed} ${
+                  themeObj.class
+                }`;
+              }
+            } else {
+              buttonThemesParsed[themeButton] = themeObj.class;
+            }
+          });
+        }
+      } else {
+        console.warn(
+          `buttonTheme row is missing the "buttons" or the "class". Please check the documentation.`
+        );
+      }
+    });
+    
+
+    return buttonThemesParsed;
+  }
 
   /**
    * Process autoTouchEvents option
@@ -734,45 +780,7 @@ class SimpleKeyboard {
     /**
      * Account for buttonTheme, if set
      */
-    let buttonThemesParsed = {};
-    if (Array.isArray(this.options.buttonTheme)) {
-      this.options.buttonTheme.forEach(themeObj => {
-        if (themeObj.buttons && themeObj.class) {
-          let themeButtons;
-
-          if (typeof themeObj.buttons === "string") {
-            themeButtons = themeObj.buttons.split(" ");
-          }
-
-          if (themeButtons) {
-            themeButtons.forEach(themeButton => {
-              let themeParsed = buttonThemesParsed[themeButton];
-
-              // If the button has already been added
-              if (themeParsed) {
-                // Making sure we don't add duplicate classes, even when buttonTheme has duplicates
-                if (
-                  !this.utilities.countInArray(
-                    themeParsed.split(" "),
-                    themeObj.class
-                  )
-                ) {
-                  buttonThemesParsed[themeButton] = `${themeParsed} ${
-                    themeObj.class
-                  }`;
-                }
-              } else {
-                buttonThemesParsed[themeButton] = themeObj.class;
-              }
-            });
-          }
-        } else {
-          console.warn(
-            `buttonTheme row is missing the "buttons" or the "class". Please check the documentation.`
-          );
-        }
-      });
-    }
+    let buttonThemesParsed = Array.isArray(this.options.buttonTheme) ? this.getButtonTheme() : {};
 
     /**
      * Adding themeClass, layoutClass to keyboardDOM
