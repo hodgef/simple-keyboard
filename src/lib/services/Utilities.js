@@ -14,7 +14,15 @@ class Utilities {
     /**
      * Bindings
      */
-    Utilities.bindMethods(Utilities, this);
+    this.getButtonClass = this.getButtonClass.bind(this);
+    this.getButtonDisplayName = this.getButtonDisplayName.bind(this);
+    this.getUpdatedInput = this.getUpdatedInput.bind(this);
+    this.updateCaretPos = this.updateCaretPos.bind(this);
+    this.updateCaretPosAction = this.updateCaretPosAction.bind(this);
+    this.isMaxLengthReached = this.isMaxLengthReached.bind(this);
+    this.camelCase = this.camelCase.bind(this);
+    this.countInArray = this.countInArray.bind(this);
+    this.isTouchDevice = this.isTouchDevice.bind(this);
   }
 
   /**
@@ -370,19 +378,6 @@ class Utilities {
    */
   isTouchDevice() {
     return "ontouchstart" in window || navigator.maxTouchPoints;
-  }
-
-  /**
-   * Bind all methods in a given class
-   */
-  static bindMethods(myClass, instance) {
-    for (let myMethod of Object.getOwnPropertyNames(myClass.prototype)) {
-      let excludeMethod =
-        myMethod === "constructor" || myMethod === "bindMethods";
-      if (!excludeMethod) {
-        instance[myMethod] = instance[myMethod].bind(instance);
-      }
-    }
   }
 
   /**

@@ -977,6 +977,31 @@ it('Keyboard inputPattern will work by input name', () => {
   expect(keyboard.getInput()).toBe("q1");
 });
 
+it('Keyboard processAutoTouchEvents will work', () => {
+  testUtil.setDOM();
+
+  navigator.maxTouchPoints = true;
+
+  let keyboard = new Keyboard({
+    autoUseTouchEvents: true
+  });
+
+  expect(keyboard.options.useTouchEvents).toBeTruthy();
+});
+
+it('Keyboard processAutoTouchEvents will work with debugging enabled', () => {
+  testUtil.setDOM();
+
+  navigator.maxTouchPoints = true;
+
+  let keyboard = new Keyboard({
+    autoUseTouchEvents: true,
+    debug: true
+  });
+
+  expect(keyboard.options.useTouchEvents).toBeTruthy();
+});
+
 it('Keyboard beforeFirstRender method will work', () => {
   testUtil.setDOM();
 

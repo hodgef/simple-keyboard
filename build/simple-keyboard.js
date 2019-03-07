@@ -347,7 +347,15 @@
      */        this.simpleKeyboardInstance = simpleKeyboardInstance;
         /**
      * Bindings
-     */        Utilities.bindMethods(Utilities, this);
+     */        this.getButtonClass = this.getButtonClass.bind(this);
+        this.getButtonDisplayName = this.getButtonDisplayName.bind(this);
+        this.getUpdatedInput = this.getUpdatedInput.bind(this);
+        this.updateCaretPos = this.updateCaretPos.bind(this);
+        this.updateCaretPosAction = this.updateCaretPosAction.bind(this);
+        this.isMaxLengthReached = this.isMaxLengthReached.bind(this);
+        this.camelCase = this.camelCase.bind(this);
+        this.countInArray = this.countInArray.bind(this);
+        this.isTouchDevice = this.isTouchDevice.bind(this);
       }
       /**
    * Adds default classes to a given button
@@ -660,14 +668,12 @@
           return "ontouchstart" in window || navigator.maxTouchPoints;
         }
         /**
-   * Bind all methods in a given class
-   */      }, {
-        key: "camelCase",
-        /**
    * Transforms an arbitrary string to camelCase
    *
    * @param  {string} string The string to transform.
-   */ value: function camelCase(string) {
+   */      }, {
+        key: "camelCase",
+        value: function camelCase(string) {
           return string.toLowerCase().trim().split(/[.\-_\s]/g).reduce(function(string, word) {
             return word.length ? string + word[0].toUpperCase() + word.slice(1) : string;
           });
@@ -683,35 +689,6 @@
           return array.reduce(function(n, x) {
             return n + (x === value);
           }, 0);
-        }
-      } ], [ {
-        key: "bindMethods",
-        value: function bindMethods(myClass, instance) {
-          var _iteratorNormalCompletion = true;
-          var _didIteratorError = false;
-          var _iteratorError = undefined;
-          try {
-            for (var _iterator = Object.getOwnPropertyNames(myClass.prototype)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              var myMethod = _step.value;
-              var excludeMethod = myMethod === "constructor" || myMethod === "bindMethods";
-              if (!excludeMethod) {
-                instance[myMethod] = instance[myMethod].bind(instance);
-              }
-            }
-          } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion && _iterator.return != null) {
-                _iterator.return();
-              }
-            } finally {
-              if (_didIteratorError) {
-                throw _iteratorError;
-              }
-            }
-          }
         }
       } ]);
       return Utilities;
@@ -852,7 +829,33 @@
      */        this.keyboardPluginClasses = "";
         /**
      * Bindings
-     */        services_Utilities.bindMethods(SimpleKeyboard, this);
+     */        this.handleButtonClicked = this.handleButtonClicked.bind(this);
+        this.syncInstanceInputs = this.syncInstanceInputs.bind(this);
+        this.clearInput = this.clearInput.bind(this);
+        this.getInput = this.getInput.bind(this);
+        this.setInput = this.setInput.bind(this);
+        this.replaceInput = this.replaceInput.bind(this);
+        this.clear = this.clear.bind(this);
+        this.dispatch = this.dispatch.bind(this);
+        this.addButtonTheme = this.addButtonTheme.bind(this);
+        this.removeButtonTheme = this.removeButtonTheme.bind(this);
+        this.getButtonElement = this.getButtonElement.bind(this);
+        this.handleCaret = this.handleCaret.bind(this);
+        this.caretEventHandler = this.caretEventHandler.bind(this);
+        this.onInit = this.onInit.bind(this);
+        this.onRender = this.onRender.bind(this);
+        this.render = this.render.bind(this);
+        this.loadModules = this.loadModules.bind(this);
+        this.handleButtonMouseUp = this.handleButtonMouseUp.bind(this);
+        this.handleButtonMouseDown = this.handleButtonMouseDown.bind(this);
+        this.handleButtonHold = this.handleButtonHold.bind(this);
+        this.onModulesLoaded = this.onModulesLoaded.bind(this);
+        this.inputPatternIsValid = this.inputPatternIsValid.bind(this);
+        this.beforeFirstRender = this.beforeFirstRender.bind(this);
+        this.beforeRender = this.beforeRender.bind(this);
+        this.disableContextualWindow = this.disableContextualWindow.bind(this);
+        this.onTouchDeviceDetected = this.onTouchDeviceDetected.bind(this);
+        this.processAutoTouchEvents = this.processAutoTouchEvents.bind(this);
         /**
      * simple-keyboard uses a non-persistent internal input to keep track of the entered string (the variable `keyboard.input`).
      * This removes any dependency to input DOM elements. You can type and directly display the value in a div element, for example.
