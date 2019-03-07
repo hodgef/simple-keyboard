@@ -235,6 +235,8 @@ class SimpleKeyboard {
       if (
         this.isMouseHold &&
         ((!button.includes("{") && !button.includes("}")) ||
+          button === "{delete}" ||
+          button === "{backspace}" ||
           button === "{bksp}" ||
           button === "{space}" ||
           button === "{tab}")
