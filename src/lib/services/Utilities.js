@@ -365,6 +365,12 @@ class Utilities {
     return Boolean(this.maxLengthReached);
   }
 
+  /**
+   * Determines whether a touch device is being used 
+   */
+  isTouchDevice(){
+    return 'ontouchstart' in window || navigator.maxTouchPoints;   
+  }
 
   /**
    * Bind all methods in a given class

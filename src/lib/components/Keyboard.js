@@ -646,6 +646,32 @@ class SimpleKeyboard {
     return buttonThemesParsed;
   }
 
+  onTouchDeviceDetected(){
+    /**
+     * Processing autoTouchEvents
+     */
+    this.processAutoTouchEvents();
+
+    /**
+     * Disabling contextual window on touch devices
+     */
+    this.disableContextualWindow();
+  }
+
+  /**
+   * Disabling contextual window for hg-button
+   */
+  /* istanbul ignore next */
+  disableContextualWindow(){
+    window.oncontextmenu = (event) => {
+      if(event.target.classList.contains("hg-button")){
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+      }
+    };
+  }
+
   /**
    * Process autoTouchEvents option
    */
@@ -755,6 +781,7 @@ class SimpleKeyboard {
     let layoutClass = `hg-layout-${this.options.layoutName}`;
     let layout = this.options.layout || KeyboardLayout.getDefaultLayout();
     let useTouchEvents = this.options.useTouchEvents || false;
+    let useTouchEventsClass = useTouchEvents ? "hg-touch-events" : "";
 
     /**
      * Account for buttonTheme, if set
@@ -764,9 +791,7 @@ class SimpleKeyboard {
     /**
      * Adding themeClass, layoutClass to keyboardDOM
      */
-    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${
-      this.keyboardPluginClasses
-    }`;
+    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${this.keyboardPluginClasses} ${useTouchEventsClass}`;
 
     /**
      * Iterating through each row
