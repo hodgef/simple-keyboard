@@ -366,10 +366,10 @@ class Utilities {
   }
 
   /**
-   * Determines whether a touch device is being used 
+   * Determines whether a touch device is being used
    */
-  isTouchDevice(){
-    return 'ontouchstart' in window || navigator.maxTouchPoints;   
+  isTouchDevice() {
+    return "ontouchstart" in window || navigator.maxTouchPoints;
   }
 
   /**
@@ -377,10 +377,11 @@ class Utilities {
    */
   static bindMethods(myClass, instance) {
     for (let myMethod of Object.getOwnPropertyNames(myClass.prototype)) {
-        let excludeMethod = (myMethod === "constructor" || myMethod === "bindMethods");
-        if (!excludeMethod) {
-          instance[myMethod] = instance[myMethod].bind(instance);
-        }
+      let excludeMethod =
+        myMethod === "constructor" || myMethod === "bindMethods";
+      if (!excludeMethod) {
+        instance[myMethod] = instance[myMethod].bind(instance);
+      }
     }
   }
 

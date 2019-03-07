@@ -604,9 +604,9 @@ class SimpleKeyboard {
   /**
    * Process buttonTheme option
    */
-  getButtonTheme(){
+  getButtonTheme() {
     let buttonThemesParsed = {};
-    
+
     this.options.buttonTheme.forEach(themeObj => {
       if (themeObj.buttons && themeObj.class) {
         let themeButtons;
@@ -643,12 +643,11 @@ class SimpleKeyboard {
         );
       }
     });
-    
 
     return buttonThemesParsed;
   }
 
-  onTouchDeviceDetected(){
+  onTouchDeviceDetected() {
     /**
      * Processing autoTouchEvents
      */
@@ -664,9 +663,9 @@ class SimpleKeyboard {
    * Disabling contextual window for hg-button
    */
   /* istanbul ignore next */
-  disableContextualWindow(){
-    window.oncontextmenu = (event) => {
-      if(event.target.classList.contains("hg-button")){
+  disableContextualWindow() {
+    window.oncontextmenu = event => {
+      if (event.target.classList.contains("hg-button")) {
         event.preventDefault();
         event.stopPropagation();
         return false;
@@ -677,12 +676,14 @@ class SimpleKeyboard {
   /**
    * Process autoTouchEvents option
    */
-  processAutoTouchEvents(){
-    if (this.options.autoUseTouchEvents){
+  processAutoTouchEvents() {
+    if (this.options.autoUseTouchEvents) {
       this.options.useTouchEvents = true;
 
       if (this.options.debug) {
-        console.log(`autoUseTouchEvents: Touch device detected, useTouchEvents enabled.`);
+        console.log(
+          `autoUseTouchEvents: Touch device detected, useTouchEvents enabled.`
+        );
       }
     }
   }
@@ -706,22 +707,24 @@ class SimpleKeyboard {
   /**
    * Executes the callback function before a simple-keyboard render.
    */
-  beforeFirstRender(){
+  beforeFirstRender() {
     /**
      * Performing actions when touch device detected
      */
-    if(this.utilities.isTouchDevice()){
+    if (this.utilities.isTouchDevice()) {
       this.onTouchDeviceDetected();
     }
 
-    if (typeof this.options.beforeFirstRender === "function") this.options.beforeFirstRender();
+    if (typeof this.options.beforeFirstRender === "function")
+      this.options.beforeFirstRender();
   }
 
   /**
    * Executes the callback function before a simple-keyboard render.
    */
-  beforeRender(){
-    if (typeof this.options.beforeRender === "function") this.options.beforeRender();
+  beforeRender() {
+    if (typeof this.options.beforeRender === "function")
+      this.options.beforeRender();
   }
 
   /**
@@ -804,7 +807,7 @@ class SimpleKeyboard {
     /**
      * Calling beforeFirstRender
      */
-    if(!this.initialized){
+    if (!this.initialized) {
       this.beforeFirstRender();
     }
 
@@ -821,12 +824,16 @@ class SimpleKeyboard {
     /**
      * Account for buttonTheme, if set
      */
-    let buttonThemesParsed = Array.isArray(this.options.buttonTheme) ? this.getButtonTheme() : {};
+    let buttonThemesParsed = Array.isArray(this.options.buttonTheme)
+      ? this.getButtonTheme()
+      : {};
 
     /**
      * Adding themeClass, layoutClass to keyboardDOM
      */
-    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${this.keyboardPluginClasses} ${useTouchEventsClass}`;
+    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${
+      this.keyboardPluginClasses
+    } ${useTouchEventsClass}`;
 
     /**
      * Iterating through each row

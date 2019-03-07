@@ -112,6 +112,16 @@ declare module 'simple-keyboard' {
     inputPattern?: any;
 
     /**
+     * Instructs simple-keyboard to use touch events instead of click events.
+     */
+    useTouchEvents?: boolean;
+
+    /**
+     * Enable useTouchEvents automatically when touch device is detected.
+     */
+    autoUseTouchEvents?: boolean;
+
+    /**
      * Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
      */
     onKeyPress?: (button: string) => any;
@@ -120,6 +130,16 @@ declare module 'simple-keyboard' {
      * Executes the callback function on input change. Returns the current input's string.
      */
     onChange?: (input: string) => any;
+
+    /**
+     * Executes the callback function before the first simple-keyboard render.
+     */
+    beforeFirstRender?: () => void;
+
+    /**
+     * Executes the callback function before a simple-keyboard render.
+     */
+    beforeRender?: () => void;
 
     /**
      * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).

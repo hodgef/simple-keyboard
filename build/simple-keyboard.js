@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.15.5 (Non-minified build)
+ *   simple-keyboard v2.16.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -347,14 +347,7 @@
      */        this.simpleKeyboardInstance = simpleKeyboardInstance;
         /**
      * Bindings
-     */        this.getButtonClass = this.getButtonClass.bind(this);
-        this.getButtonDisplayName = this.getButtonDisplayName.bind(this);
-        this.getUpdatedInput = this.getUpdatedInput.bind(this);
-        this.updateCaretPos = this.updateCaretPos.bind(this);
-        this.updateCaretPosAction = this.updateCaretPosAction.bind(this);
-        this.isMaxLengthReached = this.isMaxLengthReached.bind(this);
-        this.camelCase = this.camelCase.bind(this);
-        this.countInArray = this.countInArray.bind(this);
+     */        Utilities.bindMethods(Utilities, this);
       }
       /**
    * Adds default classes to a given button
@@ -660,12 +653,21 @@
           return Boolean(this.maxLengthReached);
         }
         /**
+   * Determines whether a touch device is being used
+   */      }, {
+        key: "isTouchDevice",
+        value: function isTouchDevice() {
+          return "ontouchstart" in window || navigator.maxTouchPoints;
+        }
+        /**
+   * Bind all methods in a given class
+   */      }, {
+        key: "camelCase",
+        /**
    * Transforms an arbitrary string to camelCase
    *
    * @param  {string} string The string to transform.
-   */      }, {
-        key: "camelCase",
-        value: function camelCase(string) {
+   */ value: function camelCase(string) {
           return string.toLowerCase().trim().split(/[.\-_\s]/g).reduce(function(string, word) {
             return word.length ? string + word[0].toUpperCase() + word.slice(1) : string;
           });
@@ -681,6 +683,35 @@
           return array.reduce(function(n, x) {
             return n + (x === value);
           }, 0);
+        }
+      } ], [ {
+        key: "bindMethods",
+        value: function bindMethods(myClass, instance) {
+          var _iteratorNormalCompletion = true;
+          var _didIteratorError = false;
+          var _iteratorError = undefined;
+          try {
+            for (var _iterator = Object.getOwnPropertyNames(myClass.prototype)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              var myMethod = _step.value;
+              var excludeMethod = myMethod === "constructor" || myMethod === "bindMethods";
+              if (!excludeMethod) {
+                instance[myMethod] = instance[myMethod].bind(instance);
+              }
+            }
+          } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion && _iterator.return != null) {
+                _iterator.return();
+              }
+            } finally {
+              if (_didIteratorError) {
+                throw _iteratorError;
+              }
+            }
+          }
         }
       } ]);
       return Utilities;
@@ -809,6 +840,8 @@
      * @property {boolean} useButtonTag Render buttons as a button element instead of a div element.
      * @property {boolean} disableCaretPositioning A prop to ensure characters are always be added/removed at the end of the string.
      * @property {object} inputPattern Restrains input(s) change to the defined regular expression pattern.
+     * @property {boolean} useTouchEvents Instructs simple-keyboard to use touch events instead of click events.
+     * @property {boolean} autoUseTouchEvents Enable useTouchEvents automatically when touch device is detected.
      */        this.options = options;
         this.options.layoutName = this.options.layoutName || "default";
         this.options.theme = this.options.theme || "hg-theme-default";
@@ -819,28 +852,7 @@
      */        this.keyboardPluginClasses = "";
         /**
      * Bindings
-     */        this.handleButtonClicked = this.handleButtonClicked.bind(this);
-        this.syncInstanceInputs = this.syncInstanceInputs.bind(this);
-        this.clearInput = this.clearInput.bind(this);
-        this.getInput = this.getInput.bind(this);
-        this.setInput = this.setInput.bind(this);
-        this.replaceInput = this.replaceInput.bind(this);
-        this.clear = this.clear.bind(this);
-        this.dispatch = this.dispatch.bind(this);
-        this.addButtonTheme = this.addButtonTheme.bind(this);
-        this.removeButtonTheme = this.removeButtonTheme.bind(this);
-        this.getButtonElement = this.getButtonElement.bind(this);
-        this.handleCaret = this.handleCaret.bind(this);
-        this.caretEventHandler = this.caretEventHandler.bind(this);
-        this.onInit = this.onInit.bind(this);
-        this.onRender = this.onRender.bind(this);
-        this.render = this.render.bind(this);
-        this.loadModules = this.loadModules.bind(this);
-        this.handleButtonMouseUp = this.handleButtonMouseUp.bind(this);
-        this.handleButtonMouseDown = this.handleButtonMouseDown.bind(this);
-        this.handleButtonHold = this.handleButtonHold.bind(this);
-        this.onModulesLoaded = this.onModulesLoaded.bind(this);
-        this.inputPatternIsValid = this.inputPatternIsValid.bind(this);
+     */        services_Utilities.bindMethods(SimpleKeyboard, this);
         /**
      * simple-keyboard uses a non-persistent internal input to keep track of the entered string (the variable `keyboard.input`).
      * This removes any dependency to input DOM elements. You can type and directly display the value in a div element, for example.
@@ -953,7 +965,7 @@
      * @type {object} Time to wait until a key hold is detected
      */          }
           this.holdTimeout = setTimeout(function() {
-            if (_this2.isMouseHold && (!button.includes("{") && !button.includes("}") || button === "{bksp}" || button === "{space}" || button === "{tab}")) {
+            if (_this2.isMouseHold && (!button.includes("{") && !button.includes("}") || button === "{delete}" || button === "{backspace}" || button === "{bksp}" || button === "{space}" || button === "{tab}")) {
               if (_this2.options.debug) {
                 console.log("Button held:", button);
               }
@@ -1257,6 +1269,74 @@
           });
         }
         /**
+   * Process buttonTheme option
+   */      }, {
+        key: "getButtonTheme",
+        value: function getButtonTheme() {
+          var _this7 = this;
+          var buttonThemesParsed = {};
+          this.options.buttonTheme.forEach(function(themeObj) {
+            if (themeObj.buttons && themeObj.class) {
+              var themeButtons;
+              if (typeof themeObj.buttons === "string") {
+                themeButtons = themeObj.buttons.split(" ");
+              }
+              if (themeButtons) {
+                themeButtons.forEach(function(themeButton) {
+                  var themeParsed = buttonThemesParsed[themeButton];
+ // If the button has already been added
+                                    if (themeParsed) {
+                    // Making sure we don't add duplicate classes, even when buttonTheme has duplicates
+                    if (!_this7.utilities.countInArray(themeParsed.split(" "), themeObj.class)) {
+                      buttonThemesParsed[themeButton] = "".concat(themeParsed, " ").concat(themeObj.class);
+                    }
+                  } else {
+                    buttonThemesParsed[themeButton] = themeObj.class;
+                  }
+                });
+              }
+            } else {
+              console.warn('buttonTheme row is missing the "buttons" or the "class". Please check the documentation.');
+            }
+          });
+          return buttonThemesParsed;
+        }
+      }, {
+        key: "onTouchDeviceDetected",
+        value: function onTouchDeviceDetected() {
+          /**
+     * Processing autoTouchEvents
+     */ this.processAutoTouchEvents();
+          /**
+     * Disabling contextual window on touch devices
+     */          this.disableContextualWindow();
+        }
+        /**
+   * Disabling contextual window for hg-button
+   */ /* istanbul ignore next */      }, {
+        key: "disableContextualWindow",
+        value: function disableContextualWindow() {
+          window.oncontextmenu = function(event) {
+            if (event.target.classList.contains("hg-button")) {
+              event.preventDefault();
+              event.stopPropagation();
+              return false;
+            }
+          };
+        }
+        /**
+   * Process autoTouchEvents option
+   */      }, {
+        key: "processAutoTouchEvents",
+        value: function processAutoTouchEvents() {
+          if (this.options.autoUseTouchEvents) {
+            this.options.useTouchEvents = true;
+            if (this.options.debug) {
+              console.log("autoUseTouchEvents: Touch device detected, useTouchEvents enabled.");
+            }
+          }
+        }
+        /**
    * Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
    */      }, {
         key: "onInit",
@@ -1269,6 +1349,29 @@
      */          this.handleCaret();
           if (typeof this.options.onInit === "function") {
             this.options.onInit();
+          }
+        }
+        /**
+   * Executes the callback function before a simple-keyboard render.
+   */      }, {
+        key: "beforeFirstRender",
+        value: function beforeFirstRender() {
+          /**
+     * Performing actions when touch device detected
+     */ if (this.utilities.isTouchDevice()) {
+            this.onTouchDeviceDetected();
+          }
+          if (typeof this.options.beforeFirstRender === "function") {
+            this.options.beforeFirstRender();
+          }
+        }
+        /**
+   * Executes the callback function before a simple-keyboard render.
+   */      }, {
+        key: "beforeRender",
+        value: function beforeRender() {
+          if (typeof this.options.beforeRender === "function") {
+            this.options.beforeRender();
           }
         }
         /**
@@ -1296,15 +1399,15 @@
         /**
    * Load modules
    */ value: function loadModules() {
-          var _this7 = this;
+          var _this8 = this;
           if (Array.isArray(this.options.modules)) {
             this.options.modules.forEach(function(Module) {
               var module = new Module();
  /* istanbul ignore next */              if (module.constructor.name && module.constructor.name !== "Function") {
-                var classStr = "module-".concat(_this7.utilities.camelCase(module.constructor.name));
-                _this7.keyboardPluginClasses = _this7.keyboardPluginClasses + " ".concat(classStr);
+                var classStr = "module-".concat(_this8.utilities.camelCase(module.constructor.name));
+                _this8.keyboardPluginClasses = _this8.keyboardPluginClasses + " ".concat(classStr);
               }
-              module.init(_this7);
+              module.init(_this8);
             });
             this.keyboardPluginClasses = this.keyboardPluginClasses + " modules-loaded";
             this.render();
@@ -1318,45 +1421,28 @@
         /**
    * Renders rows and buttons as per options
    */ value: function render() {
-          var _this8 = this;
+          var _this9 = this;
           /**
      * Clear keyboard
      */          this.clear();
+          /**
+     * Calling beforeFirstRender
+     */          if (!this.initialized) {
+            this.beforeFirstRender();
+          }
+          /**
+     * Calling beforeRender
+     */          this.beforeRender();
           var layoutClass = "hg-layout-".concat(this.options.layoutName);
           var layout = this.options.layout || services_KeyboardLayout.getDefaultLayout();
           var useTouchEvents = this.options.useTouchEvents || false;
+          var useTouchEventsClass = useTouchEvents ? "hg-touch-events" : "";
           /**
      * Account for buttonTheme, if set
-     */          var buttonThemesParsed = {};
-          if (Array.isArray(this.options.buttonTheme)) {
-            this.options.buttonTheme.forEach(function(themeObj) {
-              if (themeObj.buttons && themeObj.class) {
-                var themeButtons;
-                if (typeof themeObj.buttons === "string") {
-                  themeButtons = themeObj.buttons.split(" ");
-                }
-                if (themeButtons) {
-                  themeButtons.forEach(function(themeButton) {
-                    var themeParsed = buttonThemesParsed[themeButton];
- // If the button has already been added
-                                        if (themeParsed) {
-                      // Making sure we don't add duplicate classes, even when buttonTheme has duplicates
-                      if (!_this8.utilities.countInArray(themeParsed.split(" "), themeObj.class)) {
-                        buttonThemesParsed[themeButton] = "".concat(themeParsed, " ").concat(themeObj.class);
-                      }
-                    } else {
-                      buttonThemesParsed[themeButton] = themeObj.class;
-                    }
-                  });
-                }
-              } else {
-                console.warn('buttonTheme row is missing the "buttons" or the "class". Please check the documentation.');
-              }
-            });
-          }
+     */          var buttonThemesParsed = Array.isArray(this.options.buttonTheme) ? this.getButtonTheme() : {};
           /**
      * Adding themeClass, layoutClass to keyboardDOM
-     */          this.keyboardDOM.className += " ".concat(this.options.theme, " ").concat(layoutClass, " ").concat(this.keyboardPluginClasses);
+     */          this.keyboardDOM.className += " ".concat(this.options.theme, " ").concat(layoutClass, " ").concat(this.keyboardPluginClasses, " ").concat(useTouchEventsClass);
           /**
      * Iterating through each row
      */          layout[this.options.layoutName].forEach(function(row, rIndex) {
@@ -1368,35 +1454,35 @@
             /**
        * Iterating through each button in row
        */            rowArray.forEach(function(button, bIndex) {
-              var fctBtnClass = _this8.utilities.getButtonClass(button);
+              var fctBtnClass = _this9.utilities.getButtonClass(button);
               var buttonThemeClass = buttonThemesParsed[button];
-              var buttonDisplayName = _this8.utilities.getButtonDisplayName(button, _this8.options.display, _this8.options.mergeDisplay);
+              var buttonDisplayName = _this9.utilities.getButtonDisplayName(button, _this9.options.display, _this9.options.mergeDisplay);
               /**
          * Creating button
-         */              var buttonType = _this8.options.useButtonTag ? "button" : "div";
+         */              var buttonType = _this9.options.useButtonTag ? "button" : "div";
               var buttonDOM = document.createElement(buttonType);
               buttonDOM.className += "hg-button ".concat(fctBtnClass).concat(buttonThemeClass ? " " + buttonThemeClass : "");
               if (useTouchEvents) {
                 buttonDOM.ontouchstart = function(e) {
-                  _this8.handleButtonClicked(button);
-                  _this8.handleButtonMouseDown(button, e);
+                  _this9.handleButtonClicked(button);
+                  _this9.handleButtonMouseDown(button, e);
                 };
                 buttonDOM.ontouchend = function(e) {
-                  return _this8.handleButtonMouseUp();
+                  return _this9.handleButtonMouseUp();
                 };
                 buttonDOM.ontouchcancel = function(e) {
-                  return _this8.handleButtonMouseUp();
+                  return _this9.handleButtonMouseUp();
                 };
               } else {
                 buttonDOM.onclick = function() {
-                  _this8.isMouseHold = false;
-                  _this8.handleButtonClicked(button);
+                  _this9.isMouseHold = false;
+                  _this9.handleButtonClicked(button);
                 };
                 buttonDOM.onmousedown = function(e) {
-                  if (_this8.options.preventMouseDownDefault) {
+                  if (_this9.options.preventMouseDownDefault) {
                     e.preventDefault();
                   }
-                  _this8.handleButtonMouseDown(button, e);
+                  _this9.handleButtonMouseDown(button, e);
                 };
               }
               /**
@@ -1405,7 +1491,7 @@
               /**
          * Adding unique id
          * Since there's no limit on spawning same buttons, the unique id ensures you can style every button
-         */              var buttonUID = "".concat(_this8.options.layoutName, "-r").concat(rIndex, "b").concat(bIndex);
+         */              var buttonUID = "".concat(_this9.options.layoutName, "-r").concat(rIndex, "b").concat(bIndex);
               buttonDOM.setAttribute("data-skBtnUID", buttonUID);
               /**
          * Adding display label
@@ -1417,30 +1503,30 @@
               buttonDOM.appendChild(buttonSpanDOM);
               /**
          * Adding to buttonElements
-         */              if (!_this8.buttonElements[button]) {
-                _this8.buttonElements[button] = [];
+         */              if (!_this9.buttonElements[button]) {
+                _this9.buttonElements[button] = [];
               }
-              _this8.buttonElements[button].push(buttonDOM);
+              _this9.buttonElements[button].push(buttonDOM);
               /**
          * Appending button to row
          */              rowDOM.appendChild(buttonDOM);
             });
             /**
        * Appending row to keyboard
-       */            _this8.keyboardDOM.appendChild(rowDOM);
+       */            _this9.keyboardDOM.appendChild(rowDOM);
           });
           /**
      * Calling onRender
      */          this.onRender();
           if (!this.initialized) {
             /**
-       * Ensures that onInit is only called once per instantiation
+       * Ensures that onInit and beforeFirstRender are only called once per instantiation
        */ this.initialized = true;
             /**
        * Handling mouseup
        */            if (!useTouchEvents) {
               document.onmouseup = function() {
-                return _this8.handleButtonMouseUp();
+                return _this9.handleButtonMouseUp();
               };
             }
             /**

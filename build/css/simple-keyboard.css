@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.15.5 (Non-minified build)
+ *   simple-keyboard v2.16.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -48,6 +48,10 @@ html {
   cursor: pointer;
 }
 
+.simple-keyboard .hg-button span {
+  pointer-events: none;
+}
+
 /**
  * hg-theme-default theme
  */
@@ -81,7 +85,7 @@ html {
   font-size: inherit;
 }
 
-.simple-keyboard.hg-theme-default .hg-button:active {
+.simple-keyboard.hg-theme-default:not(.hg-touch-events) .hg-button:active {
   background: #e4e4e4;
 }
 
