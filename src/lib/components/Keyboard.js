@@ -704,6 +704,27 @@ class SimpleKeyboard {
   }
 
   /**
+   * Executes the callback function before a simple-keyboard render.
+   */
+  beforeFirstRender(){
+    /**
+     * Performing actions when touch device detected
+     */
+    if(this.utilities.isTouchDevice()){
+      this.onTouchDeviceDetected();
+    }
+
+    if (typeof this.options.beforeFirstRender === "function") this.options.beforeFirstRender();
+  }
+
+  /**
+   * Executes the callback function before a simple-keyboard render.
+   */
+  beforeRender(){
+    if (typeof this.options.beforeRender === "function") this.options.beforeRender();
+  }
+
+  /**
    * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
    */
   onRender() {
@@ -779,6 +800,18 @@ class SimpleKeyboard {
      * Clear keyboard
      */
     this.clear();
+
+    /**
+     * Calling beforeFirstRender
+     */
+    if(!this.initialized){
+      this.beforeFirstRender();
+    }
+
+    /**
+     * Calling beforeRender
+     */
+    this.beforeRender();
 
     let layoutClass = `hg-layout-${this.options.layoutName}`;
     let layout = this.options.layout || KeyboardLayout.getDefaultLayout();
@@ -896,7 +929,7 @@ class SimpleKeyboard {
 
     if (!this.initialized) {
       /**
-       * Ensures that onInit is only called once per instantiation
+       * Ensures that onInit and beforeFirstRender are only called once per instantiation
        */
       this.initialized = true;
 
