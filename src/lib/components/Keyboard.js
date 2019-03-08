@@ -63,6 +63,7 @@ class SimpleKeyboard {
      * @property {object} inputPattern Restrains input(s) change to the defined regular expression pattern.
      * @property {boolean} useTouchEvents Instructs simple-keyboard to use touch events instead of click events.
      * @property {boolean} autoUseTouchEvents Enable useTouchEvents automatically when touch device is detected.
+     * @property {boolean} useMouseEvents Opt out of PointerEvents handling, falling back to the prior mouse event logic.
      */
     this.options = options;
     this.options.layoutName = this.options.layoutName || "default";
@@ -843,6 +844,7 @@ class SimpleKeyboard {
     let layout = this.options.layout || KeyboardLayout.getDefaultLayout();
     let useTouchEvents = this.options.useTouchEvents || false;
     let useTouchEventsClass = useTouchEvents ? "hg-touch-events" : "";
+    let useMouseEvents = this.options.useMouseEvents || false;
 
     /**
      * Account for buttonTheme, if set
@@ -895,7 +897,11 @@ class SimpleKeyboard {
          * Handle button click event
          */
         /* istanbul ignore next */
-        if (this.utilities.pointerEventsSupported() && !useTouchEvents) {
+        if (
+          this.utilities.pointerEventsSupported() &&
+          !useTouchEvents &&
+          !useMouseEvents
+        ) {
           /**
            * PointerEvents support
            */

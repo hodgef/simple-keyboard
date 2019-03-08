@@ -122,6 +122,11 @@ declare module 'simple-keyboard' {
     autoUseTouchEvents?: boolean;
 
     /**
+     * Opt out of PointerEvents handling, falling back to the prior mouse event logic.
+     */
+    useMouseEvents?: boolean;
+
+    /**
      * Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
      */
     onKeyPress?: (button: string) => any;
