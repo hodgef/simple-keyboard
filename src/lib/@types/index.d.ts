@@ -11,6 +11,11 @@ declare module 'simple-keyboard' {
 
   interface KeyboardOptions {
     /**
+     * Utilities
+     */
+    utilities?: any;
+
+    /**
      * Modify the keyboard layout.
      */
     layout?: KeyboardLayoutObject;
