@@ -6,7 +6,6 @@
   <a href="https://travis-ci.org/hodgef/simple-keyboard" target="_blank"><img src="https://travis-ci.org/hodgef/simple-keyboard.svg?branch=master" alt="Build Status"></a>
   <a href="https://codecov.io/gh/hodgef/simple-keyboard" target="_blank"><img src="https://img.shields.io/codecov/c/github/hodgef/simple-keyboard/master.svg?style=flat" alt="Coverage Status"></a>
   <a href="https://doc.esdoc.org/github.com/hodgef/simple-keyboard" target="_blank"><img src="https://doc.esdoc.org/github.com/hodgef/simple-keyboard/badge.svg" alt="Documentation Status"></a>
-  <img src="https://img.shields.io/david/dev/hodgef/simple-keyboard.svg" alt="Dev dependencies">
   <a href="https://www.codacy.com/app/hodgef/simple-keyboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hodgef/simple-keyboard&amp;utm_campaign=Badge_Grade" target="_blank"><img src="https://api.codacy.com/project/badge/Grade/5778fccc6a894701853d9a1f2fb44a76" alt="Codacy Badge"></a>
   </p>
 </div>
