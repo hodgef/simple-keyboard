@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.17.0 (Non-minified build)
+ *   simple-keyboard v2.18.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -849,6 +849,7 @@
      * @property {object} inputPattern Restrains input(s) change to the defined regular expression pattern.
      * @property {boolean} useTouchEvents Instructs simple-keyboard to use touch events instead of click events.
      * @property {boolean} autoUseTouchEvents Enable useTouchEvents automatically when touch device is detected.
+     * @property {boolean} useMouseEvents Opt out of PointerEvents handling, falling back to the prior mouse event logic.
      */        this.options = options;
         this.options.layoutName = this.options.layoutName || "default";
         this.options.theme = this.options.theme || "hg-theme-default";
@@ -948,6 +949,11 @@
        */            }
             if (typeof this.options.onChange === "function") {
               this.options.onChange(this.input[this.options.inputName]);
+              /**
+       * Calling onChangeAll
+       */            }
+            if (typeof this.options.onChangeAll === "function") {
+              this.options.onChangeAll(this.input);
             }
           }
           if (debug) {
@@ -1047,7 +1053,7 @@
      */          if (this.options.syncInstanceInputs) {
             this.syncInstanceInputs(this.input);
           }
-          return this.input[this.options.inputName];
+          return this.input[inputName];
         }
         /**
    * Set the keyboard’s input.
@@ -1458,6 +1464,7 @@
           var layout = this.options.layout || services_KeyboardLayout.getDefaultLayout();
           var useTouchEvents = this.options.useTouchEvents || false;
           var useTouchEventsClass = useTouchEvents ? "hg-touch-events" : "";
+          var useMouseEvents = this.options.useMouseEvents || false;
           /**
      * Account for buttonTheme, if set
      */          var buttonThemesParsed = Array.isArray(this.options.buttonTheme) ? this.getButtonTheme() : {};
@@ -1485,7 +1492,7 @@
               buttonDOM.className += "hg-button ".concat(fctBtnClass).concat(buttonThemeClass ? " " + buttonThemeClass : "");
               /**
          * Handle button click event
-         */ /* istanbul ignore next */              if (_this9.utilities.pointerEventsSupported() && !useTouchEvents) {
+         */ /* istanbul ignore next */              if (_this9.utilities.pointerEventsSupported() && !useTouchEvents && !useMouseEvents) {
                 /**
            * PointerEvents support
            */ buttonDOM.onpointerdown = function(e) {

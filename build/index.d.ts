@@ -11,6 +11,11 @@ declare module 'simple-keyboard' {
 
   interface KeyboardOptions {
     /**
+     * Utilities
+     */
+    utilities?: any;
+
+    /**
      * Modify the keyboard layout.
      */
     layout?: KeyboardLayoutObject;
@@ -120,6 +125,11 @@ declare module 'simple-keyboard' {
      * Enable useTouchEvents automatically when touch device is detected.
      */
     autoUseTouchEvents?: boolean;
+
+    /**
+     * Opt out of PointerEvents handling, falling back to the prior mouse event logic.
+     */
+    useMouseEvents?: boolean;
 
     /**
      * Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
