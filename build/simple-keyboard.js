@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.18.0 (Non-minified build)
+ *   simple-keyboard v2.18.1 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -1379,7 +1379,7 @@
             /**
      * Notify about PointerEvents usage
      */          }
-          if (this.utilities.pointerEventsSupported() && !this.options.useTouchEvents) {
+          if (this.utilities.pointerEventsSupported() && !this.options.useTouchEvents && !this.options.useMouseEvents) {
             if (this.options.debug) {
               console.log("Using PointerEvents as it is supported by this browser");
             }
