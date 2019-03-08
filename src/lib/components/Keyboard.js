@@ -319,7 +319,7 @@ class SimpleKeyboard {
      */
     if (this.options.syncInstanceInputs) this.syncInstanceInputs(this.input);
 
-    return this.input[this.options.inputName];
+    return this.input[inputName];
   }
 
   /**
