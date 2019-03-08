@@ -186,6 +186,22 @@ it('Keyboard onChange will work', () => {
   expect(output).toBe("q");
 });
 
+it('Keyboard onChangeAll will work', () => {
+  testUtil.setDOM();
+
+  let output;
+
+  let keyboard = new Keyboard({
+    onChangeAll: (input) => {
+      output = input ? input.default : null;
+    }
+  });
+
+  keyboard.getButtonElement("q").onclick();
+
+  expect(output).toBe("q");
+});
+
 it('Keyboard clearInput will work', () => {
   testUtil.setDOM();
 

@@ -208,6 +208,12 @@ class SimpleKeyboard {
        */
       if (typeof this.options.onChange === "function")
         this.options.onChange(this.input[this.options.inputName]);
+
+      /**
+       * Calling onChangeAll
+       */
+      if (typeof this.options.onChangeAll === "function")
+        this.options.onChangeAll(this.input);
     }
 
     if (debug) {
