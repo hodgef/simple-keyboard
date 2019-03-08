@@ -730,7 +730,8 @@ class SimpleKeyboard {
      */
     if (
       this.utilities.pointerEventsSupported() &&
-      !this.options.useTouchEvents
+      !this.options.useTouchEvents &&
+      !this.options.useMouseEvents
     ) {
       if (this.options.debug) {
         console.log("Using PointerEvents as it is supported by this browser");
