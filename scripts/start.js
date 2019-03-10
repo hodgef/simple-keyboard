@@ -75,6 +75,8 @@ checkBrowsers(paths.appPath, isInteractive)
       // We have not found a port.
       return;
     }
+    const args = process.argv;
+    const testMode = args[2] === "--testMode";
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;
     const urls = prepareUrls(protocol, HOST, port);
@@ -99,6 +101,26 @@ checkBrowsers(paths.appPath, isInteractive)
       }
       console.log(chalk.cyan('Starting the development server...\n'));
       openBrowser(urls.localUrlForBrowser);
+
+      /**
+       * Handle testMode
+       */
+      if(testMode){
+        compiler.plugin('done', (stats) => {
+          stats = stats.toJson();
+      
+          if (stats.errors && stats.errors.length > 0) {
+              return;
+          }
+  
+          console.warn("App started in test mode. Closing in 5 seconds.");
+          let closeTimeout = setTimeout(() => {
+            clearTimeout(closeTimeout);
+            devServer.close();
+            process.exit();
+          }, 5000);
+        });
+      }
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {

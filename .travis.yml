@@ -5,8 +5,9 @@ install:
   - npm install -g codecov
   - npm install
 script:
-- npm run test -- --coverage
+- npm run start -- --testMode
 - npm run demo
+- npm run test -- --coverage
 - codecov
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
