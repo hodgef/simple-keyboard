@@ -1076,3 +1076,99 @@ it('Keyboard beforeRender method will work', () => {
 
   expect(timesCalled).toBe(2);
 });
+
+it('Keyboard parseRowDOMContainers will work', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({
+    layout: {
+      'default': [
+        '` [1 2 3 4 5 6 7 8 9] 0 - = {bksp}',
+        '{tab} q w e r t y u [i o p] [ ] \\',
+        '{lock} [a s d] f g h j k l ; \' {enter}',
+        '{shift} z x c v b n m , . / {shift}',
+        '[.com @] {space} {arrowleft} [{arrowup} {arrowdown}] {arrowright}'
+      ],
+      'shift': [
+        '~ ! @ # $ % ^ & * ( ) _ + {bksp}',
+        '{tab} [Q W E R T] Y U I O P { } |',
+        '{lock} A S D F G H J K L : " {enter}',
+        '{shift} Z X C V [B N M <] > ? {shift}',
+        '.com @ {space}'
+      ]
+    }
+  });
+
+  let containers = Array.from(document.querySelectorAll(".hg-button-container"));
+
+  expect(containers.length).toBe(5);
+
+  keyboard.setOptions({
+    debug: true
+  });
+
+  expect(containers.length).toBe(5);
+});
+
+it('Keyboard parseRowDOMContainers will ignore empty rows', () => {
+  testUtil.setDOM();
+
+  let failed = false;
+
+  try {
+    let keyboard = new Keyboard();
+    keyboard.parseRowDOMContainers({
+      children: []
+    });
+  } catch (e) {
+    failed = true;
+  }
+
+  expect(failed).toBeFalsy();
+});
+
+
+it('Keyboard parseRowDOMContainers will ignore missing endIndex or endIndex before startIndex', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({
+    layout: {
+      'default': [
+        '` [1 2 3 4 5 6 7 8 9 0 - = {bksp}',
+        '` 1 2 3] 4 5 6 7 8 9 [0 - = {bksp}',
+      ]
+    }
+  });
+
+  let containers = Array.from(document.querySelectorAll(".hg-button-container"));
+
+  expect(containers.length).toBe(0);
+});
+
+it('Keyboard disableRowButtonContainers will bypass parseRowDOMContainers', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({
+    disableRowButtonContainers: true,
+    layout: {
+      'default': [
+        '` [1 2 3 4 5 6 7 8 9] 0 - = {bksp}',
+        '{tab} q w e r t y u [i o p] [ ] \\',
+        '{lock} [a s d] f g h j k l ; \' {enter}',
+        '{shift} z x c v b n m , . / {shift}',
+        '[.com @] {space} {arrowleft} [{arrowup} {arrowdown}] {arrowright}'
+      ],
+      'shift': [
+        '~ ! @ # $ % ^ & * ( ) _ + {bksp}',
+        '{tab} [Q W E R T] Y U I O P { } |',
+        '{lock} A S D F G H J K L : " {enter}',
+        '{shift} Z X C V [B N M <] > ? {shift}',
+        '.com @ {space}'
+      ]
+    }
+  });
+
+  let containers = Array.from(document.querySelectorAll(".hg-button-container"));
+
+  expect(containers.length).toBe(0);
+});
