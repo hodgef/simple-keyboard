@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.18.1 (Non-minified build)
+ *   simple-keyboard v2.19.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -39,6 +39,19 @@ html {
 
 .simple-keyboard .hg-row .hg-button:not(:last-child) {
   margin-right: 5px;
+}
+
+.simple-keyboard .hg-row .hg-button-container {
+  margin-right: 5px;
+}
+
+.simple-keyboard .hg-row > div:last-child {
+  margin-right: 0;
+}
+
+.simple-keyboard .hg-row .hg-button-container {
+  display: -webkit-flex;
+  display: flex;
 }
 
 .simple-keyboard .hg-button {

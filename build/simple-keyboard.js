@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.18.1 (Non-minified build)
+ *   simple-keyboard v2.19.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -800,15 +800,6 @@
           }
           initCallback(_this.modules[name]);
         });
-        _defineProperty(this, "getModuleProp", function(name, prop) {
-          if (!_this.modules[name]) {
-            return false;
-          }
-          return _this.modules[name][prop];
-        });
-        _defineProperty(this, "getModulesList", function() {
-          return Object.keys(_this.modules);
-        });
         var keyboardDOMQuery = typeof (arguments.length <= 0 ? undefined : arguments[0]) === "string" ? arguments.length <= 0 ? undefined : arguments[0] : ".simple-keyboard";
         var options = Keyboard_typeof(arguments.length <= 0 ? undefined : arguments[0]) === "object" ? arguments.length <= 0 ? undefined : arguments[0] : arguments.length <= 1 ? undefined : arguments[1];
         if (!options) {
@@ -1444,11 +1435,82 @@
         /**
    * Get module prop
    */      }, {
-        key: "render",
+        key: "getModuleProp",
+        value: function getModuleProp(name, prop) {
+          if (!this.modules[name]) {
+            return false;
+          }
+          return this.modules[name][prop];
+        }
+        /**
+   * getModulesList
+   */      }, {
+        key: "getModulesList",
+        value: function getModulesList() {
+          return Object.keys(this.modules);
+        }
+        /**
+   * Parse Row DOM containers
+   */      }, {
+        key: "parseRowDOMContainers",
+        value: function parseRowDOMContainers(rowDOM, rowIndex, containerStartIndexes, containerEndIndexes) {
+          var _this9 = this;
+          var rowDOMArray = Array.from(rowDOM.children);
+          var removedElements = 0;
+          if (rowDOMArray.length) {
+            containerStartIndexes.forEach(function(startIndex, arrIndex) {
+              var endIndex = containerEndIndexes[arrIndex];
+              /**
+         * If there exists a respective end index
+         * if end index comes after start index
+         */              if (!endIndex || !(endIndex > startIndex)) {
+                return false;
+              }
+              /**
+         * Updated startIndex, endIndex
+         * This is since the removal of buttons to place a single button container
+         * results in a modified array size
+         */              var updated_startIndex = startIndex - removedElements;
+              var updated_endIndex = endIndex - removedElements;
+              /**
+         * Create button container
+         */              var containerDOM = document.createElement("div");
+              containerDOM.className += "hg-button-container";
+              var containerUID = "".concat(_this9.options.layoutName, "-r").concat(rowIndex, "c").concat(arrIndex);
+              containerDOM.setAttribute("data-skUID", containerUID);
+              /**
+         * Taking elements due to be inserted into container
+         */              var containedElements = rowDOMArray.splice(updated_startIndex, updated_endIndex - updated_startIndex + 1);
+              removedElements = updated_endIndex - updated_startIndex;
+              /**
+         * Inserting elements to container
+         */              containedElements.forEach(function(element) {
+                return containerDOM.appendChild(element);
+              });
+              /**
+         * Adding container at correct position within rowDOMArray
+         */              rowDOMArray.splice(updated_startIndex, 0, containerDOM);
+              /**
+         * Clearing old rowDOM children structure
+         */              rowDOM.innerHTML = "";
+              /**
+         * Appending rowDOM new children list
+         */              rowDOMArray.forEach(function(element) {
+                return rowDOM.appendChild(element);
+              });
+              if (_this9.options.debug) {
+                console.log("rowDOMContainer", containedElements, updated_startIndex, updated_endIndex, removedElements + 1);
+              }
+            });
+          }
+          return rowDOM;
+        }
         /**
    * Renders rows and buttons as per options
-   */ value: function render() {
-          var _this9 = this;
+   */      }, {
+        key: "render",
+        value: function render() {
+          var _this10 = this;
           /**
      * Clear keyboard
      */          this.clear();
@@ -1465,6 +1527,7 @@
           var useTouchEvents = this.options.useTouchEvents || false;
           var useTouchEventsClass = useTouchEvents ? "hg-touch-events" : "";
           var useMouseEvents = this.options.useMouseEvents || false;
+          var disableRowButtonContainers = this.options.disableRowButtonContainers;
           /**
      * Account for buttonTheme, if set
      */          var buttonThemesParsed = Array.isArray(this.options.buttonTheme) ? this.getButtonTheme() : {};
@@ -1480,61 +1543,85 @@
        */            var rowDOM = document.createElement("div");
             rowDOM.className += "hg-row";
             /**
+       * Tracking container indicators in rows
+       */            var containerStartIndexes = [];
+            var containerEndIndexes = [];
+            /**
        * Iterating through each button in row
        */            rowArray.forEach(function(button, bIndex) {
-              var fctBtnClass = _this9.utilities.getButtonClass(button);
+              /**
+         * Check if button has a container indicator
+         */ var buttonHasContainerStart = !disableRowButtonContainers && button.includes("[") && button.length > 1;
+              var buttonHasContainerEnd = !disableRowButtonContainers && button.includes("]") && button.length > 1;
+              /**
+         * Save container start index, if applicable
+         */              if (buttonHasContainerStart) {
+                containerStartIndexes.push(bIndex);
+                /**
+           * Removing indicator
+           */                button = button.replace(/\[/g, "");
+              }
+              if (buttonHasContainerEnd) {
+                containerEndIndexes.push(bIndex);
+                /**
+           * Removing indicator
+           */                button = button.replace(/\]/g, "");
+              }
+              /**
+         * Processing button options
+         */              var fctBtnClass = _this10.utilities.getButtonClass(button);
               var buttonThemeClass = buttonThemesParsed[button];
-              var buttonDisplayName = _this9.utilities.getButtonDisplayName(button, _this9.options.display, _this9.options.mergeDisplay);
+              var buttonDisplayName = _this10.utilities.getButtonDisplayName(button, _this10.options.display, _this10.options.mergeDisplay);
               /**
          * Creating button
-         */              var buttonType = _this9.options.useButtonTag ? "button" : "div";
+         */              var buttonType = _this10.options.useButtonTag ? "button" : "div";
               var buttonDOM = document.createElement(buttonType);
               buttonDOM.className += "hg-button ".concat(fctBtnClass).concat(buttonThemeClass ? " " + buttonThemeClass : "");
               /**
          * Handle button click event
-         */ /* istanbul ignore next */              if (_this9.utilities.pointerEventsSupported() && !useTouchEvents && !useMouseEvents) {
+         */ /* istanbul ignore next */              if (_this10.utilities.pointerEventsSupported() && !useTouchEvents && !useMouseEvents) {
                 /**
            * PointerEvents support
            */ buttonDOM.onpointerdown = function(e) {
-                  if (_this9.options.preventMouseDownDefault) {
+                  if (_this10.options.preventMouseDownDefault) {
                     e.preventDefault();
                   }
-                  _this9.handleButtonClicked(button);
-                  _this9.handleButtonMouseDown(button, e);
+                  _this10.handleButtonClicked(button);
+                  _this10.handleButtonMouseDown(button, e);
                 };
                 buttonDOM.onpointerup = function(e) {
-                  if (_this9.options.preventMouseDownDefault) {
+                  if (_this10.options.preventMouseDownDefault) {
                     e.preventDefault();
                   }
-                  _this9.handleButtonMouseUp();
+                  _this10.handleButtonMouseUp();
                 };
                 buttonDOM.onpointercancel = function(e) {
-                  return _this9.handleButtonMouseUp();
+                  return _this10.handleButtonMouseUp();
                 };
               } else {
                 /**
            * Fallback for browsers not supporting PointerEvents
            */ if (useTouchEvents) {
                   buttonDOM.ontouchstart = function(e) {
-                    _this9.handleButtonClicked(button);
-                    _this9.handleButtonMouseDown(button, e);
+                    _this10.handleButtonClicked(button);
+                    _this10.handleButtonMouseDown(button, e);
                   };
                   buttonDOM.ontouchend = function(e) {
-                    return _this9.handleButtonMouseUp();
+                    return _this10.handleButtonMouseUp();
                   };
                   buttonDOM.ontouchcancel = function(e) {
-                    return _this9.handleButtonMouseUp();
+                    return _this10.handleButtonMouseUp();
                   };
                 } else {
                   buttonDOM.onclick = function() {
-                    _this9.isMouseHold = false;
-                    _this9.handleButtonClicked(button);
+                    _this10.isMouseHold = false;
+                    _this10.handleButtonClicked(button);
                   };
                   buttonDOM.onmousedown = function(e) {
-                    if (_this9.options.preventMouseDownDefault) {
+                    if (_this10.options.preventMouseDownDefault) {
                       e.preventDefault();
                     }
-                    _this9.handleButtonMouseDown(button, e);
+                    _this10.handleButtonMouseDown(button, e);
                   };
                 }
               }
@@ -1544,7 +1631,7 @@
               /**
          * Adding unique id
          * Since there's no limit on spawning same buttons, the unique id ensures you can style every button
-         */              var buttonUID = "".concat(_this9.options.layoutName, "-r").concat(rIndex, "b").concat(bIndex);
+         */              var buttonUID = "".concat(_this10.options.layoutName, "-r").concat(rIndex, "b").concat(bIndex);
               buttonDOM.setAttribute("data-skBtnUID", buttonUID);
               /**
          * Adding display label
@@ -1556,17 +1643,20 @@
               buttonDOM.appendChild(buttonSpanDOM);
               /**
          * Adding to buttonElements
-         */              if (!_this9.buttonElements[button]) {
-                _this9.buttonElements[button] = [];
+         */              if (!_this10.buttonElements[button]) {
+                _this10.buttonElements[button] = [];
               }
-              _this9.buttonElements[button].push(buttonDOM);
+              _this10.buttonElements[button].push(buttonDOM);
               /**
          * Appending button to row
          */              rowDOM.appendChild(buttonDOM);
             });
             /**
+       * Parse containers in row
+       */            rowDOM = _this10.parseRowDOMContainers(rowDOM, rIndex, containerStartIndexes, containerEndIndexes);
+            /**
        * Appending row to keyboard
-       */            _this9.keyboardDOM.appendChild(rowDOM);
+       */            _this10.keyboardDOM.appendChild(rowDOM);
           });
           /**
      * Calling onRender
@@ -1579,7 +1669,7 @@
        * Handling mouseup
        */            if (!useTouchEvents) {
               document.onmouseup = function() {
-                return _this9.handleButtonMouseUp();
+                return _this10.handleButtonMouseUp();
               };
             }
             /**
