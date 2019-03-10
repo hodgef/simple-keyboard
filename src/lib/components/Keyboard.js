@@ -813,18 +813,104 @@ class SimpleKeyboard {
   /**
    * Get module prop
    */
-  getModuleProp = (name, prop) => {
+  getModuleProp(name, prop) {
     if (!this.modules[name]) return false;
 
     return this.modules[name][prop];
-  };
+  }
 
   /**
    * getModulesList
    */
-  getModulesList = () => {
+  getModulesList() {
     return Object.keys(this.modules);
-  };
+  }
+
+  /**
+   * Parse Row DOM containers
+   */
+  parseRowDOMContainers(
+    rowDOM,
+    rowIndex,
+    containerStartIndexes,
+    containerEndIndexes
+  ) {
+    let rowDOMArray = Array.from(rowDOM.children);
+    let removedElements = 0;
+
+    if (rowDOMArray.length) {
+      containerStartIndexes.forEach((startIndex, arrIndex) => {
+        let endIndex = containerEndIndexes[arrIndex];
+
+        /**
+         * If there exists a respective end index
+         * if end index comes after start index
+         */
+        if (!endIndex || !(endIndex > startIndex)) {
+          return false;
+        }
+
+        /**
+         * Updated startIndex, endIndex
+         * This is since the removal of buttons to place a single button container
+         * results in a modified array size
+         */
+        let updated_startIndex = startIndex - removedElements;
+        let updated_endIndex = endIndex - removedElements;
+
+        /**
+         * Create button container
+         */
+        let containerDOM = document.createElement("div");
+        containerDOM.className += "hg-button-container";
+        let containerUID = `${
+          this.options.layoutName
+        }-r${rowIndex}c${arrIndex}`;
+        containerDOM.setAttribute("data-skUID", containerUID);
+
+        /**
+         * Taking elements due to be inserted into container
+         */
+        let containedElements = rowDOMArray.splice(
+          updated_startIndex,
+          updated_endIndex - updated_startIndex + 1
+        );
+        removedElements = updated_endIndex - updated_startIndex;
+
+        /**
+         * Inserting elements to container
+         */
+        containedElements.forEach(element => containerDOM.appendChild(element));
+
+        /**
+         * Adding container at correct position within rowDOMArray
+         */
+        rowDOMArray.splice(updated_startIndex, 0, containerDOM);
+
+        /**
+         * Clearing old rowDOM children structure
+         */
+        rowDOM.innerHTML = "";
+
+        /**
+         * Appending rowDOM new children list
+         */
+        rowDOMArray.forEach(element => rowDOM.appendChild(element));
+
+        if (this.options.debug) {
+          console.log(
+            "rowDOMContainer",
+            containedElements,
+            updated_startIndex,
+            updated_endIndex,
+            removedElements + 1
+          );
+        }
+      });
+    }
+
+    return rowDOM;
+  }
 
   /**
    * Renders rows and buttons as per options
@@ -852,6 +938,7 @@ class SimpleKeyboard {
     let useTouchEvents = this.options.useTouchEvents || false;
     let useTouchEventsClass = useTouchEvents ? "hg-touch-events" : "";
     let useMouseEvents = this.options.useMouseEvents || false;
+    let disableRowButtonContainers = this.options.disableRowButtonContainers;
 
     /**
      * Account for buttonTheme, if set
@@ -880,9 +967,51 @@ class SimpleKeyboard {
       rowDOM.className += "hg-row";
 
       /**
+       * Tracking container indicators in rows
+       */
+      let containerStartIndexes = [];
+      let containerEndIndexes = [];
+
+      /**
        * Iterating through each button in row
        */
       rowArray.forEach((button, bIndex) => {
+        /**
+         * Check if button has a container indicator
+         */
+        let buttonHasContainerStart =
+          !disableRowButtonContainers &&
+          button.includes("[") &&
+          button.length > 1;
+        let buttonHasContainerEnd =
+          !disableRowButtonContainers &&
+          button.includes("]") &&
+          button.length > 1;
+
+        /**
+         * Save container start index, if applicable
+         */
+        if (buttonHasContainerStart) {
+          containerStartIndexes.push(bIndex);
+
+          /**
+           * Removing indicator
+           */
+          button = button.replace(/\[/g, "");
+        }
+
+        if (buttonHasContainerEnd) {
+          containerEndIndexes.push(bIndex);
+
+          /**
+           * Removing indicator
+           */
+          button = button.replace(/\]/g, "");
+        }
+
+        /**
+         * Processing button options
+         */
         let fctBtnClass = this.utilities.getButtonClass(button);
         let buttonThemeClass = buttonThemesParsed[button];
         let buttonDisplayName = this.utilities.getButtonDisplayName(
@@ -981,6 +1110,16 @@ class SimpleKeyboard {
          */
         rowDOM.appendChild(buttonDOM);
       });
+
+      /**
+       * Parse containers in row
+       */
+      rowDOM = this.parseRowDOMContainers(
+        rowDOM,
+        rIndex,
+        containerStartIndexes,
+        containerEndIndexes
+      );
 
       /**
        * Appending row to keyboard

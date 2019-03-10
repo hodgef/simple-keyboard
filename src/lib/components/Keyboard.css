@@ -26,6 +26,18 @@ html {
   margin-right: 5px;
 }
 
+.simple-keyboard .hg-row .hg-button-container {
+  margin-right: 5px;
+}
+
+.simple-keyboard .hg-row > div:last-child {
+  margin-right: 0;
+}
+
+.simple-keyboard .hg-row .hg-button-container {
+  display: flex;
+}
+
 .simple-keyboard .hg-button {
   display: inline-block;
   flex-grow: 1;
