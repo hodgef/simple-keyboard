@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.19.1 (Non-minified build)
+ *   simple-keyboard v2.20.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -958,8 +958,16 @@
         value: function handleButtonMouseDown(button, e) {
           var _this2 = this;
           /**
+     * Handle event options
+     */          if (this.options.preventMouseDownDefault) {
+            e.preventDefault();
+          }
+          if (this.options.stopMouseDownPropagation) {
+            e.stopPropagation();
+            /**
      * @type {boolean} Whether the mouse is being held onKeyPress
-     */          this.isMouseHold = true;
+     */          }
+          this.isMouseHold = true;
           if (this.holdInteractionTimeout) {
             clearTimeout(this.holdInteractionTimeout);
           }
@@ -1581,18 +1589,12 @@
          * Handle button click event
          */ /* istanbul ignore next */              if (_this10.utilities.pointerEventsSupported() && !useTouchEvents && !useMouseEvents) {
                 /**
-           * PointerEvents support
+           * Handle PointerEvents
            */ buttonDOM.onpointerdown = function(e) {
-                  if (_this10.options.preventMouseDownDefault) {
-                    e.preventDefault();
-                  }
                   _this10.handleButtonClicked(button);
                   _this10.handleButtonMouseDown(button, e);
                 };
                 buttonDOM.onpointerup = function(e) {
-                  if (_this10.options.preventMouseDownDefault) {
-                    e.preventDefault();
-                  }
                   _this10.handleButtonMouseUp();
                 };
                 buttonDOM.onpointercancel = function(e) {
@@ -1602,7 +1604,9 @@
                 /**
            * Fallback for browsers not supporting PointerEvents
            */ if (useTouchEvents) {
-                  buttonDOM.ontouchstart = function(e) {
+                  /**
+             * Handle touch events
+             */ buttonDOM.ontouchstart = function(e) {
                     _this10.handleButtonClicked(button);
                     _this10.handleButtonMouseDown(button, e);
                   };
@@ -1613,14 +1617,13 @@
                     return _this10.handleButtonMouseUp();
                   };
                 } else {
-                  buttonDOM.onclick = function() {
+                  /**
+             * Handle mouse events
+             */ buttonDOM.onclick = function() {
                     _this10.isMouseHold = false;
                     _this10.handleButtonClicked(button);
                   };
                   buttonDOM.onmousedown = function(e) {
-                    if (_this10.options.preventMouseDownDefault) {
-                      e.preventDefault();
-                    }
                     _this10.handleButtonMouseDown(button, e);
                   };
                 }
