@@ -227,6 +227,12 @@ class SimpleKeyboard {
   /* istanbul ignore next */
   handleButtonMouseDown(button, e) {
     /**
+     * Handle event options
+     */
+    if (this.options.preventMouseDownDefault) e.preventDefault();
+    if (this.options.stopMouseDownPropagation) e.stopPropagation();
+
+    /**
      * @type {boolean} Whether the mouse is being held onKeyPress
      */
     this.isMouseHold = true;
@@ -1039,15 +1045,13 @@ class SimpleKeyboard {
           !useMouseEvents
         ) {
           /**
-           * PointerEvents support
+           * Handle PointerEvents
            */
           buttonDOM.onpointerdown = e => {
-            if (this.options.preventMouseDownDefault) e.preventDefault();
             this.handleButtonClicked(button);
             this.handleButtonMouseDown(button, e);
           };
           buttonDOM.onpointerup = e => {
-            if (this.options.preventMouseDownDefault) e.preventDefault();
             this.handleButtonMouseUp();
           };
           buttonDOM.onpointercancel = e => this.handleButtonMouseUp();
@@ -1056,6 +1060,9 @@ class SimpleKeyboard {
            * Fallback for browsers not supporting PointerEvents
            */
           if (useTouchEvents) {
+            /**
+             * Handle touch events
+             */
             buttonDOM.ontouchstart = e => {
               this.handleButtonClicked(button);
               this.handleButtonMouseDown(button, e);
@@ -1063,12 +1070,14 @@ class SimpleKeyboard {
             buttonDOM.ontouchend = e => this.handleButtonMouseUp();
             buttonDOM.ontouchcancel = e => this.handleButtonMouseUp();
           } else {
+            /**
+             * Handle mouse events
+             */
             buttonDOM.onclick = () => {
               this.isMouseHold = false;
               this.handleButtonClicked(button);
             };
             buttonDOM.onmousedown = e => {
-              if (this.options.preventMouseDownDefault) e.preventDefault();
               this.handleButtonMouseDown(button, e);
             };
           }

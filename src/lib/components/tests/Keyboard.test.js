@@ -900,7 +900,9 @@ it('Keyboard handleButtonMouseDown will work', () => {
   let keyboard = new Keyboard();
 
   keyboard.handleButtonMouseDown("q", {
-    target: keyboard.getButtonElement("q")
+    target: keyboard.getButtonElement("q"),
+    preventDefault: () => {},
+    stopPropagation: () => {}
   });
 
   var clickEvent = document.createEvent('MouseEvents');
@@ -918,7 +920,9 @@ it('Keyboard handleButtonMouseDown will work with preventMouseDownDefault', () =
   keyboard.options.preventMouseDownDefault = true;
 
   keyboard.handleButtonMouseDown("q", {
-    target: keyboard.getButtonElement("q")
+    target: keyboard.getButtonElement("q"),
+    preventDefault: () => {},
+    stopPropagation: () => {}
   });
 
   var clickEvent = document.createEvent('MouseEvents');
