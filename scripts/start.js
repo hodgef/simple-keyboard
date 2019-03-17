@@ -81,7 +81,7 @@ checkBrowsers(paths.appPath, isInteractive)
     const appName = require(paths.appPackageJson).name;
     const urls = prepareUrls(protocol, HOST, port);
     // Create a webpack compiler that is configured with custom messages.
-    const compiler = createCompiler(webpack, config, appName, urls, useYarn);
+    const compiler = createCompiler({ webpack, config, appName, urls, useYarn });
     // Load proxy config
     const proxySetting = require(paths.appPackageJson).proxy;
     const proxyConfig = prepareProxy(proxySetting, paths.appPublic);
@@ -106,7 +106,7 @@ checkBrowsers(paths.appPath, isInteractive)
        * Handle testMode
        */
       if(testMode){
-        compiler.plugin('done', (stats) => {
+        compiler.hooks.done.tap('done', (stats) => {
           stats = stats.toJson();
       
           if (stats.errors && stats.errors.length > 0) {
