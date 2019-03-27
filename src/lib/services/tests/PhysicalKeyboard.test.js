@@ -1,5 +1,5 @@
 import Keyboard from '../../components/Keyboard';
-import TestUtility from '../../tests/TestUtility';
+import TestUtility from '../../../utils/TestUtility';
 
 let testUtil = new TestUtility();
 

@@ -1,4 +1,4 @@
-import TestUtility from '../../lib/tests/TestUtility';
+import TestUtility from '../../utils/TestUtility';
 import Index from '../index';
 import App from '../App';
 

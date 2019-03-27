@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "2.20.2",
+  "version": "2.20.3",
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -40,9 +40,9 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.3.4",
-    "@babel/plugin-proposal-class-properties": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
+    "@babel/core": "7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
     "@svgr/webpack": "4.1.0",
     "babel-core": "7.0.0-bridge.0",
@@ -54,14 +54,14 @@
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "chalk": "2.4.2",
-    "copy-webpack-plugin": "^5.0.0",
+    "copy-webpack-plugin": "^5.0.2",
     "css-loader": "2.1.1",
     "dotenv": "7.0.0",
-    "dotenv-expand": "5.0.0",
+    "dotenv-expand": "5.1.0",
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-standard-plugin": "^1.0.0",
-    "eslint": "5.15.2",
+    "eslint": "5.15.3",
     "eslint-config-react-app": "^3.0.8",
     "eslint-loader": "2.1.2",
     "eslint-plugin-flowtype": "3.4.2",
@@ -73,8 +73,8 @@
     "fs-extra": "7.0.1",
     "html-webpack-plugin": "4.0.0-beta.5",
     "identity-obj-proxy": "3.0.0",
-    "jest": "23.6.0",
-    "jest-pnp-resolver": "1.0.2",
+    "jest": "24.5.0",
+    "jest-pnp-resolver": "1.2.1",
     "jest-resolve": "23.6.0",
     "mini-css-extract-plugin": "0.5.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
@@ -85,10 +85,10 @@
     "postcss-safe-parser": "4.0.1",
     "prettier": "^1.16.4",
     "prettier-webpack-plugin": "^1.2.0",
-    "react": "^16.8.4",
+    "react": "^16.8.5",
     "react-app-polyfill": "^0.2.2",
     "react-dev-utils": "^8.0.0",
-    "react-dom": "^16.8.4",
+    "react-dom": "^16.8.5",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.1",
@@ -117,6 +117,8 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
+      "!src/lib/index.js",
+      "!src/utils/**",
       "!src/**/*.d.ts",
       "!**/tests/**"
     ],
@@ -125,8 +127,7 @@
       "react-app-polyfill/jsdom"
     ],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
+      "<rootDir>/src/**/tests/**/*.{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "jsdom",
     "testURL": "http://localhost",
