@@ -66,11 +66,7 @@ declare module 'simple-keyboard' {
      *
      * `{ [inputName: string]: number }`: Restrains simple-keyboard’s individual inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.
      */
-    maxLength?:
-      | number
-      | {
-          [inputName: string]: number;
-        };
+    maxLength?: any;
 
     /**
      * When set to true, this option synchronizes the internal input of every simple-keyboard instance.
