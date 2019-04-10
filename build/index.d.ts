@@ -2,6 +2,7 @@ declare module 'simple-keyboard' {
   interface KeyboardLayoutObject {
     default: string[];
     shift?: string[];
+    [key: string]: string[];
   }
 
   interface KeyboardButtonTheme {
@@ -10,11 +11,6 @@ declare module 'simple-keyboard' {
   }
 
   interface KeyboardOptions {
-    /**
-     * Utilities
-     */
-    utilities?: any;
-
     /**
      * Modify the keyboard layout.
      */
@@ -70,11 +66,7 @@ declare module 'simple-keyboard' {
      *
      * `{ [inputName: string]: number }`: Restrains simple-keyboard’s individual inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.
      */
-    maxLength?:
-      | number
-      | {
-          [inputName: string]: number;
-        };
+    maxLength?: any;
 
     /**
      * When set to true, this option synchronizes the internal input of every simple-keyboard instance.
@@ -171,6 +163,11 @@ declare module 'simple-keyboard' {
     constructor(selector: string, options: KeyboardOptions);
     constructor(options: KeyboardOptions);
     options: KeyboardOptions;
+
+    /**
+     * Utilities
+     */
+    utilities?: any;
 
     /**
      * Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.
