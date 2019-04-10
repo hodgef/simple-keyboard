@@ -2,6 +2,7 @@ declare module 'simple-keyboard' {
   interface KeyboardLayoutObject {
     default: string[];
     shift?: string[];
+    [key: string]: string[];
   }
 
   interface KeyboardButtonTheme {
@@ -10,11 +11,6 @@ declare module 'simple-keyboard' {
   }
 
   interface KeyboardOptions {
-    /**
-     * Utilities
-     */
-    utilities?: any;
-
     /**
      * Modify the keyboard layout.
      */
@@ -171,6 +167,11 @@ declare module 'simple-keyboard' {
     constructor(selector: string, options: KeyboardOptions);
     constructor(options: KeyboardOptions);
     options: KeyboardOptions;
+
+    /**
+     * Utilities
+     */
+    utilities?: any;
 
     /**
      * Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.
