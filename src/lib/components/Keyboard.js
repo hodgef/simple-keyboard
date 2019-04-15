@@ -308,6 +308,11 @@ class SimpleKeyboard {
     this.input[inputName] = "";
 
     /**
+     * Reset caretPosition
+     */
+    this.caretPosition = 0;
+
+    /**
      * Enforce syncInstanceInputs, if set
      */
     if (this.options.syncInstanceInputs) this.syncInstanceInputs(this.input);
@@ -349,6 +354,11 @@ class SimpleKeyboard {
    */
   replaceInput(inputObj) {
     this.input = inputObj;
+
+    /**
+     * Reset caretPosition
+     */
+    this.caretPosition = null;
   }
 
   /**
