@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.20.5 (Non-minified build)
+ *   simple-keyboard v2.20.6 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -1035,6 +1035,9 @@
           inputName = inputName || this.options.inputName;
           this.input[inputName] = "";
           /**
+     * Reset caretPosition
+     */          this.caretPosition = 0;
+          /**
      * Enforce syncInstanceInputs, if set
      */          if (this.options.syncInstanceInputs) {
             this.syncInstanceInputs(this.input);
@@ -1076,6 +1079,9 @@
         key: "replaceInput",
         value: function replaceInput(inputObj) {
           this.input = inputObj;
+          /**
+     * Reset caretPosition
+     */          this.caretPosition = null;
         }
         /**
    * Set new option or modify existing ones after initialization.
