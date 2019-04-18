@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.20.6 (Non-minified build)
+ *   simple-keyboard v2.20.7 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -1675,9 +1675,24 @@
        * Ensures that onInit and beforeFirstRender are only called once per instantiation
        */ this.initialized = true;
             /**
-       * Handling mouseup
-       */            if (!useTouchEvents) {
-              document.onmouseup = function() {
+       * Handling onpointerup
+       */ /* istanbul ignore next */            if (this.utilities.pointerEventsSupported() && !useTouchEvents && !useMouseEvents) {
+              document.onpointerup = function() {
+                return _this10.handleButtonMouseUp();
+              };
+            } else if (useTouchEvents) {
+              /**
+         * Handling ontouchend, ontouchcancel
+         */ document.ontouchend = function(e) {
+                return _this10.handleButtonMouseUp();
+              };
+              document.ontouchcancel = function(e) {
+                return _this10.handleButtonMouseUp();
+              };
+            } else if (!useTouchEvents) {
+              /**
+         * Handling mouseup
+         */ document.onmouseup = function() {
                 return _this10.handleButtonMouseUp();
               };
             }
