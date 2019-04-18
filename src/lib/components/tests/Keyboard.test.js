@@ -178,7 +178,8 @@ it('Keyboard onChange will work', () => {
   let keyboard = new Keyboard({
     onChange: (input) => {
       output = input;
-    }
+    },
+    useMouseEvents: true
   });
 
   keyboard.getButtonElement("q").onclick();
@@ -194,7 +195,8 @@ it('Keyboard onChangeAll will work', () => {
   let keyboard = new Keyboard({
     onChangeAll: (input) => {
       output = input ? input.default : null;
-    }
+    },
+    useMouseEvents: true
   });
 
   keyboard.getButtonElement("q").onclick();
@@ -959,7 +961,8 @@ it('Keyboard inputPattern will work globally', () => {
   testUtil.setDOM();
 
   let keyboard = new Keyboard({
-    inputPattern: /^\d+$/
+    inputPattern: /^\d+$/,
+    useMouseEvents: true
   });
 
   keyboard.getButtonElement("q").onclick();
@@ -979,7 +982,8 @@ it('Keyboard inputPattern will work by input name', () => {
     inputName: "test1",
     inputPattern: {
       test1: /^\d+$/
-    }
+    },
+    useMouseEvents: true
   });
 
   keyboard.getButtonElement("q").onclick();
@@ -1175,4 +1179,27 @@ it('Keyboard disableRowButtonContainers will bypass parseRowDOMContainers', () =
   let containers = Array.from(document.querySelectorAll(".hg-button-container"));
 
   expect(containers.length).toBe(0);
+});
+
+it('Keyboard inputName change will trigget caretPosition reset', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.caretPosition = 0;
+
+  keyboard.getButtonElement("q").onpointerdown();
+  keyboard.getButtonElement("1").onpointerdown();
+
+  expect(keyboard.caretPosition).toBe(2);
+
+  keyboard.setOptions({
+    inputName: "myInput"
+  });
+
+  keyboard.getButtonElement("q").onpointerdown();
+  keyboard.getButtonElement("1").onpointerdown();
+  keyboard.getButtonElement("b").onpointerdown();
+
+  expect(keyboard.caretPosition).toBe(null);
 });
