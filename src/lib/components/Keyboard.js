@@ -363,13 +363,39 @@ class SimpleKeyboard {
 
   /**
    * Set new option or modify existing ones after initialization.
-   * @param  {object} option The option to set
+   * @param  {object} options The options to set
    */
-  setOptions = option => {
-    option = option || {};
-    this.options = Object.assign(this.options, option);
+  setOptions(options){
+    options = options || {};
+    this.options = Object.assign(this.options, options);
+
+    /**
+     * Some option changes require adjustments before re-render
+     */
+    this.onSetOptions(options);
+
+    /**
+     * Rendering
+     */
     this.render();
   };
+
+  /**
+   * Executing actions depending on changed options
+   * @param  {object} options The options to set
+   */
+  onSetOptions(options){
+    if(options.inputName){
+      /**
+       * inputName changed. This requires a caretPosition reset
+       */
+      if (this.options.debug) {
+        console.log("inputName changed. caretPosition reset.");
+      }
+
+      this.caretPosition = null;
+    }
+  }
 
   /**
    * Remove all keyboard rows and reset keyboard values.
