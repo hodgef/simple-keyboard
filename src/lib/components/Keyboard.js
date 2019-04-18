@@ -1158,9 +1158,25 @@ class SimpleKeyboard {
       this.initialized = true;
 
       /**
-       * Handling mouseup
+       * Handling onpointerup
        */
-      if (!useTouchEvents) {
+      /* istanbul ignore next */
+      if (
+        this.utilities.pointerEventsSupported() &&
+        !useTouchEvents &&
+        !useMouseEvents
+      ) {
+        document.onpointerup = () => this.handleButtonMouseUp();
+      } else if (useTouchEvents) {
+        /**
+         * Handling ontouchend, ontouchcancel
+         */
+        document.ontouchend = e => this.handleButtonMouseUp();
+        document.ontouchcancel = e => this.handleButtonMouseUp();
+      } else if (!useTouchEvents) {
+        /**
+         * Handling mouseup
+         */
         document.onmouseup = () => this.handleButtonMouseUp();
       }
 
