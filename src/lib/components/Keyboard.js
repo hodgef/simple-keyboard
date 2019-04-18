@@ -365,7 +365,7 @@ class SimpleKeyboard {
    * Set new option or modify existing ones after initialization.
    * @param  {object} options The options to set
    */
-  setOptions(options){
+  setOptions(options) {
     options = options || {};
     this.options = Object.assign(this.options, options);
 
@@ -378,14 +378,14 @@ class SimpleKeyboard {
      * Rendering
      */
     this.render();
-  };
+  }
 
   /**
    * Executing actions depending on changed options
    * @param  {object} options The options to set
    */
-  onSetOptions(options){
-    if(options.inputName){
+  onSetOptions(options) {
+    if (options.inputName) {
       /**
        * inputName changed. This requires a caretPosition reset
        */
