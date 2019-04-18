@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.20.7 (Non-minified build)
+ *   simple-keyboard v2.20.8 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -789,11 +789,6 @@
    */ function SimpleKeyboard() {
         var _this = this;
         Keyboard_classCallCheck(this, SimpleKeyboard);
-        _defineProperty(this, "setOptions", function(option) {
-          option = option || {};
-          _this.options = Object.assign(_this.options, option);
-          _this.render();
-        });
         _defineProperty(this, "registerModule", function(name, initCallback) {
           if (!_this.modules[name]) {
             _this.modules[name] = {};
@@ -1085,13 +1080,40 @@
         }
         /**
    * Set new option or modify existing ones after initialization.
-   * @param  {object} option The option to set
+   * @param  {object} options The options to set
    */      }, {
-        key: "clear",
+        key: "setOptions",
+        value: function setOptions(options) {
+          options = options || {};
+          this.options = Object.assign(this.options, options);
+          /**
+     * Some option changes require adjustments before re-render
+     */          this.onSetOptions(options);
+          /**
+     * Rendering
+     */          this.render();
+        }
+        /**
+   * Executing actions depending on changed options
+   * @param  {object} options The options to set
+   */      }, {
+        key: "onSetOptions",
+        value: function onSetOptions(options) {
+          if (options.inputName) {
+            /**
+       * inputName changed. This requires a caretPosition reset
+       */ if (this.options.debug) {
+              console.log("inputName changed. caretPosition reset.");
+            }
+            this.caretPosition = null;
+          }
+        }
         /**
    * Remove all keyboard rows and reset keyboard values.
    * Used interally between re-renders.
-   */ value: function clear() {
+   */      }, {
+        key: "clear",
+        value: function clear() {
           this.keyboardDOM.innerHTML = "";
           this.keyboardDOM.className = this.keyboardDOMClass;
           this.buttonElements = {};
