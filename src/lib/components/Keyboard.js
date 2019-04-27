@@ -296,6 +296,7 @@ class SimpleKeyboard {
   syncInstanceInputs() {
     this.dispatch(instance => {
       instance.replaceInput(this.input);
+      instance.caretPosition = this.caretPosition;
     });
   }
 
@@ -354,11 +355,6 @@ class SimpleKeyboard {
    */
   replaceInput(inputObj) {
     this.input = inputObj;
-
-    /**
-     * Reset caretPosition
-     */
-    this.caretPosition = null;
   }
 
   /**

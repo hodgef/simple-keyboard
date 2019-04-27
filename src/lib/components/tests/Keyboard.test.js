@@ -168,6 +168,26 @@ it('Keyboard syncInstanceInputs will work', () => {
   keyboard1.getButtonElement("q").onclick();
 
   expect(keyboard2.getInput()).toBe("q");
+
+  /**
+   * Test cursor syncing...
+   * Reinit keyboards
+   */
+  keyboard1 = new Keyboard(".keyboard1", sharedOptions);
+  keyboard2 = new Keyboard(".keyboard2", sharedOptions);
+
+  keyboard1.getButtonElement("1").onclick();
+  keyboard1.getButtonElement("5").onclick();
+  keyboard1.getButtonElement("6").onclick();
+
+  keyboard1.caretPosition = 1;
+
+  keyboard1.getButtonElement("2").onclick();
+  keyboard1.getButtonElement("3").onclick();
+  keyboard1.getButtonElement("4").onclick();
+
+  expect(keyboard1.getInput()).toBe("123456");
+  expect(keyboard2.getInput()).toBe("123456");
 });
 
 it('Keyboard onChange will work', () => {
