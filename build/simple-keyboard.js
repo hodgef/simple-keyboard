@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.20.8 (Non-minified build)
+ *   simple-keyboard v2.20.9 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -1019,6 +1019,7 @@
           var _this4 = this;
           this.dispatch(function(instance) {
             instance.replaceInput(_this4.input);
+            instance.caretPosition = _this4.caretPosition;
           });
         }
         /**
@@ -1074,9 +1075,6 @@
         key: "replaceInput",
         value: function replaceInput(inputObj) {
           this.input = inputObj;
-          /**
-     * Reset caretPosition
-     */          this.caretPosition = null;
         }
         /**
    * Set new option or modify existing ones after initialization.
