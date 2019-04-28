@@ -7,7 +7,7 @@ install:
 script:
 - npm run start -- --testMode
 - npm run demo
-- npm run test -- --coverage
+- npm run coverage
 - codecov
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh

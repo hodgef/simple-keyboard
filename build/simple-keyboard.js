@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.20.9 (Non-minified build)
+ *   simple-keyboard v2.21.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -762,19 +762,6 @@
       }
       return Constructor;
     }
-    function _defineProperty(obj, key, value) {
-      if (key in obj) {
-        Object.defineProperty(obj, key, {
-          value: value,
-          enumerable: true,
-          configurable: true,
-          writable: true
-        });
-      } else {
-        obj[key] = value;
-      }
-      return obj;
-    }
  // Services
     /**
  * Root class for simple-keyboard
@@ -789,12 +776,12 @@
    */ function SimpleKeyboard() {
         var _this = this;
         Keyboard_classCallCheck(this, SimpleKeyboard);
-        _defineProperty(this, "registerModule", function(name, initCallback) {
+        this.registerModule = function(name, initCallback) {
           if (!_this.modules[name]) {
             _this.modules[name] = {};
           }
           initCallback(_this.modules[name]);
-        });
+        };
         var keyboardDOMQuery = typeof (arguments.length <= 0 ? undefined : arguments[0]) === "string" ? arguments.length <= 0 ? undefined : arguments[0] : ".simple-keyboard";
         var options = Keyboard_typeof(arguments.length <= 0 ? undefined : arguments[0]) === "object" ? arguments.length <= 0 ? undefined : arguments[0] : arguments.length <= 1 ? undefined : arguments[1];
         if (!options) {

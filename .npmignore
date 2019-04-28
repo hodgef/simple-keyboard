@@ -19,7 +19,6 @@ yarn-debug.log*
 yarn-error.log*
 /.github
 /demo
-.esdoc.json
 
 # Development folders and files
 public
