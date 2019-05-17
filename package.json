@@ -93,7 +93,7 @@
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
     "style-loader": "0.23.1",
-    "terser-webpack-plugin": "1.2.3",
+    "terser-webpack-plugin": "1.2.4",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "url-loader": "1.1.2",
     "webpack": "4.31.0",
