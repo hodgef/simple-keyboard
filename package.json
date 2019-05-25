@@ -91,7 +91,7 @@
     "react-dom": "^16.8.6",
     "resolve": "1.11.0",
     "sass-loader": "7.1.0",
-    "semver": "6.0.0",
+    "semver": "6.1.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.4",
     "uglifyjs-webpack-plugin": "^2.1.2",
