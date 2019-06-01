@@ -45,7 +45,7 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.4.4",
-    "@svgr/webpack": "4.2.0",
+    "@svgr/webpack": "4.3.0",
     "@typescript-eslint/eslint-plugin": "1.9.0",
     "@typescript-eslint/parser": "1.9.0",
     "babel-eslint": "10.0.1",
