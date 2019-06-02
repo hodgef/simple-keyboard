@@ -1223,3 +1223,13 @@ it('Keyboard inputName change will trigget caretPosition reset', () => {
 
   expect(keyboard.caretPosition).toBe(null);
 });
+
+it('Keyboard destroy will work', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard();
+
+  keyboard.destroy();
+
+  expect(keyboard.keyboardDOM.innerHTML).toBeFalsy();
+});

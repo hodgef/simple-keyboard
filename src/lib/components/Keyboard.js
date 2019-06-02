@@ -64,6 +64,7 @@ class SimpleKeyboard {
      * @property {boolean} useTouchEvents Instructs simple-keyboard to use touch events instead of click events.
      * @property {boolean} autoUseTouchEvents Enable useTouchEvents automatically when touch device is detected.
      * @property {boolean} useMouseEvents Opt out of PointerEvents handling, falling back to the prior mouse event logic.
+     * @property {function} destroy Clears keyboard listeners and DOM elements.
      */
     this.options = options;
     this.options.layoutName = this.options.layoutName || "default";
@@ -644,6 +645,23 @@ class SimpleKeyboard {
         instance.caretPosition = null;
       }
     });
+  }
+
+  /**
+   * Destroy keyboard listeners and DOM elements
+   */
+  destroy() {
+    /**
+     * Remove listeners
+     */
+    document.removeEventListener("keyup", this.caretEventHandler);
+    document.removeEventListener("mouseup", this.caretEventHandler);
+    document.removeEventListener("touchend", this.caretEventHandler);
+
+    /**
+     * Clear DOM
+     */
+    this.clear();
   }
 
   /**
