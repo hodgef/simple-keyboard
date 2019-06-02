@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.21.4 (Non-minified build)
+ *   simple-keyboard v2.22.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -823,6 +823,7 @@
      * @property {boolean} useTouchEvents Instructs simple-keyboard to use touch events instead of click events.
      * @property {boolean} autoUseTouchEvents Enable useTouchEvents automatically when touch device is detected.
      * @property {boolean} useMouseEvents Opt out of PointerEvents handling, falling back to the prior mouse event logic.
+     * @property {function} destroy Clears keyboard listeners and DOM elements.
      */        this.options = options;
         this.options.layoutName = this.options.layoutName || "default";
         this.options.theme = this.options.theme || "hg-theme-default";
@@ -1292,6 +1293,20 @@
          */ instance.caretPosition = null;
             }
           });
+        }
+        /**
+   * Destroy keyboard listeners and DOM elements
+   */      }, {
+        key: "destroy",
+        value: function destroy() {
+          /**
+     * Remove listeners
+     */ document.removeEventListener("keyup", this.caretEventHandler);
+          document.removeEventListener("mouseup", this.caretEventHandler);
+          document.removeEventListener("touchend", this.caretEventHandler);
+          /**
+     * Clear DOM
+     */          this.clear();
         }
         /**
    * Process buttonTheme option

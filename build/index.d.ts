@@ -220,6 +220,11 @@ declare module 'simple-keyboard' {
      * @param  {string} button The button layout name to select
      */
     getButtonElement(button: string): HTMLElement | HTMLElement[];
+
+    /**
+     * Clears keyboard listeners and DOM elements.
+     */
+    destroy(): void;
   }
 
   export default Keyboard;
