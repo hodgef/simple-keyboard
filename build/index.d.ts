@@ -124,6 +124,11 @@ declare module 'simple-keyboard' {
     useMouseEvents?: boolean;
 
     /**
+     * Disable button hold action.
+     */
+    disableButtonHold?: boolean;
+
+    /**
      * Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
      */
     onKeyPress?: (button: string) => any;

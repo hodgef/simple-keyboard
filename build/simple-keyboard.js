@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.22.0 (Non-minified build)
+ *   simple-keyboard v2.23.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -824,6 +824,7 @@
      * @property {boolean} autoUseTouchEvents Enable useTouchEvents automatically when touch device is detected.
      * @property {boolean} useMouseEvents Opt out of PointerEvents handling, falling back to the prior mouse event logic.
      * @property {function} destroy Clears keyboard listeners and DOM elements.
+     * @property {boolean} disableButtonHold Disable button hold action.
      */        this.options = options;
         this.options.layoutName = this.options.layoutName || "default";
         this.options.theme = this.options.theme || "hg-theme-default";
@@ -959,15 +960,17 @@
             /**
      * @type {object} Time to wait until a key hold is detected
      */          }
-          this.holdTimeout = setTimeout(function() {
-            if (_this2.isMouseHold && (!button.includes("{") && !button.includes("}") || button === "{delete}" || button === "{backspace}" || button === "{bksp}" || button === "{space}" || button === "{tab}")) {
-              if (_this2.options.debug) {
-                console.log("Button held:", button);
+          if (!this.options.disableButtonHold) {
+            this.holdTimeout = setTimeout(function() {
+              if (_this2.isMouseHold && (!button.includes("{") && !button.includes("}") || button === "{delete}" || button === "{backspace}" || button === "{bksp}" || button === "{space}" || button === "{tab}")) {
+                if (_this2.options.debug) {
+                  console.log("Button held:", button);
+                }
+                _this2.handleButtonHold(button, e);
               }
-              _this2.handleButtonHold(button, e);
-            }
-            clearTimeout(_this2.holdTimeout);
-          }, 500);
+              clearTimeout(_this2.holdTimeout);
+            }, 500);
+          }
         }
         /**
    * Handles button mouseup
