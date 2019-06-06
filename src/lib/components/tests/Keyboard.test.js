@@ -1233,3 +1233,13 @@ it('Keyboard destroy will work', () => {
 
   expect(keyboard.keyboardDOM.innerHTML).toBeFalsy();
 });
+
+it('Keyboard disableButtonHold will work', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({
+    disableButtonHold: true
+  });
+
+  expect(keyboard.options.disableButtonHold).toBe(true);
+});

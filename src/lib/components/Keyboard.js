@@ -65,6 +65,7 @@ class SimpleKeyboard {
      * @property {boolean} autoUseTouchEvents Enable useTouchEvents automatically when touch device is detected.
      * @property {boolean} useMouseEvents Opt out of PointerEvents handling, falling back to the prior mouse event logic.
      * @property {function} destroy Clears keyboard listeners and DOM elements.
+     * @property {boolean} disableButtonHold Disable button hold action.
      */
     this.options = options;
     this.options.layoutName = this.options.layoutName || "default";
@@ -245,22 +246,24 @@ class SimpleKeyboard {
     /**
      * @type {object} Time to wait until a key hold is detected
      */
-    this.holdTimeout = setTimeout(() => {
-      if (
-        this.isMouseHold &&
-        ((!button.includes("{") && !button.includes("}")) ||
-          button === "{delete}" ||
-          button === "{backspace}" ||
-          button === "{bksp}" ||
-          button === "{space}" ||
-          button === "{tab}")
-      ) {
-        if (this.options.debug) console.log("Button held:", button);
+    if (!this.options.disableButtonHold) {
+      this.holdTimeout = setTimeout(() => {
+        if (
+          this.isMouseHold &&
+          ((!button.includes("{") && !button.includes("}")) ||
+            button === "{delete}" ||
+            button === "{backspace}" ||
+            button === "{bksp}" ||
+            button === "{space}" ||
+            button === "{tab}")
+        ) {
+          if (this.options.debug) console.log("Button held:", button);
 
-        this.handleButtonHold(button, e);
-      }
-      clearTimeout(this.holdTimeout);
-    }, 500);
+          this.handleButtonHold(button, e);
+        }
+        clearTimeout(this.holdTimeout);
+      }, 500);
+    }
   }
 
   /**
