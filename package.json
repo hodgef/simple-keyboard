@@ -77,7 +77,7 @@
     "jest-watch-typeahead": "0.3.1",
     "mini-css-extract-plugin": "0.7.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
-    "pnp-webpack-plugin": "1.4.3",
+    "pnp-webpack-plugin": "1.5.0",
     "postcss-flexbugs-fixes": "4.1.0",
     "postcss-loader": "3.0.0",
     "postcss-normalize": "7.0.0",
