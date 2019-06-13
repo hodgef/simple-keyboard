@@ -694,9 +694,9 @@ class SimpleKeyboard {
                   themeObj.class
                 )
               ) {
-                buttonThemesParsed[themeButton] = `${themeParsed} ${
-                  themeObj.class
-                }`;
+                buttonThemesParsed[
+                  themeButton
+                ] = `${themeParsed} ${themeObj.class}`;
               }
             } else {
               buttonThemesParsed[themeButton] = themeObj.class;
@@ -922,9 +922,7 @@ class SimpleKeyboard {
          */
         let containerDOM = document.createElement("div");
         containerDOM.className += "hg-button-container";
-        let containerUID = `${
-          this.options.layoutName
-        }-r${rowIndex}c${arrIndex}`;
+        let containerUID = `${this.options.layoutName}-r${rowIndex}c${arrIndex}`;
         containerDOM.setAttribute("data-skUID", containerUID);
 
         /**
@@ -1009,9 +1007,7 @@ class SimpleKeyboard {
     /**
      * Adding themeClass, layoutClass to keyboardDOM
      */
-    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${
-      this.keyboardPluginClasses
-    } ${useTouchEventsClass}`;
+    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${this.keyboardPluginClasses} ${useTouchEventsClass}`;
 
     /**
      * Iterating through each row
