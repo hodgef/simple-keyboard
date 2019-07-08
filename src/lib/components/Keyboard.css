@@ -78,10 +78,6 @@ html {
   font-size: inherit;
 }
 
-.simple-keyboard.hg-theme-default:not(.hg-touch-events) .hg-button:active {
-  background: #e4e4e4;
-}
-
 .simple-keyboard.hg-theme-default.hg-layout-numeric .hg-button {
   width: 33.3%;
   height: 60px;
