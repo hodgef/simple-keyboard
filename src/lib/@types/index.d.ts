@@ -134,6 +134,11 @@ declare module 'simple-keyboard' {
     onKeyPress?: (button: string) => any;
 
     /**
+     * Executes the callback function on key release.
+     */
+    onKeyReleased?: (button: string) => any;
+
+    /**
      * Executes the callback function on input change. Returns the current input's string.
      */
     onChange?: (input: string) => any;

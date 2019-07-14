@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.24.0 (Non-minified build)
+ *   simple-keyboard v2.24.1 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -995,15 +995,15 @@
    * Handles button mouseup
    */      }, {
         key: "handleButtonMouseUp",
-        value: function handleButtonMouseUp() {
+        value: function handleButtonMouseUp(button) {
           this.isMouseHold = false;
           if (this.holdInteractionTimeout) {
             clearTimeout(this.holdInteractionTimeout);
             /**
      * Calling onKeyReleased
      */          }
-          if (typeof this.options.onKeyReleased === "function") {
-            this.options.onKeyReleased();
+          if (button && typeof this.options.onKeyReleased === "function") {
+            this.options.onKeyReleased(button);
           }
         }
         /**
@@ -1328,7 +1328,7 @@
           this.caretEventHandler(event);
         }
         /**
-   * Called by {@link caretEventHandler} when an event that warrants a cursor position update is triggered
+   * Called by {@link setEventListeners} when an event that warrants a cursor position update is triggered
    */      }, {
         key: "caretEventHandler",
         value: function caretEventHandler(event) {
@@ -1684,11 +1684,11 @@
                   _this10.handleButtonClicked(button);
                   _this10.handleButtonMouseDown(button, e);
                 };
-                buttonDOM.onpointerup = function(e) {
-                  _this10.handleButtonMouseUp();
+                buttonDOM.onpointerup = function() {
+                  return _this10.handleButtonMouseUp(button);
                 };
-                buttonDOM.onpointercancel = function(e) {
-                  return _this10.handleButtonMouseUp();
+                buttonDOM.onpointercancel = function() {
+                  return _this10.handleButtonMouseUp(button);
                 };
               } else {
                 /**
@@ -1700,11 +1700,11 @@
                     _this10.handleButtonClicked(button);
                     _this10.handleButtonMouseDown(button, e);
                   };
-                  buttonDOM.ontouchend = function(e) {
-                    return _this10.handleButtonMouseUp();
+                  buttonDOM.ontouchend = function() {
+                    return _this10.handleButtonMouseUp(button);
                   };
-                  buttonDOM.ontouchcancel = function(e) {
-                    return _this10.handleButtonMouseUp();
+                  buttonDOM.ontouchcancel = function() {
+                    return _this10.handleButtonMouseUp(button);
                   };
                 } else {
                   /**
@@ -1714,7 +1714,10 @@
                     _this10.handleButtonClicked(button);
                   };
                   buttonDOM.onmousedown = function(e) {
-                    _this10.handleButtonMouseDown(button, e);
+                    return _this10.handleButtonMouseDown(button, e);
+                  };
+                  buttonDOM.onmouseup = function() {
+                    return _this10.handleButtonMouseUp(button);
                   };
                 }
               }
@@ -1767,10 +1770,10 @@
             } else if (useTouchEvents) {
               /**
          * Handling ontouchend, ontouchcancel
-         */ document.ontouchend = function(e) {
+         */ document.ontouchend = function() {
                 return _this10.handleButtonMouseUp();
               };
-              document.ontouchcancel = function(e) {
+              document.ontouchcancel = function() {
                 return _this10.handleButtonMouseUp();
               };
             } else if (!useTouchEvents) {

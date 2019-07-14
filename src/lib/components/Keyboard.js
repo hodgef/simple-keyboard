@@ -295,15 +295,15 @@ class SimpleKeyboard {
   /**
    * Handles button mouseup
    */
-  handleButtonMouseUp() {
+  handleButtonMouseUp(button) {
     this.isMouseHold = false;
     if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
 
     /**
      * Calling onKeyReleased
      */
-    if (typeof this.options.onKeyReleased === "function")
-      this.options.onKeyReleased();
+    if (button && typeof this.options.onKeyReleased === "function")
+      this.options.onKeyReleased(button);
   }
 
   /**
@@ -672,7 +672,7 @@ class SimpleKeyboard {
   }
 
   /**
-   * Called by {@link caretEventHandler} when an event that warrants a cursor position update is triggered
+   * Called by {@link setEventListeners} when an event that warrants a cursor position update is triggered
    */
   caretEventHandler(event) {
     let targetTagName;
@@ -757,9 +757,9 @@ class SimpleKeyboard {
                   themeObj.class
                 )
               ) {
-                buttonThemesParsed[themeButton] = `${themeParsed} ${
-                  themeObj.class
-                }`;
+                buttonThemesParsed[
+                  themeButton
+                ] = `${themeParsed} ${themeObj.class}`;
               }
             } else {
               buttonThemesParsed[themeButton] = themeObj.class;
@@ -986,9 +986,7 @@ class SimpleKeyboard {
          */
         let containerDOM = document.createElement("div");
         containerDOM.className += "hg-button-container";
-        let containerUID = `${
-          this.options.layoutName
-        }-r${rowIndex}c${arrIndex}`;
+        let containerUID = `${this.options.layoutName}-r${rowIndex}c${arrIndex}`;
         containerDOM.setAttribute("data-skUID", containerUID);
 
         /**
@@ -1073,9 +1071,7 @@ class SimpleKeyboard {
     /**
      * Adding themeClass, layoutClass to keyboardDOM
      */
-    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${
-      this.keyboardPluginClasses
-    } ${useTouchEventsClass}`;
+    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${this.keyboardPluginClasses} ${useTouchEventsClass}`;
 
     /**
      * Iterating through each row
@@ -1168,10 +1164,8 @@ class SimpleKeyboard {
             this.handleButtonClicked(button);
             this.handleButtonMouseDown(button, e);
           };
-          buttonDOM.onpointerup = e => {
-            this.handleButtonMouseUp();
-          };
-          buttonDOM.onpointercancel = e => this.handleButtonMouseUp();
+          buttonDOM.onpointerup = () => this.handleButtonMouseUp(button);
+          buttonDOM.onpointercancel = () => this.handleButtonMouseUp(button);
         } else {
           /**
            * Fallback for browsers not supporting PointerEvents
@@ -1184,8 +1178,8 @@ class SimpleKeyboard {
               this.handleButtonClicked(button);
               this.handleButtonMouseDown(button, e);
             };
-            buttonDOM.ontouchend = e => this.handleButtonMouseUp();
-            buttonDOM.ontouchcancel = e => this.handleButtonMouseUp();
+            buttonDOM.ontouchend = () => this.handleButtonMouseUp(button);
+            buttonDOM.ontouchcancel = () => this.handleButtonMouseUp(button);
           } else {
             /**
              * Handle mouse events
@@ -1194,9 +1188,8 @@ class SimpleKeyboard {
               this.isMouseHold = false;
               this.handleButtonClicked(button);
             };
-            buttonDOM.onmousedown = e => {
-              this.handleButtonMouseDown(button, e);
-            };
+            buttonDOM.onmousedown = e => this.handleButtonMouseDown(button, e);
+            buttonDOM.onmouseup = () => this.handleButtonMouseUp(button);
           }
         }
 
@@ -1278,8 +1271,8 @@ class SimpleKeyboard {
         /**
          * Handling ontouchend, ontouchcancel
          */
-        document.ontouchend = e => this.handleButtonMouseUp();
-        document.ontouchcancel = e => this.handleButtonMouseUp();
+        document.ontouchend = () => this.handleButtonMouseUp();
+        document.ontouchcancel = () => this.handleButtonMouseUp();
       } else if (!useTouchEvents) {
         /**
          * Handling mouseup
