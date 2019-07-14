@@ -1281,10 +1281,12 @@ it('Keyboard onKeyReleased will work', () => {
 
   let pressed = false;
   let firedTimes = 0;
+  let buttonPressed;
 
   let keyboard = new Keyboard({
-    onKeyReleased: () => {
+    onKeyReleased: button => {
       pressed = true;
+      buttonPressed = button;
       firedTimes++;
     },
     debug: true
@@ -1295,4 +1297,5 @@ it('Keyboard onKeyReleased will work', () => {
 
   expect(pressed).toBeTruthy();
   expect(firedTimes).toBe(1);
+  expect(buttonPressed).toBe("q");
 });
