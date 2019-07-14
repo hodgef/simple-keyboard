@@ -1243,3 +1243,56 @@ it('Keyboard disableButtonHold will work', () => {
 
   expect(keyboard.options.disableButtonHold).toBe(true);
 });
+
+it('Keyboard caretEventHandler will be triggered on mouseup and ontouchend', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({
+    disableCaretPositioning: true
+  });
+
+  keyboard.caretPosition = 6;
+
+  document.dispatchEvent(new MouseEvent('mouseup', {
+    target: {
+      tagName: "input"
+    }
+  }));
+
+  expect(keyboard.caretPosition).toBe(null);
+
+  keyboard.setOptions({
+    disableCaretPositioning: false
+  })
+
+  keyboard.caretPosition = 10;
+
+  document.dispatchEvent(new TouchEvent('touchend', {
+    target: {
+      tagName: "input"
+    }
+  }));
+
+  expect(keyboard.caretPosition).toBe(10);
+});
+
+it('Keyboard onKeyReleased will work', () => {
+  testUtil.setDOM();
+
+  let pressed = false;
+  let firedTimes = 0;
+
+  let keyboard = new Keyboard({
+    onKeyReleased: () => {
+      pressed = true;
+      firedTimes++;
+    },
+    debug: true
+  });
+
+  keyboard.getButtonElement("q").onpointerdown();
+  keyboard.getButtonElement("q").onpointerup();
+
+  expect(pressed).toBeTruthy();
+  expect(firedTimes).toBe(1);
+});

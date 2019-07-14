@@ -31,7 +31,7 @@ it('Keyboard {bksp} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{bksp}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{bksp}", "test");
   
   expect(output).toBe("tes");
 });
@@ -41,7 +41,7 @@ it('Keyboard {space} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{space}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{space}", "test");
   
   expect(output).toBe("test ");
 });
@@ -51,7 +51,7 @@ it('Keyboard {tab} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{tab}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{tab}", "test");
   
   expect(output).toBe("test\t");
 });
@@ -63,7 +63,7 @@ it('Keyboard {tab} button will work with tabCharOnTab:false', () => {
     tabCharOnTab: false
   });
 
-  let output = keyboard.utilities.getUpdatedInput("{tab}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{tab}", "test");
   
   expect(output).toBe("test");
 });
@@ -73,7 +73,7 @@ it('Keyboard {enter} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{enter}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{enter}", "test");
   
   expect(output).toBe("test");
 });
@@ -85,7 +85,7 @@ it('Keyboard {enter} button will work with newLineOnEnter:true', () => {
     newLineOnEnter: true
   });
 
-  let output = keyboard.utilities.getUpdatedInput("{enter}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{enter}", "test");
   
   expect(output).toBe("test\n");
 });
@@ -96,7 +96,7 @@ it('Keyboard {numpadX} buttons will work', () => {
   let keyboard = new Keyboard();
 
   for(let i = 0;i<=9;i++){
-    let output = keyboard.utilities.getUpdatedInput(`{numpad${i}}`, "test", keyboard.options);
+    let output = keyboard.utilities.getUpdatedInput(`{numpad${i}}`, "test");
     expect(output).toBe(`test${i}`);
   }
 });
@@ -106,7 +106,7 @@ it('Keyboard {numpaddivide} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{numpaddivide}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{numpaddivide}", "test");
   
   expect(output).toBe("test/");
 });
@@ -116,7 +116,7 @@ it('Keyboard {numpadmultiply} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{numpadmultiply}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{numpadmultiply}", "test");
   
   expect(output).toBe("test*");
 });
@@ -126,7 +126,7 @@ it('Keyboard {numpadsubtract} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{numpadsubtract}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{numpadsubtract}", "test");
   
   expect(output).toBe("test-");
 });
@@ -136,7 +136,7 @@ it('Keyboard {numpadadd} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{numpadadd}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{numpadadd}", "test");
   
   expect(output).toBe("test+");
 });
@@ -146,7 +146,7 @@ it('Keyboard {numpadadd} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{numpadadd}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{numpadadd}", "test");
   
   expect(output).toBe("test+");
 });
@@ -156,7 +156,7 @@ it('Keyboard {numpaddecimal} button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{numpaddecimal}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{numpaddecimal}", "test");
   
   expect(output).toBe("test.");
 });
@@ -172,7 +172,7 @@ it('Keyboard custom function buttons will work', () => {
     }
   });
 
-  let output = keyboard.utilities.getUpdatedInput("{randombuttontest}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{randombuttontest}", "test");
   
   expect(output).toBe("test");
   expect(keyboard.getButtonElement("{randombuttontest}").onclick).toBeTruthy();
@@ -183,7 +183,7 @@ it('Keyboard "{" button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("{", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("{", "test");
   
   expect(output).toBe("test{");
 });
@@ -193,7 +193,7 @@ it('Keyboard "}" button will work', () => {
 
   let keyboard = new Keyboard();
 
-  let output = keyboard.utilities.getUpdatedInput("}", "test", keyboard.options);
+  let output = keyboard.utilities.getUpdatedInput("}", "test");
   
   expect(output).toBe("test}");
 });
@@ -205,7 +205,7 @@ it('Keyboard standard button will affect input', () => {
 
   for (let i = 65; i <= 90; i++) {
     let char = String.fromCharCode(i);
-    let output = keyboard.utilities.getUpdatedInput(char, "test", keyboard.options);
+    let output = keyboard.utilities.getUpdatedInput(char, "test");
     expect(output).toBe(`test${char}`);
   }
 });
@@ -213,8 +213,9 @@ it('Keyboard standard button will affect input', () => {
 it('Keyboard updateCaretPos will work with minus', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
-  keyboard.options.syncInstanceInputs = true;
+  let keyboard = new Keyboard({
+    syncInstanceInputs: true
+  });
 
   keyboard.caretPosition = 5;
   keyboard.utilities.updateCaretPos(2, true);
@@ -282,7 +283,7 @@ it('Keyboard addStringAt will respect maxLength', () => {
   keyboard.setInput("test");
   keyboard.caretPosition = 4;
 
-  keyboard.utilities.handleMaxLength(keyboard.input, keyboard.options, "testq")
+  keyboard.utilities.handleMaxLength(keyboard.input, "testq")
   keyboard.utilities.addStringAt("test", "q", 4);
 
   expect(keyboard.caretPosition).toBe(4);
@@ -297,7 +298,7 @@ it('Keyboard handleMaxLength will exit out on same updatedInput', () => {
 
   keyboard.setInput("test");
 
-  let output = keyboard.utilities.handleMaxLength(keyboard.input, keyboard.options, "test")
+  let output = keyboard.utilities.handleMaxLength(keyboard.input, "test")
 
   expect(output).toBeFalsy();
 });
@@ -313,7 +314,7 @@ it('Keyboard handleMaxLength will work with object maxLength', () => {
 
   keyboard.setInput("test");
   
-  let output = keyboard.utilities.handleMaxLength(keyboard.input, keyboard.options, "testq");
+  let output = keyboard.utilities.handleMaxLength(keyboard.input, "testq");
 
   expect(output).toBeTruthy();
 });
@@ -330,7 +331,7 @@ it('Keyboard handleMaxLength will work with object maxLength and debug', () => {
 
   keyboard.setInput("test");
   
-  let output = keyboard.utilities.handleMaxLength(keyboard.input, keyboard.options, "testq");
+  let output = keyboard.utilities.handleMaxLength(keyboard.input, "testq");
 
   expect(output).toBeTruthy();
 });
@@ -346,7 +347,7 @@ it('Keyboard handleMaxLength will return false if obj maxLength not reached', ()
 
   keyboard.setInput("test");
   
-  let output = keyboard.utilities.handleMaxLength(keyboard.input, keyboard.options, "testq");
+  let output = keyboard.utilities.handleMaxLength(keyboard.input, "testq");
 
   expect(output).toBeFalsy();
 });
@@ -361,7 +362,7 @@ it('Keyboard handleMaxLength will work without debug', () => {
 
   keyboard.setInput("test");
   
-  let output = keyboard.utilities.handleMaxLength(keyboard.input, keyboard.options, "testq");
+  let output = keyboard.utilities.handleMaxLength(keyboard.input, "testq");
 
   expect(output).toBeTruthy();
 });
@@ -376,7 +377,7 @@ it('Keyboard handleMaxLength will work with numeric maxLength', () => {
 
   keyboard.setInput("test");
   
-  let output = keyboard.utilities.handleMaxLength(keyboard.input, keyboard.options, "testq");
+  let output = keyboard.utilities.handleMaxLength(keyboard.input, "testq");
 
   expect(output).toBeFalsy();
 });
@@ -390,7 +391,7 @@ it('Keyboard handleMaxLength wont work with non numeric or object maxLength', ()
 
   keyboard.setInput("test");
   
-  let output = keyboard.utilities.handleMaxLength(keyboard.input, keyboard.options, "testq");
+  let output = keyboard.utilities.handleMaxLength(keyboard.input, "testq");
 
   expect(output).toBeFalsy();
 });
@@ -405,7 +406,7 @@ it('Keyboard handleMaxLength wont work with non numeric or object maxLength (wit
 
   keyboard.setInput("test");
   
-  let output = keyboard.utilities.handleMaxLength(keyboard.input, keyboard.options, "testq");
+  let output = keyboard.utilities.handleMaxLength(keyboard.input, "testq");
 
   expect(output).toBeFalsy();
 });
@@ -483,4 +484,10 @@ it('Keyboard will work with custom (and weird) class', () => {
   testUtil.setDOM("my--weird--class");
   let keyboard = new Keyboard(".my--weird--class");
   expect(keyboard.keyboardDOMClass).toBe("my--weird--class");
+});
+
+it('Keyboard camelCase will work with empty strings', () => {
+  testUtil.setDOM();
+  let keyboard = new Keyboard();
+  expect(keyboard.utilities.camelCase()).toBeFalsy();
 });
