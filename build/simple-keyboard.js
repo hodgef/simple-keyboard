@@ -762,7 +762,7 @@
  * This class:
  * - Parses the options
  * - Renders the rows and buttons
- * - Handles button functionalitycd
+ * - Handles button functionality
  */    var Keyboard_SimpleKeyboard = /* */ function() {
       /**
    * Creates an instance of SimpleKeyboard
