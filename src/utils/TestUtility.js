@@ -7,9 +7,14 @@ export default class TestUtility {
    */
   setDOM = (divClass) => {
     this.clear();
-    const div = document.createElement('div');
-    div.className += divClass || "simple-keyboard";
-    document.body.appendChild(div);
+    const wrapperDOM = document.createElement('div');
+    wrapperDOM.setAttribute("id", "root");
+
+    const keyboardDOM = document.createElement('div');
+    keyboardDOM.className = divClass || "simple-keyboard";
+
+    wrapperDOM.appendChild(keyboardDOM);
+    document.body.appendChild(wrapperDOM);
   }
 
   /**
