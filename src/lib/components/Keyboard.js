@@ -27,7 +27,16 @@ class SimpleKeyboard {
     /**
      * Initializing Utilities
      */
-    this.utilities = new Utilities(this);
+    this.utilities = new Utilities({
+      getOptions: this.getOptions,
+      getCaretPosition: this.getCaretPosition,
+      dispatch: this.dispatch
+    });
+
+    /**
+     * Caret position
+     */
+    this.caretPosition = null;
 
     /**
      * Processing options
@@ -66,6 +75,7 @@ class SimpleKeyboard {
      * @property {boolean} useMouseEvents Opt out of PointerEvents handling, falling back to the prior mouse event logic.
      * @property {function} destroy Clears keyboard listeners and DOM elements.
      * @property {boolean} disableButtonHold Disable button hold action.
+     * @property {function} onKeyReleased Executes the callback function on key release.
      */
     this.options = options;
     this.options.layoutName = this.options.layoutName || "default";
@@ -112,16 +122,7 @@ class SimpleKeyboard {
     this.buttonElements = {};
 
     /**
-     * Rendering keyboard
-     */
-    if (this.keyboardDOM) this.render();
-    else {
-      console.warn(`"${keyboardDOMQuery}" was not found in the DOM.`);
-      throw new Error("KEYBOARD_DOM_ERROR");
-    }
-
-    /**
-     * Saving instance
+     * Simple-keyboard Instances
      * This enables multiple simple-keyboard support with easier management
      */
     if (!window["SimpleKeyboardInstances"])
@@ -132,9 +133,30 @@ class SimpleKeyboard {
     ] = this;
 
     /**
+     * Instance vars
+     */
+    this.allKeyboardInstances = window["SimpleKeyboardInstances"];
+    this.currentInstanceName = this.utilities.camelCase(this.keyboardDOMClass);
+    this.keyboardInstanceNames = Object.keys(window["SimpleKeyboardInstances"]);
+    this.isFirstKeyboardInstance =
+      this.keyboardInstanceNames[0] === this.currentInstanceName;
+
+    /**
      * Physical Keyboard support
      */
-    this.physicalKeyboardInterface = new PhysicalKeyboard(this);
+    this.physicalKeyboard = new PhysicalKeyboard({
+      dispatch: this.dispatch,
+      getOptions: this.getOptions
+    });
+
+    /**
+     * Rendering keyboard
+     */
+    if (this.keyboardDOM) this.render();
+    else {
+      console.warn(`"${keyboardDOMQuery}" was not found in the DOM.`);
+      throw new Error("KEYBOARD_DOM_ERROR");
+    }
 
     /**
      * Modules
@@ -142,6 +164,12 @@ class SimpleKeyboard {
     this.modules = {};
     this.loadModules();
   }
+
+  /**
+   * Getters
+   */
+  getOptions = () => this.options;
+  getCaretPosition = () => this.caretPosition;
 
   /**
    * Handles clicks made to keyboard buttons
@@ -167,7 +195,6 @@ class SimpleKeyboard {
     let updatedInput = this.utilities.getUpdatedInput(
       button,
       this.input[this.options.inputName],
-      this.options,
       this.caretPosition
     );
 
@@ -185,7 +212,7 @@ class SimpleKeyboard {
        */
       if (
         this.options.maxLength &&
-        this.utilities.handleMaxLength(this.input, this.options, updatedInput)
+        this.utilities.handleMaxLength(this.input, updatedInput)
       ) {
         return false;
       }
@@ -193,7 +220,6 @@ class SimpleKeyboard {
       this.input[this.options.inputName] = this.utilities.getUpdatedInput(
         button,
         this.input[this.options.inputName],
-        this.options,
         this.caretPosition,
         true
       );
@@ -272,6 +298,12 @@ class SimpleKeyboard {
   handleButtonMouseUp() {
     this.isMouseHold = false;
     if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
+
+    /**
+     * Calling onKeyReleased
+     */
+    if (typeof this.options.onKeyReleased === "function")
+      this.options.onKeyReleased();
   }
 
   /**
@@ -584,33 +616,63 @@ class SimpleKeyboard {
   }
 
   /**
-   * Retrieves the current cursor position within a input or textarea (if any)
+   * Handles simple-keyboard event listeners
    */
-  handleCaret() {
+  setEventListeners() {
     /**
-     * Only first instance should insall the caret handling events
+     * Only first instance should set the event listeners
      */
-    this.caretPosition = null;
-    let simpleKeyboardInstances = window["SimpleKeyboardInstances"];
-
-    if (
-      (simpleKeyboardInstances &&
-        Object.keys(simpleKeyboardInstances)[0] ===
-          this.utilities.camelCase(this.keyboardDOMClass)) ||
-      !simpleKeyboardInstances
-    ) {
+    if (this.isFirstKeyboardInstance || !this.allKeyboardInstances) {
       if (this.options.debug) {
         console.log(`Caret handling started (${this.keyboardDOMClass})`);
       }
 
-      document.addEventListener("keyup", this.caretEventHandler);
-      document.addEventListener("mouseup", this.caretEventHandler);
-      document.addEventListener("touchend", this.caretEventHandler);
+      /**
+       * Event Listeners
+       */
+      document.addEventListener("keyup", this.handleKeyUp);
+      document.addEventListener("keydown", this.handleKeyDown);
+      document.addEventListener("mouseup", this.handleMouseUp);
+      document.addEventListener("touchend", this.handleTouchEnd);
     }
   }
 
   /**
-   * Called by {@link handleCaret} when an event that warrants a cursor position update is triggered
+   * Event Handler: KeyUp
+   */
+  handleKeyUp(event) {
+    this.caretEventHandler(event);
+
+    if (this.options.physicalKeyboardHighlight) {
+      this.physicalKeyboard.handleHighlightKeyUp(event);
+    }
+  }
+
+  /**
+   * Event Handler: KeyDown
+   */
+  handleKeyDown(event) {
+    if (this.options.physicalKeyboardHighlight) {
+      this.physicalKeyboard.handleHighlightKeyDown(event);
+    }
+  }
+
+  /**
+   * Event Handler: MouseUp
+   */
+  handleMouseUp(event) {
+    this.caretEventHandler(event);
+  }
+
+  /**
+   * Event Handler: TouchEnd
+   */
+  handleTouchEnd(event) {
+    this.caretEventHandler(event);
+  }
+
+  /**
+   * Called by {@link caretEventHandler} when an event that warrants a cursor position update is triggered
    */
   caretEventHandler(event) {
     let targetTagName;
@@ -657,9 +719,10 @@ class SimpleKeyboard {
     /**
      * Remove listeners
      */
-    document.removeEventListener("keyup", this.caretEventHandler);
-    document.removeEventListener("mouseup", this.caretEventHandler);
-    document.removeEventListener("touchend", this.caretEventHandler);
+    document.removeEventListener("keyup", this.handleKeyUp);
+    document.removeEventListener("keydown", this.handleKeyDown);
+    document.removeEventListener("mouseup", this.handleMouseUp);
+    document.removeEventListener("touchend", this.handleTouchEnd);
 
     /**
      * Clear DOM
@@ -763,9 +826,9 @@ class SimpleKeyboard {
     }
 
     /**
-     * Caret handling
+     * setEventListeners
      */
-    this.handleCaret();
+    this.setEventListeners();
 
     if (typeof this.options.onInit === "function") this.options.onInit();
   }
@@ -788,6 +851,7 @@ class SimpleKeyboard {
      * Notify about PointerEvents usage
      */
     if (
+      this.isFirstKeyboardInstance &&
       this.utilities.pointerEventsSupported() &&
       !this.options.useTouchEvents &&
       !this.options.useMouseEvents

@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "2.23.3",
+  "version": "2.24.0",
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -126,7 +126,7 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
-      "!src/lib/index.js",
+      "!src/**/index.js",
       "!src/utils/**",
       "!src/**/*.d.ts",
       "!**/tests/**"

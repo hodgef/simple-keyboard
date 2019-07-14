@@ -5,11 +5,10 @@ class Utilities {
   /**
    * Creates an instance of the Utility service
    */
-  constructor(simpleKeyboardInstance) {
-    /**
-     * @type {object} A simple-keyboard instance
-     */
-    this.simpleKeyboardInstance = simpleKeyboardInstance;
+  constructor({ getOptions, getCaretPosition, dispatch }) {
+    this.getOptions = getOptions;
+    this.getCaretPosition = getCaretPosition;
+    this.dispatch = dispatch;
 
     /**
      * Bindings
@@ -125,11 +124,11 @@ class Utilities {
    *
    * @param  {string} button The button's layout name
    * @param  {string} input The input string
-   * @param  {object} options The simple-keyboard options object
    * @param  {number} caretPos The cursor's current position
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
-  getUpdatedInput(button, input, options, caretPos, moveCaret) {
+  getUpdatedInput(button, input, caretPos, moveCaret) {
+    let options = this.getOptions();
     let output = input;
 
     if (
@@ -187,43 +186,34 @@ class Utilities {
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */
   updateCaretPos(length, minus) {
-    let newCaretPos = this.updateCaretPosAction(
-      this.simpleKeyboardInstance,
-      length,
-      minus
-    );
+    let newCaretPos = this.updateCaretPosAction(length, minus);
 
-    if (this.simpleKeyboardInstance.options.syncInstanceInputs) {
-      this.simpleKeyboardInstance.dispatch(instance => {
-        instance.caretPosition = newCaretPos;
-      });
-    }
+    this.dispatch(instance => {
+      instance.caretPosition = newCaretPos;
+    });
   }
 
   /**
    * Action method of updateCaretPos
    *
-   * @param  {object} instance The instance whose position should be updated
    * @param  {number} length Represents by how many characters the input should be moved
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */
-  updateCaretPosAction(instance, length, minus) {
+  updateCaretPosAction(length, minus) {
+    let options = this.getOptions();
+    let caretPosition = this.getCaretPosition();
+
     if (minus) {
-      if (instance.caretPosition > 0)
-        instance.caretPosition = instance.caretPosition - length;
+      if (caretPosition > 0) caretPosition = caretPosition - length;
     } else {
-      instance.caretPosition = instance.caretPosition + length;
+      caretPosition = caretPosition + length;
     }
 
-    if (this.simpleKeyboardInstance.options.debug) {
-      console.log(
-        "Caret at:",
-        instance.caretPosition,
-        `(${instance.keyboardDOMClass})`
-      );
+    if (options.debug) {
+      console.log("Caret at:", caretPosition, `(${this.keyboardDOMClass})`);
     }
 
-    return instance.caretPosition;
+    return caretPosition;
   }
 
   /**
@@ -263,7 +253,9 @@ class Utilities {
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
   removeAt(source, position, moveCaret) {
-    if (this.simpleKeyboardInstance.caretPosition === 0) {
+    let caretPosition = this.getCaretPosition();
+
+    if (caretPosition === 0) {
       return source;
     }
 
@@ -306,10 +298,10 @@ class Utilities {
    * Determines whether the maxLength has been reached. This function is called when the maxLength option it set.
    *
    * @param  {object} inputObj
-   * @param  {object} options
    * @param  {string} updatedInput
    */
-  handleMaxLength(inputObj, options, updatedInput) {
+  handleMaxLength(inputObj, updatedInput) {
+    let options = this.getOptions();
     let maxLength = options.maxLength;
     let currentInput = inputObj[options.inputName];
     let condition = currentInput.length === maxLength;
@@ -399,6 +391,8 @@ class Utilities {
    * @param  {string} string The string to transform.
    */
   camelCase(string) {
+    if (!string) return false;
+
     return string
       .toLowerCase()
       .trim()

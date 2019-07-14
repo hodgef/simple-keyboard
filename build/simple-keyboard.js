@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.23.3 (Non-minified build)
+ *   simple-keyboard v2.24.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -151,8 +151,20 @@
     __webpack_require__.r(__webpack_exports__);
     // EXTERNAL MODULE: ./src/lib/components/Keyboard.css
         var Keyboard = __webpack_require__(1);
-    // CONCATENATED MODULE: ./src/lib/services/PhysicalKeyboard.js
-        function _classCallCheck(instance, Constructor) {
+    // CONCATENATED MODULE: ./src/lib/services/Utilities.js
+        function _typeof(obj) {
+      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+        _typeof = function _typeof(obj) {
+          return typeof obj;
+        };
+      } else {
+        _typeof = function _typeof(obj) {
+          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        };
+      }
+      return _typeof(obj);
+    }
+    function _classCallCheck(instance, Constructor) {
       if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
       }
@@ -178,173 +190,16 @@
       return Constructor;
     }
     /**
- * Physical Keyboard Service
- */    var PhysicalKeyboard = /* */ function() {
-      /**
-   * Creates an instance of the PhysicalKeyboard service
-   */ function PhysicalKeyboard(simpleKeyboardInstance) {
-        _classCallCheck(this, PhysicalKeyboard);
-        /**
-     * @type {object} A simple-keyboard instance
-     */        this.simpleKeyboardInstance = simpleKeyboardInstance;
-        /**
-     * Bindings
-     */        this.initKeyboardListener = this.initKeyboardListener.bind(this);
-        this.getSimpleKeyboardLayoutKey = this.getSimpleKeyboardLayoutKey.bind(this);
-        /**
-     * Initialize key listeners
-     */        this.initKeyboardListener();
-      }
-      /**
-   * Initializes key event listeners
-   */      _createClass(PhysicalKeyboard, [ {
-        key: "initKeyboardListener",
-        value: function initKeyboardListener() {
-          var _this = this;
- // Adding button style on keydown
-                    document.addEventListener("keydown", function(event) {
-            if (_this.simpleKeyboardInstance.options.physicalKeyboardHighlight) {
-              var buttonPressed = _this.getSimpleKeyboardLayoutKey(event);
-              _this.simpleKeyboardInstance.dispatch(function(instance) {
-                var buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement("{".concat(buttonPressed, "}"));
-                if (buttonDOM) {
-                  buttonDOM.style.backgroundColor = _this.simpleKeyboardInstance.options.physicalKeyboardHighlightBgColor || "#9ab4d0";
-                  buttonDOM.style.color = _this.simpleKeyboardInstance.options.physicalKeyboardHighlightTextColor || "white";
-                }
-              });
-            }
-          });
- // Removing button style on keyup
-                    document.addEventListener("keyup", function(event) {
-            if (_this.simpleKeyboardInstance.options.physicalKeyboardHighlight) {
-              var buttonPressed = _this.getSimpleKeyboardLayoutKey(event);
-              _this.simpleKeyboardInstance.dispatch(function(instance) {
-                var buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement("{".concat(buttonPressed, "}"));
-                if (buttonDOM && buttonDOM.removeAttribute) {
-                  buttonDOM.removeAttribute("style");
-                }
-              });
-            }
-          });
-        }
-        /**
-   * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
-   * @param  {object} event The KeyboardEvent
-   */      }, {
-        key: "getSimpleKeyboardLayoutKey",
-        value: function getSimpleKeyboardLayoutKey(event) {
-          var output;
-          if (event.code.includes("Numpad") || event.code.includes("Shift") || event.code.includes("Space") || event.code.includes("Backspace") || event.code.includes("Control") || event.code.includes("Alt") || event.code.includes("Meta")) {
-            output = event.code;
-          } else {
-            output = event.key;
-          }
-          /**
-     * If button is not uppercase, casting to lowercase
-     */          if (output !== output.toUpperCase() || event.code[0] === "F" && Number.isInteger(Number(event.code[1])) && event.code.length <= 3) {
-            output = output.toLowerCase();
-          }
-          return output;
-        }
-      } ]);
-      return PhysicalKeyboard;
-    }();
- /* harmony default export */    var services_PhysicalKeyboard = PhysicalKeyboard;
-    // CONCATENATED MODULE: ./src/lib/services/KeyboardLayout.js
-        function KeyboardLayout_classCallCheck(instance, Constructor) {
-      if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-      }
-    }
-    function KeyboardLayout_defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) {
-          descriptor.writable = true;
-        }
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-    function KeyboardLayout_createClass(Constructor, protoProps, staticProps) {
-      if (protoProps) {
-        KeyboardLayout_defineProperties(Constructor.prototype, protoProps);
-      }
-      if (staticProps) {
-        KeyboardLayout_defineProperties(Constructor, staticProps);
-      }
-      return Constructor;
-    }
-    /**
- * Keyboard Layout Service
- */    var KeyboardLayout = /* */ function() {
-      function KeyboardLayout() {
-        KeyboardLayout_classCallCheck(this, KeyboardLayout);
-      }
-      KeyboardLayout_createClass(KeyboardLayout, null, [ {
-        key: "getDefaultLayout",
-        /**
-   * Get default simple-keyboard layout
-   * @return {object} The default layout (US-QWERTY)
-   */ value: function getDefaultLayout() {
-          return {
-            default: [ "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}", "{tab} q w e r t y u i o p [ ] \\", "{lock} a s d f g h j k l ; ' {enter}", "{shift} z x c v b n m , . / {shift}", ".com @ {space}" ],
-            shift: [ "~ ! @ # $ % ^ & * ( ) _ + {bksp}", "{tab} Q W E R T Y U I O P { } |", '{lock} A S D F G H J K L : " {enter}', "{shift} Z X C V B N M < > ? {shift}", ".com @ {space}" ]
-          };
-        }
-      } ]);
-      return KeyboardLayout;
-    }();
- /* harmony default export */    var services_KeyboardLayout = KeyboardLayout;
-    // CONCATENATED MODULE: ./src/lib/services/Utilities.js
-        function _typeof(obj) {
-      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-        _typeof = function _typeof(obj) {
-          return typeof obj;
-        };
-      } else {
-        _typeof = function _typeof(obj) {
-          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-        };
-      }
-      return _typeof(obj);
-    }
-    function Utilities_classCallCheck(instance, Constructor) {
-      if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-      }
-    }
-    function Utilities_defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) {
-          descriptor.writable = true;
-        }
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-    function Utilities_createClass(Constructor, protoProps, staticProps) {
-      if (protoProps) {
-        Utilities_defineProperties(Constructor.prototype, protoProps);
-      }
-      if (staticProps) {
-        Utilities_defineProperties(Constructor, staticProps);
-      }
-      return Constructor;
-    }
-    /**
  * Utility Service
  */    var Utilities = /* */ function() {
       /**
    * Creates an instance of the Utility service
-   */ function Utilities(simpleKeyboardInstance) {
-        Utilities_classCallCheck(this, Utilities);
-        /**
-     * @type {object} A simple-keyboard instance
-     */        this.simpleKeyboardInstance = simpleKeyboardInstance;
+   */ function Utilities(_ref) {
+        var getOptions = _ref.getOptions, getCaretPosition = _ref.getCaretPosition, dispatch = _ref.dispatch;
+        _classCallCheck(this, Utilities);
+        this.getOptions = getOptions;
+        this.getCaretPosition = getCaretPosition;
+        this.dispatch = dispatch;
         /**
      * Bindings
      */        Utilities.bindMethods(Utilities, this);
@@ -354,7 +209,7 @@
    *
    * @param  {string} button The button's layout name
    * @return {string} The classes to be added to the button
-   */      Utilities_createClass(Utilities, [ {
+   */      _createClass(Utilities, [ {
         key: "getButtonClass",
         value: function getButtonClass(button) {
           var buttonTypeClass = button.includes("{") && button.includes("}") && button !== "{//}" ? "functionBtn" : "standardBtn";
@@ -453,12 +308,12 @@
    *
    * @param  {string} button The button's layout name
    * @param  {string} input The input string
-   * @param  {object} options The simple-keyboard options object
    * @param  {number} caretPos The cursor's current position
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */      }, {
         key: "getUpdatedInput",
-        value: function getUpdatedInput(button, input, options, caretPos, moveCaret) {
+        value: function getUpdatedInput(button, input, caretPos, moveCaret) {
+          var options = this.getOptions();
           var output = input;
           if ((button === "{bksp}" || button === "{backspace}") && output.length > 0) {
             output = this.removeAt(output, caretPos, moveCaret);
@@ -495,33 +350,32 @@
    */      }, {
         key: "updateCaretPos",
         value: function updateCaretPos(length, minus) {
-          var newCaretPos = this.updateCaretPosAction(this.simpleKeyboardInstance, length, minus);
-          if (this.simpleKeyboardInstance.options.syncInstanceInputs) {
-            this.simpleKeyboardInstance.dispatch(function(instance) {
-              instance.caretPosition = newCaretPos;
-            });
-          }
+          var newCaretPos = this.updateCaretPosAction(length, minus);
+          this.dispatch(function(instance) {
+            instance.caretPosition = newCaretPos;
+          });
         }
         /**
    * Action method of updateCaretPos
    *
-   * @param  {object} instance The instance whose position should be updated
    * @param  {number} length Represents by how many characters the input should be moved
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */      }, {
         key: "updateCaretPosAction",
-        value: function updateCaretPosAction(instance, length, minus) {
+        value: function updateCaretPosAction(length, minus) {
+          var options = this.getOptions();
+          var caretPosition = this.getCaretPosition();
           if (minus) {
-            if (instance.caretPosition > 0) {
-              instance.caretPosition = instance.caretPosition - length;
+            if (caretPosition > 0) {
+              caretPosition = caretPosition - length;
             }
           } else {
-            instance.caretPosition = instance.caretPosition + length;
+            caretPosition = caretPosition + length;
           }
-          if (this.simpleKeyboardInstance.options.debug) {
-            console.log("Caret at:", instance.caretPosition, "(".concat(instance.keyboardDOMClass, ")"));
+          if (options.debug) {
+            console.log("Caret at:", caretPosition, "(".concat(this.keyboardDOMClass, ")"));
           }
-          return instance.caretPosition;
+          return caretPosition;
         }
         /**
    * Adds a string to the input at a given position
@@ -557,7 +411,8 @@
    */      }, {
         key: "removeAt",
         value: function removeAt(source, position, moveCaret) {
-          if (this.simpleKeyboardInstance.caretPosition === 0) {
+          var caretPosition = this.getCaretPosition();
+          if (caretPosition === 0) {
             return source;
           }
           var output;
@@ -602,11 +457,11 @@
    * Determines whether the maxLength has been reached. This function is called when the maxLength option it set.
    *
    * @param  {object} inputObj
-   * @param  {object} options
    * @param  {string} updatedInput
    */      }, {
         key: "handleMaxLength",
-        value: function handleMaxLength(inputObj, options, updatedInput) {
+        value: function handleMaxLength(inputObj, updatedInput) {
+          var options = this.getOptions();
           var maxLength = options.maxLength;
           var currentInput = inputObj[options.inputName];
           var condition = currentInput.length === maxLength;
@@ -675,6 +530,9 @@
    *
    * @param  {string} string The string to transform.
    */ value: function camelCase(string) {
+          if (!string) {
+            return false;
+          }
           return string.toLowerCase().trim().split(/[.\-_\s]/g).reduce(function(string, word) {
             return word.length ? string + word[0].toUpperCase() + word.slice(1) : string;
           });
@@ -724,6 +582,142 @@
       return Utilities;
     }();
  /* harmony default export */    var services_Utilities = Utilities;
+    // CONCATENATED MODULE: ./src/lib/services/PhysicalKeyboard.js
+        function PhysicalKeyboard_classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+    function PhysicalKeyboard_defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) {
+          descriptor.writable = true;
+        }
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+    function PhysicalKeyboard_createClass(Constructor, protoProps, staticProps) {
+      if (protoProps) {
+        PhysicalKeyboard_defineProperties(Constructor.prototype, protoProps);
+      }
+      if (staticProps) {
+        PhysicalKeyboard_defineProperties(Constructor, staticProps);
+      }
+      return Constructor;
+    }
+    /**
+ * Physical Keyboard Service
+ */    var PhysicalKeyboard_PhysicalKeyboard = /* */ function() {
+      /**
+   * Creates an instance of the PhysicalKeyboard service
+   */ function PhysicalKeyboard(_ref) {
+        var dispatch = _ref.dispatch, getOptions = _ref.getOptions;
+        PhysicalKeyboard_classCallCheck(this, PhysicalKeyboard);
+        /**
+     * @type {object} A simple-keyboard instance
+     */        this.dispatch = dispatch;
+        this.getOptions = getOptions;
+        /**
+     * Bindings
+     */        services_Utilities.bindMethods(PhysicalKeyboard, this);
+      }
+      PhysicalKeyboard_createClass(PhysicalKeyboard, [ {
+        key: "handleHighlightKeyDown",
+        value: function handleHighlightKeyDown(event) {
+          var options = this.getOptions();
+          var buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+          this.dispatch(function(instance) {
+            var buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement("{".concat(buttonPressed, "}"));
+            if (buttonDOM) {
+              buttonDOM.style.backgroundColor = options.physicalKeyboardHighlightBgColor || "#9ab4d0";
+              buttonDOM.style.color = options.physicalKeyboardHighlightTextColor || "white";
+            }
+          });
+        }
+      }, {
+        key: "handleHighlightKeyUp",
+        value: function handleHighlightKeyUp(event) {
+          var buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+          this.dispatch(function(instance) {
+            var buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement("{".concat(buttonPressed, "}"));
+            if (buttonDOM && buttonDOM.removeAttribute) {
+              buttonDOM.removeAttribute("style");
+            }
+          });
+        }
+        /**
+   * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
+   * @param  {object} event The KeyboardEvent
+   */      }, {
+        key: "getSimpleKeyboardLayoutKey",
+        value: function getSimpleKeyboardLayoutKey(event) {
+          var output;
+          if (event.code.includes("Numpad") || event.code.includes("Shift") || event.code.includes("Space") || event.code.includes("Backspace") || event.code.includes("Control") || event.code.includes("Alt") || event.code.includes("Meta")) {
+            output = event.code;
+          } else {
+            output = event.key;
+          }
+          /**
+     * If button is not uppercase, casting to lowercase
+     */          if (output !== output.toUpperCase() || event.code[0] === "F" && Number.isInteger(Number(event.code[1])) && event.code.length <= 3) {
+            output = output.toLowerCase();
+          }
+          return output;
+        }
+      } ]);
+      return PhysicalKeyboard;
+    }();
+ /* harmony default export */    var services_PhysicalKeyboard = PhysicalKeyboard_PhysicalKeyboard;
+    // CONCATENATED MODULE: ./src/lib/services/KeyboardLayout.js
+        function KeyboardLayout_classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+    function KeyboardLayout_defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) {
+          descriptor.writable = true;
+        }
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+    function KeyboardLayout_createClass(Constructor, protoProps, staticProps) {
+      if (protoProps) {
+        KeyboardLayout_defineProperties(Constructor.prototype, protoProps);
+      }
+      if (staticProps) {
+        KeyboardLayout_defineProperties(Constructor, staticProps);
+      }
+      return Constructor;
+    }
+    /**
+ * Keyboard Layout Service
+ */    var KeyboardLayout = /* */ function() {
+      function KeyboardLayout() {
+        KeyboardLayout_classCallCheck(this, KeyboardLayout);
+      }
+      KeyboardLayout_createClass(KeyboardLayout, null, [ {
+        key: "getDefaultLayout",
+        /**
+   * Get default simple-keyboard layout
+   * @return {object} The default layout (US-QWERTY)
+   */ value: function getDefaultLayout() {
+          return {
+            default: [ "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}", "{tab} q w e r t y u i o p [ ] \\", "{lock} a s d f g h j k l ; ' {enter}", "{shift} z x c v b n m , . / {shift}", ".com @ {space}" ],
+            shift: [ "~ ! @ # $ % ^ & * ( ) _ + {bksp}", "{tab} Q W E R T Y U I O P { } |", '{lock} A S D F G H J K L : " {enter}', "{shift} Z X C V B N M < > ? {shift}", ".com @ {space}" ]
+          };
+        }
+      } ]);
+      return KeyboardLayout;
+    }();
+ /* harmony default export */    var services_KeyboardLayout = KeyboardLayout;
     // CONCATENATED MODULE: ./src/lib/components/Keyboard.js
         function Keyboard_typeof(obj) {
       if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -776,6 +770,12 @@
    */ function SimpleKeyboard() {
         var _this = this;
         Keyboard_classCallCheck(this, SimpleKeyboard);
+        this.getOptions = function() {
+          return _this.options;
+        };
+        this.getCaretPosition = function() {
+          return _this.caretPosition;
+        };
         this.registerModule = function(name, initCallback) {
           if (!_this.modules[name]) {
             _this.modules[name] = {};
@@ -789,7 +789,14 @@
           /**
      * Initializing Utilities
      */        }
-        this.utilities = new services_Utilities(this);
+        this.utilities = new services_Utilities({
+          getOptions: this.getOptions,
+          getCaretPosition: this.getCaretPosition,
+          dispatch: this.dispatch
+        });
+        /**
+     * Caret position
+     */        this.caretPosition = null;
         /**
      * Processing options
      */        this.keyboardDOM = document.querySelector(keyboardDOMQuery);
@@ -825,6 +832,7 @@
      * @property {boolean} useMouseEvents Opt out of PointerEvents handling, falling back to the prior mouse event logic.
      * @property {function} destroy Clears keyboard listeners and DOM elements.
      * @property {boolean} disableButtonHold Disable button hold action.
+     * @property {function} onKeyReleased Executes the callback function on key release.
      */        this.options = options;
         this.options.layoutName = this.options.layoutName || "default";
         this.options.theme = this.options.theme || "hg-theme-default";
@@ -858,6 +866,25 @@
      * @type {object} Contains the DOM elements of every rendered button, the key being the button's layout name (e.g.: "{enter}").
      */        this.buttonElements = {};
         /**
+     * Simple-keyboard Instances
+     * This enables multiple simple-keyboard support with easier management
+     */        if (!window["SimpleKeyboardInstances"]) {
+          window["SimpleKeyboardInstances"] = {};
+        }
+        window["SimpleKeyboardInstances"][this.utilities.camelCase(this.keyboardDOMClass)] = this;
+        /**
+     * Instance vars
+     */        this.allKeyboardInstances = window["SimpleKeyboardInstances"];
+        this.currentInstanceName = this.utilities.camelCase(this.keyboardDOMClass);
+        this.keyboardInstanceNames = Object.keys(window["SimpleKeyboardInstances"]);
+        this.isFirstKeyboardInstance = this.keyboardInstanceNames[0] === this.currentInstanceName;
+        /**
+     * Physical Keyboard support
+     */        this.physicalKeyboard = new services_PhysicalKeyboard({
+          dispatch: this.dispatch,
+          getOptions: this.getOptions
+        });
+        /**
      * Rendering keyboard
      */        if (this.keyboardDOM) {
           this.render();
@@ -866,26 +893,18 @@
           throw new Error("KEYBOARD_DOM_ERROR");
         }
         /**
-     * Saving instance
-     * This enables multiple simple-keyboard support with easier management
-     */        if (!window["SimpleKeyboardInstances"]) {
-          window["SimpleKeyboardInstances"] = {};
-        }
-        window["SimpleKeyboardInstances"][this.utilities.camelCase(this.keyboardDOMClass)] = this;
-        /**
-     * Physical Keyboard support
-     */        this.physicalKeyboardInterface = new services_PhysicalKeyboard(this);
-        /**
      * Modules
      */        this.modules = {};
         this.loadModules();
       }
       /**
-   * Handles clicks made to keyboard buttons
-   * @param  {string} button The button's layout name.
+   * Getters
    */      Keyboard_createClass(SimpleKeyboard, [ {
         key: "handleButtonClicked",
-        value: function handleButtonClicked(button) {
+        /**
+   * Handles clicks made to keyboard buttons
+   * @param  {string} button The button's layout name.
+   */ value: function handleButtonClicked(button) {
           var debug = this.options.debug;
           /**
      * Ignoring placeholder buttons
@@ -900,7 +919,7 @@
           if (!this.input[this.options.inputName]) {
             this.input[this.options.inputName] = "";
           }
-          var updatedInput = this.utilities.getUpdatedInput(button, this.input[this.options.inputName], this.options, this.caretPosition);
+          var updatedInput = this.utilities.getUpdatedInput(button, this.input[this.options.inputName], this.caretPosition);
           if (// If input will change as a result of this button press
           this.input[this.options.inputName] !== updatedInput && (// This pertains to the "inputPattern" option:
           // If inputPattern isn't set
@@ -908,10 +927,10 @@
           this.options.inputPattern && this.inputPatternIsValid(updatedInput))) {
             /**
        * If maxLength and handleMaxLength yield true, halting
-       */ if (this.options.maxLength && this.utilities.handleMaxLength(this.input, this.options, updatedInput)) {
+       */ if (this.options.maxLength && this.utilities.handleMaxLength(this.input, updatedInput)) {
               return false;
             }
-            this.input[this.options.inputName] = this.utilities.getUpdatedInput(button, this.input[this.options.inputName], this.options, this.caretPosition, true);
+            this.input[this.options.inputName] = this.utilities.getUpdatedInput(button, this.input[this.options.inputName], this.caretPosition, true);
             if (debug) {
               console.log("Input changed:", this.input);
               /**
@@ -980,6 +999,11 @@
           this.isMouseHold = false;
           if (this.holdInteractionTimeout) {
             clearTimeout(this.holdInteractionTimeout);
+            /**
+     * Calling onKeyReleased
+     */          }
+          if (typeof this.options.onKeyReleased === "function") {
+            this.options.onKeyReleased();
           }
         }
         /**
@@ -1252,25 +1276,59 @@
           }
         }
         /**
-   * Retrieves the current cursor position within a input or textarea (if any)
+   * Handles simple-keyboard event listeners
    */      }, {
-        key: "handleCaret",
-        value: function handleCaret() {
+        key: "setEventListeners",
+        value: function setEventListeners() {
           /**
-     * Only first instance should insall the caret handling events
-     */ this.caretPosition = null;
-          var simpleKeyboardInstances = window["SimpleKeyboardInstances"];
-          if (simpleKeyboardInstances && Object.keys(simpleKeyboardInstances)[0] === this.utilities.camelCase(this.keyboardDOMClass) || !simpleKeyboardInstances) {
+     * Only first instance should set the event listeners
+     */ if (this.isFirstKeyboardInstance || !this.allKeyboardInstances) {
             if (this.options.debug) {
               console.log("Caret handling started (".concat(this.keyboardDOMClass, ")"));
             }
-            document.addEventListener("keyup", this.caretEventHandler);
-            document.addEventListener("mouseup", this.caretEventHandler);
-            document.addEventListener("touchend", this.caretEventHandler);
+            /**
+       * Event Listeners
+       */            document.addEventListener("keyup", this.handleKeyUp);
+            document.addEventListener("keydown", this.handleKeyDown);
+            document.addEventListener("mouseup", this.handleMouseUp);
+            document.addEventListener("touchend", this.handleTouchEnd);
           }
         }
         /**
-   * Called by {@link handleCaret} when an event that warrants a cursor position update is triggered
+   * Event Handler: KeyUp
+   */      }, {
+        key: "handleKeyUp",
+        value: function handleKeyUp(event) {
+          this.caretEventHandler(event);
+          if (this.options.physicalKeyboardHighlight) {
+            this.physicalKeyboard.handleHighlightKeyUp(event);
+          }
+        }
+        /**
+   * Event Handler: KeyDown
+   */      }, {
+        key: "handleKeyDown",
+        value: function handleKeyDown(event) {
+          if (this.options.physicalKeyboardHighlight) {
+            this.physicalKeyboard.handleHighlightKeyDown(event);
+          }
+        }
+        /**
+   * Event Handler: MouseUp
+   */      }, {
+        key: "handleMouseUp",
+        value: function handleMouseUp(event) {
+          this.caretEventHandler(event);
+        }
+        /**
+   * Event Handler: TouchEnd
+   */      }, {
+        key: "handleTouchEnd",
+        value: function handleTouchEnd(event) {
+          this.caretEventHandler(event);
+        }
+        /**
+   * Called by {@link caretEventHandler} when an event that warrants a cursor position update is triggered
    */      }, {
         key: "caretEventHandler",
         value: function caretEventHandler(event) {
@@ -1304,9 +1362,10 @@
         value: function destroy() {
           /**
      * Remove listeners
-     */ document.removeEventListener("keyup", this.caretEventHandler);
-          document.removeEventListener("mouseup", this.caretEventHandler);
-          document.removeEventListener("touchend", this.caretEventHandler);
+     */ document.removeEventListener("keyup", this.handleKeyUp);
+          document.removeEventListener("keydown", this.handleKeyDown);
+          document.removeEventListener("mouseup", this.handleMouseUp);
+          document.removeEventListener("touchend", this.handleTouchEnd);
           /**
      * Clear DOM
      */          this.clear();
@@ -1388,8 +1447,8 @@
             console.log("".concat(this.keyboardDOMClass, " Initialized"));
           }
           /**
-     * Caret handling
-     */          this.handleCaret();
+     * setEventListeners
+     */          this.setEventListeners();
           if (typeof this.options.onInit === "function") {
             this.options.onInit();
           }
@@ -1409,7 +1468,7 @@
             /**
      * Notify about PointerEvents usage
      */          }
-          if (this.utilities.pointerEventsSupported() && !this.options.useTouchEvents && !this.options.useMouseEvents) {
+          if (this.isFirstKeyboardInstance && this.utilities.pointerEventsSupported() && !this.options.useTouchEvents && !this.options.useMouseEvents) {
             if (this.options.debug) {
               console.log("Using PointerEvents as it is supported by this browser");
             }

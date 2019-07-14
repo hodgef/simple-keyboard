@@ -1,3 +1,5 @@
+import Utilities from "../services/Utilities";
+
 /**
  * Physical Keyboard Service
  */
@@ -5,66 +7,47 @@ class PhysicalKeyboard {
   /**
    * Creates an instance of the PhysicalKeyboard service
    */
-  constructor(simpleKeyboardInstance) {
+  constructor({ dispatch, getOptions }) {
     /**
      * @type {object} A simple-keyboard instance
      */
-    this.simpleKeyboardInstance = simpleKeyboardInstance;
+    this.dispatch = dispatch;
+    this.getOptions = getOptions;
 
     /**
      * Bindings
      */
-    this.initKeyboardListener = this.initKeyboardListener.bind(this);
-    this.getSimpleKeyboardLayoutKey = this.getSimpleKeyboardLayoutKey.bind(
-      this
-    );
-
-    /**
-     * Initialize key listeners
-     */
-    this.initKeyboardListener();
+    Utilities.bindMethods(PhysicalKeyboard, this);
   }
 
-  /**
-   * Initializes key event listeners
-   */
-  initKeyboardListener() {
-    // Adding button style on keydown
-    document.addEventListener("keydown", event => {
-      if (this.simpleKeyboardInstance.options.physicalKeyboardHighlight) {
-        let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+  handleHighlightKeyDown(event) {
+    let options = this.getOptions();
+    let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
-        this.simpleKeyboardInstance.dispatch(instance => {
-          let buttonDOM =
-            instance.getButtonElement(buttonPressed) ||
-            instance.getButtonElement(`{${buttonPressed}}`);
+    this.dispatch(instance => {
+      let buttonDOM =
+        instance.getButtonElement(buttonPressed) ||
+        instance.getButtonElement(`{${buttonPressed}}`);
 
-          if (buttonDOM) {
-            buttonDOM.style.backgroundColor =
-              this.simpleKeyboardInstance.options
-                .physicalKeyboardHighlightBgColor || "#9ab4d0";
-            buttonDOM.style.color =
-              this.simpleKeyboardInstance.options
-                .physicalKeyboardHighlightTextColor || "white";
-          }
-        });
+      if (buttonDOM) {
+        buttonDOM.style.backgroundColor =
+          options.physicalKeyboardHighlightBgColor || "#9ab4d0";
+        buttonDOM.style.color =
+          options.physicalKeyboardHighlightTextColor || "white";
       }
     });
+  }
 
-    // Removing button style on keyup
-    document.addEventListener("keyup", event => {
-      if (this.simpleKeyboardInstance.options.physicalKeyboardHighlight) {
-        let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+  handleHighlightKeyUp(event) {
+    let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
-        this.simpleKeyboardInstance.dispatch(instance => {
-          let buttonDOM =
-            instance.getButtonElement(buttonPressed) ||
-            instance.getButtonElement(`{${buttonPressed}}`);
+    this.dispatch(instance => {
+      let buttonDOM =
+        instance.getButtonElement(buttonPressed) ||
+        instance.getButtonElement(`{${buttonPressed}}`);
 
-          if (buttonDOM && buttonDOM.removeAttribute) {
-            buttonDOM.removeAttribute("style");
-          }
-        });
+      if (buttonDOM && buttonDOM.removeAttribute) {
+        buttonDOM.removeAttribute("style");
       }
     });
   }
