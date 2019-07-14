@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.23.4 (Non-minified build)
+ *   simple-keyboard v2.24.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)

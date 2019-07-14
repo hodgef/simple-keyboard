@@ -1253,7 +1253,7 @@ it('Keyboard caretEventHandler will be triggered on mouseup and ontouchend', () 
 
   keyboard.caretPosition = 6;
 
-  document.dispatchEvent(new KeyboardEvent('mouseup', {
+  document.dispatchEvent(new MouseEvent('mouseup', {
     target: {
       tagName: "input"
     }
@@ -1267,7 +1267,7 @@ it('Keyboard caretEventHandler will be triggered on mouseup and ontouchend', () 
 
   keyboard.caretPosition = 10;
 
-  document.dispatchEvent(new KeyboardEvent('touchend', {
+  document.dispatchEvent(new TouchEvent('touchend', {
     target: {
       tagName: "input"
     }
