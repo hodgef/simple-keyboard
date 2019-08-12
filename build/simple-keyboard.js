@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.24.3 (Non-minified build)
+ *   simple-keyboard v2.25.0 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -537,18 +537,6 @@
             return word.length ? string + word[0].toUpperCase() + word.slice(1) : string;
           });
         }
-        /**
-   * Counts the number of duplicates in a given array
-   *
-   * @param  {Array} array The haystack to search in
-   * @param  {string} value The needle to search for
-   */      }, {
-        key: "countInArray",
-        value: function countInArray(array, value) {
-          return array.reduce(function(n, x) {
-            return n + (x === value);
-          }, 0);
-        }
       } ], [ {
         key: "bindMethods",
         value: function bindMethods(myClass, instance) {
@@ -719,7 +707,26 @@
     }();
  /* harmony default export */    var services_KeyboardLayout = KeyboardLayout;
     // CONCATENATED MODULE: ./src/lib/components/Keyboard.js
-        function Keyboard_typeof(obj) {
+        function _toConsumableArray(arr) {
+      return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+    }
+    function _nonIterableSpread() {
+      throw new TypeError("Invalid attempt to spread non-iterable instance");
+    }
+    function _iterableToArray(iter) {
+      if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") {
+        return Array.from(iter);
+      }
+    }
+    function _arrayWithoutHoles(arr) {
+      if (Array.isArray(arr)) {
+        for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+          arr2[i] = arr[i];
+        }
+        return arr2;
+      }
+    }
+    function Keyboard_typeof(obj) {
       if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
         Keyboard_typeof = function _typeof(obj) {
           return typeof obj;
@@ -808,6 +815,7 @@
      * @property {boolean} mergeDisplay By default, when you set the display property, you replace the default one. This setting merges them instead.
      * @property {string} theme A prop to add your own css classes to the keyboard wrapper. You can add multiple classes separated by a space.
      * @property {Array} buttonTheme A prop to add your own css classes to one or several buttons.
+     * @property {Array} buttonAttributes A prop to add your own attributes to one or several buttons.
      * @property {boolean} debug Runs a console.log every time a key is pressed. Displays the buttons pressed and the current input.
      * @property {boolean} newLineOnEnter Specifies whether clicking the “ENTER” button will input a newline (\n) or not.
      * @property {boolean} tabCharOnTab Specifies whether clicking the “TAB” button will input a tab character (\t) or not.
@@ -1373,35 +1381,43 @@
         /**
    * Process buttonTheme option
    */      }, {
-        key: "getButtonTheme",
-        value: function getButtonTheme() {
-          var _this7 = this;
-          var buttonThemesParsed = {};
-          this.options.buttonTheme.forEach(function(themeObj) {
-            if (themeObj.buttons && themeObj.class) {
-              var themeButtons;
-              if (typeof themeObj.buttons === "string") {
-                themeButtons = themeObj.buttons.split(" ");
+        key: "getButtonThemeClasses",
+        value: function getButtonThemeClasses(button) {
+          var buttonTheme = this.options.buttonTheme;
+          var buttonClasses = [];
+          if (Array.isArray(buttonTheme)) {
+            buttonTheme.forEach(function(themeObj) {
+              if (themeObj.class && typeof themeObj.class === "string" && themeObj.buttons && typeof themeObj.buttons === "string") {
+                var themeObjClasses = themeObj.class.split(" ");
+                var themeObjButtons = themeObj.buttons.split(" ");
+                if (themeObjButtons.includes(button)) {
+                  buttonClasses = [].concat(_toConsumableArray(buttonClasses), _toConsumableArray(themeObjClasses));
+                }
+              } else {
+                console.warn('Incorrect "buttonTheme". Please check the documentation.', themeObj);
               }
-              if (themeButtons) {
-                themeButtons.forEach(function(themeButton) {
-                  var themeParsed = buttonThemesParsed[themeButton];
- // If the button has already been added
-                                    if (themeParsed) {
-                    // Making sure we don't add duplicate classes, even when buttonTheme has duplicates
-                    if (!_this7.utilities.countInArray(themeParsed.split(" "), themeObj.class)) {
-                      buttonThemesParsed[themeButton] = "".concat(themeParsed, " ").concat(themeObj.class);
-                    }
-                  } else {
-                    buttonThemesParsed[themeButton] = themeObj.class;
-                  }
-                });
+            });
+          }
+          return buttonClasses;
+        }
+        /**
+   * Process buttonAttributes option
+   */      }, {
+        key: "setDOMButtonAttributes",
+        value: function setDOMButtonAttributes(button, callback) {
+          var buttonAttributes = this.options.buttonAttributes;
+          if (Array.isArray(buttonAttributes)) {
+            buttonAttributes.forEach(function(attrObj) {
+              if (attrObj.attribute && typeof attrObj.attribute === "string" && attrObj.value && typeof attrObj.value === "string" && attrObj.buttons && typeof attrObj.buttons === "string") {
+                var attrObjButtons = attrObj.buttons.split(" ");
+                if (attrObjButtons.includes(button)) {
+                  callback(attrObj.attribute, attrObj.value);
+                }
+              } else {
+                console.warn('Incorrect "buttonAttributes". Please check the documentation.', attrObj);
               }
-            } else {
-              console.warn('buttonTheme row is missing the "buttons" or the "class". Please check the documentation.');
-            }
-          });
-          return buttonThemesParsed;
+            });
+          }
         }
       }, {
         key: "onTouchDeviceDetected",
@@ -1515,15 +1531,15 @@
         /**
    * Load modules
    */ value: function loadModules() {
-          var _this8 = this;
+          var _this7 = this;
           if (Array.isArray(this.options.modules)) {
             this.options.modules.forEach(function(Module) {
               var module = new Module();
  /* istanbul ignore next */              if (module.constructor.name && module.constructor.name !== "Function") {
-                var classStr = "module-".concat(_this8.utilities.camelCase(module.constructor.name));
-                _this8.keyboardPluginClasses = _this8.keyboardPluginClasses + " ".concat(classStr);
+                var classStr = "module-".concat(_this7.utilities.camelCase(module.constructor.name));
+                _this7.keyboardPluginClasses = _this7.keyboardPluginClasses + " ".concat(classStr);
               }
-              module.init(_this8);
+              module.init(_this7);
             });
             this.keyboardPluginClasses = this.keyboardPluginClasses + " modules-loaded";
             this.render();
@@ -1552,7 +1568,7 @@
    */      }, {
         key: "parseRowDOMContainers",
         value: function parseRowDOMContainers(rowDOM, rowIndex, containerStartIndexes, containerEndIndexes) {
-          var _this9 = this;
+          var _this8 = this;
           var rowDOMArray = Array.from(rowDOM.children);
           var removedElements = 0;
           if (rowDOMArray.length) {
@@ -1574,7 +1590,7 @@
          * Create button container
          */              var containerDOM = document.createElement("div");
               containerDOM.className += "hg-button-container";
-              var containerUID = "".concat(_this9.options.layoutName, "-r").concat(rowIndex, "c").concat(arrIndex);
+              var containerUID = "".concat(_this8.options.layoutName, "-r").concat(rowIndex, "c").concat(arrIndex);
               containerDOM.setAttribute("data-skUID", containerUID);
               /**
          * Taking elements due to be inserted into container
@@ -1596,7 +1612,7 @@
          */              rowDOMArray.forEach(function(element) {
                 return rowDOM.appendChild(element);
               });
-              if (_this9.options.debug) {
+              if (_this8.options.debug) {
                 console.log("rowDOMContainer", containedElements, updated_startIndex, updated_endIndex, removedElements + 1);
               }
             });
@@ -1608,7 +1624,7 @@
    */      }, {
         key: "render",
         value: function render() {
-          var _this10 = this;
+          var _this9 = this;
           /**
      * Clear keyboard
      */          this.clear();
@@ -1627,9 +1643,6 @@
           var useMouseEvents = this.options.useMouseEvents || false;
           var disableRowButtonContainers = this.options.disableRowButtonContainers;
           /**
-     * Account for buttonTheme, if set
-     */          var buttonThemesParsed = Array.isArray(this.options.buttonTheme) ? this.getButtonTheme() : {};
-          /**
      * Adding themeClass, layoutClass to keyboardDOM
      */          this.keyboardDOM.className += " ".concat(this.options.theme, " ").concat(layoutClass, " ").concat(this.keyboardPluginClasses, " ").concat(useTouchEventsClass);
           /**
@@ -1647,9 +1660,10 @@
             /**
        * Iterating through each button in row
        */            rowArray.forEach(function(button, bIndex) {
+              var _buttonDOM$classList;
               /**
          * Check if button has a container indicator
-         */ var buttonHasContainerStart = !disableRowButtonContainers && button.includes("[") && button.length > 1;
+         */              var buttonHasContainerStart = !disableRowButtonContainers && button.includes("[") && button.length > 1;
               var buttonHasContainerEnd = !disableRowButtonContainers && button.includes("]") && button.length > 1;
               /**
          * Save container start index, if applicable
@@ -1667,28 +1681,38 @@
               }
               /**
          * Processing button options
-         */              var fctBtnClass = _this10.utilities.getButtonClass(button);
-              var buttonThemeClass = buttonThemesParsed[button];
-              var buttonDisplayName = _this10.utilities.getButtonDisplayName(button, _this10.options.display, _this10.options.mergeDisplay);
+         */              var fctBtnClass = _this9.utilities.getButtonClass(button);
+              var buttonDisplayName = _this9.utilities.getButtonDisplayName(button, _this9.options.display, _this9.options.mergeDisplay);
               /**
          * Creating button
-         */              var buttonType = _this10.options.useButtonTag ? "button" : "div";
+         */              var buttonType = _this9.options.useButtonTag ? "button" : "div";
               var buttonDOM = document.createElement(buttonType);
-              buttonDOM.className += "hg-button ".concat(fctBtnClass).concat(buttonThemeClass ? " " + buttonThemeClass : "");
+              buttonDOM.className += "hg-button ".concat(fctBtnClass);
+              /**
+         * Adding buttonTheme
+         */              
+              /**
+         * Adding buttonTheme
+         */ (_buttonDOM$classList = buttonDOM.classList).add.apply(_buttonDOM$classList, _toConsumableArray(_this9.getButtonThemeClasses(button)));
+              /**
+         * Adding buttonAttributes
+         */              _this9.setDOMButtonAttributes(button, function(attribute, value) {
+                buttonDOM.setAttribute(attribute, value);
+              });
               /**
          * Handle button click event
-         */ /* istanbul ignore next */              if (_this10.utilities.pointerEventsSupported() && !useTouchEvents && !useMouseEvents) {
+         */ /* istanbul ignore next */              if (_this9.utilities.pointerEventsSupported() && !useTouchEvents && !useMouseEvents) {
                 /**
            * Handle PointerEvents
            */ buttonDOM.onpointerdown = function(e) {
-                  _this10.handleButtonClicked(button);
-                  _this10.handleButtonMouseDown(button, e);
+                  _this9.handleButtonClicked(button);
+                  _this9.handleButtonMouseDown(button, e);
                 };
                 buttonDOM.onpointerup = function() {
-                  return _this10.handleButtonMouseUp(button);
+                  return _this9.handleButtonMouseUp(button);
                 };
                 buttonDOM.onpointercancel = function() {
-                  return _this10.handleButtonMouseUp(button);
+                  return _this9.handleButtonMouseUp(button);
                 };
               } else {
                 /**
@@ -1697,27 +1721,27 @@
                   /**
              * Handle touch events
              */ buttonDOM.ontouchstart = function(e) {
-                    _this10.handleButtonClicked(button);
-                    _this10.handleButtonMouseDown(button, e);
+                    _this9.handleButtonClicked(button);
+                    _this9.handleButtonMouseDown(button, e);
                   };
                   buttonDOM.ontouchend = function() {
-                    return _this10.handleButtonMouseUp(button);
+                    return _this9.handleButtonMouseUp(button);
                   };
                   buttonDOM.ontouchcancel = function() {
-                    return _this10.handleButtonMouseUp(button);
+                    return _this9.handleButtonMouseUp(button);
                   };
                 } else {
                   /**
              * Handle mouse events
              */ buttonDOM.onclick = function() {
-                    _this10.isMouseHold = false;
-                    _this10.handleButtonClicked(button);
+                    _this9.isMouseHold = false;
+                    _this9.handleButtonClicked(button);
                   };
                   buttonDOM.onmousedown = function(e) {
-                    return _this10.handleButtonMouseDown(button, e);
+                    return _this9.handleButtonMouseDown(button, e);
                   };
                   buttonDOM.onmouseup = function() {
-                    return _this10.handleButtonMouseUp(button);
+                    return _this9.handleButtonMouseUp(button);
                   };
                 }
               }
@@ -1727,11 +1751,8 @@
               /**
          * Adding unique id
          * Since there's no limit on spawning same buttons, the unique id ensures you can style every button
-         */              var buttonUID = "".concat(_this10.options.layoutName, "-r").concat(rIndex, "b").concat(bIndex);
+         */              var buttonUID = "".concat(_this9.options.layoutName, "-r").concat(rIndex, "b").concat(bIndex);
               buttonDOM.setAttribute("data-skBtnUID", buttonUID);
-              /**
-         * Adding display label
-         */              buttonDOM.setAttribute("data-displayLabel", buttonDisplayName);
               /**
          * Adding button label to button
          */              var buttonSpanDOM = document.createElement("span");
@@ -1739,20 +1760,20 @@
               buttonDOM.appendChild(buttonSpanDOM);
               /**
          * Adding to buttonElements
-         */              if (!_this10.buttonElements[button]) {
-                _this10.buttonElements[button] = [];
+         */              if (!_this9.buttonElements[button]) {
+                _this9.buttonElements[button] = [];
               }
-              _this10.buttonElements[button].push(buttonDOM);
+              _this9.buttonElements[button].push(buttonDOM);
               /**
          * Appending button to row
          */              rowDOM.appendChild(buttonDOM);
             });
             /**
        * Parse containers in row
-       */            rowDOM = _this10.parseRowDOMContainers(rowDOM, rIndex, containerStartIndexes, containerEndIndexes);
+       */            rowDOM = _this9.parseRowDOMContainers(rowDOM, rIndex, containerStartIndexes, containerEndIndexes);
             /**
        * Appending row to keyboard
-       */            _this10.keyboardDOM.appendChild(rowDOM);
+       */            _this9.keyboardDOM.appendChild(rowDOM);
           });
           /**
      * Calling onRender
@@ -1765,22 +1786,22 @@
        * Handling onpointerup
        */ /* istanbul ignore next */            if (this.utilities.pointerEventsSupported() && !useTouchEvents && !useMouseEvents) {
               document.onpointerup = function() {
-                return _this10.handleButtonMouseUp();
+                return _this9.handleButtonMouseUp();
               };
             } else if (useTouchEvents) {
               /**
          * Handling ontouchend, ontouchcancel
          */ document.ontouchend = function() {
-                return _this10.handleButtonMouseUp();
+                return _this9.handleButtonMouseUp();
               };
               document.ontouchcancel = function() {
-                return _this10.handleButtonMouseUp();
+                return _this9.handleButtonMouseUp();
               };
             } else if (!useTouchEvents) {
               /**
          * Handling mouseup
          */ document.onmouseup = function() {
-                return _this10.handleButtonMouseUp();
+                return _this9.handleButtonMouseUp();
               };
             }
             /**

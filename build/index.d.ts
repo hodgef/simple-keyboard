@@ -10,6 +10,12 @@ declare module 'simple-keyboard' {
     buttons: string;
   }
 
+  interface KeyboardButtonAttributes {
+    attribute: string;
+    value: string;
+    buttons: string;
+  }
+
   interface KeyboardOptions {
     /**
      * Modify the keyboard layout.
@@ -40,6 +46,11 @@ declare module 'simple-keyboard' {
      * A prop to add your own css classes to one or several buttons.
      */
     buttonTheme?: KeyboardButtonTheme[];
+
+    /**
+     * A prop to add your own attributes to one or several buttons.
+     */
+    buttonAttributes?: KeyboardButtonAttributes[];
 
     /**
      * Runs a `console.log` every time a key is pressed. Displays the buttons pressed and the current input.
