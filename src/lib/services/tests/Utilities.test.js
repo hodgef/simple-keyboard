@@ -13,7 +13,7 @@ it('Keyboard mergeDisplay will work', () => {
     }
   });
   
-  expect(keyboard.getButtonElement("q").getAttribute("data-displaylabel")).toBe("qreplaced");
+  expect(keyboard.getButtonElement("q").querySelector("span").innerHTML).toBe("qreplaced");
 });
 
 it('Keyboard function buttons will work', () => {
