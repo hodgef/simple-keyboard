@@ -51,6 +51,7 @@ class SimpleKeyboard {
      * @property {boolean} mergeDisplay By default, when you set the display property, you replace the default one. This setting merges them instead.
      * @property {string} theme A prop to add your own css classes to the keyboard wrapper. You can add multiple classes separated by a space.
      * @property {Array} buttonTheme A prop to add your own css classes to one or several buttons.
+     * @property {Array} buttonAttributes A prop to add your own attributes to one or several buttons.
      * @property {boolean} debug Runs a console.log every time a key is pressed. Displays the buttons pressed and the current input.
      * @property {boolean} newLineOnEnter Specifies whether clicking the “ENTER” button will input a newline (\n) or not.
      * @property {boolean} tabCharOnTab Specifies whether clicking the “TAB” button will input a tab character (\t) or not.
@@ -733,47 +734,62 @@ class SimpleKeyboard {
   /**
    * Process buttonTheme option
    */
-  getButtonTheme() {
-    let buttonThemesParsed = {};
+  getButtonThemeClasses(button) {
+    let buttonTheme = this.options.buttonTheme;
+    let buttonClasses = [];
 
-    this.options.buttonTheme.forEach(themeObj => {
-      if (themeObj.buttons && themeObj.class) {
-        let themeButtons;
+    if (Array.isArray(buttonTheme)) {
+      buttonTheme.forEach(themeObj => {
+        if (
+          themeObj.class &&
+          typeof themeObj.class === "string" &&
+          (themeObj.buttons && typeof themeObj.buttons === "string")
+        ) {
+          let themeObjClasses = themeObj.class.split(" ");
+          let themeObjButtons = themeObj.buttons.split(" ");
 
-        if (typeof themeObj.buttons === "string") {
-          themeButtons = themeObj.buttons.split(" ");
+          if (themeObjButtons.includes(button)) {
+            buttonClasses = [...buttonClasses, ...themeObjClasses];
+          }
+        } else {
+          console.warn(
+            `Incorrect "buttonTheme". Please check the documentation.`,
+            themeObj
+          );
         }
+      });
+    }
 
-        if (themeButtons) {
-          themeButtons.forEach(themeButton => {
-            let themeParsed = buttonThemesParsed[themeButton];
+    return buttonClasses;
+  }
 
-            // If the button has already been added
-            if (themeParsed) {
-              // Making sure we don't add duplicate classes, even when buttonTheme has duplicates
-              if (
-                !this.utilities.countInArray(
-                  themeParsed.split(" "),
-                  themeObj.class
-                )
-              ) {
-                buttonThemesParsed[
-                  themeButton
-                ] = `${themeParsed} ${themeObj.class}`;
-              }
-            } else {
-              buttonThemesParsed[themeButton] = themeObj.class;
-            }
-          });
+  /**
+   * Process buttonAttributes option
+   */
+  setDOMButtonAttributes(button, callback) {
+    let buttonAttributes = this.options.buttonAttributes;
+
+    if (Array.isArray(buttonAttributes)) {
+      buttonAttributes.forEach(attrObj => {
+        if (
+          attrObj.attribute &&
+          typeof attrObj.attribute === "string" &&
+          (attrObj.value && typeof attrObj.value === "string") &&
+          (attrObj.buttons && typeof attrObj.buttons === "string")
+        ) {
+          let attrObjButtons = attrObj.buttons.split(" ");
+
+          if (attrObjButtons.includes(button)) {
+            callback(attrObj.attribute, attrObj.value);
+          }
+        } else {
+          console.warn(
+            `Incorrect "buttonAttributes". Please check the documentation.`,
+            attrObj
+          );
         }
-      } else {
-        console.warn(
-          `buttonTheme row is missing the "buttons" or the "class". Please check the documentation.`
-        );
-      }
-    });
-
-    return buttonThemesParsed;
+      });
+    }
   }
 
   onTouchDeviceDetected() {
@@ -1062,13 +1078,6 @@ class SimpleKeyboard {
     let disableRowButtonContainers = this.options.disableRowButtonContainers;
 
     /**
-     * Account for buttonTheme, if set
-     */
-    let buttonThemesParsed = Array.isArray(this.options.buttonTheme)
-      ? this.getButtonTheme()
-      : {};
-
-    /**
      * Adding themeClass, layoutClass to keyboardDOM
      */
     this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${this.keyboardPluginClasses} ${useTouchEventsClass}`;
@@ -1132,7 +1141,6 @@ class SimpleKeyboard {
          * Processing button options
          */
         let fctBtnClass = this.utilities.getButtonClass(button);
-        let buttonThemeClass = buttonThemesParsed[button];
         let buttonDisplayName = this.utilities.getButtonDisplayName(
           button,
           this.options.display,
@@ -1144,9 +1152,19 @@ class SimpleKeyboard {
          */
         let buttonType = this.options.useButtonTag ? "button" : "div";
         let buttonDOM = document.createElement(buttonType);
-        buttonDOM.className += `hg-button ${fctBtnClass}${
-          buttonThemeClass ? " " + buttonThemeClass : ""
-        }`;
+        buttonDOM.className += `hg-button ${fctBtnClass}`;
+
+        /**
+         * Adding buttonTheme
+         */
+        buttonDOM.classList.add(...this.getButtonThemeClasses(button));
+
+        /**
+         * Adding buttonAttributes
+         */
+        this.setDOMButtonAttributes(button, (attribute, value) => {
+          buttonDOM.setAttribute(attribute, value);
+        });
 
         /**
          * Handle button click event
@@ -1204,11 +1222,6 @@ class SimpleKeyboard {
          */
         let buttonUID = `${this.options.layoutName}-r${rIndex}b${bIndex}`;
         buttonDOM.setAttribute("data-skBtnUID", buttonUID);
-
-        /**
-         * Adding display label
-         */
-        buttonDOM.setAttribute("data-displayLabel", buttonDisplayName);
 
         /**
          * Adding button label to button
