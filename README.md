@@ -2,8 +2,6 @@
   <a href="https://simple-keyboard.com/demo">
 	<img alt="simple-keyboard: Javscript Virtual Keyboard" src="https://i.imgur.com/Po6659n.gif">
   </a>
-  
-  <blockquote>The slick virtual keyboard for Javascript. Compatible with your React, Angular, Vue or vanilla projects.</blockquote>
 
   <a href="https://www.npmjs.com/package/simple-keyboard">
     <img src="https://badgen.net/npm/v/simple-keyboard?color=blue" alt="npm version">
@@ -27,6 +25,9 @@
   </a>
 </p>
 
+## 🚀 Demo
+[Demo Showcase (Vanilla, Angular, React, Vue)](https://simple-keyboard.com/demo)
+
 ## 📦 Installation & Usage
 You can use simple-keyboard as a `<script>` tag from a CDN, or install it from npm.
   
@@ -36,10 +37,6 @@ Check out the [Getting Started](https://simple-keyboard.com/getting-started) doc
 Check out the [simple-keyboard documentation](https://simple-keyboard.com/documentation) site.
 
 Feel free to browse the [Q&A / Use-cases](https://simple-keyboard.com/qa-use-cases/) page for advanced use-cases.
-
-## 🚀 Demo
-
-[https://simple-keyboard.com/demo](https://simple-keyboard.com/demo)
 
 
 ### To run demo on your own computer
