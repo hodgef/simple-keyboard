@@ -401,16 +401,6 @@ class Utilities {
         word.length ? string + word[0].toUpperCase() + word.slice(1) : string
       );
   }
-
-  /**
-   * Counts the number of duplicates in a given array
-   *
-   * @param  {Array} array The haystack to search in
-   * @param  {string} value The needle to search for
-   */
-  countInArray(array, value) {
-    return array.reduce((n, x) => n + (x === value), 0);
-  }
 }
 
 export default Utilities;

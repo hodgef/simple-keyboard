@@ -1,14 +1,34 @@
-<div align="center">
-  <a href="https://simple-keyboard.com/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/simplekeyboard-banner_B.png" align="center" width="100%"></a>
-  <a href="https://simple-keyboard.com/demo" title="View Demo" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/skdemo-4x2.gif" align="center" width="100%"></a>
-  <blockquote>The easily customisable and responsive on-screen virtual keyboard for Javascript projects.</blockquote>
-  <a href="https://www.npmjs.com/package/simple-keyboard" target="_blank"><img src="https://img.shields.io/npm/v/simple-keyboard.svg?style=flat" alt="npm version"></a>
-  <a href="https://travis-ci.org/hodgef/simple-keyboard" target="_blank"><img src="https://travis-ci.org/hodgef/simple-keyboard.svg?branch=master" alt="Build Status"></a>
-  <img src="https://img.shields.io/david/hodgef/js-library-boilerplate.svg" />
-  <a href="https://codecov.io/gh/hodgef/simple-keyboard" target="_blank"><img src="https://img.shields.io/codecov/c/github/hodgef/simple-keyboard/master.svg?style=flat" alt="Coverage Status"></a>
-  <a href="https://www.codacy.com/app/hodgef/simple-keyboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hodgef/simple-keyboard&amp;utm_campaign=Badge_Grade" target="_blank"><img src="https://api.codacy.com/project/badge/Grade/5778fccc6a894701853d9a1f2fb44a76" alt="Codacy Badge"></a>
-  </p>
-</div>
+<p>
+  <a href="https://simple-keyboard.com/demo">
+	<img alt="simple-keyboard: Javscript Virtual Keyboard" src="https://i.imgur.com/Po6659n.gif">
+  </a>
+
+  <a href="https://www.npmjs.com/package/simple-keyboard">
+    <img src="https://badgen.net/npm/v/simple-keyboard?color=blue" alt="npm version">
+  </a>
+
+  <a href="https://bundlephobia.com/result?p=simple-keyboard">
+    <img src="https://badgen.net/bundlephobia/minzip/simple-keyboard/?color=green" alt="install size">
+  </a>
+
+  <a href="https://travis-ci.org/hodgef/simple-keyboard">
+    <img src="https://api.travis-ci.org/hodgef/simple-keyboard.svg?branch=master"
+         alt="build status">
+  </a>
+  
+  <a href="https://david-dm.org/hodgef/simple-keyboard">
+    <img src="https://badgen.net/david/dep/hodgef/simple-keyboard" alt="coverage">
+  </a>
+
+  <a href="https://codecov.io/gh/hodgef/simple-keyboard">
+    <img src="https://badgen.net/codecov/c/github/hodgef/simple-keyboard" alt="coverage">
+  </a>
+</p>
+
+> The slick virtual keyboard for Javascript. Compatible with your JS, React, Angular or Vue projects.
+
+## 🚀 Demo
+[Demo Showcase (Vanilla, Angular, React, Vue)](https://simple-keyboard.com/demo)
 
 ## 📦 Installation & Usage
 You can use simple-keyboard as a `<script>` tag from a CDN, or install it from npm.
@@ -19,10 +39,6 @@ Check out the [Getting Started](https://simple-keyboard.com/getting-started) doc
 Check out the [simple-keyboard documentation](https://simple-keyboard.com/documentation) site.
 
 Feel free to browse the [Q&A / Use-cases](https://simple-keyboard.com/qa-use-cases/) page for advanced use-cases.
-
-## 🚀 Demo
-
-[https://simple-keyboard.com/demo](https://simple-keyboard.com/demo)
 
 
 ### To run demo on your own computer

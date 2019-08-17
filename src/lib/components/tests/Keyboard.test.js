@@ -1299,3 +1299,30 @@ it('Keyboard onKeyReleased will work', () => {
   expect(firedTimes).toBe(1);
   expect(buttonPressed).toBe("q");
 });
+
+it('Keyboard buttonAttribute will work', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({
+    buttonAttributes: [
+      {
+        attribute: "aria-label",
+        value: "bee",
+        buttons: "b B"
+      }
+    ]
+  });
+});
+
+it('Keyboard buttonAttribute will warn about invalid entries', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({
+    buttonAttributes: [
+      {
+        attribute: false,
+        value: null
+      }
+    ]
+  });
+});
