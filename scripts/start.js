@@ -139,6 +139,8 @@ checkBrowsers(paths.appPath, isInteractive)
           stats = stats.toJson();
       
           if (stats.errors && stats.errors.length > 0) {
+              devServer.close();
+              process.exit(1);
               return;
           }
   

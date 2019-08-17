@@ -428,6 +428,8 @@ module.exports = function(webpackEnv) {
                     require.resolve('babel-preset-react-app/dependencies'),
                     { helpers: true },
                   ],
+                  "@babel/preset-env",
+                  "@babel/preset-react"
                 ],
                 plugins: [
                   [
