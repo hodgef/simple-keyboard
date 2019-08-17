@@ -1,12 +1,12 @@
 {
   "name": "simple-keyboard",
-  "version": "2.25.4",
+  "version": "2.26.0",
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js && node scripts/buildUnminified.js",
+    "build": "node scripts/build.js",
     "demo": "node scripts/demo.js",
     "test": "node scripts/test.js",
     "coverage": "node scripts/test.js --coverage --watchAll=false",
