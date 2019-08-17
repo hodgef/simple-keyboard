@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.25.3 (Non-minified build)
+ *   simple-keyboard v2.25.4 (Non-minified build)
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
@@ -149,27 +149,37 @@
   /***/ function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     __webpack_require__.r(__webpack_exports__);
-    // EXTERNAL MODULE: ./src/lib/components/Keyboard.css
-        var Keyboard = __webpack_require__(1);
-    // CONCATENATED MODULE: ./src/lib/services/Utilities.js
-        function _typeof(obj) {
-      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-        _typeof = function _typeof(obj) {
-          return typeof obj;
-        };
-      } else {
-        _typeof = function _typeof(obj) {
-          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-        };
+    // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
+        function _arrayWithoutHoles(arr) {
+      if (Array.isArray(arr)) {
+        for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+          arr2[i] = arr[i];
+        }
+        return arr2;
       }
-      return _typeof(obj);
     }
-    function _classCallCheck(instance, Constructor) {
+    // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
+        function _iterableToArray(iter) {
+      if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") {
+        return Array.from(iter);
+      }
+    }
+    // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
+        function _nonIterableSpread() {
+      throw new TypeError("Invalid attempt to spread non-iterable instance");
+    }
+    // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
+        function _toConsumableArray(arr) {
+      return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+    }
+    // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+        function _classCallCheck(instance, Constructor) {
       if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
       }
     }
-    function _defineProperties(target, props) {
+    // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+        function _defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
         var descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
@@ -189,9 +199,26 @@
       }
       return Constructor;
     }
+    // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+        function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, {
+          value: value,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        });
+      } else {
+        obj[key] = value;
+      }
+      return obj;
+    }
+    // EXTERNAL MODULE: ./src/lib/components/Keyboard.css
+        var Keyboard = __webpack_require__(1);
+    // CONCATENATED MODULE: ./src/lib/services/Utilities.js
     /**
  * Utility Service
- */    var Utilities = /* */ function() {
+ */    var Utilities_Utilities = /* */ function() {
       /**
    * Creates an instance of the Utility service
    */ function Utilities(_ref) {
@@ -486,7 +513,7 @@
               return false;
             }
           }
-          if (_typeof(maxLength) === "object") {
+          if (typeof maxLength === "object") {
             var _condition = currentInput.length === maxLength[options.inputName];
             if (options.debug) {
               console.log("maxLength (obj) reached:", _condition);
@@ -569,33 +596,8 @@
       } ]);
       return Utilities;
     }();
- /* harmony default export */    var services_Utilities = Utilities;
+ /* harmony default export */    var services_Utilities = Utilities_Utilities;
     // CONCATENATED MODULE: ./src/lib/services/PhysicalKeyboard.js
-        function PhysicalKeyboard_classCallCheck(instance, Constructor) {
-      if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-      }
-    }
-    function PhysicalKeyboard_defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) {
-          descriptor.writable = true;
-        }
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-    function PhysicalKeyboard_createClass(Constructor, protoProps, staticProps) {
-      if (protoProps) {
-        PhysicalKeyboard_defineProperties(Constructor.prototype, protoProps);
-      }
-      if (staticProps) {
-        PhysicalKeyboard_defineProperties(Constructor, staticProps);
-      }
-      return Constructor;
-    }
     /**
  * Physical Keyboard Service
  */    var PhysicalKeyboard_PhysicalKeyboard = /* */ function() {
@@ -603,7 +605,7 @@
    * Creates an instance of the PhysicalKeyboard service
    */ function PhysicalKeyboard(_ref) {
         var dispatch = _ref.dispatch, getOptions = _ref.getOptions;
-        PhysicalKeyboard_classCallCheck(this, PhysicalKeyboard);
+        _classCallCheck(this, PhysicalKeyboard);
         /**
      * @type {object} A simple-keyboard instance
      */        this.dispatch = dispatch;
@@ -612,7 +614,7 @@
      * Bindings
      */        services_Utilities.bindMethods(PhysicalKeyboard, this);
       }
-      PhysicalKeyboard_createClass(PhysicalKeyboard, [ {
+      _createClass(PhysicalKeyboard, [ {
         key: "handleHighlightKeyDown",
         value: function handleHighlightKeyDown(event) {
           var options = this.getOptions();
@@ -660,38 +662,13 @@
     }();
  /* harmony default export */    var services_PhysicalKeyboard = PhysicalKeyboard_PhysicalKeyboard;
     // CONCATENATED MODULE: ./src/lib/services/KeyboardLayout.js
-        function KeyboardLayout_classCallCheck(instance, Constructor) {
-      if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-      }
-    }
-    function KeyboardLayout_defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) {
-          descriptor.writable = true;
-        }
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-    function KeyboardLayout_createClass(Constructor, protoProps, staticProps) {
-      if (protoProps) {
-        KeyboardLayout_defineProperties(Constructor.prototype, protoProps);
-      }
-      if (staticProps) {
-        KeyboardLayout_defineProperties(Constructor, staticProps);
-      }
-      return Constructor;
-    }
     /**
  * Keyboard Layout Service
- */    var KeyboardLayout = /* */ function() {
+ */    var KeyboardLayout_KeyboardLayout = /* */ function() {
       function KeyboardLayout() {
-        KeyboardLayout_classCallCheck(this, KeyboardLayout);
+        _classCallCheck(this, KeyboardLayout);
       }
-      KeyboardLayout_createClass(KeyboardLayout, null, [ {
+      _createClass(KeyboardLayout, null, [ {
         key: "getDefaultLayout",
         /**
    * Get default simple-keyboard layout
@@ -705,65 +682,9 @@
       } ]);
       return KeyboardLayout;
     }();
- /* harmony default export */    var services_KeyboardLayout = KeyboardLayout;
+ /* harmony default export */    var services_KeyboardLayout = KeyboardLayout_KeyboardLayout;
     // CONCATENATED MODULE: ./src/lib/components/Keyboard.js
-        function _toConsumableArray(arr) {
-      return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
-    }
-    function _nonIterableSpread() {
-      throw new TypeError("Invalid attempt to spread non-iterable instance");
-    }
-    function _iterableToArray(iter) {
-      if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") {
-        return Array.from(iter);
-      }
-    }
-    function _arrayWithoutHoles(arr) {
-      if (Array.isArray(arr)) {
-        for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
-          arr2[i] = arr[i];
-        }
-        return arr2;
-      }
-    }
-    function Keyboard_typeof(obj) {
-      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-        Keyboard_typeof = function _typeof(obj) {
-          return typeof obj;
-        };
-      } else {
-        Keyboard_typeof = function _typeof(obj) {
-          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-        };
-      }
-      return Keyboard_typeof(obj);
-    }
-    function Keyboard_classCallCheck(instance, Constructor) {
-      if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-      }
-    }
-    function Keyboard_defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) {
-          descriptor.writable = true;
-        }
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-    function Keyboard_createClass(Constructor, protoProps, staticProps) {
-      if (protoProps) {
-        Keyboard_defineProperties(Constructor.prototype, protoProps);
-      }
-      if (staticProps) {
-        Keyboard_defineProperties(Constructor, staticProps);
-      }
-      return Constructor;
-    }
- // Services
+    // Services
     /**
  * Root class for simple-keyboard
  * This class:
@@ -776,21 +697,21 @@
    * @param {Array} params If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.
    */ function SimpleKeyboard() {
         var _this = this;
-        Keyboard_classCallCheck(this, SimpleKeyboard);
-        this.getOptions = function() {
+        _classCallCheck(this, SimpleKeyboard);
+        _defineProperty(this, "getOptions", function() {
           return _this.options;
-        };
-        this.getCaretPosition = function() {
+        });
+        _defineProperty(this, "getCaretPosition", function() {
           return _this.caretPosition;
-        };
-        this.registerModule = function(name, initCallback) {
+        });
+        _defineProperty(this, "registerModule", function(name, initCallback) {
           if (!_this.modules[name]) {
             _this.modules[name] = {};
           }
           initCallback(_this.modules[name]);
-        };
+        });
         var keyboardDOMQuery = typeof (arguments.length <= 0 ? undefined : arguments[0]) === "string" ? arguments.length <= 0 ? undefined : arguments[0] : ".simple-keyboard";
-        var options = Keyboard_typeof(arguments.length <= 0 ? undefined : arguments[0]) === "object" ? arguments.length <= 0 ? undefined : arguments[0] : arguments.length <= 1 ? undefined : arguments[1];
+        var options = typeof (arguments.length <= 0 ? undefined : arguments[0]) === "object" ? arguments.length <= 0 ? undefined : arguments[0] : arguments.length <= 1 ? undefined : arguments[1];
         if (!options) {
           options = {};
           /**
@@ -907,7 +828,7 @@
       }
       /**
    * Getters
-   */      Keyboard_createClass(SimpleKeyboard, [ {
+   */      _createClass(SimpleKeyboard, [ {
         key: "handleButtonClicked",
         /**
    * Handles clicks made to keyboard buttons
