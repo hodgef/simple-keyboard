@@ -178,11 +178,6 @@ declare module 'simple-keyboard' {
      * Executes the callback function on input change. Returns the input object with all defined inputs.
      */
     onChangeAll?: (inputs: any) => any;
-
-    /**
-     * Executes the callback function on key release.
-     */
-    onKeyReleased?: () => void;
   }
 
   class Keyboard {
