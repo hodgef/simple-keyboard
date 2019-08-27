@@ -43,8 +43,8 @@ jobs:
       - run: |
         npm install
         npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   publish-gpr:
     needs: build
@@ -59,6 +59,6 @@ jobs:
       - run: |
         npm install
         npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GH_TOKEN}}
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.GH_TOKEN}}
         
