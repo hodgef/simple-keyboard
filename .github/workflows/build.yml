@@ -30,10 +30,20 @@ jobs:
         token: ${{secrets.CODECOV_TOKEN}}
       env:
         CI: true
+        
     - name: Discord notification
+      if: success()
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: 'Project CI Build Complete'
+        args: 'CI Build Passed'
+        
+    - name: Discord notification
+      if: failure()
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: 'CI Build Failed'
         
