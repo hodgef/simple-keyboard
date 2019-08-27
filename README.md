@@ -2,18 +2,17 @@
   <a href="https://simple-keyboard.com/demo">
 	<img alt="simple-keyboard: Javscript Virtual Keyboard" src="https://i.imgur.com/Po6659n.gif">
   </a>
-
+	
   <a href="https://www.npmjs.com/package/simple-keyboard">
     <img src="https://badgen.net/npm/v/simple-keyboard?color=blue" alt="npm version">
   </a>
 
-  <a href="https://bundlephobia.com/result?p=simple-keyboard">
-    <img src="https://badgen.net/bundlephobia/minzip/simple-keyboard/?color=green" alt="install size">
+  <a href="https://actions-badge.atrox.dev/hodgef/simple-keyboard/goto">
+     <img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fhodgef%2Fsimple-keyboard%2Fbadge&style=flat" />
   </a>
 
-  <a href="https://travis-ci.org/hodgef/simple-keyboard">
-    <img src="https://api.travis-ci.org/hodgef/simple-keyboard.svg?branch=master"
-         alt="build status">
+  <a href="https://bundlephobia.com/result?p=simple-keyboard">
+    <img src="https://badgen.net/bundlephobia/minzip/simple-keyboard/?color=green" alt="install size">
   </a>
   
   <a href="https://david-dm.org/hodgef/simple-keyboard">
