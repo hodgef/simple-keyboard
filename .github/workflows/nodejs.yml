@@ -1,4 +1,4 @@
-name: Node CI
+name: simple-keyboard Build
 
 on:
   push:
@@ -8,29 +8,53 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         node-version: [12.x]
-        
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-    - uses: actions/checkout@master
-
+    - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node_version }}
-      uses: actions/setup-node@master
+      uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node_version }}
-
     - name: npm install, build, and test
       run: |
         npm install
         npm run start -- --testMode
         npm run demo
         npm run coverage
-
     - uses: codecov/codecov-action@v1.0.2
       with:
         token: ${{secrets.CODECOV_TOKEN}}
-    
       env:
         CI: true
+        
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+          scope: '@hodgef'
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GH_TOKEN}}
+        
