@@ -376,6 +376,7 @@ class Utilities {
    */
 
   static bindMethods(myClass, instance) {
+    // eslint-disable-next-line no-unused-vars
     for (let myMethod of Object.getOwnPropertyNames(myClass.prototype)) {
       let excludeMethod =
         myMethod === "constructor" || myMethod === "bindMethods";
