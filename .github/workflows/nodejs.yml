@@ -15,10 +15,11 @@ jobs:
         
     steps:
     - uses: actions/checkout@v1
-    - name: Use latest Node.js
+    - name: Use Node.js ${{ matrix.node_version }}
       uses: actions/setup-node@v1
       with:
-        node-version: latest
+        node-version: ${{ matrix.node_version }}
+        
     - name: npm install, build, and test
       run: |
         npm install -g codecov
