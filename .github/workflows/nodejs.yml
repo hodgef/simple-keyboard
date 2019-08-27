@@ -14,19 +14,23 @@ jobs:
         node-version: [12.x]
         
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
+
     - name: Use Node.js ${{ matrix.node_version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@master
       with:
         node-version: ${{ matrix.node_version }}
-        
+
     - name: npm install, build, and test
       run: |
-        npm install -g codecov
         npm install
         npm run start -- --testMode
         npm run demo
         npm run coverage
-        codecov
+
+    - uses: codecov/codecov-action@v1.0.2
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+    
       env:
         CI: true
