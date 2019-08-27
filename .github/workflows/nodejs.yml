@@ -40,7 +40,9 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+      - run: |
+        npm install
+        npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -54,7 +56,9 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
           scope: '@hodgef'
-      - run: npm publish
+      - run: |
+        npm install
+        npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GH_TOKEN}}
         
