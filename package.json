@@ -97,7 +97,7 @@
     "ts-pnp": "1.1.4",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "url-loader": "2.1.0",
-    "webpack": "4.39.3",
+    "webpack": "4.40.2",
     "webpack-dev-server": "3.8.0",
     "webpack-manifest-plugin": "2.0.4",
     "workbox-webpack-plugin": "4.3.1"
