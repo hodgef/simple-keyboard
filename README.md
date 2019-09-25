@@ -57,15 +57,14 @@ Feel free to browse the [Q&A / Use-cases](https://simple-keyboard.com/qa-use-cas
 
 <a href="http://franciscohodge.com/simple-keyboard/chat/join" title="Join our Discord chat" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/discord.png" align="center" width="200"></a>
 
-## ✅ Contributing
-
-PR's and issues are welcome. Feel free to submit any issues you have at:
-[https://github.com/hodgef/simple-keyboard/issues](https://github.com/hodgef/simple-keyboard/issues)
-
-## :dart: Compatibility notice
+## :dart: Compatibility
 
 > Simple-keyboard is intended for modern, standards-compliant browsers.
 > Internet Explorer is sadly not one of them, and since it's market-share is negligible (~2% for IE11), resources won't be spent in trying to support it.
 >
 > To learn more about the rationale for not supporting IE, check out [this link](https://techcommunity.microsoft.com/t5/Windows-IT-Pro-Blog/The-perils-of-using-Internet-Explorer-as-your-default-browser/ba-p/331732).
 
+## ✅ Contributing
+
+PR's and issues are welcome. Feel free to submit any issues you have at:
+[https://github.com/hodgef/simple-keyboard/issues](https://github.com/hodgef/simple-keyboard/issues)
