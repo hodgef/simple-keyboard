@@ -308,6 +308,16 @@ class SimpleKeyboard {
   }
 
   /**
+   * Handles container mousedown
+   */
+  handleKeyboardContainerMouseDown(e) {
+    /**
+     * Handle event options
+     */
+    if (this.options.preventMouseDownDefault) e.preventDefault();
+  }
+
+  /**
    * Handles button hold
    */
   /* istanbul ignore next */
@@ -1271,7 +1281,7 @@ class SimpleKeyboard {
       this.initialized = true;
 
       /**
-       * Handling onpointerup
+       * Handling parent events
        */
       /* istanbul ignore next */
       if (
@@ -1280,17 +1290,24 @@ class SimpleKeyboard {
         !useMouseEvents
       ) {
         document.onpointerup = () => this.handleButtonMouseUp();
+        this.keyboardDOM.onpointerdown = e =>
+          this.handleKeyboardContainerMouseDown(e);
       } else if (useTouchEvents) {
         /**
          * Handling ontouchend, ontouchcancel
          */
         document.ontouchend = () => this.handleButtonMouseUp();
         document.ontouchcancel = () => this.handleButtonMouseUp();
+
+        this.keyboardDOM.ontouchstart = e =>
+          this.handleKeyboardContainerMouseDown(e);
       } else if (!useTouchEvents) {
         /**
          * Handling mouseup
          */
         document.onmouseup = () => this.handleButtonMouseUp();
+        this.keyboardDOM.onmousedown = e =>
+          this.handleKeyboardContainerMouseDown(e);
       }
 
       /**
