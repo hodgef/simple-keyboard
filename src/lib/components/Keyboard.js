@@ -230,7 +230,7 @@ class SimpleKeyboard {
       /**
        * Enforce syncInstanceInputs, if set
        */
-      if (this.options.syncInstanceInputs) this.syncInstanceInputs(this.input);
+      if (this.options.syncInstanceInputs) this.syncInstanceInputs();
 
       /**
        * Calling onChange
@@ -363,7 +363,7 @@ class SimpleKeyboard {
     /**
      * Enforce syncInstanceInputs, if set
      */
-    if (this.options.syncInstanceInputs) this.syncInstanceInputs(this.input);
+    if (this.options.syncInstanceInputs) this.syncInstanceInputs();
   }
 
   /**
@@ -376,7 +376,7 @@ class SimpleKeyboard {
     /**
      * Enforce syncInstanceInputs, if set
      */
-    if (this.options.syncInstanceInputs) this.syncInstanceInputs(this.input);
+    if (this.options.syncInstanceInputs) this.syncInstanceInputs();
 
     return this.input[inputName];
   }
@@ -393,7 +393,7 @@ class SimpleKeyboard {
     /**
      * Enforce syncInstanceInputs, if set
      */
-    if (this.options.syncInstanceInputs) this.syncInstanceInputs(this.input);
+    if (this.options.syncInstanceInputs) this.syncInstanceInputs();
   }
 
   /**
