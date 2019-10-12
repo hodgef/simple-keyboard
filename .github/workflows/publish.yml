@@ -1,0 +1,42 @@
+name: Publish
+
+on:
+  schedule:
+    - cron:  '0 8 * * 6'
+  issues:
+    types: [milestoned]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [12.x]
+        os: [ubuntu-latest]
+        
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install and test
+      run: |
+        npm install
+        npm run test
+        
+    - name: npm publish
+      run: |
+        npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
+        npm run trypublish
+      env:
+        CI: true
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        
+    - name: Discord notification
+      if: success()
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: 'simple-keyboard - Publish Workflow Ran'
