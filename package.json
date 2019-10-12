@@ -10,7 +10,8 @@
     "demo": "node scripts/demo.js",
     "test": "node scripts/test.js",
     "coverage": "node scripts/test.js --coverage --watchAll=false",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "trypublish": "npm publish || true"
   },
   "repository": {
     "type": "git",
