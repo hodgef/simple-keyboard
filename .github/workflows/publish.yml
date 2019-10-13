@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
 
 jobs:
   publish:
@@ -22,14 +27,15 @@ jobs:
           git checkout master
           git config user.email "$GH_EMAIL"
           git config user.name "Francisco Hodge"
-          git add . || true
-          git commit -m "Build Update" || true
         env:
             GH_EMAIL: ${{secrets.GH_EMAIL}}
           
       - name: Bump version
         run: |
           npm version patch
+          npm run build
+          git add . || true
+          git commit -m "Build Update" || true
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
