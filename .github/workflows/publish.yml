@@ -1,0 +1,41 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm install
+      - run: npm run test
+      
+      - run: git config --local --list
+  
+      - name: Setup GIT
+        run: |
+          git checkout master
+          git config user.email "$GH_EMAIL"
+          git config user.name "Francisco Hodge"
+        env:
+            GH_EMAIL: ${{secrets.GH_EMAIL}}
+          
+      - name: Bump version
+        run: |
+          npm version patch
+          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          
+      - name: npm publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+          npm run trypublish
+        env:
+            NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
