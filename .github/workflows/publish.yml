@@ -24,6 +24,7 @@ jobs:
           git config user.email "$GH_EMAIL"
           git config user.name "Francisco Hodge"
         env:
+            CI: true
             GH_EMAIL: ${{secrets.GH_EMAIL}}
           
       - name: Bump version
