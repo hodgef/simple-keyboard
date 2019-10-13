@@ -14,17 +14,15 @@ jobs:
         with:
           node-version: 12
       - run: npm install
-      - run: npm run test
-      
-      - run: git config --local --list
-  
+      - run: npm run test -- --watchAll
+        
       - name: Setup GIT
         run: |
+          git config --local --list
           git checkout master
           git config user.email "$GH_EMAIL"
           git config user.name "Francisco Hodge"
         env:
-            CI: true
             GH_EMAIL: ${{secrets.GH_EMAIL}}
           
       - name: Bump version
