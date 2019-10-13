@@ -7,8 +7,12 @@
     <img src="https://badgen.net/npm/v/simple-keyboard?color=blue" alt="npm version">
   </a>
 
-  <a href="https://actions-badge.atrox.dev/hodgef/simple-keyboard/goto">
-     <img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fhodgef%2Fsimple-keyboard%2Fbadge&style=flat" />
+  <a href="https://github.com/hodgef/simple-keyboard/actions">
+     <img alt="Build Status" src="https://github.com/hodgef/simple-keyboard/workflows/Build/badge.svg?color=green" />
+  </a>
+  
+  <a href="https://github.com/hodgef/simple-keyboard/actions">
+     <img alt="Publish Status" src="https://github.com/hodgef/simple-keyboard/workflows/Publish/badge.svg?color=green" />
   </a>
 
   <a href="https://bundlephobia.com/result?p=simple-keyboard">
