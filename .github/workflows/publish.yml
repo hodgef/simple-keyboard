@@ -32,6 +32,7 @@ jobs:
           
       - name: Bump version
         run: |
+          git reset --hard
           npm version patch
           npm run build
           git add . || true
