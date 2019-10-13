@@ -22,6 +22,8 @@ jobs:
           git checkout master
           git config user.email "$GH_EMAIL"
           git config user.name "Francisco Hodge"
+          git add . || true
+          git commit -m "Build Update" || true
         env:
             GH_EMAIL: ${{secrets.GH_EMAIL}}
           
