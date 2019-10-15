@@ -61,7 +61,18 @@ Feel free to browse the [Q&A / Use-cases](https://simple-keyboard.com/qa-use-cas
 
 <a href="http://franciscohodge.com/simple-keyboard/chat/join" title="Join our Discord chat" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/discord.png" align="center" width="200"></a>
 
-## :dart: Compatibility
+## ✳️ Modules
+
+You can extend simple-keyboard's functionality with [modules](https://franciscohodge.com/projects/simple-keyboard/modules/). Such as:
+
+* [Autocorrect](https://franciscohodge.com/projects/simple-keyboard/demo-showcase/module-autocorrect/)
+* [Input Mask](https://franciscohodge.com/projects/simple-keyboard/demo-showcase/module-input-mask/)
+* [Key Navigation](https://franciscohodge.com/projects/simple-keyboard/demo-showcase/module-key-navigation/)
+* [Swipe Keyboard](https://franciscohodge.com/projects/simple-keyboard/demo-showcase/module-swipe-keyboard/)
+
+Want to create your own module? Check out the [Modules page](https://franciscohodge.com/projects/simple-keyboard/modules/) for instructions.
+
+## 🎯 Compatibility
 
 > Simple-keyboard is intended for modern, standards-compliant browsers.
 > Internet Explorer is sadly not one of them, and since its market-share is negligible (~2% for IE11), resources won't be spent in trying to support it.
