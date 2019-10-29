@@ -379,7 +379,7 @@ it('Keyboard handleMaxLength will work with numeric maxLength', () => {
   
   let output = keyboard.utilities.handleMaxLength(keyboard.input, "testq");
 
-  expect(output).toBeFalsy();
+  expect(output).toBe(true);
 });
 
 it('Keyboard handleMaxLength wont work with non numeric or object maxLength', () => {
