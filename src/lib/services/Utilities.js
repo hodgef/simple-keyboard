@@ -304,7 +304,7 @@ class Utilities {
     let options = this.getOptions();
     let maxLength = options.maxLength;
     let currentInput = inputObj[options.inputName];
-    let condition = currentInput.length === maxLength;
+    let condition = currentInput.length >= maxLength;
 
     if (
       /**
