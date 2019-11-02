@@ -69,6 +69,11 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.simple-keyboard.hg-theme-default .hg-button.hg-activeButton {
+  background: #efefef;
 }
 
 /* When using option "useButtonTag" */
