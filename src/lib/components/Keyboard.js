@@ -84,6 +84,8 @@ class SimpleKeyboard {
     this.options.inputName = this.options.inputName || "default";
     this.options.preventMouseDownDefault =
       this.options.preventMouseDownDefault || false;
+    if (this.options.autUseTouchEvents === undefined)
+      this.options.autoUseTouchEvents = true;
 
     /**
      * @type {object} Classes identifying loaded plugins
@@ -1176,6 +1178,8 @@ class SimpleKeyboard {
           buttonDOM.setAttribute(attribute, value);
         });
 
+        const hgActiveButtonClass = "hg-activeButton";
+
         /**
          * Handle button click event
          */
@@ -1189,11 +1193,18 @@ class SimpleKeyboard {
            * Handle PointerEvents
            */
           buttonDOM.onpointerdown = e => {
+            buttonDOM.classList.add(hgActiveButtonClass);
             this.handleButtonClicked(button);
             this.handleButtonMouseDown(button, e);
           };
-          buttonDOM.onpointerup = () => this.handleButtonMouseUp(button);
-          buttonDOM.onpointercancel = () => this.handleButtonMouseUp(button);
+          buttonDOM.onpointerup = () => {
+            buttonDOM.classList.remove(hgActiveButtonClass);
+            this.handleButtonMouseUp(button);
+          };
+          buttonDOM.onpointercancel = () => {
+            buttonDOM.classList.remove(hgActiveButtonClass);
+            this.handleButtonMouseUp(button);
+          };
         } else {
           /**
            * Fallback for browsers not supporting PointerEvents
@@ -1203,11 +1214,18 @@ class SimpleKeyboard {
              * Handle touch events
              */
             buttonDOM.ontouchstart = e => {
+              buttonDOM.classList.add(hgActiveButtonClass);
               this.handleButtonClicked(button);
               this.handleButtonMouseDown(button, e);
             };
-            buttonDOM.ontouchend = () => this.handleButtonMouseUp(button);
-            buttonDOM.ontouchcancel = () => this.handleButtonMouseUp(button);
+            buttonDOM.ontouchend = () => {
+              buttonDOM.classList.remove(hgActiveButtonClass);
+              this.handleButtonMouseUp(button);
+            };
+            buttonDOM.ontouchcancel = () => {
+              buttonDOM.classList.remove(hgActiveButtonClass);
+              this.handleButtonMouseUp(button);
+            };
           } else {
             /**
              * Handle mouse events
@@ -1216,8 +1234,14 @@ class SimpleKeyboard {
               this.isMouseHold = false;
               this.handleButtonClicked(button);
             };
-            buttonDOM.onmousedown = e => this.handleButtonMouseDown(button, e);
-            buttonDOM.onmouseup = () => this.handleButtonMouseUp(button);
+            buttonDOM.onmousedown = e => {
+              buttonDOM.classList.add(hgActiveButtonClass);
+              this.handleButtonMouseDown(button, e);
+            };
+            buttonDOM.onmouseup = () => {
+              buttonDOM.classList.remove(hgActiveButtonClass);
+              this.handleButtonMouseUp(button);
+            };
           }
         }
 
