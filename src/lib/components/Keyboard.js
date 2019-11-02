@@ -84,8 +84,6 @@ class SimpleKeyboard {
     this.options.inputName = this.options.inputName || "default";
     this.options.preventMouseDownDefault =
       this.options.preventMouseDownDefault || false;
-    if (this.options.autUseTouchEvents === undefined)
-      this.options.autoUseTouchEvents = true;
 
     /**
      * @type {object} Classes identifying loaded plugins
