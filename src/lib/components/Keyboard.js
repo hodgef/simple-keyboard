@@ -136,7 +136,6 @@ class SimpleKeyboard {
      * Instance vars
      */
     this.allKeyboardInstances = window["SimpleKeyboardInstances"];
-    this.currentInstanceName = this.utilities.camelCase(this.keyboardDOMClass);
     this.keyboardInstanceNames = Object.keys(window["SimpleKeyboardInstances"]);
     this.isFirstKeyboardInstance =
       this.keyboardInstanceNames[0] === this.currentInstanceName;
@@ -261,6 +260,11 @@ class SimpleKeyboard {
     if (this.options.stopMouseDownPropagation) e.stopPropagation();
 
     /**
+     * Add active class
+     */
+    if (e) e.target.classList.add(this.activeButtonClass);
+
+    /**
      * @type {boolean} Whether the mouse is being held onKeyPress
      */
     this.isMouseHold = true;
@@ -296,6 +300,13 @@ class SimpleKeyboard {
    * Handles button mouseup
    */
   handleButtonMouseUp(button) {
+    /**
+     * Remove active class
+     */
+    this.recurseButtons(buttonElement => {
+      buttonElement.classList.remove(this.activeButtonClass);
+    });
+
     this.isMouseHold = false;
     if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
 
@@ -441,7 +452,7 @@ class SimpleKeyboard {
 
   /**
    * Remove all keyboard rows and reset keyboard values.
-   * Used interally between re-renders.
+   * Used internally between re-renders.
    */
   clear() {
     this.keyboardDOM.innerHTML = "";
@@ -1230,7 +1241,7 @@ class SimpleKeyboard {
           buttonDOM.setAttribute(attribute, value);
         });
 
-        const hgActiveButtonClass = "hg-activeButton";
+        this.activeButtonClass = "hg-activeButton";
 
         /**
          * Handle button click event
@@ -1245,16 +1256,13 @@ class SimpleKeyboard {
            * Handle PointerEvents
            */
           buttonDOM.onpointerdown = e => {
-            buttonDOM.classList.add(hgActiveButtonClass);
             this.handleButtonClicked(button);
             this.handleButtonMouseDown(button, e);
           };
           buttonDOM.onpointerup = () => {
-            buttonDOM.classList.remove(hgActiveButtonClass);
             this.handleButtonMouseUp(button);
           };
           buttonDOM.onpointercancel = () => {
-            buttonDOM.classList.remove(hgActiveButtonClass);
             this.handleButtonMouseUp(button);
           };
         } else {
@@ -1266,16 +1274,13 @@ class SimpleKeyboard {
              * Handle touch events
              */
             buttonDOM.ontouchstart = e => {
-              buttonDOM.classList.add(hgActiveButtonClass);
               this.handleButtonClicked(button);
               this.handleButtonMouseDown(button, e);
             };
             buttonDOM.ontouchend = () => {
-              buttonDOM.classList.remove(hgActiveButtonClass);
               this.handleButtonMouseUp(button);
             };
             buttonDOM.ontouchcancel = () => {
-              buttonDOM.classList.remove(hgActiveButtonClass);
               this.handleButtonMouseUp(button);
             };
           } else {
@@ -1287,11 +1292,9 @@ class SimpleKeyboard {
               this.handleButtonClicked(button);
             };
             buttonDOM.onmousedown = e => {
-              buttonDOM.classList.add(hgActiveButtonClass);
               this.handleButtonMouseDown(button, e);
             };
             buttonDOM.onmouseup = () => {
-              buttonDOM.classList.remove(hgActiveButtonClass);
               this.handleButtonMouseUp(button);
             };
           }
