@@ -129,9 +129,8 @@ class SimpleKeyboard {
     if (!window["SimpleKeyboardInstances"])
       window["SimpleKeyboardInstances"] = {};
 
-    window["SimpleKeyboardInstances"][
-      this.utilities.camelCase(this.keyboardDOMClass)
-    ] = this;
+    this.currentInstanceName = this.utilities.camelCase(this.keyboardDOMClass);
+    window["SimpleKeyboardInstances"][this.currentInstanceName] = this;
 
     /**
      * Instance vars
@@ -724,21 +723,76 @@ class SimpleKeyboard {
   }
 
   /**
+   * Execute an operation on each button
+   */
+  recurseButtons(fn) {
+    if (!fn) return false;
+
+    Object.keys(this.buttonElements).forEach(buttonName =>
+      this.buttonElements[buttonName].forEach(fn)
+    );
+  }
+
+  /**
    * Destroy keyboard listeners and DOM elements
    */
   destroy() {
+    if (this.options.debug)
+      console.log(
+        `Destroying simple-keyboard instance: ${this.currentInstanceName}`
+      );
+
     /**
-     * Remove listeners
+     * Remove document listeners
      */
     document.removeEventListener("keyup", this.handleKeyUp);
     document.removeEventListener("keydown", this.handleKeyDown);
     document.removeEventListener("mouseup", this.handleMouseUp);
     document.removeEventListener("touchend", this.handleTouchEnd);
+    document.onpointerup = null;
+    document.ontouchend = null;
+    document.ontouchcancel = null;
+    document.onmouseup = null;
 
     /**
-     * Clear DOM
+     * Remove buttons
      */
-    this.clear();
+    let deleteButton = buttonElement => {
+      buttonElement.onpointerdown = null;
+      buttonElement.onpointerup = null;
+      buttonElement.onpointercancel = null;
+      buttonElement.ontouchstart = null;
+      buttonElement.ontouchend = null;
+      buttonElement.ontouchcancel = null;
+      buttonElement.onclick = null;
+      buttonElement.onmousedown = null;
+      buttonElement.onmouseup = null;
+
+      buttonElement.remove();
+      buttonElement = null;
+    };
+
+    this.recurseButtons(deleteButton);
+
+    this.buttonElements = null;
+    this.recurseButtons = null;
+    deleteButton = null;
+
+    /**
+     * Remove wrapper events
+     */
+    this.keyboardDOM.onpointerdown = null;
+    this.keyboardDOM.ontouchstart = null;
+    this.keyboardDOM.onmousedown = null;
+
+    this.keyboardDOM.remove();
+    this.keyboardDOM = null;
+
+    /**
+     * Remove instance
+     */
+    window["SimpleKeyboardInstances"][this.currentInstanceName] = null;
+    delete window["SimpleKeyboardInstances"][this.currentInstanceName];
   }
 
   /**
