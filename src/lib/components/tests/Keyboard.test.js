@@ -1228,10 +1228,16 @@ it('Keyboard destroy will work', () => {
   testUtil.setDOM();
 
   let keyboard = new Keyboard();
-
   keyboard.destroy();
+  expect(keyboard.keyboardDOM).toBe(null);
+});
 
-  expect(keyboard.keyboardDOM.innerHTML).toBeFalsy();
+it('Keyboard destroy will work with debug option', () => {
+  testUtil.setDOM();
+
+  let keyboard = new Keyboard({ debug: true });
+  keyboard.destroy();
+  expect(keyboard.keyboardDOM).toBe(null);
 });
 
 it('Keyboard disableButtonHold will work', () => {
@@ -1325,4 +1331,10 @@ it('Keyboard buttonAttribute will warn about invalid entries', () => {
       }
     ]
   });
+});
+
+it('Keyboard recurseButtons will not work without a valid param', () => {
+  testUtil.setDOM();
+  let keyboard = new Keyboard();
+  expect(keyboard.recurseButtons()).toBe(false);
 });
