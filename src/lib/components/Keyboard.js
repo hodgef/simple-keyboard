@@ -818,7 +818,8 @@ class SimpleKeyboard {
         if (
           themeObj.class &&
           typeof themeObj.class === "string" &&
-          themeObj.buttons && typeof themeObj.buttons === "string"
+          themeObj.buttons &&
+          typeof themeObj.buttons === "string"
         ) {
           let themeObjClasses = themeObj.class.split(" ");
           let themeObjButtons = themeObj.buttons.split(" ");
@@ -849,8 +850,10 @@ class SimpleKeyboard {
         if (
           attrObj.attribute &&
           typeof attrObj.attribute === "string" &&
-          attrObj.value && typeof attrObj.value === "string" &&
-          attrObj.buttons && typeof attrObj.buttons === "string"
+          attrObj.value &&
+          typeof attrObj.value === "string" &&
+          attrObj.buttons &&
+          typeof attrObj.buttons === "string"
         ) {
           let attrObjButtons = attrObj.buttons.split(" ");
 
