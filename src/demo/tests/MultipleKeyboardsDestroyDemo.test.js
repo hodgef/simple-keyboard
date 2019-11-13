@@ -1,6 +1,8 @@
 import TestUtility from '../../utils/TestUtility';
 import MultipleKeyboardsDestroyDemo from '../MultipleKeyboardsDestroyDemo';
 
+jest.useFakeTimers();
+
 let testUtil = new TestUtility();
 
 it('Demo will load', () => {
@@ -64,4 +66,19 @@ it('Demo handleShiftButton will work', () => {
 
   demo.keyboard.getButtonElement("{shift}")[0].onclick();
   expect(demo.keyboard.options.layoutName).toBe("default");
+});
+
+it('MultipleKeyboardsDestroyDemo will run all timers', () => {
+  testUtil.setDOM();
+
+  let demo = new MultipleKeyboardsDestroyDemo();
+  jest.runAllTimers();
+
+  expect(demo.keyboard.options.theme).toBe("hg-theme-default myTheme");
+
+  demo.keyboard.getButtonElement("{shift}")[0].onclick();
+  expect(demo.keyboard.options.layoutName).toBe("shift");
+
+  demo.keyboard.getButtonElement("A").onclick();
+  expect(demo.keyboard.input.default).toBe("A");
 });
