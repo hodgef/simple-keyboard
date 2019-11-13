@@ -805,6 +805,11 @@ class SimpleKeyboard {
      */
     window["SimpleKeyboardInstances"][this.currentInstanceName] = null;
     delete window["SimpleKeyboardInstances"][this.currentInstanceName];
+
+    /**
+     * Reset initialized flag
+     */
+    this.initialized = false;
   }
 
   /**
