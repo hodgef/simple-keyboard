@@ -10,3 +10,7 @@ input {
 .simple-keyboard {
   max-width: 850px;
 }
+
+.simple-keyboard.hg-theme-default.myTheme {
+  background-color: #bde6c6;
+}

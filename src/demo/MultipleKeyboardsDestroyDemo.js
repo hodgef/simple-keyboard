@@ -33,6 +33,20 @@ class Demo {
 
     console.log(this.keyboard);
     setTimeout(this.keyboard.destroy, 10000);
+    setTimeout(() => {
+      this.keyboard = new Keyboard({
+        theme: "hg-theme-default myTheme",
+        onChange: input => this.onChange(input),
+        onKeyPress: button => this.onKeyPress(button),
+        debug: true,
+        onInit: () => {
+          console.log(
+            "Reinitialized simple-keyboard instance:",
+            this.keyboard.keyboardDOMClass
+          );
+        }
+      });
+    }, 15000);
 
     /**
      * Update simple-keyboard when input is changed directly
