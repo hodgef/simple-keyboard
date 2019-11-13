@@ -785,7 +785,6 @@ class SimpleKeyboard {
 
     this.recurseButtons(deleteButton);
 
-    this.buttonElements = null;
     this.recurseButtons = null;
     deleteButton = null;
 
@@ -796,8 +795,10 @@ class SimpleKeyboard {
     this.keyboardDOM.ontouchstart = null;
     this.keyboardDOM.onmousedown = null;
 
-    this.keyboardDOM.remove();
-    this.keyboardDOM = null;
+    /**
+     * Clearing keyboard wrapper
+     */
+    this.clear();
 
     /**
      * Remove instance
