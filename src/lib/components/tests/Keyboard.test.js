@@ -1229,7 +1229,7 @@ it('Keyboard destroy will work', () => {
 
   let keyboard = new Keyboard();
   keyboard.destroy();
-  expect(keyboard.keyboardDOM).toBe(null);
+  expect(keyboard.keyboardDOM.innerHTML).toBe("");
 });
 
 it('Keyboard destroy will work with debug option', () => {
@@ -1237,7 +1237,7 @@ it('Keyboard destroy will work with debug option', () => {
 
   let keyboard = new Keyboard({ debug: true });
   keyboard.destroy();
-  expect(keyboard.keyboardDOM).toBe(null);
+  expect(keyboard.keyboardDOM.innerHTML).toBe("");
 });
 
 it('Keyboard disableButtonHold will work', () => {
