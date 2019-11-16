@@ -3,7 +3,7 @@
  */
 export default class TestUtility {
   /**
-   * Set's a basic DOM structure to test in
+   * Sets a basic DOM structure to test in
    */
   setDOM = (divClass) => {
     this.clear();
