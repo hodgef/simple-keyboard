@@ -61,6 +61,7 @@ class SimpleKeyboard {
      * @property {boolean} syncInstanceInputs When set to true, this option synchronizes the internal input of every simple-keyboard instance.
      * @property {boolean} physicalKeyboardHighlight Enable highlighting of keys pressed on physical keyboard.
      * @property {boolean} preventMouseDownDefault Calling preventDefault for the mousedown events keeps the focus on the input.
+     * @property {boolean} stopMouseDownPropagation Stops pointer down events on simple-keyboard buttons from bubbling to parent elements.
      * @property {string} physicalKeyboardHighlightTextColor Define the text color that the physical keyboard highlighted key should have.
      * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have.
      * @property {function(button: string):string} onKeyPress Executes the callback function on key press. Returns button layout name (i.e.: “{shift}”).
