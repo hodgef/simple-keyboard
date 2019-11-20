@@ -93,6 +93,11 @@ declare module 'simple-keyboard' {
      * Calling preventDefault for the mousedown events keeps the focus on the input.
      */
     preventMouseDownDefault?: boolean;
+    
+    /**
+     * Stops pointer down events on simple-keyboard buttons from bubbling to parent elements.
+     */
+    stopMouseDownPropagation?: boolean;
 
     /**
      * Define the text color that the physical keyboard highlighted key should have.
