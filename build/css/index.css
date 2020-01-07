@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v2.27.57
+ *   simple-keyboard v2.27.58
  *   https://github.com/hodgef/simple-keyboard
  * 
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef)
