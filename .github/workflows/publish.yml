@@ -18,6 +18,7 @@ jobs:
         
       - name: Setup GIT
         run: |
+          git reset --hard
           git config --local --list
           git checkout master
           git config user.email "$GH_EMAIL"
