@@ -86,7 +86,7 @@
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "4.0.1",
     "react": "^16.12.0",
-    "react-app-polyfill": "^1.0.5",
+    "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.0.0",
     "react-dom": "^16.12.0",
     "resolve": "1.15.0",
