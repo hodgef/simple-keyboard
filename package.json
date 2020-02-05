@@ -80,7 +80,7 @@
     "pnp-webpack-plugin": "1.6.0",
     "prettier": "^1.19.1",
     "prettier-webpack-plugin": "^1.2.0",
-    "postcss-flexbugs-fixes": "4.1.0",
+    "postcss-flexbugs-fixes": "4.2.0",
     "postcss-loader": "3.0.0",
     "postcss-normalize": "8.0.1",
     "postcss-preset-env": "6.7.0",
