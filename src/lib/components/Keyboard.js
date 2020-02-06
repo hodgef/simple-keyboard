@@ -1,8 +1,8 @@
 import "./Keyboard.css";
 
 // Services
+import { getDefaultLayout } from "../services/KeyboardLayout";
 import PhysicalKeyboard from "../services/PhysicalKeyboard";
-import KeyboardLayout from "../services/KeyboardLayout";
 import Utilities from "../services/Utilities";
 
 /**
@@ -18,11 +18,9 @@ class SimpleKeyboard {
    * @param {Array} params If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.
    */
   constructor(...params) {
-    let keyboardDOMQuery =
-      typeof params[0] === "string" ? params[0] : ".simple-keyboard";
-    let options = typeof params[0] === "object" ? params[0] : params[1];
-
-    if (!options) options = {};
+    const { keyboardDOMClass, keyboardDOM, options = {} } = this.handleParams(
+      params
+    );
 
     /**
      * Initializing Utilities
@@ -41,7 +39,7 @@ class SimpleKeyboard {
     /**
      * Processing options
      */
-    this.keyboardDOM = document.querySelector(keyboardDOMQuery);
+    this.keyboardDOM = keyboardDOM;
 
     /**
      * @type {object}
@@ -101,7 +99,7 @@ class SimpleKeyboard {
      * This removes any dependency to input DOM elements. You can type and directly display the value in a div element, for example.
      * @example
      * // To get entered input
-     * let input = keyboard.getInput();
+     * const input = keyboard.getInput();
      *
      * // To clear entered input.
      * keyboard.clearInput();
@@ -116,7 +114,7 @@ class SimpleKeyboard {
     /**
      * @type {string} DOM class of the keyboard wrapper, normally "simple-keyboard" by default.
      */
-    this.keyboardDOMClass = keyboardDOMQuery.split(".").join("");
+    this.keyboardDOMClass = keyboardDOMClass;
 
     /**
      * @type {object} Contains the DOM elements of every rendered button, the key being the button's layout name (e.g.: "{enter}").
@@ -154,7 +152,7 @@ class SimpleKeyboard {
      */
     if (this.keyboardDOM) this.render();
     else {
-      console.warn(`"${keyboardDOMQuery}" was not found in the DOM.`);
+      console.warn(`".${keyboardDOMClass}" was not found in the DOM.`);
       throw new Error("KEYBOARD_DOM_ERROR");
     }
 
@@ -164,6 +162,56 @@ class SimpleKeyboard {
     this.modules = {};
     this.loadModules();
   }
+
+  /**
+   * parseParams
+   */
+  handleParams = params => {
+    let keyboardDOMClass;
+    let keyboardDOM;
+    let options;
+
+    /**
+     * If first parameter is a string:
+     * Consider it as an element's class
+     */
+    if (typeof params[0] === "string") {
+      keyboardDOMClass = params[0].split(".").join("");
+      keyboardDOM = document.querySelector(`.${keyboardDOMClass}`);
+      options = params[1];
+
+      /**
+       * If first parameter is an HTMLDivElement
+       * Consider it as the keyboard DOM element
+       */
+    } else if (params[0] instanceof HTMLDivElement) {
+      /**
+       * This element must have a class, otherwise throw
+       */
+      if (!params[0].className) {
+        console.warn("Any DOM element passed as parameter must have a class.");
+        throw new Error("KEYBOARD_DOM_CLASS_ERROR");
+      }
+
+      keyboardDOMClass = params[0].className.split(" ")[0];
+      keyboardDOM = params[0];
+      options = params[1];
+
+      /**
+       * Otherwise, search for .simple-keyboard DOM element
+       */
+    } else {
+      keyboardDOMClass = "simple-keyboard";
+      keyboardDOM = document.querySelector(`.${keyboardDOMClass}`);
+      options = params[0];
+    }
+
+    return {
+      keyboardDOMClass,
+      keyboardDOM,
+      options
+    };
+  };
 
   /**
    * Getters
@@ -176,7 +224,7 @@ class SimpleKeyboard {
    * @param  {string} button The button's layout name.
    */
   handleButtonClicked(button) {
-    let debug = this.options.debug;
+    const debug = this.options.debug;
 
     /**
      * Ignoring placeholder buttons
@@ -192,7 +240,7 @@ class SimpleKeyboard {
     if (!this.input[this.options.inputName])
       this.input[this.options.inputName] = "";
 
-    let updatedInput = this.utilities.getUpdatedInput(
+    const updatedInput = this.utilities.getUpdatedInput(
       button,
       this.input[this.options.inputName],
       this.caretPosition
@@ -499,7 +547,7 @@ class SimpleKeyboard {
           if (buttonTheme.class.split(" ").includes(classNameItem)) {
             classNameFound = true;
 
-            let buttonThemeArray = buttonTheme.buttons.split(" ");
+            const buttonThemeArray = buttonTheme.buttons.split(" ");
             if (!buttonThemeArray.includes(button)) {
               classNameFound = true;
               buttonThemeArray.push(button);
@@ -547,8 +595,8 @@ class SimpleKeyboard {
       Array.isArray(this.options.buttonTheme) &&
       this.options.buttonTheme.length
     ) {
-      let buttonArray = buttons.split(" ");
-      buttonArray.forEach((button, key) => {
+      const buttonArray = buttons.split(" ");
+      buttonArray.forEach(button => {
         this.options.buttonTheme.map((buttonTheme, index) => {
           /**
            * If className is set, we affect the buttons only for that class
@@ -558,7 +606,7 @@ class SimpleKeyboard {
             (className && className.includes(buttonTheme.class)) ||
             !className
           ) {
-            let filteredButtonArray = buttonTheme.buttons
+            const filteredButtonArray = buttonTheme.buttons
               .split(" ")
               .filter(item => item !== button);
 
@@ -588,7 +636,7 @@ class SimpleKeyboard {
   getButtonElement(button) {
     let output;
 
-    let buttonArr = this.buttonElements[button];
+    const buttonArr = this.buttonElements[button];
     if (buttonArr) {
       if (buttonArr.length > 1) {
         output = buttonArr;
@@ -605,7 +653,7 @@ class SimpleKeyboard {
    * by checking if the provided inputPattern passes
    */
   inputPatternIsValid(inputVal) {
-    let inputPatternRaw = this.options.inputPattern;
+    const inputPatternRaw = this.options.inputPattern;
     let inputPattern;
 
     /**
@@ -618,7 +666,7 @@ class SimpleKeyboard {
     }
 
     if (inputPattern && inputVal) {
-      let didInputMatch = inputPattern.test(inputVal);
+      const didInputMatch = inputPattern.test(inputVal);
 
       if (this.options.debug) {
         console.log(
@@ -817,7 +865,7 @@ class SimpleKeyboard {
    * Process buttonTheme option
    */
   getButtonThemeClasses(button) {
-    let buttonTheme = this.options.buttonTheme;
+    const buttonTheme = this.options.buttonTheme;
     let buttonClasses = [];
 
     if (Array.isArray(buttonTheme)) {
@@ -828,8 +876,8 @@ class SimpleKeyboard {
           themeObj.buttons &&
           typeof themeObj.buttons === "string"
         ) {
-          let themeObjClasses = themeObj.class.split(" ");
-          let themeObjButtons = themeObj.buttons.split(" ");
+          const themeObjClasses = themeObj.class.split(" ");
+          const themeObjButtons = themeObj.buttons.split(" ");
 
           if (themeObjButtons.includes(button)) {
             buttonClasses = [...buttonClasses, ...themeObjClasses];
@@ -850,7 +898,7 @@ class SimpleKeyboard {
    * Process buttonAttributes option
    */
   setDOMButtonAttributes(button, callback) {
-    let buttonAttributes = this.options.buttonAttributes;
+    const buttonAttributes = this.options.buttonAttributes;
 
     if (Array.isArray(buttonAttributes)) {
       buttonAttributes.forEach(attrObj => {
@@ -862,7 +910,7 @@ class SimpleKeyboard {
           attrObj.buttons &&
           typeof attrObj.buttons === "string"
         ) {
-          let attrObjButtons = attrObj.buttons.split(" ");
+          const attrObjButtons = attrObj.buttons.split(" ");
 
           if (attrObjButtons.includes(button)) {
             callback(attrObj.attribute, attrObj.value);
@@ -1011,19 +1059,22 @@ class SimpleKeyboard {
    */
   loadModules() {
     if (Array.isArray(this.options.modules)) {
-      this.options.modules.forEach(Module => {
-        let module = new Module();
+      this.options.modules.forEach(KeyboardModule => {
+        const keyboardModule = new KeyboardModule();
 
         /* istanbul ignore next */
-        if (module.constructor.name && module.constructor.name !== "Function") {
-          let classStr = `module-${this.utilities.camelCase(
-            module.constructor.name
+        if (
+          keyboardModule.constructor.name &&
+          keyboardModule.constructor.name !== "Function"
+        ) {
+          const classStr = `module-${this.utilities.camelCase(
+            keyboardModule.constructor.name
           )}`;
           this.keyboardPluginClasses =
             this.keyboardPluginClasses + ` ${classStr}`;
         }
 
-        module.init(this);
+        keyboardModule.init(this);
       });
 
       this.keyboardPluginClasses =
@@ -1059,12 +1110,12 @@ class SimpleKeyboard {
     containerStartIndexes,
     containerEndIndexes
   ) {
-    let rowDOMArray = Array.from(rowDOM.children);
+    const rowDOMArray = Array.from(rowDOM.children);
     let removedElements = 0;
 
     if (rowDOMArray.length) {
       containerStartIndexes.forEach((startIndex, arrIndex) => {
-        let endIndex = containerEndIndexes[arrIndex];
+        const endIndex = containerEndIndexes[arrIndex];
 
         /**
          * If there exists a respective end index
@@ -1079,21 +1130,21 @@ class SimpleKeyboard {
          * This is since the removal of buttons to place a single button container
          * results in a modified array size
          */
-        let updated_startIndex = startIndex - removedElements;
-        let updated_endIndex = endIndex - removedElements;
+        const updated_startIndex = startIndex - removedElements;
+        const updated_endIndex = endIndex - removedElements;
 
         /**
          * Create button container
          */
-        let containerDOM = document.createElement("div");
+        const containerDOM = document.createElement("div");
         containerDOM.className += "hg-button-container";
-        let containerUID = `${this.options.layoutName}-r${rowIndex}c${arrIndex}`;
+        const containerUID = `${this.options.layoutName}-r${rowIndex}c${arrIndex}`;
         containerDOM.setAttribute("data-skUID", containerUID);
 
         /**
          * Taking elements due to be inserted into container
          */
-        let containedElements = rowDOMArray.splice(
+        const containedElements = rowDOMArray.splice(
           updated_startIndex,
           updated_endIndex - updated_startIndex + 1
         );
@@ -1135,6 +1186,17 @@ class SimpleKeyboard {
   }
 
   /**
+   * getKeyboardClassString
+   */
+  getKeyboardClassString = (...baseDOMClasses) => {
+    const keyboardClasses = [this.keyboardDOMClass, ...baseDOMClasses].filter(
+      DOMClass => !!DOMClass
+    );
+
+    return keyboardClasses.join(" ");
+  };
+
+  /**
    * Renders rows and buttons as per options
    */
   render() {
@@ -1155,23 +1217,28 @@ class SimpleKeyboard {
      */
     this.beforeRender();
 
-    let layoutClass = `hg-layout-${this.options.layoutName}`;
-    let layout = this.options.layout || KeyboardLayout.getDefaultLayout();
-    let useTouchEvents = this.options.useTouchEvents || false;
-    let useTouchEventsClass = useTouchEvents ? "hg-touch-events" : "";
-    let useMouseEvents = this.options.useMouseEvents || false;
-    let disableRowButtonContainers = this.options.disableRowButtonContainers;
+    const layoutClass = `hg-layout-${this.options.layoutName}`;
+    const layout = this.options.layout || getDefaultLayout();
+    const useTouchEvents = this.options.useTouchEvents || false;
+    const useTouchEventsClass = useTouchEvents ? "hg-touch-events" : "";
+    const useMouseEvents = this.options.useMouseEvents || false;
+    const disableRowButtonContainers = this.options.disableRowButtonContainers;
 
     /**
      * Adding themeClass, layoutClass to keyboardDOM
      */
-    this.keyboardDOM.className += ` ${this.options.theme} ${layoutClass} ${this.keyboardPluginClasses} ${useTouchEventsClass}`;
+    this.keyboardDOM.className = this.getKeyboardClassString(
+      this.options.theme,
+      layoutClass,
+      this.keyboardPluginClasses,
+      useTouchEventsClass
+    );
 
     /**
      * Iterating through each row
      */
     layout[this.options.layoutName].forEach((row, rIndex) => {
-      let rowArray = row.split(" ");
+      const rowArray = row.split(" ");
 
       /**
        * Creating empty row
@@ -1182,8 +1249,8 @@ class SimpleKeyboard {
       /**
        * Tracking container indicators in rows
        */
-      let containerStartIndexes = [];
-      let containerEndIndexes = [];
+      const containerStartIndexes = [];
+      const containerEndIndexes = [];
 
       /**
        * Iterating through each button in row
@@ -1192,11 +1259,11 @@ class SimpleKeyboard {
         /**
          * Check if button has a container indicator
          */
-        let buttonHasContainerStart =
+        const buttonHasContainerStart =
           !disableRowButtonContainers &&
           button.includes("[") &&
           button.length > 1;
-        let buttonHasContainerEnd =
+        const buttonHasContainerEnd =
           !disableRowButtonContainers &&
           button.includes("]") &&
           button.length > 1;
@@ -1225,8 +1292,8 @@ class SimpleKeyboard {
         /**
          * Processing button options
          */
-        let fctBtnClass = this.utilities.getButtonClass(button);
-        let buttonDisplayName = this.utilities.getButtonDisplayName(
+        const fctBtnClass = this.utilities.getButtonClass(button);
+        const buttonDisplayName = this.utilities.getButtonDisplayName(
           button,
           this.options.display,
           this.options.mergeDisplay
@@ -1235,8 +1302,8 @@ class SimpleKeyboard {
         /**
          * Creating button
          */
-        let buttonType = this.options.useButtonTag ? "button" : "div";
-        let buttonDOM = document.createElement(buttonType);
+        const buttonType = this.options.useButtonTag ? "button" : "div";
+        const buttonDOM = document.createElement(buttonType);
         buttonDOM.className += `hg-button ${fctBtnClass}`;
 
         /**
@@ -1319,13 +1386,13 @@ class SimpleKeyboard {
          * Adding unique id
          * Since there's no limit on spawning same buttons, the unique id ensures you can style every button
          */
-        let buttonUID = `${this.options.layoutName}-r${rIndex}b${bIndex}`;
+        const buttonUID = `${this.options.layoutName}-r${rIndex}b${bIndex}`;
         buttonDOM.setAttribute("data-skBtnUID", buttonUID);
 
         /**
          * Adding button label to button
          */
-        let buttonSpanDOM = document.createElement("span");
+        const buttonSpanDOM = document.createElement("span");
         buttonSpanDOM.innerHTML = buttonDisplayName;
         buttonDOM.appendChild(buttonSpanDOM);
 

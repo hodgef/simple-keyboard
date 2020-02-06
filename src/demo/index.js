@@ -4,9 +4,10 @@ import "./css/index.css";
  * Demos
  */
 import BasicDemo from "./BasicDemo";
-//import FullKeyboardDemo from "./FullKeyboardDemo";
-//import ButtonThemeDemo from "./ButtonThemeDemo";
-//import MultipleKeyboardsDemo from "./MultipleKeyboardsDestroyDemo";
+// import ButtonThemeDemo from "./ButtonThemeDemo";
+// import DOMElementDemo from "./DOMElementDemo";
+// import FullKeyboardDemo from "./FullKeyboardDemo";
+// import MultipleKeyboardsDemo from "./MultipleKeyboardsDestroyDemo";
 
 /**
  * Selected demo

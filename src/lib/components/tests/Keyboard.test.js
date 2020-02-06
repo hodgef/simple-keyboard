@@ -1338,3 +1338,26 @@ it('Keyboard recurseButtons will not work without a valid param', () => {
   const keyboard = new Keyboard();
   expect(keyboard.recurseButtons()).toBe(false);
 });
+
+it('Keyboard will not work with a DOM element param without class', () => {
+  try {
+    const keyboardDOM = document.createElement("div");
+    new Keyboard(keyboardDOM);
+    expect(true).toBe(false);
+  } catch (e) {
+    expect(e.message).toBe("KEYBOARD_DOM_CLASS_ERROR");
+  }
+});
+
+it('Keyboard will work with a DOM element param with class', () => {
+  try {
+    const keyboardClass = "my-keyboard";
+    const keyboardDOM = document.createElement("div");
+    keyboardDOM.className = keyboardClass;
+    const keyboard = new Keyboard(keyboardDOM);
+
+    expect(keyboard.keyboardDOMClass).toBe(keyboardClass);
+  } catch (e) {
+    expect(true).toBe(false);
+  }
+});

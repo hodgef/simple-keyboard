@@ -23,11 +23,11 @@ class Utilities {
    * @return {string} The classes to be added to the button
    */
   getButtonClass(button) {
-    let buttonTypeClass =
+    const buttonTypeClass =
       button.includes("{") && button.includes("}") && button !== "{//}"
         ? "functionBtn"
         : "standardBtn";
-    let buttonWithoutBraces = button.replace("{", "").replace("}", "");
+    const buttonWithoutBraces = button.replace("{", "").replace("}", "");
     let buttonNormalized = "";
 
     if (buttonTypeClass !== "standardBtn")
@@ -128,7 +128,7 @@ class Utilities {
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
   getUpdatedInput(button, input, caretPos, moveCaret) {
-    let options = this.getOptions();
+    const options = this.getOptions();
     let output = input;
 
     if (
@@ -186,7 +186,7 @@ class Utilities {
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */
   updateCaretPos(length, minus) {
-    let newCaretPos = this.updateCaretPosAction(length, minus);
+    const newCaretPos = this.updateCaretPosAction(length, minus);
 
     this.dispatch(instance => {
       instance.caretPosition = newCaretPos;
@@ -200,7 +200,7 @@ class Utilities {
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */
   updateCaretPosAction(length, minus) {
-    let options = this.getOptions();
+    const options = this.getOptions();
     let caretPosition = this.getCaretPosition();
 
     if (minus) {
@@ -253,7 +253,7 @@ class Utilities {
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
   removeAt(source, position, moveCaret) {
-    let caretPosition = this.getCaretPosition();
+    const caretPosition = this.getCaretPosition();
 
     if (caretPosition === 0) {
       return source;
@@ -262,7 +262,7 @@ class Utilities {
     let output;
     let prevTwoChars;
     let emojiMatched;
-    let emojiMatchedReg = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
+    const emojiMatchedReg = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
 
     /**
      * Emojis are made out of two characters, so we must take a custom approach to trim them.
@@ -301,10 +301,10 @@ class Utilities {
    * @param  {string} updatedInput
    */
   handleMaxLength(inputObj, updatedInput) {
-    let options = this.getOptions();
-    let maxLength = options.maxLength;
-    let currentInput = inputObj[options.inputName];
-    let condition = updatedInput.length - 1 >= maxLength;
+    const options = this.getOptions();
+    const maxLength = options.maxLength;
+    const currentInput = inputObj[options.inputName];
+    const condition = updatedInput.length - 1 >= maxLength;
 
     if (
       /**
@@ -334,7 +334,7 @@ class Utilities {
     }
 
     if (typeof maxLength === "object") {
-      let condition = currentInput.length === maxLength[options.inputName];
+      const condition = currentInput.length === maxLength[options.inputName];
 
       if (options.debug) {
         console.log("maxLength (obj) reached:", condition);
@@ -377,8 +377,8 @@ class Utilities {
 
   static bindMethods(myClass, instance) {
     // eslint-disable-next-line no-unused-vars
-    for (let myMethod of Object.getOwnPropertyNames(myClass.prototype)) {
-      let excludeMethod =
+    for (const myMethod of Object.getOwnPropertyNames(myClass.prototype)) {
+      const excludeMethod =
         myMethod === "constructor" || myMethod === "bindMethods";
       if (!excludeMethod) {
         instance[myMethod] = instance[myMethod].bind(instance);
