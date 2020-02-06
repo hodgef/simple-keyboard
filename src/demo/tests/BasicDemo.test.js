@@ -1,18 +1,18 @@
 import TestUtility from '../../utils/TestUtility';
 import BasicDemo from '../BasicDemo';
 
-let testUtil = new TestUtility();
+const testUtil = new TestUtility();
 
 it('Demo will load', () => {
   testUtil.setDOM();
 
-  let demo = new BasicDemo();
+  new BasicDemo();
 });
 
 it('Demo onDOMLoaded will work', () => {
   testUtil.setDOM();
 
-  let demo = new BasicDemo();
+  const demo = new BasicDemo();
 
   expect(demo.keyboard).toBeTruthy();
 });
@@ -20,7 +20,7 @@ it('Demo onDOMLoaded will work', () => {
 it('Demo onChange will work', () => {
   testUtil.setDOM();
 
-  let demo = new BasicDemo();
+  const demo = new BasicDemo();
 
   demo.onChange("test");
   
@@ -30,7 +30,7 @@ it('Demo onChange will work', () => {
 it('Demo onChange will work', () => {
   testUtil.setDOM();
 
-  let demo = new BasicDemo();
+  const demo = new BasicDemo();
 
   demo.keyboard.getButtonElement("q").onclick();
   
@@ -40,7 +40,7 @@ it('Demo onChange will work', () => {
 it('Demo input change will work', () => {
   testUtil.setDOM();
 
-  let demo = new BasicDemo();
+  const demo = new BasicDemo();
 
   document.body.querySelector('.input').value = "test";
   document.body.querySelector('.input').dispatchEvent(new Event('input'));
@@ -51,7 +51,7 @@ it('Demo input change will work', () => {
 it('Demo handleShiftButton will work', () => {
   testUtil.setDOM();
 
-  let demo = new BasicDemo();
+  const demo = new BasicDemo();
 
   demo.keyboard.getButtonElement("{shift}")[0].onclick();
   expect(demo.keyboard.options.layoutName).toBe("shift");

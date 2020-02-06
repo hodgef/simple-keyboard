@@ -21,11 +21,11 @@ class PhysicalKeyboard {
   }
 
   handleHighlightKeyDown(event) {
-    let options = this.getOptions();
-    let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+    const options = this.getOptions();
+    const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
     this.dispatch(instance => {
-      let buttonDOM =
+      const buttonDOM =
         instance.getButtonElement(buttonPressed) ||
         instance.getButtonElement(`{${buttonPressed}}`);
 
@@ -39,10 +39,10 @@ class PhysicalKeyboard {
   }
 
   handleHighlightKeyUp(event) {
-    let buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+    const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
     this.dispatch(instance => {
-      let buttonDOM =
+      const buttonDOM =
         instance.getButtonElement(buttonPressed) ||
         instance.getButtonElement(`{${buttonPressed}}`);
 

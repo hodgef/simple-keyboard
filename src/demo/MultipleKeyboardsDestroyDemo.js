@@ -76,9 +76,9 @@ class Demo {
   }
 
   handleShift(keyboardInstanceKey) {
-    let keyboard = this[keyboardInstanceKey || "keyboard"];
-    let currentLayout = keyboard.options.layoutName;
-    let shiftToggle = currentLayout === "default" ? "shift" : "default";
+    const keyboard = this[keyboardInstanceKey || "keyboard"];
+    const currentLayout = keyboard.options.layoutName;
+    const shiftToggle = currentLayout === "default" ? "shift" : "default";
 
     keyboard.setOptions({
       layoutName: shiftToggle

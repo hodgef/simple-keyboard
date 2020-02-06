@@ -1,18 +1,18 @@
 import TestUtility from '../../utils/TestUtility';
 import ButtonThemeDemo from '../ButtonThemeDemo';
 
-let testUtil = new TestUtility();
+const testUtil = new TestUtility();
 
 it('Demo will load', () => {
   testUtil.setDOM();
 
-  let demo = new ButtonThemeDemo();
+  new ButtonThemeDemo();
 });
 
 it('Demo onDOMLoaded will work', () => {
   testUtil.setDOM();
 
-  let demo = new ButtonThemeDemo();
+  const demo = new ButtonThemeDemo();
 
   expect(demo.keyboard).toBeTruthy();
 });
@@ -20,7 +20,7 @@ it('Demo onDOMLoaded will work', () => {
 it('Demo onChange will work', () => {
   testUtil.setDOM();
 
-  let demo = new ButtonThemeDemo();
+  const demo = new ButtonThemeDemo();
 
   demo.onChange("test");
   
@@ -30,7 +30,7 @@ it('Demo onChange will work', () => {
 it('Demo onChange will work', () => {
   testUtil.setDOM();
 
-  let demo = new ButtonThemeDemo();
+  const demo = new ButtonThemeDemo();
 
   demo.keyboard.getButtonElement("q").onclick();
   
@@ -40,7 +40,7 @@ it('Demo onChange will work', () => {
 it('Demo input change will work', () => {
   testUtil.setDOM();
 
-  let demo = new ButtonThemeDemo();
+  const demo = new ButtonThemeDemo();
 
   document.body.querySelector('.input').value = "test";
   document.body.querySelector('.input').dispatchEvent(new Event('input'));
@@ -51,7 +51,7 @@ it('Demo input change will work', () => {
 it('Demo handleShiftButton will work', () => {
   testUtil.setDOM();
 
-  let demo = new ButtonThemeDemo();
+  const demo = new ButtonThemeDemo();
 
   demo.keyboard.getButtonElement("{shift}")[0].onclick();
   expect(demo.keyboard.options.layoutName).toBe("shift");
@@ -63,15 +63,15 @@ it('Demo handleShiftButton will work', () => {
 it('Demo buttons will have proper attributes and classes', () => {
   testUtil.setDOM();
 
-  let demo = new ButtonThemeDemo();
+  const demo = new ButtonThemeDemo();
 
-  let buttonDOM = demo.keyboard.getButtonElement("b");
+  const buttonDOM = demo.keyboard.getButtonElement("b");
 
   console.log("buttonDOM", buttonDOM.outerHTML);
 
-  let hasAttribute = buttonDOM.hasAttribute("aria-label");
+  const hasAttribute = buttonDOM.hasAttribute("aria-label");
   expect(hasAttribute).toBeTruthy();
 
-  let hasClass = buttonDOM.classList.contains("my-button-outline");
+  const hasClass = buttonDOM.classList.contains("my-button-outline");
   expect(hasClass).toBeTruthy();
 });

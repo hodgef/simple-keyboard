@@ -3,18 +3,18 @@ import MultipleKeyboardsDestroyDemo from '../MultipleKeyboardsDestroyDemo';
 
 jest.useFakeTimers();
 
-let testUtil = new TestUtility();
+const testUtil = new TestUtility();
 
 it('Demo will load', () => {
   testUtil.setDOM();
 
-  let demo = new MultipleKeyboardsDestroyDemo();
+  new MultipleKeyboardsDestroyDemo();
 });
 
 it('Demo onDOMLoaded will work', () => {
   testUtil.setDOM();
 
-  let demo = new MultipleKeyboardsDestroyDemo();
+  const demo = new MultipleKeyboardsDestroyDemo();
 
   expect(demo.keyboard).toBeTruthy();
 });
@@ -22,7 +22,7 @@ it('Demo onDOMLoaded will work', () => {
 it('Demo onChange will work', () => {
   testUtil.setDOM();
 
-  let demo = new MultipleKeyboardsDestroyDemo();
+  const demo = new MultipleKeyboardsDestroyDemo();
 
   demo.onChange("test");
   demo.keyboard2.getButtonElement("q").click();
@@ -34,7 +34,7 @@ it('Demo onChange will work', () => {
 it('Demo onChange will work', () => {
   testUtil.setDOM();
 
-  let demo = new MultipleKeyboardsDestroyDemo();
+  const demo = new MultipleKeyboardsDestroyDemo();
 
   demo.keyboard.getButtonElement("q").onclick();
   
@@ -44,7 +44,7 @@ it('Demo onChange will work', () => {
 it('Demo input change will work', () => {
   testUtil.setDOM();
 
-  let demo = new MultipleKeyboardsDestroyDemo();
+  const demo = new MultipleKeyboardsDestroyDemo();
 
   document.body.querySelector('.input').value = "test";
   document.body.querySelector('.input').dispatchEvent(new Event('input'));
@@ -59,7 +59,7 @@ it('Demo input change will work', () => {
 it('Demo handleShiftButton will work', () => {
   testUtil.setDOM();
 
-  let demo = new MultipleKeyboardsDestroyDemo();
+  const demo = new MultipleKeyboardsDestroyDemo();
 
   demo.keyboard.getButtonElement("{shift}")[0].onclick();
   expect(demo.keyboard.options.layoutName).toBe("shift");
@@ -71,7 +71,7 @@ it('Demo handleShiftButton will work', () => {
 it('MultipleKeyboardsDestroyDemo will run all timers', () => {
   testUtil.setDOM();
 
-  let demo = new MultipleKeyboardsDestroyDemo();
+  const demo = new MultipleKeyboardsDestroyDemo();
   jest.runAllTimers();
 
   expect(demo.keyboard.options.theme).toBe("hg-theme-default myTheme");

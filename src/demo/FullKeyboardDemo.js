@@ -27,7 +27,7 @@ class Demo {
     /**
      * Demo Start
      */
-    let commonKeyboardOptions = {
+    const commonKeyboardOptions = {
       onChange: input => this.onChange(input),
       onKeyPress: button => this.onKeyPress(button),
       theme: "simple-keyboard hg-theme-default hg-layout-default",
@@ -116,8 +116,8 @@ class Demo {
       }
     });
 
-    document.querySelector(".input").addEventListener("input", event => {
-      let input = document.querySelector(".input").value;
+    document.querySelector(".input").addEventListener("input", () => {
+      const input = document.querySelector(".input").value;
       this.keyboard.setInput(input);
     });
   }
@@ -145,8 +145,8 @@ class Demo {
   }
 
   handleShift() {
-    let currentLayout = this.keyboard.options.layoutName;
-    let shiftToggle = currentLayout === "default" ? "shift" : "default";
+    const currentLayout = this.keyboard.options.layoutName;
+    const shiftToggle = currentLayout === "default" ? "shift" : "default";
 
     this.keyboard.setOptions({
       layoutName: shiftToggle

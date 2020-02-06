@@ -1,18 +1,17 @@
 import TestUtility from '../../utils/TestUtility';
 import FullKeyboardDemo from '../FullKeyboardDemo';
 
-let testUtil = new TestUtility();
+const testUtil = new TestUtility();
 
 it('Demo will load', () => {
   testUtil.setDOM();
-
-  let demo = new FullKeyboardDemo();
+  new FullKeyboardDemo();
 });
 
 it('Demo onDOMLoaded will work', () => {
   testUtil.setDOM();
 
-  let demo = new FullKeyboardDemo();
+  const demo = new FullKeyboardDemo();
 
   expect(demo.keyboard).toBeTruthy();
 });
@@ -20,7 +19,7 @@ it('Demo onDOMLoaded will work', () => {
 it('Demo onChange will work', () => {
   testUtil.setDOM();
 
-  let demo = new FullKeyboardDemo();
+  const demo = new FullKeyboardDemo();
 
   demo.onChange("test");
   
@@ -30,7 +29,7 @@ it('Demo onChange will work', () => {
 it('Demo onChange will work', () => {
   testUtil.setDOM();
 
-  let demo = new FullKeyboardDemo();
+  const demo = new FullKeyboardDemo();
 
   demo.keyboard.getButtonElement("q").onclick();
   
@@ -40,7 +39,7 @@ it('Demo onChange will work', () => {
 it('Demo input change will work', () => {
   testUtil.setDOM();
 
-  let demo = new FullKeyboardDemo();
+  const demo = new FullKeyboardDemo();
 
   document.body.querySelector('.input').value = "test";
   document.body.querySelector('.input').dispatchEvent(new Event('input'));
@@ -52,7 +51,7 @@ it('Demo input change will work', () => {
 it('Demo handleShiftButton will work', () => {
   testUtil.setDOM();
 
-  let demo = new FullKeyboardDemo();
+  const demo = new FullKeyboardDemo();
 
   demo.keyboard.getButtonElement("{shiftleft}").onclick();
   expect(demo.keyboard.options.layoutName).toBe("shift");

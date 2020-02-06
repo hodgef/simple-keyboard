@@ -1,12 +1,12 @@
 import Keyboard from '../../components/Keyboard';
 import TestUtility from '../../../utils/TestUtility';
 
-let testUtil = new TestUtility();
+const testUtil = new TestUtility();
 
 it('PhysicalKeyboard keydown will be handled with physicalKeyboardHighlight', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     physicalKeyboardHighlight: true
   });
 
@@ -22,7 +22,7 @@ it('PhysicalKeyboard keydown will be handled with physicalKeyboardHighlight', ()
 it('PhysicalKeyboard keydown will be handled without physicalKeyboardHighlight', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     physicalKeyboardHighlight: false
   });
 
@@ -38,7 +38,7 @@ it('PhysicalKeyboard keydown will be handled without physicalKeyboardHighlight',
 it('PhysicalKeyboard keydown will not style non-existent buttons', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     physicalKeyboardHighlight: true
   });
 
@@ -54,7 +54,7 @@ it('PhysicalKeyboard keydown will not style non-existent buttons', () => {
 it('PhysicalKeyboard keyup will be handled with physicalKeyboardHighlight', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     physicalKeyboardHighlight: true
   });
 
@@ -70,7 +70,7 @@ it('PhysicalKeyboard keyup will be handled with physicalKeyboardHighlight', () =
 it('PhysicalKeyboard keyup will be handle special buttons', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     physicalKeyboardHighlight: true
   });
 
@@ -86,7 +86,7 @@ it('PhysicalKeyboard keyup will be handle special buttons', () => {
 it('PhysicalKeyboard keyup will not style non-existent buttons', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     physicalKeyboardHighlight: true,
     debug: true
   });
@@ -103,7 +103,7 @@ it('PhysicalKeyboard keyup will not style non-existent buttons', () => {
 it('PhysicalKeyboard will work with F1-F12 keys', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     physicalKeyboardHighlight: true,
     debug: true
   });

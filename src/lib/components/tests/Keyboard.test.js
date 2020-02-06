@@ -1,7 +1,7 @@
 import Keyboard from '../Keyboard';
 import TestUtility from '../../../utils/TestUtility';
 
-let testUtil = new TestUtility();
+const testUtil = new TestUtility();
 
 it('Keyboard will not render without target element', () => {
   try {
@@ -38,7 +38,7 @@ it('Keyboard will run with custom DOM target', () => {
 it('Keyboard will run with debug option set', () => {
   testUtil.setDOM();
   
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     debug: true
   });
 
@@ -51,10 +51,10 @@ it('Keyboard will use touch events', () => {
   testUtil.clear()
 
   document.body.innerHTML = `
-    <div id="keyboard"></div>
+    <div class="keyboard"></div>
   `;
 
-  const keyboard = new Keyboard('#keyboard', {
+  const keyboard = new Keyboard('.keyboard', {
     useTouchEvents: true,
     onChange: () => touched = true,
     layout: {
@@ -73,7 +73,7 @@ it('Keyboard will use touch events', () => {
 
 it('Keyboard standard buttons will work', () => {
   testUtil.setDOM();
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     maxLength: {
       "default": 10
     }
@@ -85,7 +85,7 @@ it('Keyboard standard buttons will work', () => {
 
 it('Keyboard shift buttons will work', () => {
   testUtil.setDOM();
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.setOptions({
     layoutName: "shift",
@@ -97,7 +97,7 @@ it('Keyboard shift buttons will work', () => {
 
 it('Keyboard setOptions will work without a param', () => {
   testUtil.setDOM();
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.setOptions();
 });
@@ -105,7 +105,7 @@ it('Keyboard setOptions will work without a param', () => {
 it('Keyboard empty buttons wont do anything as expected', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     layout: {
       default: [
         "{//} {button} d",
@@ -122,7 +122,7 @@ it('Keyboard onKeyPress will work', () => {
 
   let pressed = false;
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     onKeyPress: () => {
       pressed = true;
     },
@@ -137,7 +137,7 @@ it('Keyboard onKeyPress will work', () => {
 it('Keyboard standard function buttons will not change input', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     useButtonTag: true
   });
 
@@ -158,7 +158,7 @@ it('Keyboard syncInstanceInputs will work', () => {
     <div class="keyboard2"></div>
   `;
 
-  let sharedOptions = {
+  const sharedOptions = {
     syncInstanceInputs: true
   };
 
@@ -195,7 +195,7 @@ it('Keyboard onChange will work', () => {
 
   let output = false;
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     onChange: (input) => {
       output = input;
     },
@@ -212,7 +212,7 @@ it('Keyboard onChangeAll will work', () => {
 
   let output;
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     onChangeAll: (input) => {
       output = input ? input.default : null;
     },
@@ -227,7 +227,7 @@ it('Keyboard onChangeAll will work', () => {
 it('Keyboard clearInput will work', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   /**
    * Avoid setInput for this test
@@ -249,12 +249,12 @@ it('Keyboard clearInput will work with syncInstanceInputs', () => {
     <div class="keyboard2"></div>
   `;
 
-  let sharedOptions = {
+  const sharedOptions = {
     syncInstanceInputs: true
   };
 
-  let keyboard1 = new Keyboard(".keyboard1", sharedOptions);
-  let keyboard2 = new Keyboard(".keyboard2", sharedOptions);
+  const keyboard1 = new Keyboard(".keyboard1", sharedOptions);
+  const keyboard2 = new Keyboard(".keyboard2", sharedOptions);
 
   /**
    * Avoid setInput for this test
@@ -271,7 +271,7 @@ it('Keyboard clearInput will work with syncInstanceInputs', () => {
 it('Keyboard setInput will work', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.setInput("hello");
 
@@ -286,12 +286,12 @@ it('Keyboard setInput will work with syncInstanceInputs', () => {
     <div class="keyboard2"></div>
   `;
 
-  let sharedOptions = {
+  const sharedOptions = {
     syncInstanceInputs: true
   };
 
-  let keyboard1 = new Keyboard(".keyboard1", sharedOptions);
-  let keyboard2 = new Keyboard(".keyboard2", sharedOptions);
+  const keyboard1 = new Keyboard(".keyboard1", sharedOptions);
+  const keyboard2 = new Keyboard(".keyboard2", sharedOptions);
 
   keyboard1.setInput("hello");
 
@@ -306,8 +306,8 @@ it('Keyboard dispatch will work', () => {
     <div class="keyboard2"></div>
   `;
 
-  let keyboard1 = new Keyboard(".keyboard1");
-  let keyboard2 = new Keyboard(".keyboard2");
+  const keyboard1 = new Keyboard(".keyboard1");
+  const keyboard2 = new Keyboard(".keyboard2");
 
   keyboard1.dispatch(instance => {
     instance.setOptions({
@@ -331,8 +331,8 @@ it('Keyboard dispatch will not work without SimpleKeyboardInstances', () => {
     <div class="keyboard2"></div>
   `;
 
-  let keyboard1 = new Keyboard(".keyboard1");
-  let keyboard2 = new Keyboard(".keyboard2");
+  const keyboard1 = new Keyboard(".keyboard1");
+  new Keyboard(".keyboard2");
 
   window['SimpleKeyboardInstances'] = null;
 
@@ -357,8 +357,8 @@ it('Keyboard dispatch will not work without SimpleKeyboardInstances', () => {
 it('Keyboard addButtonTheme will work', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
-  let returnVal = keyboard.addButtonTheme("q", "test");
+  const keyboard = new Keyboard();
+  keyboard.addButtonTheme("q", "test");
 
   expect(keyboard.options.buttonTheme[0].class).toBe("test");
 });
@@ -366,8 +366,8 @@ it('Keyboard addButtonTheme will work', () => {
 it('Keyboard addButtonTheme will not work without params', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
-  let returnVal = keyboard.addButtonTheme();
+  const keyboard = new Keyboard();
+  const returnVal = keyboard.addButtonTheme();
 
   expect(returnVal).toBeFalsy();
 });
@@ -375,7 +375,7 @@ it('Keyboard addButtonTheme will not work without params', () => {
 it('Keyboard addButtonTheme will amend a buttonTheme', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -392,7 +392,7 @@ it('Keyboard addButtonTheme will amend a buttonTheme', () => {
 it('Keyboard addButtonTheme will create a buttonTheme', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "blurb",
@@ -409,7 +409,7 @@ it('Keyboard addButtonTheme will create a buttonTheme', () => {
 it('Keyboard addButtonTheme will ignore a repeated buttonTheme', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -426,7 +426,7 @@ it('Keyboard addButtonTheme will ignore a repeated buttonTheme', () => {
 it('Keyboard addButtonTheme will amend a buttonTheme', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -444,7 +444,7 @@ it('Keyboard addButtonTheme will amend a buttonTheme', () => {
 it('Keyboard removeButtonTheme without params will remove all button themes', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -462,7 +462,7 @@ it('Keyboard removeButtonTheme without params will remove all button themes', ()
 it('Keyboard removeButtonTheme will work', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -479,7 +479,7 @@ it('Keyboard removeButtonTheme will work', () => {
 it('Keyboard removeButtonTheme will work wihtout a class', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -496,7 +496,7 @@ it('Keyboard removeButtonTheme will work wihtout a class', () => {
 it('Keyboard removeButtonTheme will do nothing without a button param', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -513,7 +513,7 @@ it('Keyboard removeButtonTheme will do nothing without a button param', () => {
 it('Keyboard removeButtonTheme does nothing if req button doesnt have a buttonTheme', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -530,7 +530,7 @@ it('Keyboard removeButtonTheme does nothing if req button doesnt have a buttonTh
 it('Keyboard removeButtonTheme does nothing if buttonTheme class does not exist', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "testy",
@@ -547,7 +547,7 @@ it('Keyboard removeButtonTheme does nothing if buttonTheme class does not exist'
 it('Keyboard removeButtonTheme does nothing if buttonTheme doesnt have the requested buttons', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -564,7 +564,7 @@ it('Keyboard removeButtonTheme does nothing if buttonTheme doesnt have the reque
 it('Keyboard getButtonElement will not return anything if empty match', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     layout: {
       default: [
         "{//} {button} d",
@@ -579,7 +579,7 @@ it('Keyboard getButtonElement will not return anything if empty match', () => {
 it('Keyboard getButtonElement will return multiple matched buttons', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   expect(keyboard.getButtonElement("{shift}").length).toBe(2);
 });
@@ -606,7 +606,7 @@ it('Keyboard will receive physical keyboard events', () => {
 it('Keyboard caretEventHandler will detect input, textarea focus', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.caretEventHandler({
     charCode: 0,
@@ -625,7 +625,7 @@ it('Keyboard caretEventHandler will detect input, textarea focus', () => {
 it('Keyboard caretEventHandler will not set caretPosition on disableCaretPositioning', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.caretEventHandler({
     charCode: 0,
@@ -661,7 +661,7 @@ it('Keyboard caretEventHandler will not set caretPosition on disableCaretPositio
 it('Keyboard caretEventHandler ignore positioning if input, textarea is blur', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.isMouseHold = true;
 
@@ -682,7 +682,7 @@ it('Keyboard caretEventHandler ignore positioning if input, textarea is blur', (
 it('Keyboard caretEventHandler will work with debug', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     debug: true
   });
 
@@ -705,7 +705,7 @@ it('Keyboard onInit will work', () => {
 
   let passed = false;
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     onInit: () => {
       passed = true
     }
@@ -719,7 +719,7 @@ it('Keyboard onRender will work', () => {
 
   let passed = false;
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     onRender: () => {
       passed = true
     }
@@ -731,7 +731,7 @@ it('Keyboard onRender will work', () => {
 it('Keyboard buttonTheme that is invalid will be ignored and not throw', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     buttonTheme: [
       {
         class: null,
@@ -744,7 +744,7 @@ it('Keyboard buttonTheme that is invalid will be ignored and not throw', () => {
 it('Keyboard buttonTheme buttons that are invalid will be ignored and not throw', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     buttonTheme: [
       {
         class: null,
@@ -772,7 +772,7 @@ it('Keyboard buttonTheme will be ignored if buttons param not a string', () => {
 it('Keyboard buttonTheme will be ignored if already added', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     buttonTheme: [
       {
         class: "test",
@@ -801,7 +801,7 @@ it('Keyboard buttonTheme will be ignored if already added', () => {
 it('Keyboard can set a module', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.registerModule(
     "test",
@@ -816,7 +816,7 @@ it('Keyboard can set a module', () => {
 it('Keyboard registerModule will return current module tree', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.modules.test = {
     testy: "test"
@@ -836,7 +836,7 @@ it('Keyboard registerModule will return current module tree', () => {
 it('Keyboard can set a module by amending the modules tree', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.modules = {
     testman: {
@@ -857,7 +857,7 @@ it('Keyboard can set a module by amending the modules tree', () => {
 it('Keyboard will not retrieve an option for an inexistent module', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   expect(keyboard.getModuleProp("test", "foo")).toBeFalsy();
 });
@@ -865,7 +865,7 @@ it('Keyboard will not retrieve an option for an inexistent module', () => {
 it('Keyboard will get a list of modules', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.registerModule(
     "test",
@@ -886,7 +886,7 @@ it('Keyboard loadModules will load a simple module', () => {
     };
   }
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     modules: [
       myClass
     ]
@@ -896,7 +896,7 @@ it('Keyboard loadModules will load a simple module', () => {
 it('Keyboard handleButtonMouseUp will set isMouseHold to false', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.isMouseHold = true;
 
@@ -908,7 +908,7 @@ it('Keyboard handleButtonMouseUp will set isMouseHold to false', () => {
 it('Keyboard handleButtonMouseUp clear holdInteractionTimeout', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.isMouseHold = true;
   keyboard.holdInteractionTimeout = setTimeout(() => {}, 10000);
@@ -919,7 +919,7 @@ it('Keyboard handleButtonMouseUp clear holdInteractionTimeout', () => {
 it('Keyboard handleButtonMouseDown will work', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.handleButtonMouseDown("q", {
     target: keyboard.getButtonElement("q"),
@@ -937,7 +937,7 @@ it('Keyboard handleButtonMouseDown will work', () => {
 it('Keyboard handleButtonMouseDown will work with preventMouseDownDefault', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.options.preventMouseDownDefault = true;
 
@@ -965,7 +965,7 @@ it('Keyboard onModulesLoaded will work', () => {
 
   let foo;
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     modules: [
       myClass
     ],
@@ -980,7 +980,7 @@ it('Keyboard onModulesLoaded will work', () => {
 it('Keyboard inputPattern will work globally', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     inputPattern: /^\d+$/,
     useMouseEvents: true
   });
@@ -997,7 +997,7 @@ it('Keyboard inputPattern will work globally', () => {
 it('Keyboard inputPattern will work by input name', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     debug: true,
     inputName: "test1",
     inputPattern: {
@@ -1026,7 +1026,7 @@ it('Keyboard processAutoTouchEvents will work', () => {
 
   navigator.maxTouchPoints = true;
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     autoUseTouchEvents: true
   });
 
@@ -1038,7 +1038,7 @@ it('Keyboard processAutoTouchEvents will work with debugging enabled', () => {
 
   navigator.maxTouchPoints = true;
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     autoUseTouchEvents: true,
     debug: true
   });
@@ -1051,7 +1051,7 @@ it('Keyboard beforeFirstRender method will work', () => {
 
   let timesCalled = 0;
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     beforeFirstRender: () => {
       timesCalled++;
     }
@@ -1074,7 +1074,7 @@ it('Keyboard beforeFirstRender will show PointerEvents warning', () => {
 
   window.PointerEvent = window.PointerEvent ? window.PointerEvent : () => {};
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     debug: true,
     beforeFirstRender: () => {
       timesCalled++;
@@ -1089,7 +1089,7 @@ it('Keyboard beforeRender method will work', () => {
 
   let timesCalled = 0;
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     beforeRender: () => {
       timesCalled++;
     }
@@ -1108,7 +1108,7 @@ it('Keyboard beforeRender method will work', () => {
 it('Keyboard parseRowDOMContainers will work', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     layout: {
       'default': [
         '` [1 2 3 4 5 6 7 8 9] 0 - = {bksp}',
@@ -1127,7 +1127,7 @@ it('Keyboard parseRowDOMContainers will work', () => {
     }
   });
 
-  let containers = Array.from(document.querySelectorAll(".hg-button-container"));
+  const containers = Array.from(document.querySelectorAll(".hg-button-container"));
 
   expect(containers.length).toBe(5);
 
@@ -1144,7 +1144,7 @@ it('Keyboard parseRowDOMContainers will ignore empty rows', () => {
   let failed = false;
 
   try {
-    let keyboard = new Keyboard();
+    const keyboard = new Keyboard();
     keyboard.parseRowDOMContainers({
       children: []
     });
@@ -1159,7 +1159,7 @@ it('Keyboard parseRowDOMContainers will ignore empty rows', () => {
 it('Keyboard parseRowDOMContainers will ignore missing endIndex or endIndex before startIndex', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     layout: {
       'default': [
         '` [1 2 3 4 5 6 7 8 9 0 - = {bksp}',
@@ -1168,7 +1168,7 @@ it('Keyboard parseRowDOMContainers will ignore missing endIndex or endIndex befo
     }
   });
 
-  let containers = Array.from(document.querySelectorAll(".hg-button-container"));
+  const containers = Array.from(document.querySelectorAll(".hg-button-container"));
 
   expect(containers.length).toBe(0);
 });
@@ -1176,7 +1176,7 @@ it('Keyboard parseRowDOMContainers will ignore missing endIndex or endIndex befo
 it('Keyboard disableRowButtonContainers will bypass parseRowDOMContainers', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     disableRowButtonContainers: true,
     layout: {
       'default': [
@@ -1196,7 +1196,7 @@ it('Keyboard disableRowButtonContainers will bypass parseRowDOMContainers', () =
     }
   });
 
-  let containers = Array.from(document.querySelectorAll(".hg-button-container"));
+  const containers = Array.from(document.querySelectorAll(".hg-button-container"));
 
   expect(containers.length).toBe(0);
 });
@@ -1204,7 +1204,7 @@ it('Keyboard disableRowButtonContainers will bypass parseRowDOMContainers', () =
 it('Keyboard inputName change will trigget caretPosition reset', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
 
   keyboard.caretPosition = 0;
 
@@ -1227,7 +1227,7 @@ it('Keyboard inputName change will trigget caretPosition reset', () => {
 it('Keyboard destroy will work', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
   keyboard.destroy();
   expect(keyboard.keyboardDOM.innerHTML).toBe("");
 });
@@ -1235,7 +1235,7 @@ it('Keyboard destroy will work', () => {
 it('Keyboard destroy will work with debug option', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({ debug: true });
+  const keyboard = new Keyboard({ debug: true });
   keyboard.destroy();
   expect(keyboard.keyboardDOM.innerHTML).toBe("");
 });
@@ -1243,7 +1243,7 @@ it('Keyboard destroy will work with debug option', () => {
 it('Keyboard disableButtonHold will work', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     disableButtonHold: true
   });
 
@@ -1253,7 +1253,7 @@ it('Keyboard disableButtonHold will work', () => {
 it('Keyboard caretEventHandler will be triggered on mouseup and ontouchend', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     disableCaretPositioning: true
   });
 
@@ -1289,7 +1289,7 @@ it('Keyboard onKeyReleased will work', () => {
   let firedTimes = 0;
   let buttonPressed;
 
-  let keyboard = new Keyboard({
+  const keyboard = new Keyboard({
     onKeyReleased: button => {
       pressed = true;
       buttonPressed = button;
@@ -1309,7 +1309,7 @@ it('Keyboard onKeyReleased will work', () => {
 it('Keyboard buttonAttribute will work', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     buttonAttributes: [
       {
         attribute: "aria-label",
@@ -1323,7 +1323,7 @@ it('Keyboard buttonAttribute will work', () => {
 it('Keyboard buttonAttribute will warn about invalid entries', () => {
   testUtil.setDOM();
 
-  let keyboard = new Keyboard({
+  new Keyboard({
     buttonAttributes: [
       {
         attribute: false,
@@ -1335,6 +1335,6 @@ it('Keyboard buttonAttribute will warn about invalid entries', () => {
 
 it('Keyboard recurseButtons will not work without a valid param', () => {
   testUtil.setDOM();
-  let keyboard = new Keyboard();
+  const keyboard = new Keyboard();
   expect(keyboard.recurseButtons()).toBe(false);
 });
