@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const isWsl = require('is-wsl');
 const path = require('path');
@@ -13,9 +11,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
-const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
@@ -28,10 +24,7 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const getPackageJson = require('./getPackageJson');
 const PrettierPlugin = require("prettier-webpack-plugin");
-const eslint = require('eslint');
-
 const postcssNormalize = require('postcss-normalize');
-
 const appPackageJson = require(paths.appPackageJson);
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -65,7 +58,7 @@ const banner = `
   ${name} v${version}
   ${repository.url}
 
-  Copyright (c) ${author.replace(/ *\<[^)]*\> */g, " ")}
+  Copyright (c) ${author.replace(/ *<[^)]*> */g, " ")}
 
   This source code is licensed under the ${license} license found in the
   LICENSE file in the root directory of this source tree.
