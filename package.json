@@ -95,7 +95,7 @@
     "semver": "7.1.2",
     "simple-keyboard-autocorrect": "^2.1.3",
     "simple-keyboard-input-mask": "^2.2.3",
-    "simple-keyboard-key-navigation": "^2.1.1",
+    "simple-keyboard-key-navigation": "^2.1.3",
     "style-loader": "1.1.3",
     "swipe-keyboard": "^2.1.4",
     "terser-webpack-plugin": "2.3.4",
