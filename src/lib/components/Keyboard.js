@@ -48,8 +48,8 @@ class SimpleKeyboard {
      * @property {object} display Replaces variable buttons (such as {bksp}) with a human-friendly name (e.g.: “backspace”).
      * @property {boolean} mergeDisplay By default, when you set the display property, you replace the default one. This setting merges them instead.
      * @property {string} theme A prop to add your own css classes to the keyboard wrapper. You can add multiple classes separated by a space.
-     * @property {Array} buttonTheme A prop to add your own css classes to one or several buttons.
-     * @property {Array} buttonAttributes A prop to add your own attributes to one or several buttons.
+     * @property {array} buttonTheme A prop to add your own css classes to one or several buttons.
+     * @property {array} buttonAttributes A prop to add your own attributes to one or several buttons.
      * @property {boolean} debug Runs a console.log every time a key is pressed. Displays the buttons pressed and the current input.
      * @property {boolean} newLineOnEnter Specifies whether clicking the “ENTER” button will input a newline (\n) or not.
      * @property {boolean} tabCharOnTab Specifies whether clicking the “TAB” button will input a tab character (\t) or not.
@@ -76,6 +76,7 @@ class SimpleKeyboard {
      * @property {function} destroy Clears keyboard listeners and DOM elements.
      * @property {boolean} disableButtonHold Disable button hold action.
      * @property {function} onKeyReleased Executes the callback function on key release.
+     * @property {array} modules Module classes to be loaded by simple-keyboard.
      */
     this.options = options;
     this.options.layoutName = this.options.layoutName || "default";
