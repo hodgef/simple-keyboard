@@ -183,6 +183,11 @@ declare module 'simple-keyboard' {
      * Executes the callback function on input change. Returns the input object with all defined inputs.
      */
     onChangeAll?: (inputs: any) => any;
+
+    /**
+     * Module classes to be loaded by simple-keyboard.
+     */
+    modules?: any[];
   }
 
   class Keyboard {
