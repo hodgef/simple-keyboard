@@ -85,7 +85,7 @@
     "postcss-safe-parser": "4.0.2",
     "prettier": "^1.19.1",
     "prettier-webpack-plugin": "^1.2.0",
-    "react": "^16.12.0",
+    "react": "^16.13.0",
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.2.0",
     "react-dom": "^16.12.0",
