@@ -24,7 +24,7 @@
 .hg-theme-default {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
     Helvetica, Arial, "Lucida Grande", sans-serif;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #ececec;
   padding: 5px;
   border-radius: 5px;
 }
