@@ -28,7 +28,7 @@
   </a>
 </p>
 
-> The slick virtual keyboard for Javascript. Compatible with your JS, React, Angular or Vue projects.
+<blockquote>The slick virtual keyboard for Javascript. Compatible with your JS, React, Angular or Vue projects.</blockquote>
 
 ## 🚀 Demo
 [Demo Showcase (Vanilla, Angular, React, Vue)](https://simple-keyboard.com/demo)
