@@ -192,7 +192,7 @@ declare module 'simple-keyboard' {
 
   class Keyboard {
     constructor(selector: string, options: KeyboardOptions);
-    constructor(selector: HTMLDivElement, options: KeyboardOptions)
+    constructor(selector: HTMLDivElement, options: KeyboardOptions);
     constructor(options: KeyboardOptions);
 
     /**
