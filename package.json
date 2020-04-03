@@ -71,7 +71,7 @@
     "html-webpack-plugin": "4.0.4",
     "identity-obj-proxy": "3.0.0",
     "is-wsl": "^2.1.0",
-    "jest": "25.2.6",
+    "jest": "25.2.7",
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "25.2.6",
     "jest-watch-typeahead": "0.5.0",
