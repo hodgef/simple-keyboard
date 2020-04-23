@@ -468,19 +468,37 @@ class SimpleKeyboard {
    * Set new option or modify existing ones after initialization.
    * @param  {object} options The options to set
    */
-  setOptions(options) {
-    options = options || {};
+  setOptions(options = {}) {
+    const changedOptions = this.changedOptions(options);
     this.options = Object.assign(this.options, options);
 
-    /**
-     * Some option changes require adjustments before re-render
-     */
-    this.onSetOptions(options);
+    if (changedOptions.length) {
+      if (this.options.debug) {
+        console.log("changedOptions", changedOptions);
+      }
 
-    /**
-     * Rendering
-     */
-    this.render();
+      /**
+       * Some option changes require adjustments before re-render
+       */
+      this.onSetOptions(options);
+
+      /**
+       * Rendering
+       */
+      this.render();
+    }
+  }
+
+  /**
+   * Detecting changes to non-function options
+   * This allows us to ascertain whether a button re-render is needed
+   */
+  changedOptions(newOptions) {
+    return Object.keys(newOptions).filter(
+      optionName =>
+        JSON.stringify(newOptions[optionName]) !==
+        JSON.stringify(this.options[optionName])
+    );
   }
 
   /**
