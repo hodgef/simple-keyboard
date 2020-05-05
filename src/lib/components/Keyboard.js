@@ -329,18 +329,18 @@ class SimpleKeyboard {
     if (!this.options.disableButtonHold) {
       this.holdTimeout = setTimeout(() => {
         if (
-          this.isMouseHold &&
-          // TODO: This needs to be configurable through options
-          ((!button.includes("{") && !button.includes("}")) ||
-            button === "{delete}" ||
-            button === "{backspace}" ||
-            button === "{bksp}" ||
-            button === "{space}" ||
-            button === "{tab}") ||
-            button === "{arrowright}" ||
-            button === "{arrowleft}" ||
-            button === "{arrowup}" ||
-            button === "{arrowdown}"
+          (this.isMouseHold &&
+            // TODO: This needs to be configurable through options
+            ((!button.includes("{") && !button.includes("}")) ||
+              button === "{delete}" ||
+              button === "{backspace}" ||
+              button === "{bksp}" ||
+              button === "{space}" ||
+              button === "{tab}")) ||
+          button === "{arrowright}" ||
+          button === "{arrowleft}" ||
+          button === "{arrowup}" ||
+          button === "{arrowdown}"
         ) {
           if (this.options.debug) console.log("Button held:", button);
 
