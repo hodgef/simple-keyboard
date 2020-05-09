@@ -1285,12 +1285,15 @@ class SimpleKeyboard {
          */
         const buttonHasContainerStart =
           !disableRowButtonContainers &&
-          button.includes("[") &&
-          button.length > 1;
+          typeof button === "string" &&
+          button.length > 1 &&
+          button.indexOf("[") === 0;
+
         const buttonHasContainerEnd =
           !disableRowButtonContainers &&
-          button.includes("]") &&
-          button.length > 1;
+          typeof button === "string" &&
+          button.length > 1 &&
+          button.indexOf("]") === button.length - 1;
 
         /**
          * Save container start index, if applicable
