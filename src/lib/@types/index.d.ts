@@ -1,7 +1,5 @@
 declare module 'simple-keyboard' {
   interface KeyboardLayoutObject {
-    default: string[];
-    shift?: any;
     [key: string]: string[];
   }
 
