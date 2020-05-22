@@ -6,6 +6,7 @@
   <a href="https://www.npmjs.com/package/simple-keyboard">
     <img src="https://badgen.net/npm/v/simple-keyboard?color=blue" alt="npm version">
   </a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fhodgef%2Fsimple-keyboard?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhodgef%2Fsimple-keyboard.svg?type=shield"/></a>
 
   <a href="https://github.com/hodgef/simple-keyboard/actions">
      <img alt="Build Status" src="https://github.com/hodgef/simple-keyboard/workflows/Build/badge.svg?color=green" />
@@ -83,3 +84,7 @@ Want to create your own module? Check out the [Modules page](https://franciscoho
 
 PR's and issues are welcome. Feel free to submit any issues you have at:
 [https://github.com/hodgef/simple-keyboard/issues](https://github.com/hodgef/simple-keyboard/issues)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhodgef%2Fsimple-keyboard.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhodgef%2Fsimple-keyboard?ref=badge_large)
