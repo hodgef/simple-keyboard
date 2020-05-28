@@ -59,18 +59,18 @@ Feel free to browse the [Questions & Answers (FAQ)](https://simple-keyboard.com/
 
 ### Questions?
 
-<a href="http://franciscohodge.com/simple-keyboard/chat/join" title="Join our Discord chat" target="_blank"><img src="https://franciscohodge.com/project-pages/simple-keyboard/images/discord.png" align="center" width="200"></a>
+<a href="https://discordapp.com/invite/SJexsCG" title="Join our Discord chat" target="_blank"><img src="https://i.imgur.com/lCfbZwg.png" align="center" width="200"></a>
 
 ## ✳️ Modules
 
-You can extend simple-keyboard's functionality with [modules](https://franciscohodge.com/projects/simple-keyboard/modules/). Such as:
+You can extend simple-keyboard's functionality with [modules](https://hodgef.com/simple-keyboard/modules/). Such as:
 
-* [Autocorrect](https://franciscohodge.com/projects/simple-keyboard/demo-showcase/module-autocorrect/)
-* [Input Mask](https://franciscohodge.com/projects/simple-keyboard/demo-showcase/module-input-mask/)
-* [Key Navigation](https://franciscohodge.com/projects/simple-keyboard/demo-showcase/module-key-navigation/)
-* [Swipe Keyboard](https://franciscohodge.com/projects/simple-keyboard/demo-showcase/module-swipe-keyboard/)
+* [Autocorrect](https://hodgef.com/simple-keyboard/modules/autocorrect/)
+* [Input Mask](https://hodgef.com/simple-keyboard/modules/input-mask/)
+* [Key Navigation](https://hodgef.com/simple-keyboard/modules/key-navigation/)
+* [Swipe Keyboard](https://hodgef.com/simple-keyboard/modules/swipe-keyboard/)
 
-Want to create your own module? Check out the [Modules page](https://franciscohodge.com/projects/simple-keyboard/modules/) for instructions.
+Want to create your own module? Check out the [Modules page](https://hodgef.com/simple-keyboard/modules/) for instructions.
 
 ## 🎯 Compatibility
 
