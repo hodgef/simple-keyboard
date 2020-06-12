@@ -186,6 +186,11 @@ declare module 'simple-keyboard' {
      * Module classes to be loaded by simple-keyboard.
      */
     modules?: any[];
+
+    /**
+     * Module options can have any format
+     */
+    [name: string]: any;
   }
 
   class Keyboard {
