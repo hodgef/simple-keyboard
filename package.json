@@ -42,7 +42,7 @@
   "devDependencies": {
     "@babel/core": "7.10.2",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-env": "^7.10.3",
     "@babel/preset-react": "^7.10.1",
     "@svgr/webpack": "5.4.0",
     "@typescript-eslint/eslint-plugin": "1.13.0",
