@@ -973,10 +973,12 @@ class SimpleKeyboard {
         );
       }
     } else {
-      console.log(
-        "Destroy: Instances remaining! Document listeners not removed",
-        window["SimpleKeyboardInstances"]
-      );
+      if (this.options.debug) {
+        console.log(
+          "Destroy: Instances remaining! Document listeners not removed",
+          window["SimpleKeyboardInstances"]
+        );
+      }
     }
 
     /**
