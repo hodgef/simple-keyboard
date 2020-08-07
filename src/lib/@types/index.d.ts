@@ -213,6 +213,19 @@ declare module 'simple-keyboard' {
      */
     caretPosition?: number;
 
+
+    /**
+     * caretPositionEnd
+     */
+    caretPositionEnd?: number;
+
+    /**
+     * Changes the internal caret position
+     * @param {number} position The caret's start position
+     * @param {number} positionEnd The caret's end position
+     */
+    setCaretPosition(position: number, positionEnd?: number): void;
+
     /**
      * Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.
      * @param  {string} buttons List of buttons to select (separated by a space).
