@@ -1,7 +1,5 @@
 import Keyboard from '../Keyboard';
-import TestUtility from '../../../utils/TestUtility';
-
-const testUtil = new TestUtility();
+import { setDOM, clearDOM, testLayoutStdButtons, iterateButtons, triggerDocumentPointerUp, triggerDocumentPointerDown } from '../../../utils/TestUtility';
 
 it('Keyboard will not render without target element', () => {
   try {
@@ -14,7 +12,7 @@ it('Keyboard will not render without target element', () => {
 
 it('Keyboard will run without options', () => {
   // Prepare target DOM element
-  testUtil.setDOM();
+  setDOM();
 
   // No options
   new Keyboard();
@@ -22,21 +20,21 @@ it('Keyboard will run without options', () => {
 
 it('Keyboard will run with empty options', () => {
   // Prepare target DOM element
-  testUtil.setDOM();
+  setDOM();
 
   // No options
   new Keyboard({});
 });
 
 it('Keyboard will run with custom DOM target', () => {
-  testUtil.setDOM("myTestDiv");
+  setDOM("myTestDiv");
 
   new Keyboard(".myTestDiv");
   expect(document.body.querySelector(".myTestDiv")).toBeDefined();
 });
 
 it('Keyboard will run with debug option set', () => {
-  testUtil.setDOM();
+  setDOM();
   
   const keyboard = new Keyboard({
     debug: true
@@ -48,7 +46,7 @@ it('Keyboard will run with debug option set', () => {
 it('Keyboard will use touch events', () => {
   let touched = false
 
-  testUtil.clear()
+  clearDOM();
 
   document.body.innerHTML = `
     <div class="keyboard"></div>
@@ -72,19 +70,19 @@ it('Keyboard will use touch events', () => {
 })
 
 it('Keyboard standard buttons will work', () => {
-  testUtil.setDOM();
+  setDOM();
   const keyboard = new Keyboard({
     maxLength: {
       "default": 10
     }
   });
   
-  testUtil.testLayoutStdButtons(keyboard);
+  testLayoutStdButtons(keyboard);
 });
 
 
 it('Keyboard shift buttons will work', () => {
-  testUtil.setDOM();
+  setDOM();
   const keyboard = new Keyboard();
 
   keyboard.setOptions({
@@ -92,18 +90,18 @@ it('Keyboard shift buttons will work', () => {
     maxLength: 42
   });
 
-  testUtil.testLayoutStdButtons(keyboard);
+  testLayoutStdButtons(keyboard);
 });
 
 it('Keyboard setOptions will work without a param', () => {
-  testUtil.setDOM();
+  setDOM();
   const keyboard = new Keyboard();
 
   keyboard.setOptions();
 });
 
 it('Keyboard empty buttons wont do anything as expected', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     layout: {
@@ -118,7 +116,7 @@ it('Keyboard empty buttons wont do anything as expected', () => {
 });
 
 it('Keyboard onKeyPress will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let pressed = false;
 
@@ -135,13 +133,13 @@ it('Keyboard onKeyPress will work', () => {
 });
 
 it('Keyboard standard function buttons will not change input', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     useButtonTag: true
   });
 
-  testUtil.iterateButtons((button) => {
+  iterateButtons((button) => {
     if(button.getAttribute("data-skbtn") === "{shift}"){
       button.onclick();
     }
@@ -151,7 +149,7 @@ it('Keyboard standard function buttons will not change input', () => {
 });
 
 it('Keyboard syncInstanceInputs will work', () => {
-  testUtil.clear();
+  clearDOM();
 
   document.body.innerHTML = `
     <div class="keyboard1"></div>
@@ -180,7 +178,7 @@ it('Keyboard syncInstanceInputs will work', () => {
   keyboard1.getButtonElement("5").onclick();
   keyboard1.getButtonElement("6").onclick();
 
-  keyboard1.caretPosition = 1;
+  keyboard1.setCaretPosition(1);
 
   keyboard1.getButtonElement("2").onclick();
   keyboard1.getButtonElement("3").onclick();
@@ -191,7 +189,7 @@ it('Keyboard syncInstanceInputs will work', () => {
 });
 
 it('Keyboard onChange will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let output = false;
 
@@ -208,7 +206,7 @@ it('Keyboard onChange will work', () => {
 });
 
 it('Keyboard onChangeAll will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let output;
 
@@ -225,7 +223,7 @@ it('Keyboard onChangeAll will work', () => {
 });
 
 it('Keyboard clearInput will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -242,7 +240,7 @@ it('Keyboard clearInput will work', () => {
 });
 
 it('Keyboard clearInput will work with syncInstanceInputs', () => {
-  testUtil.clear();
+  clearDOM();
 
   document.body.innerHTML = `
     <div class="keyboard1"></div>
@@ -269,7 +267,7 @@ it('Keyboard clearInput will work with syncInstanceInputs', () => {
 });
 
 it('Keyboard setInput will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -279,7 +277,7 @@ it('Keyboard setInput will work', () => {
 });
 
 it('Keyboard setInput will work with syncInstanceInputs', () => {
-  testUtil.clear();
+  clearDOM();
 
   document.body.innerHTML = `
     <div class="keyboard1"></div>
@@ -299,7 +297,7 @@ it('Keyboard setInput will work with syncInstanceInputs', () => {
 });
 
 it('Keyboard dispatch will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   document.body.innerHTML = `
     <div class="keyboard1"></div>
@@ -324,7 +322,7 @@ it('Keyboard dispatch will work', () => {
 });
 
 it('Keyboard dispatch will not work without SimpleKeyboardInstances', () => {
-  testUtil.setDOM();
+  setDOM();
 
   document.body.innerHTML = `
     <div class="keyboard1"></div>
@@ -355,7 +353,7 @@ it('Keyboard dispatch will not work without SimpleKeyboardInstances', () => {
 });
 
 it('Keyboard addButtonTheme will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
   keyboard.addButtonTheme("q", "test");
@@ -364,7 +362,7 @@ it('Keyboard addButtonTheme will work', () => {
 });
 
 it('Keyboard addButtonTheme will not work without params', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
   const returnVal = keyboard.addButtonTheme();
@@ -373,7 +371,7 @@ it('Keyboard addButtonTheme will not work without params', () => {
 });
 
 it('Keyboard addButtonTheme will amend a buttonTheme', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -390,7 +388,7 @@ it('Keyboard addButtonTheme will amend a buttonTheme', () => {
 });
 
 it('Keyboard addButtonTheme will create a buttonTheme', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -407,7 +405,7 @@ it('Keyboard addButtonTheme will create a buttonTheme', () => {
 });
 
 it('Keyboard addButtonTheme will ignore a repeated buttonTheme', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -424,7 +422,7 @@ it('Keyboard addButtonTheme will ignore a repeated buttonTheme', () => {
 });
 
 it('Keyboard addButtonTheme will amend a buttonTheme', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -442,7 +440,7 @@ it('Keyboard addButtonTheme will amend a buttonTheme', () => {
 
 
 it('Keyboard removeButtonTheme without params will remove all button themes', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -460,7 +458,7 @@ it('Keyboard removeButtonTheme without params will remove all button themes', ()
 
 
 it('Keyboard removeButtonTheme will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -477,7 +475,7 @@ it('Keyboard removeButtonTheme will work', () => {
 });
 
 it('Keyboard removeButtonTheme will work wihtout a class', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -494,7 +492,7 @@ it('Keyboard removeButtonTheme will work wihtout a class', () => {
 });
 
 it('Keyboard removeButtonTheme will do nothing without a button param', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -511,7 +509,7 @@ it('Keyboard removeButtonTheme will do nothing without a button param', () => {
 });
 
 it('Keyboard removeButtonTheme does nothing if req button doesnt have a buttonTheme', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -528,7 +526,7 @@ it('Keyboard removeButtonTheme does nothing if req button doesnt have a buttonTh
 });
 
 it('Keyboard removeButtonTheme does nothing if buttonTheme class does not exist', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -545,7 +543,7 @@ it('Keyboard removeButtonTheme does nothing if buttonTheme class does not exist'
 });
 
 it('Keyboard removeButtonTheme does nothing if buttonTheme doesnt have the requested buttons', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     buttonTheme: [
@@ -562,7 +560,7 @@ it('Keyboard removeButtonTheme does nothing if buttonTheme doesnt have the reque
 });
 
 it('Keyboard getButtonElement will not return anything if empty match', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     layout: {
@@ -577,7 +575,7 @@ it('Keyboard getButtonElement will not return anything if empty match', () => {
 });
 
 it('Keyboard getButtonElement will return multiple matched buttons', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -585,60 +583,54 @@ it('Keyboard getButtonElement will return multiple matched buttons', () => {
 });
 
 it('Keyboard will receive physical keyboard events', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new Keyboard({
     debug: true,
     physicalKeyboardHighlight: true
   });
 
-  document.dispatchEvent(new KeyboardEvent('keyup', {
+  document.onkeyup({
     charCode: 0,
     code: "KeyF",
     key: "f",
     which: 70,
-    target: {
-      tagName: "input"
-    }
-  }));
+    target: document.createElement('input')
+  });
 });
 
 it('Keyboard caretEventHandler will detect input, textarea focus', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
+  const myInput = document.createElement('input');
 
   keyboard.caretEventHandler({
     charCode: 0,
     code: "KeyF",
     key: "f",
     which: 70,
-    target: {
-      tagName: "input",
-      selectionStart: 3
-    }
+    target: myInput
   });
 
-  expect(keyboard.caretPosition).toBe(3);
+  expect(keyboard.getCaretPosition()).toBe(0);
 });
 
 it('Keyboard caretEventHandler will not set caretPosition on disableCaretPositioning', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
+  const myInput = document.createElement('input');
 
   keyboard.caretEventHandler({
     charCode: 0,
     code: "KeyF",
     key: "f",
     which: 70,
-    target: {
-      tagName: "input",
-      selectionStart: 3
-    }
+    target: myInput
   });
 
-  expect(keyboard.caretPosition).toBe(3);
+  expect(keyboard.getCaretPosition()).toBe(0);
 
   keyboard.setOptions({
     disableCaretPositioning: true
@@ -649,17 +641,14 @@ it('Keyboard caretEventHandler will not set caretPosition on disableCaretPositio
     code: "KeyF",
     key: "f",
     which: 70,
-    target: {
-      tagName: "input",
-      selectionStart: 3
-    }
+    target: myInput
   });
 
-  expect(keyboard.caretPosition).toBeFalsy();
+  expect(keyboard.getCaretPosition()).toBe(null);
 });
 
 it('Keyboard caretEventHandler ignore positioning if input, textarea is blur', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -670,38 +659,39 @@ it('Keyboard caretEventHandler ignore positioning if input, textarea is blur', (
     code: "KeyF",
     key: "f",
     which: 70,
-    target: {
-      tagName: "div",
-      selectionStart: 4
-    }
+    target: document.createElement('div')
   });
 
-  expect(keyboard.caretPosition).toBeFalsy();
+  expect(keyboard.getCaretPosition()).toBeFalsy();
 });
 
 it('Keyboard caretEventHandler will work with debug', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     debug: true
   });
+
+  keyboard.input.default = "hello";
+  keyboard.setCaretPosition(2)
+
+  expect(keyboard.getCaretPosition()).toBe(2);
+
+  const myInput = document.createElement('input');
 
   keyboard.caretEventHandler({
     charCode: 0,
     code: "KeyF",
     key: "f",
     which: 70,
-    target: {
-      tagName: "input",
-      selectionStart: 3
-    }
+    target: myInput
   });
 
-  expect(keyboard.caretPosition).toBe(3);
+  expect(keyboard.getCaretPosition()).toBe(0);
 });
 
 it('Keyboard onInit will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let passed = false;
 
@@ -715,7 +705,7 @@ it('Keyboard onInit will work', () => {
 });
 
 it('Keyboard onRender will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let passed = false;
 
@@ -729,7 +719,7 @@ it('Keyboard onRender will work', () => {
 });
 
 it('Keyboard buttonTheme that is invalid will be ignored and not throw', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new Keyboard({
     buttonTheme: [
@@ -742,7 +732,7 @@ it('Keyboard buttonTheme that is invalid will be ignored and not throw', () => {
 });
 
 it('Keyboard buttonTheme buttons that are invalid will be ignored and not throw', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new Keyboard({
     buttonTheme: [
@@ -755,7 +745,7 @@ it('Keyboard buttonTheme buttons that are invalid will be ignored and not throw'
 });
 
 it('Keyboard buttonTheme will be ignored if buttons param not a string', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new Keyboard({
     buttonTheme: [
@@ -770,7 +760,7 @@ it('Keyboard buttonTheme will be ignored if buttons param not a string', () => {
 });
 
 it('Keyboard buttonTheme will be ignored if already added', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new Keyboard({
     buttonTheme: [
@@ -799,7 +789,7 @@ it('Keyboard buttonTheme will be ignored if already added', () => {
 });
 
 it('Keyboard can set a module', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -814,7 +804,7 @@ it('Keyboard can set a module', () => {
 });
 
 it('Keyboard registerModule will return current module tree', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -834,7 +824,7 @@ it('Keyboard registerModule will return current module tree', () => {
 });
 
 it('Keyboard can set a module by amending the modules tree', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -855,7 +845,7 @@ it('Keyboard can set a module by amending the modules tree', () => {
 });
 
 it('Keyboard will not retrieve an option for an inexistent module', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -863,7 +853,7 @@ it('Keyboard will not retrieve an option for an inexistent module', () => {
 });
 
 it('Keyboard will get a list of modules', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -878,7 +868,7 @@ it('Keyboard will get a list of modules', () => {
 });
 
 it('Keyboard loadModules will load a simple module', () => {
-  testUtil.setDOM();
+  setDOM();
 
   class myClass {
     init = (module) => {
@@ -894,48 +884,48 @@ it('Keyboard loadModules will load a simple module', () => {
 });
 
 it('Keyboard handleButtonMouseUp will set isMouseHold to false', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
   keyboard.isMouseHold = true;
 
-  document.onmouseup();
+  document.onmouseup({
+    target: document.body
+  });
 
   expect(keyboard.isMouseHold).toBeFalsy();
 });
 
 it('Keyboard handleButtonMouseUp clear holdInteractionTimeout', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
   keyboard.isMouseHold = true;
   keyboard.holdInteractionTimeout = setTimeout(() => {}, 10000);
 
-  document.onmouseup();
+  document.onmouseup({
+    target: document.body
+  });
 });
 
 it('Keyboard handleButtonMouseDown will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
-  const keyboard = new Keyboard();
+  const keyboard = new Keyboard({ useMouseEvents: true });
 
-  keyboard.handleButtonMouseDown("q", {
-    target: keyboard.getButtonElement("q"),
-    preventDefault: () => {},
-    stopPropagation: () => {}
+  console.log(keyboard.getButtonElement("q"))
+  keyboard.getButtonElement("q").onclick();
+
+  document.onmouseup({
+    target: document.body
   });
-
-  var clickEvent = document.createEvent('MouseEvents');
-  clickEvent.initEvent('mousedown', true, true);
-  keyboard.getButtonElement("q").dispatchEvent(clickEvent);
-  document.onmouseup();
 
 });
 
 it('Keyboard handleButtonMouseDown will work with preventMouseDownDefault', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
@@ -947,15 +937,15 @@ it('Keyboard handleButtonMouseDown will work with preventMouseDownDefault', () =
     stopPropagation: () => {}
   });
 
-  var clickEvent = document.createEvent('MouseEvents');
-  clickEvent.initEvent('mousedown', true, true);
-  keyboard.getButtonElement("q").dispatchEvent(clickEvent);
-  document.onmouseup();
+  keyboard.getButtonElement("q").onclick();
+  document.onmouseup({
+    target: document.body
+  });
 
 });
 
 it('Keyboard onModulesLoaded will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   class myClass {
     init = (module) => {
@@ -978,7 +968,7 @@ it('Keyboard onModulesLoaded will work', () => {
 });
 
 it('Keyboard inputPattern will work globally', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     inputPattern: /^\d+$/,
@@ -995,7 +985,7 @@ it('Keyboard inputPattern will work globally', () => {
 });
 
 it('Keyboard inputPattern will work by input name', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     debug: true,
@@ -1022,7 +1012,7 @@ it('Keyboard inputPattern will work by input name', () => {
 });
 
 it('Keyboard processAutoTouchEvents will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   navigator.maxTouchPoints = true;
 
@@ -1034,7 +1024,7 @@ it('Keyboard processAutoTouchEvents will work', () => {
 });
 
 it('Keyboard processAutoTouchEvents will work with debugging enabled', () => {
-  testUtil.setDOM();
+  setDOM();
 
   navigator.maxTouchPoints = true;
 
@@ -1047,7 +1037,7 @@ it('Keyboard processAutoTouchEvents will work with debugging enabled', () => {
 });
 
 it('Keyboard beforeFirstRender method will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let timesCalled = 0;
 
@@ -1068,7 +1058,7 @@ it('Keyboard beforeFirstRender method will work', () => {
 });
 
 it('Keyboard beforeFirstRender will show PointerEvents warning', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let timesCalled = 0;
 
@@ -1085,7 +1075,7 @@ it('Keyboard beforeFirstRender will show PointerEvents warning', () => {
 });
 
 it('Keyboard beforeRender method will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let timesCalled = 0;
 
@@ -1106,7 +1096,7 @@ it('Keyboard beforeRender method will work', () => {
 });
 
 it('Keyboard parseRowDOMContainers will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     layout: {
@@ -1139,7 +1129,7 @@ it('Keyboard parseRowDOMContainers will work', () => {
 });
 
 it('Keyboard parseRowDOMContainers will ignore empty rows', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let failed = false;
 
@@ -1157,7 +1147,7 @@ it('Keyboard parseRowDOMContainers will ignore empty rows', () => {
 
 
 it('Keyboard parseRowDOMContainers will ignore missing endIndex or endIndex before startIndex', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new Keyboard({
     layout: {
@@ -1174,7 +1164,7 @@ it('Keyboard parseRowDOMContainers will ignore missing endIndex or endIndex befo
 });
 
 it('Keyboard disableRowButtonContainers will bypass parseRowDOMContainers', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new Keyboard({
     disableRowButtonContainers: true,
@@ -1202,16 +1192,16 @@ it('Keyboard disableRowButtonContainers will bypass parseRowDOMContainers', () =
 });
 
 it('Keyboard inputName change will trigget caretPosition reset', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
 
-  keyboard.caretPosition = 0;
+  keyboard.setCaretPosition(0);
 
   keyboard.getButtonElement("q").onpointerdown();
   keyboard.getButtonElement("1").onpointerdown();
 
-  expect(keyboard.caretPosition).toBe(2);
+  expect(keyboard.getCaretPosition()).toBe(2);
 
   keyboard.setOptions({
     inputName: "myInput"
@@ -1221,19 +1211,34 @@ it('Keyboard inputName change will trigget caretPosition reset', () => {
   keyboard.getButtonElement("1").onpointerdown();
   keyboard.getButtonElement("b").onpointerdown();
 
-  expect(keyboard.caretPosition).toBe(null);
+  expect(keyboard.getCaretPosition()).toBe(null);
 });
 
 it('Keyboard destroy will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard();
   keyboard.destroy();
   expect(keyboard.keyboardDOM.innerHTML).toBe("");
+
+  expect(document.onkeydown).toBe(null);
+  expect(document.onkeyup).toBe(null);
+
+  expect(document.onpointerdown).toBe(null);
+  expect(document.onpointerup).toBe(null);
+
+  expect(document.onmousedown).toBe(null);
+  expect(document.onmouseup).toBe(null);
+
+  expect(document.ontouchstart).toBe(null);
+  expect(document.ontouchend).toBe(null);
+  expect(document.ontouchcancel).toBe(null);
+
+  expect(keyboard.initialized).toBe(false);
 });
 
 it('Keyboard destroy will work with debug option', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({ debug: true });
   keyboard.destroy();
@@ -1241,7 +1246,7 @@ it('Keyboard destroy will work with debug option', () => {
 });
 
 it('Keyboard disableButtonHold will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     disableButtonHold: true
@@ -1251,39 +1256,33 @@ it('Keyboard disableButtonHold will work', () => {
 });
 
 it('Keyboard caretEventHandler will be triggered on mouseup and ontouchend', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const keyboard = new Keyboard({
     disableCaretPositioning: true
   });
 
-  keyboard.caretPosition = 6;
+  keyboard.setCaretPosition(6);
 
-  document.dispatchEvent(new MouseEvent('mouseup', {
-    target: {
-      tagName: "input"
-    }
-  }));
+  expect(keyboard.getCaretPosition()).toBe(6);
 
-  expect(keyboard.caretPosition).toBe(null);
+  const event = {
+    target: document.body
+  };
+
+  triggerDocumentPointerUp(event);
+
+  expect(keyboard.getCaretPosition()).toBe(null);
 
   keyboard.setOptions({
     disableCaretPositioning: false
   })
 
-  keyboard.caretPosition = 10;
-
-  document.dispatchEvent(new TouchEvent('touchend', {
-    target: {
-      tagName: "input"
-    }
-  }));
-
-  expect(keyboard.caretPosition).toBe(10);
+  keyboard.setCaretPosition(10);
 });
 
 it('Keyboard onKeyReleased will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   let pressed = false;
   let firedTimes = 0;
@@ -1307,7 +1306,7 @@ it('Keyboard onKeyReleased will work', () => {
 });
 
 it('Keyboard buttonAttribute will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new Keyboard({
     buttonAttributes: [
@@ -1321,7 +1320,7 @@ it('Keyboard buttonAttribute will work', () => {
 });
 
 it('Keyboard buttonAttribute will warn about invalid entries', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new Keyboard({
     buttonAttributes: [
@@ -1334,7 +1333,7 @@ it('Keyboard buttonAttribute will warn about invalid entries', () => {
 });
 
 it('Keyboard recurseButtons will not work without a valid param', () => {
-  testUtil.setDOM();
+  setDOM();
   const keyboard = new Keyboard();
   expect(keyboard.recurseButtons()).toBe(false);
 });
@@ -1360,4 +1359,38 @@ it('Keyboard will work with a DOM element param with class', () => {
   } catch (e) {
     expect(true).toBe(false);
   }
+});
+
+it('Keyboard handleKeyboardContainerMouseDown will work', () => {
+  setDOM();
+
+  const keyboard = new Keyboard();
+  keyboard.keyboardDOM.onpointerdown();
+});
+
+it('Keyboard handleKeyboardContainerMouseDown will respect preventMouseDownDefault', () => {
+  setDOM();
+
+  let works = false;
+  const keyboard = new Keyboard({ preventMouseDownDefault: true });
+  keyboard.keyboardDOM.onpointerdown({ preventDefault: () => {
+    works = true
+  }});
+
+  expect(works).toBe(true);
+});
+
+it('Keyboard handlePointerDown will work', () => {
+  setDOM();
+
+  const keyboard = new Keyboard();
+
+  keyboard.setCaretPosition(3);
+  expect(keyboard.getCaretPosition()).toBe(3);
+
+  triggerDocumentPointerDown({
+    target: document.body
+  })
+
+  expect(keyboard.getCaretPosition()).toBe(null);
 });

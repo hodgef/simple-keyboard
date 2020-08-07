@@ -32,7 +32,10 @@ class Demo {
     });
 
     console.log(this.keyboard);
-    setTimeout(this.keyboard.destroy, 10000);
+    setTimeout(() => {
+      this.keyboard.destroy();
+      document.querySelector(".input").value = "";
+    }, 10000);
     setTimeout(() => {
       this.keyboard = new Keyboard({
         theme: "hg-theme-default myTheme",

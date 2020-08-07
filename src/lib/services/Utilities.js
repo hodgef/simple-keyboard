@@ -5,9 +5,17 @@ class Utilities {
   /**
    * Creates an instance of the Utility service
    */
-  constructor({ getOptions, getCaretPosition, dispatch }) {
+  constructor({
+    getOptions,
+    setCaretPosition,
+    getCaretPosition,
+    getCaretPositionEnd,
+    dispatch
+  }) {
     this.getOptions = getOptions;
     this.getCaretPosition = getCaretPosition;
+    this.getCaretPositionEnd = getCaretPositionEnd;
+    this.setCaretPosition = setCaretPosition;
     this.dispatch = dispatch;
 
     /**
@@ -125,19 +133,28 @@ class Utilities {
    * @param  {string} button The button's layout name
    * @param  {string} input The input string
    * @param  {number} caretPos The cursor's current position
+   * @param  {number} caretPosEnd The cursor's current end position
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
-  getUpdatedInput(button, input, caretPos, moveCaret) {
+  getUpdatedInput(
+    button,
+    input,
+    caretPos,
+    caretPosEnd = caretPos,
+    moveCaret = false
+  ) {
     const options = this.getOptions();
+    const commonParams = [caretPos, caretPosEnd, moveCaret];
+
     let output = input;
 
     if (
       (button === "{bksp}" || button === "{backspace}") &&
       output.length > 0
     ) {
-      output = this.removeAt(output, caretPos, moveCaret);
+      output = this.removeAt(output, ...commonParams);
     } else if (button === "{space}")
-      output = this.addStringAt(output, " ", caretPos, moveCaret);
+      output = this.addStringAt(output, " ", ...commonParams);
     else if (
       button === "{tab}" &&
       !(
@@ -145,12 +162,12 @@ class Utilities {
         options.tabCharOnTab === false
       )
     ) {
-      output = this.addStringAt(output, "\t", caretPos, moveCaret);
+      output = this.addStringAt(output, "\t", ...commonParams);
     } else if (
       (button === "{enter}" || button === "{numpadenter}") &&
       options.newLineOnEnter
     )
-      output = this.addStringAt(output, "\n", caretPos, moveCaret);
+      output = this.addStringAt(output, "\n", ...commonParams);
     else if (
       button.includes("numpad") &&
       Number.isInteger(Number(button[button.length - 2]))
@@ -158,23 +175,22 @@ class Utilities {
       output = this.addStringAt(
         output,
         button[button.length - 2],
-        caretPos,
-        moveCaret
+        ...commonParams
       );
     } else if (button === "{numpaddivide}")
-      output = this.addStringAt(output, "/", caretPos, moveCaret);
+      output = this.addStringAt(output, "/", ...commonParams);
     else if (button === "{numpadmultiply}")
-      output = this.addStringAt(output, "*", caretPos, moveCaret);
+      output = this.addStringAt(output, "*", ...commonParams);
     else if (button === "{numpadsubtract}")
-      output = this.addStringAt(output, "-", caretPos, moveCaret);
+      output = this.addStringAt(output, "-", ...commonParams);
     else if (button === "{numpadadd}")
-      output = this.addStringAt(output, "+", caretPos, moveCaret);
+      output = this.addStringAt(output, "+", ...commonParams);
     else if (button === "{numpaddecimal}")
-      output = this.addStringAt(output, ".", caretPos, moveCaret);
+      output = this.addStringAt(output, ".", ...commonParams);
     else if (button === "{" || button === "}")
-      output = this.addStringAt(output, button, caretPos, moveCaret);
+      output = this.addStringAt(output, button, ...commonParams);
     else if (!button.includes("{") && !button.includes("}"))
-      output = this.addStringAt(output, button, caretPos, moveCaret);
+      output = this.addStringAt(output, button, ...commonParams);
 
     return output;
   }
@@ -187,10 +203,15 @@ class Utilities {
    */
   updateCaretPos(length, minus) {
     const newCaretPos = this.updateCaretPosAction(length, minus);
+    const { syncInstanceInputs } = this.getOptions();
 
-    this.dispatch(instance => {
-      instance.caretPosition = newCaretPos;
-    });
+    if (syncInstanceInputs) {
+      this.dispatch(instance => {
+        instance.setCaretPosition(newCaretPos);
+      });
+    } else {
+      this.setCaretPosition(newCaretPos);
+    }
   }
 
   /**
@@ -220,17 +241,23 @@ class Utilities {
    * Adds a string to the input at a given position
    *
    * @param  {string} source The source input
-   * @param  {string} string The string to add
+   * @param  {string} str The string to add
    * @param  {number} position The (cursor) position where the string should be added
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
-  addStringAt(source, string, position, moveCaret) {
+  addStringAt(
+    source,
+    str,
+    position = source.length,
+    positionEnd = source.length,
+    moveCaret = false
+  ) {
     let output;
 
     if (!position && position !== 0) {
-      output = source + string;
+      output = source + str;
     } else {
-      output = [source.slice(0, position), string, source.slice(position)].join(
+      output = [source.slice(0, position), str, source.slice(positionEnd)].join(
         ""
       );
 
@@ -238,7 +265,7 @@ class Utilities {
        * Avoid caret position change when maxLength is set
        */
       if (!this.isMaxLengthReached()) {
-        if (moveCaret) this.updateCaretPos(string.length);
+        if (moveCaret) this.updateCaretPos(str.length);
       }
     }
 
@@ -252,43 +279,62 @@ class Utilities {
    * @param  {number} position The (cursor) position from where the characters should be removed
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
-  removeAt(source, position, moveCaret) {
-    const caretPosition = this.getCaretPosition();
+  removeAt(
+    source,
+    position = source.length,
+    positionEnd = source.length,
+    moveCaret = false
+  ) {
+    const { syncInstanceInputs } = this.getOptions();
 
-    if (caretPosition === 0) {
+    if (position === 0 && positionEnd === 0) {
       return source;
     }
 
     let output;
-    let prevTwoChars;
-    let emojiMatched;
-    const emojiMatchedReg = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
 
-    /**
-     * Emojis are made out of two characters, so we must take a custom approach to trim them.
-     * For more info: https://mathiasbynens.be/notes/javascript-unicode
-     */
-    if (position && position >= 0) {
-      prevTwoChars = source.substring(position - 2, position);
-      emojiMatched = prevTwoChars.match(emojiMatchedReg);
+    if (position === positionEnd) {
+      let prevTwoChars;
+      let emojiMatched;
+      const emojiMatchedReg = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
 
-      if (emojiMatched) {
-        output = source.substr(0, position - 2) + source.substr(position);
-        if (moveCaret) this.updateCaretPos(2, true);
+      /**
+       * Emojis are made out of two characters, so we must take a custom approach to trim them.
+       * For more info: https://mathiasbynens.be/notes/javascript-unicode
+       */
+      if (position && position >= 0) {
+        prevTwoChars = source.substring(position - 2, position);
+        emojiMatched = prevTwoChars.match(emojiMatchedReg);
+
+        if (emojiMatched) {
+          output = source.substr(0, position - 2) + source.substr(position);
+          if (moveCaret) this.updateCaretPos(2, true);
+        } else {
+          output = source.substr(0, position - 1) + source.substr(position);
+          if (moveCaret) this.updateCaretPos(1, true);
+        }
       } else {
-        output = source.substr(0, position - 1) + source.substr(position);
-        if (moveCaret) this.updateCaretPos(1, true);
+        prevTwoChars = source.slice(-2);
+        emojiMatched = prevTwoChars.match(emojiMatchedReg);
+
+        if (emojiMatched) {
+          output = source.slice(0, -2);
+          if (moveCaret) this.updateCaretPos(2, true);
+        } else {
+          output = source.slice(0, -1);
+          if (moveCaret) this.updateCaretPos(1, true);
+        }
       }
     } else {
-      prevTwoChars = source.slice(-2);
-      emojiMatched = prevTwoChars.match(emojiMatchedReg);
-
-      if (emojiMatched) {
-        output = source.slice(0, -2);
-        if (moveCaret) this.updateCaretPos(2, true);
-      } else {
-        output = source.slice(0, -1);
-        if (moveCaret) this.updateCaretPos(1, true);
+      output = source.slice(0, position) + source.slice(positionEnd);
+      if (moveCaret) {
+        if (syncInstanceInputs) {
+          this.dispatch(instance => {
+            instance.setCaretPosition(position);
+          });
+        } else {
+          this.setCaretPosition(position);
+        }
       }
     }
 
@@ -389,17 +435,17 @@ class Utilities {
   /**
    * Transforms an arbitrary string to camelCase
    *
-   * @param  {string} string The string to transform.
+   * @param  {string} str The string to transform.
    */
-  camelCase(string) {
-    if (!string) return false;
+  camelCase(str) {
+    if (!str) return false;
 
-    return string
+    return str
       .toLowerCase()
       .trim()
       .split(/[.\-_\s]/g)
-      .reduce((string, word) =>
-        word.length ? string + word[0].toUpperCase() + word.slice(1) : string
+      .reduce((str, word) =>
+        word.length ? str + word[0].toUpperCase() + word.slice(1) : str
       );
   }
 }

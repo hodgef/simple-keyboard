@@ -1,12 +1,11 @@
 /**
  * Test Utility Functions
  */
-export default class TestUtility {
   /**
    * Sets a basic DOM structure to test in
    */
-  setDOM = (divClass) => {
-    this.clear();
+  export const setDOM = (divClass) => {
+    clearDOM();
     const wrapperDOM = document.createElement('div');
     wrapperDOM.setAttribute("id", "root");
 
@@ -20,19 +19,29 @@ export default class TestUtility {
   /**
    * Clears DOM structure
    */
-  clear = () => {
+  export const clearDOM = () => {
     document.body.innerHTML = "";
   }
 
   /**
+   * Trigger pointerup
+   */
+  export const triggerDocumentPointerUp = (e = {}) => (document.onpointerup || document.onmouseup || document.ontouchstart)(e);
+
+  /**
+   * Trigger pointerdown
+   */
+  export const triggerDocumentPointerDown = (e = {}) => (document.onpointerdown || document.onmousedown || document.ontouchend)(e);
+
+  /**
    * Test if standard buttons respect maxLength and do input a value
    */
-  testLayoutStdButtons = (keyboard) => {
+  export const testLayoutStdButtons = (keyboard) => {
     let stdBtnCount = 0;
     let fullInput = '';
 
-    this.iterateButtons((button) => {
-      let label = button.getAttribute("data-skbtn");
+    iterateButtons((button) => {
+      const label = button.getAttribute("data-skbtn");
 
       if(label.includes("{"))
         return false;
@@ -41,7 +50,7 @@ export default class TestUtility {
       button.onclick();
 
       // Recording fullInput, bypasses maxLength
-      fullInput = keyboard.utilities.getUpdatedInput(label, fullInput, keyboard.options, null);
+      fullInput = keyboard.utilities.getUpdatedInput(label, fullInput);
 
       stdBtnCount += label.length;
     });
@@ -76,12 +85,12 @@ export default class TestUtility {
   /**
    * Test if function buttons are interactive (have an onclick)
    */
-  testLayoutFctButtons = (callback) => {
+  export const testLayoutFctButtons = (callback) => {
     let fctBtnCount = 0;
     let fctBtnHasOnclickCount = 0;
 
-    this.iterateButtons((button) => {
-      let label = button.getAttribute("data-skbtn");
+    iterateButtons((button) => {
+      const label = button.getAttribute("data-skbtn");
 
       if(!label.includes("{") && !label.includes("}"))
         return false;
@@ -100,8 +109,8 @@ export default class TestUtility {
   /**
    * Iterates on the keyboard buttons
    */
-  iterateButtons = (callback, selector) => {
-    let rows = document.body.querySelector(selector || '.simple-keyboard').children;
+  export const iterateButtons = (callback, selector) => {
+    const rows = document.body.querySelector(selector || '.simple-keyboard').children;
 
     Array.from(rows).forEach(row => {
       Array.from(row.children).forEach((button) => {
@@ -109,4 +118,3 @@ export default class TestUtility {
       });
     });
   }
-}
