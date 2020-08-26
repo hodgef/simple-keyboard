@@ -490,11 +490,11 @@ it('Keyboard removeAt will propagate caretPosition', () => {
   keyboard.getButtonElement('{bksp}').onclick();
   
   expect(keyboard.getCaretPosition()).toBe(1);
-  expect(keyboard2.getCaretPosition()).toBe(null);
+  expect(keyboard2.getCaretPosition()).toBe(1);
 
   expect(keyboard.getInput()).toBe('hlo');
   expect(keyboard.getCaretPositionEnd()).toBe(1);
-  expect(keyboard2.getCaretPositionEnd()).toBe(null);
+  expect(keyboard2.getCaretPositionEnd()).toBe(1);
 });
 
 it('Keyboard removeAt will propagate caretPosition in a syncInstanceInputs setting', () => {
