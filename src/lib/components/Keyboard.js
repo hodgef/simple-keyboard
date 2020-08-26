@@ -27,7 +27,6 @@ class SimpleKeyboard {
      */
     this.utilities = new Utilities({
       getOptions: this.getOptions,
-      setCaretPosition: this.setCaretPosition,
       getCaretPosition: this.getCaretPosition,
       getCaretPositionEnd: this.getCaretPositionEnd,
       dispatch: this.dispatch
@@ -231,10 +230,10 @@ class SimpleKeyboard {
   /**
    * Setters
    */
-  setCaretPosition = (position, endPosition) => {
+  setCaretPosition(position, endPosition) {
     this.caretPosition = position;
     this.caretPositionEnd = endPosition || position;
-  };
+  }
 
   /**
    * Handles clicks made to keyboard buttons
@@ -544,10 +543,10 @@ class SimpleKeyboard {
       /**
        * inputName changed. This requires a caretPosition reset
        */
+      // TODO: Review side-effects
       if (this.options.debug) {
         console.log("inputName changed. caretPosition reset.");
       }
-
       this.setCaretPosition(null);
     }
   }
@@ -873,6 +872,8 @@ class SimpleKeyboard {
             `(${instance.keyboardDOMClass})`
           );
         }
+
+        // TODO: Review side-effects
       } else if (!isKeyboard) {
         instance.setCaretPosition(null);
       }

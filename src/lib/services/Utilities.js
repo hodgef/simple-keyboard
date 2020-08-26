@@ -5,17 +5,10 @@ class Utilities {
   /**
    * Creates an instance of the Utility service
    */
-  constructor({
-    getOptions,
-    setCaretPosition,
-    getCaretPosition,
-    getCaretPositionEnd,
-    dispatch
-  }) {
+  constructor({ getOptions, getCaretPosition, getCaretPositionEnd, dispatch }) {
     this.getOptions = getOptions;
     this.getCaretPosition = getCaretPosition;
     this.getCaretPositionEnd = getCaretPositionEnd;
-    this.setCaretPosition = setCaretPosition;
     this.dispatch = dispatch;
 
     /**
@@ -203,15 +196,10 @@ class Utilities {
    */
   updateCaretPos(length, minus) {
     const newCaretPos = this.updateCaretPosAction(length, minus);
-    const { syncInstanceInputs } = this.getOptions();
 
-    if (syncInstanceInputs) {
-      this.dispatch(instance => {
-        instance.setCaretPosition(newCaretPos);
-      });
-    } else {
-      this.setCaretPosition(newCaretPos);
-    }
+    this.dispatch(instance => {
+      instance.setCaretPosition(newCaretPos);
+    });
   }
 
   /**
@@ -285,8 +273,6 @@ class Utilities {
     positionEnd = source.length,
     moveCaret = false
   ) {
-    const { syncInstanceInputs } = this.getOptions();
-
     if (position === 0 && positionEnd === 0) {
       return source;
     }
@@ -328,13 +314,9 @@ class Utilities {
     } else {
       output = source.slice(0, position) + source.slice(positionEnd);
       if (moveCaret) {
-        if (syncInstanceInputs) {
-          this.dispatch(instance => {
-            instance.setCaretPosition(position);
-          });
-        } else {
-          this.setCaretPosition(position);
-        }
+        this.dispatch(instance => {
+          instance.setCaretPosition(position);
+        });
       }
     }
 
