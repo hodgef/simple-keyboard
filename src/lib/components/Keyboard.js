@@ -1066,7 +1066,7 @@ class SimpleKeyboard {
    */
   onModulesLoaded() {
     if (typeof this.options.onModulesLoaded === "function")
-      this.options.onModulesLoaded();
+      this.options.onModulesLoaded(this);
   }
 
   /**
