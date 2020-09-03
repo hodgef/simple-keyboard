@@ -227,6 +227,16 @@ declare module 'simple-keyboard' {
     setCaretPosition(position: number, positionEnd?: number): void;
 
     /**
+     * Retrieves the internal caret position
+     */
+    getCaretPosition(): number;
+
+    /**
+     * Retrieves the internal end caret position
+     */
+    getCaretPositionEnd(): number;
+
+    /**
      * Adds/Modifies an entry to the `buttonTheme`. Basically a way to add a class to a button.
      * @param  {string} buttons List of buttons to select (separated by a space).
      * @param  {string} className Classes to give to the selected buttons (separated by space).
