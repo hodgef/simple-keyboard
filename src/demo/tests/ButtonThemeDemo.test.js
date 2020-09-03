@@ -1,16 +1,14 @@
-import TestUtility from '../../utils/TestUtility';
+import { setDOM } from '../../utils/TestUtility';
 import ButtonThemeDemo from '../ButtonThemeDemo';
 
-const testUtil = new TestUtility();
-
 it('Demo will load', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new ButtonThemeDemo();
 });
 
 it('Demo onDOMLoaded will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new ButtonThemeDemo();
 
@@ -18,7 +16,7 @@ it('Demo onDOMLoaded will work', () => {
 });
 
 it('Demo onChange will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new ButtonThemeDemo();
 
@@ -28,7 +26,7 @@ it('Demo onChange will work', () => {
 });
 
 it('Demo onChange will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new ButtonThemeDemo();
 
@@ -38,7 +36,7 @@ it('Demo onChange will work', () => {
 });
 
 it('Demo input change will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new ButtonThemeDemo();
 
@@ -49,7 +47,7 @@ it('Demo input change will work', () => {
 });
 
 it('Demo handleShiftButton will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new ButtonThemeDemo();
 
@@ -61,7 +59,7 @@ it('Demo handleShiftButton will work', () => {
 });
 
 it('Demo buttons will have proper attributes and classes', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new ButtonThemeDemo();
 

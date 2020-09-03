@@ -1,16 +1,14 @@
-import TestUtility from '../../utils/TestUtility';
+import { setDOM } from '../../utils/TestUtility';
 import BasicDemo from '../BasicDemo';
 
-const testUtil = new TestUtility();
-
 it('Demo will load', () => {
-  testUtil.setDOM();
+  setDOM();
 
   new BasicDemo();
 });
 
 it('Demo onDOMLoaded will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new BasicDemo();
 
@@ -18,7 +16,7 @@ it('Demo onDOMLoaded will work', () => {
 });
 
 it('Demo onChange will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new BasicDemo();
 
@@ -28,7 +26,7 @@ it('Demo onChange will work', () => {
 });
 
 it('Demo onChange will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new BasicDemo();
 
@@ -38,7 +36,7 @@ it('Demo onChange will work', () => {
 });
 
 it('Demo input change will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new BasicDemo();
 
@@ -49,7 +47,7 @@ it('Demo input change will work', () => {
 });
 
 it('Demo handleShiftButton will work', () => {
-  testUtil.setDOM();
+  setDOM();
 
   const demo = new BasicDemo();
 

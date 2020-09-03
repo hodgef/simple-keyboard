@@ -31,9 +31,9 @@ class PhysicalKeyboard {
 
       if (buttonDOM) {
         buttonDOM.style.backgroundColor =
-          options.physicalKeyboardHighlightBgColor || "#9ab4d0";
+          options.physicalKeyboardHighlightBgColor || "#dadce4";
         buttonDOM.style.color =
-          options.physicalKeyboardHighlightTextColor || "white";
+          options.physicalKeyboardHighlightTextColor || "black";
       }
     });
   }

@@ -28,6 +28,7 @@ class SimpleKeyboard {
     this.utilities = new Utilities({
       getOptions: this.getOptions,
       getCaretPosition: this.getCaretPosition,
+      getCaretPositionEnd: this.getCaretPositionEnd,
       dispatch: this.dispatch
     });
 
@@ -35,6 +36,11 @@ class SimpleKeyboard {
      * Caret position
      */
     this.caretPosition = null;
+
+    /**
+     * Caret position end
+     */
+    this.caretPositionEnd = null;
 
     /**
      * Processing options
@@ -219,6 +225,15 @@ class SimpleKeyboard {
    */
   getOptions = () => this.options;
   getCaretPosition = () => this.caretPosition;
+  getCaretPositionEnd = () => this.caretPositionEnd;
+
+  /**
+   * Setters
+   */
+  setCaretPosition(position, endPosition) {
+    this.caretPosition = position;
+    this.caretPositionEnd = endPosition || position;
+  }
 
   /**
    * Handles clicks made to keyboard buttons
@@ -244,7 +259,8 @@ class SimpleKeyboard {
     const updatedInput = this.utilities.getUpdatedInput(
       button,
       this.input[this.options.inputName],
-      this.caretPosition
+      this.caretPosition,
+      this.caretPositionEnd
     );
 
     if (
@@ -270,10 +286,20 @@ class SimpleKeyboard {
         button,
         this.input[this.options.inputName],
         this.caretPosition,
+        this.caretPositionEnd,
         true
       );
 
       if (debug) console.log("Input changed:", this.input);
+
+      if (this.options.debug) {
+        console.log(
+          "Caret at: ",
+          this.getCaretPosition(),
+          this.getCaretPositionEnd(),
+          `(${this.keyboardDOMClass})`
+        );
+      }
 
       /**
        * Enforce syncInstanceInputs, if set
@@ -314,14 +340,13 @@ class SimpleKeyboard {
      */
     if (e) e.target.classList.add(this.activeButtonClass);
 
+    if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
+    if (this.holdTimeout) clearTimeout(this.holdTimeout);
+
     /**
      * @type {boolean} Whether the mouse is being held onKeyPress
      */
     this.isMouseHold = true;
-
-    if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
-
-    if (this.holdTimeout) clearTimeout(this.holdTimeout);
 
     /**
      * @type {object} Time to wait until a key hold is detected
@@ -355,15 +380,18 @@ class SimpleKeyboard {
    * Handles button mouseup
    */
   handleButtonMouseUp(button) {
-    /**
-     * Remove active class
-     */
-    this.recurseButtons(buttonElement => {
-      buttonElement.classList.remove(this.activeButtonClass);
-    });
+    this.dispatch(instance => {
+      /**
+       * Remove active class
+       */
+      instance.recurseButtons(buttonElement => {
+        buttonElement.classList.remove(this.activeButtonClass);
+      });
 
-    this.isMouseHold = false;
-    if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
+      instance.isMouseHold = false;
+      if (instance.holdInteractionTimeout)
+        clearTimeout(instance.holdInteractionTimeout);
+    });
 
     /**
      * Calling onKeyReleased
@@ -408,7 +436,7 @@ class SimpleKeyboard {
   syncInstanceInputs() {
     this.dispatch(instance => {
       instance.replaceInput(this.input);
-      instance.caretPosition = this.caretPosition;
+      instance.setCaretPosition(this.caretPosition, this.caretPositionEnd);
     });
   }
 
@@ -423,7 +451,7 @@ class SimpleKeyboard {
     /**
      * Reset caretPosition
      */
-    this.caretPosition = 0;
+    this.setCaretPosition(0);
 
     /**
      * Enforce syncInstanceInputs, if set
@@ -515,11 +543,11 @@ class SimpleKeyboard {
       /**
        * inputName changed. This requires a caretPosition reset
        */
+      // TODO: Review side-effects
       if (this.options.debug) {
         console.log("inputName changed. caretPosition reset.");
       }
-
-      this.caretPosition = null;
+      this.setCaretPosition(null);
     }
   }
 
@@ -713,6 +741,8 @@ class SimpleKeyboard {
    * Handles simple-keyboard event listeners
    */
   setEventListeners() {
+    const { useTouchEvents, useMouseEvents } = this.options;
+
     /**
      * Only first instance should set the event listeners
      */
@@ -724,10 +754,42 @@ class SimpleKeyboard {
       /**
        * Event Listeners
        */
-      document.addEventListener("keyup", this.handleKeyUp);
-      document.addEventListener("keydown", this.handleKeyDown);
-      document.addEventListener("mouseup", this.handleMouseUp);
-      document.addEventListener("touchend", this.handleTouchEnd);
+      document.onkeyup = this.handleKeyUp;
+      document.onkeydown = this.handleKeyDown;
+
+      /**
+       * Pointer events
+       */
+      if (
+        this.utilities.pointerEventsSupported() &&
+        !useTouchEvents &&
+        !useMouseEvents
+      ) {
+        document.onpointerdown = this.handlePointerDown;
+        document.onpointerup = this.handlePointerUp;
+        document.onpointercancel = this.handlePointerUp;
+
+        this.keyboardDOM.onpointerdown = this.handleKeyboardContainerMouseDown;
+
+        /**
+         * Touch events
+         */
+      } else if (useTouchEvents) {
+        document.ontouchstart = this.handlePointerDown;
+        document.ontouchend = this.handlePointerUp;
+        document.ontouchcancel = this.handlePointerUp;
+
+        this.keyboardDOM.ontouchstart = this.handleKeyboardContainerMouseDown;
+
+        /**
+         * Mouse events
+         */
+      } else if (!useTouchEvents) {
+        document.onmousedown = this.handlePointerDown;
+        document.onmouseup = this.handlePointerUp;
+
+        this.keyboardDOM.onmousedown = this.handleKeyboardContainerMouseDown;
+      }
     }
   }
 
@@ -752,16 +814,17 @@ class SimpleKeyboard {
   }
 
   /**
-   * Event Handler: MouseUp
+   * Event Handler: PointerDown
    */
-  handleMouseUp(event) {
+  handlePointerDown(event) {
     this.caretEventHandler(event);
   }
 
   /**
-   * Event Handler: TouchEnd
+   * Event Handler: PointerUp
    */
-  handleTouchEnd(event) {
+  handlePointerUp(event) {
+    this.handleButtonMouseUp();
     this.caretEventHandler(event);
   }
 
@@ -769,39 +832,50 @@ class SimpleKeyboard {
    * Called by {@link setEventListeners} when an event that warrants a cursor position update is triggered
    */
   caretEventHandler(event) {
+    if (this.options.disableCaretPositioning) {
+      this.setCaretPosition(null);
+      return;
+    }
+
     let targetTagName;
+
     if (event.target.tagName) {
       targetTagName = event.target.tagName.toLowerCase();
     }
 
+    /* istanbul ignore next */
     this.dispatch(instance => {
-      if (instance.isMouseHold) {
-        instance.isMouseHold = false;
-      }
+      const isKeyboard =
+        event.target === instance.keyboardDOM ||
+        (event.target && instance.keyboardDOM.contains(event.target));
 
-      if (
-        (targetTagName === "textarea" || targetTagName === "input") &&
-        !instance.options.disableCaretPositioning
-      ) {
+      // if (!this.isMouseHold) {
+      //   instance.isMouseHold = false;
+      // }
+
+      if (targetTagName === "textarea" || targetTagName === "input") {
         /**
          * Tracks current cursor position
          * As keys are pressed, text will be added/removed at that position within the input.
          */
-        instance.caretPosition = event.target.selectionStart;
+        instance.setCaretPosition(
+          event.target.selectionStart,
+          event.target.selectionEnd
+        );
 
         if (instance.options.debug) {
           console.log(
             "Caret at: ",
-            event.target.selectionStart,
-            event.target.tagName.toLowerCase(),
+            instance.getCaretPosition(),
+            instance.getCaretPositionEnd(),
+            event && event.target.tagName.toLowerCase(),
             `(${instance.keyboardDOMClass})`
           );
         }
-      } else if (instance.options.disableCaretPositioning) {
-        /**
-         * If we toggled off disableCaretPositioning, we must ensure caretPosition doesn't persist once reactivated.
-         */
-        instance.caretPosition = null;
+
+        // TODO: Review side-effects
+      } else if (!isKeyboard) {
+        instance.setCaretPosition(null);
       }
     });
   }
@@ -827,18 +901,6 @@ class SimpleKeyboard {
       );
 
     /**
-     * Remove document listeners
-     */
-    document.removeEventListener("keyup", this.handleKeyUp);
-    document.removeEventListener("keydown", this.handleKeyDown);
-    document.removeEventListener("mouseup", this.handleMouseUp);
-    document.removeEventListener("touchend", this.handleTouchEnd);
-    document.onpointerup = null;
-    document.ontouchend = null;
-    document.ontouchcancel = null;
-    document.onmouseup = null;
-
-    /**
      * Remove buttons
      */
     let deleteButton = buttonElement => {
@@ -857,8 +919,6 @@ class SimpleKeyboard {
     };
 
     this.recurseButtons(deleteButton);
-
-    this.recurseButtons = null;
     deleteButton = null;
 
     /**
@@ -874,10 +934,53 @@ class SimpleKeyboard {
     this.clear();
 
     /**
+     * Remove timouts
+     */
+    /* istanbul ignore next */
+    if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
+    /* istanbul ignore next */
+    if (this.holdTimeout) clearTimeout(this.holdTimeout);
+
+    /**
      * Remove instance
      */
     window["SimpleKeyboardInstances"][this.currentInstanceName] = null;
     delete window["SimpleKeyboardInstances"][this.currentInstanceName];
+
+    /**
+     * Removing document listeners if there are no more instances
+     */
+    if (!Object.keys(window["SimpleKeyboardInstances"]).length) {
+      /**
+       * Remove document listeners
+       */
+      document.onkeydown = null;
+      document.onkeyup = null;
+
+      document.onpointerdown = null;
+      document.onpointerup = null;
+
+      document.onmousedown = null;
+      document.onmouseup = null;
+
+      document.ontouchstart = null;
+      document.ontouchend = null;
+      document.ontouchcancel = null;
+
+      if (this.options.debug) {
+        console.log(
+          "Destroy: No instances remaining. Document listeners removed",
+          window["SimpleKeyboardInstances"]
+        );
+      }
+    } else {
+      if (this.options.debug) {
+        console.log(
+          "Destroy: Instances remaining! Document listeners not removed",
+          window["SimpleKeyboardInstances"]
+        );
+      }
+    }
 
     /**
      * Reset initialized flag
@@ -1392,7 +1495,6 @@ class SimpleKeyboard {
              * Handle mouse events
              */
             buttonDOM.onclick = () => {
-              this.isMouseHold = false;
               this.handleButtonClicked(button);
             };
             buttonDOM.onmousedown = e => {
@@ -1462,36 +1564,6 @@ class SimpleKeyboard {
        * Ensures that onInit and beforeFirstRender are only called once per instantiation
        */
       this.initialized = true;
-
-      /**
-       * Handling parent events
-       */
-      /* istanbul ignore next */
-      if (
-        this.utilities.pointerEventsSupported() &&
-        !useTouchEvents &&
-        !useMouseEvents
-      ) {
-        document.onpointerup = () => this.handleButtonMouseUp();
-        this.keyboardDOM.onpointerdown = e =>
-          this.handleKeyboardContainerMouseDown(e);
-      } else if (useTouchEvents) {
-        /**
-         * Handling ontouchend, ontouchcancel
-         */
-        document.ontouchend = () => this.handleButtonMouseUp();
-        document.ontouchcancel = () => this.handleButtonMouseUp();
-
-        this.keyboardDOM.ontouchstart = e =>
-          this.handleKeyboardContainerMouseDown(e);
-      } else if (!useTouchEvents) {
-        /**
-         * Handling mouseup
-         */
-        document.onmouseup = () => this.handleButtonMouseUp();
-        this.keyboardDOM.onmousedown = e =>
-          this.handleKeyboardContainerMouseDown(e);
-      }
 
       /**
        * Calling onInit
