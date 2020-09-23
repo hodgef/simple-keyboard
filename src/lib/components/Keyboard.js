@@ -825,7 +825,12 @@ class SimpleKeyboard {
    */
   handlePointerUp(event) {
     this.handleButtonMouseUp();
-    this.caretEventHandler(event);
+    // TODO: Will need further investigation
+    // https://github.com/hodgef/simple-keyboard/issues/54
+    /* istanbul ignore next */
+    setTimeout(() => {
+      this.caretEventHandler(event);
+    }, 0);
   }
 
   /**
