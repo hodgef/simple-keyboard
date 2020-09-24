@@ -26,13 +26,17 @@
   /**
    * Trigger pointerup
    */
-  export const triggerDocumentPointerUp = (e = {}) => (document.onpointerup || document.onmouseup || document.ontouchstart)(e);
+  export const triggerDocumentPointerUp = (e = {}) => {
+    document.dispatchEvent(new MouseEvent('mouseup', e));
+  };
 
   /**
    * Trigger pointerdown
    */
-  export const triggerDocumentPointerDown = (e = {}) => (document.onpointerdown || document.onmousedown || document.ontouchend)(e);
-
+  export const triggerDocumentPointerDown = (e = {}) => {
+    document.dispatchEvent(new MouseEvent('mousedown', e));
+  };
+ 
   /**
    * Test if standard buttons respect maxLength and do input a value
    */
