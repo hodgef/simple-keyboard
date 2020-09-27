@@ -65,7 +65,9 @@ class SimpleKeyboard {
      * @property {boolean} syncInstanceInputs When set to true, this option synchronizes the internal input of every simple-keyboard instance.
      * @property {boolean} physicalKeyboardHighlight Enable highlighting of keys pressed on physical keyboard.
      * @property {boolean} preventMouseDownDefault Calling preventDefault for the mousedown events keeps the focus on the input.
+     * @property {boolean} preventMouseUpDefault Calling preventDefault for the mouseup events.
      * @property {boolean} stopMouseDownPropagation Stops pointer down events on simple-keyboard buttons from bubbling to parent elements.
+     * @property {boolean} stopMouseUpPropagation Stops pointer up events on simple-keyboard buttons from bubbling to parent elements.
      * @property {string} physicalKeyboardHighlightTextColor Define the text color that the physical keyboard highlighted key should have.
      * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have.
      * @property {function(button: string):string} onKeyPress Executes the callback function on key press. Returns button layout name (i.e.: “{shift}”).
@@ -379,7 +381,15 @@ class SimpleKeyboard {
   /**
    * Handles button mouseup
    */
-  handleButtonMouseUp(button) {
+  handleButtonMouseUp(button = null, e = null) {
+    if (e) {
+      /**
+       * Handle event options
+       */
+      if (this.options.preventMouseUpDefault) e.preventDefault();
+      if (this.options.stopMouseUpPropagation) e.stopPropagation();
+    }
+
     /**
      * Remove active class
      */
@@ -1396,11 +1406,11 @@ class SimpleKeyboard {
             this.handleButtonClicked(button);
             this.handleButtonMouseDown(button, e);
           };
-          buttonDOM.onpointerup = () => {
-            this.handleButtonMouseUp(button);
+          buttonDOM.onpointerup = e => {
+            this.handleButtonMouseUp(button, e);
           };
-          buttonDOM.onpointercancel = () => {
-            this.handleButtonMouseUp(button);
+          buttonDOM.onpointercancel = e => {
+            this.handleButtonMouseUp(button, e);
           };
         } else {
           /**
@@ -1414,11 +1424,11 @@ class SimpleKeyboard {
               this.handleButtonClicked(button);
               this.handleButtonMouseDown(button, e);
             };
-            buttonDOM.ontouchend = () => {
-              this.handleButtonMouseUp(button);
+            buttonDOM.ontouchend = e => {
+              this.handleButtonMouseUp(button, e);
             };
-            buttonDOM.ontouchcancel = () => {
-              this.handleButtonMouseUp(button);
+            buttonDOM.ontouchcancel = e => {
+              this.handleButtonMouseUp(button, e);
             };
           } else {
             /**
@@ -1431,8 +1441,8 @@ class SimpleKeyboard {
             buttonDOM.onmousedown = e => {
               this.handleButtonMouseDown(button, e);
             };
-            buttonDOM.onmouseup = () => {
-              this.handleButtonMouseUp(button);
+            buttonDOM.onmouseup = e => {
+              this.handleButtonMouseUp(button, e);
             };
           }
         }

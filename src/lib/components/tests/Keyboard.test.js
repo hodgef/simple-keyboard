@@ -929,14 +929,23 @@ it('Keyboard handleButtonMouseDown will work', () => {
 it('Keyboard handleButtonMouseDown will work with preventMouseDownDefault', () => {
   setDOM();
 
-  const keyboard = new Keyboard();
+  const keyboard = new Keyboard({
+    preventMouseDownDefault: true,
+    stopMouseDownPropagation: true
+  });
+  let called = false;
+  let called2 = false;
 
   keyboard.options.preventMouseDownDefault = true;
 
   keyboard.handleButtonMouseDown("q", {
     target: keyboard.getButtonElement("q"),
-    preventDefault: () => {},
-    stopPropagation: () => {}
+    preventDefault: () => {
+      called = true;
+    },
+    stopPropagation: () => {
+      called2 = true;
+    }
   });
 
   keyboard.getButtonElement("q").onclick();
@@ -944,6 +953,37 @@ it('Keyboard handleButtonMouseDown will work with preventMouseDownDefault', () =
     target: document.body
   });
 
+  expect(called).toBe(true);
+  expect(called2).toBe(true);
+});
+
+it('Keyboard handleButtonMouseUp will work with preventMouseUpDefault and stopMouseUpPropagation', () => {
+  setDOM();
+
+  const keyboard = new Keyboard({
+    preventMouseUpDefault: true,
+    stopMouseUpPropagation: true
+  });
+  let called = false;
+  let called2 = false;
+
+  keyboard.handleButtonMouseUp("q", {
+    target: keyboard.getButtonElement("q"),
+    preventDefault: () => {
+      called = true
+    },
+    stopPropagation: () => {
+      called2 = true;
+    }
+  });
+
+  keyboard.getButtonElement("q").onclick();
+  document.onmouseup({
+    target: document.body
+  });
+
+  expect(called).toBe(true);
+  expect(called2).toBe(true);
 });
 
 it('Keyboard onModulesLoaded will work', () => {
