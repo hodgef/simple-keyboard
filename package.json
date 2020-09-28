@@ -84,7 +84,7 @@
     "postcss-loader": "3.0.0",
     "postcss-normalize": "9.0.0",
     "postcss-preset-env": "6.7.0",
-    "postcss-safe-parser": "5.0.1",
+    "postcss-safe-parser": "5.0.2",
     "prettier": "^1.19.1",
     "prettier-webpack-plugin": "^1.2.0",
     "react": "^16.13.1",
