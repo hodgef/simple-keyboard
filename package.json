@@ -55,7 +55,7 @@
     "babel-loader": "8.1.0",
     "babel-plugin-named-asset-import": "^0.3.6",
     "babel-preset-react-app": "^9.1.2",
-    "camelcase": "^6.0.0",
+    "camelcase": "^6.1.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "copy-webpack-plugin": "^5.1.2",
     "css-loader": "4.3.0",
