@@ -4,6 +4,7 @@ import "./css/index.css";
  * Demos
  */
 import BasicDemo from "./BasicDemo";
+//import RTLDemo from "./RTLDemo";
 //import ButtonThemeDemo from "./ButtonThemeDemo";
 //import DOMElementDemo from "./DOMElementDemo";
 //import FullKeyboardDemo from "./FullKeyboardDemo";

@@ -153,6 +153,11 @@ declare module 'simple-keyboard' {
     disableButtonHold?: boolean;
 
     /**
+     * Adds unicode right-to-left control characters to input return values.
+     */
+    rtl?: boolean;
+
+    /**
      * Executes the callback function on key press. Returns button layout name (i.e.: "{shift}").
      */
     onKeyPress?: (button: string) => any;

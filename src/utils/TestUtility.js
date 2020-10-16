@@ -122,3 +122,10 @@
       });
     });
   }
+
+  /**
+   * Remove RTL control chars
+   */
+  export const removeRTLControls = (input) => {
+    return input.replace("\u202B", "").replace("\u202C", "");
+  }

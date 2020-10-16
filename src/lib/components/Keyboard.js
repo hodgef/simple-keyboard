@@ -83,6 +83,7 @@ class SimpleKeyboard {
      * @property {boolean} useMouseEvents Opt out of PointerEvents handling, falling back to the prior mouse event logic.
      * @property {function} destroy Clears keyboard listeners and DOM elements.
      * @property {boolean} disableButtonHold Disable button hold action.
+     * @property {boolean} rtl Adds unicode right-to-left control characters to input return values.
      * @property {function} onKeyReleased Executes the callback function on key release.
      * @property {array} modules Module classes to be loaded by simple-keyboard.
      */
@@ -292,7 +293,7 @@ class SimpleKeyboard {
         true
       );
 
-      if (debug) console.log("Input changed:", this.input);
+      if (debug) console.log("Input changed:", this.getAllInputs());
 
       if (this.options.debug) {
         console.log(
@@ -312,13 +313,13 @@ class SimpleKeyboard {
        * Calling onChange
        */
       if (typeof this.options.onChange === "function")
-        this.options.onChange(this.input[this.options.inputName]);
+        this.options.onChange(this.getInput(this.options.inputName, true));
 
       /**
        * Calling onChangeAll
        */
       if (typeof this.options.onChangeAll === "function")
-        this.options.onChangeAll(this.input);
+        this.options.onChangeAll(this.getAllInputs());
     }
 
     if (debug) {
@@ -470,15 +471,38 @@ class SimpleKeyboard {
    * Get the keyboard’s input (You can also get it from the onChange prop).
    * @param  {string} [inputName] optional - the internal input to select
    */
-  getInput(inputName) {
+  getInput(inputName, skipSync = false) {
     inputName = inputName || this.options.inputName;
 
     /**
      * Enforce syncInstanceInputs, if set
      */
-    if (this.options.syncInstanceInputs) this.syncInstanceInputs();
+    if (this.options.syncInstanceInputs && !skipSync) this.syncInstanceInputs();
 
-    return this.input[inputName];
+    if (this.options.rtl) {
+      // Remove existing control chars
+      const inputWithoutRTLControl = this.input[inputName]
+        .replace("\u202B", "")
+        .replace("\u202C", "");
+
+      return "\u202B" + inputWithoutRTLControl + "\u202C";
+    } else {
+      return this.input[inputName];
+    }
+  }
+
+  /**
+   * Get all simple-keyboard inputs
+   */
+  getAllInputs() {
+    const output = {};
+    const inputNames = Object.keys(this.input);
+
+    inputNames.forEach(inputName => {
+      output[inputName] = this.getInput(inputName, true);
+    });
+
+    return output;
   }
 
   /**
