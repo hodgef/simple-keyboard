@@ -114,3 +114,56 @@ it('PhysicalKeyboard will work with F1-F12 keys', () => {
     }
   }));
 });
+
+it('PhysicalKeyboard will work with physicalKeyboardHighlightPress', () => {
+  setDOM();
+
+  new Keyboard({
+    physicalKeyboardHighlight: true,
+    physicalKeyboardHighlightPress: true,
+    debug: true
+  });
+
+  document.dispatchEvent(new KeyboardEvent('keydown', {
+    code: "KeyF",
+    key: "f",
+    target: {
+      tagName: "input"
+    }
+  }));
+
+  document.dispatchEvent(new KeyboardEvent('keyup', {
+    code: "KeyF",
+    key: "f",
+    target: {
+      tagName: "input"
+    }
+  }));
+});
+
+it('PhysicalKeyboard will work with physicalKeyboardHighlightPress (touch)', () => {
+  setDOM();
+
+  new Keyboard({
+    physicalKeyboardHighlight: true,
+    physicalKeyboardHighlightPress: true,
+    useTouchEvents: true,
+    debug: true
+  });
+
+  document.dispatchEvent(new KeyboardEvent('keydown', {
+    code: "KeyF",
+    key: "f",
+    target: {
+      tagName: "input"
+    }
+  }));
+
+  document.dispatchEvent(new KeyboardEvent('keyup', {
+    code: "KeyF",
+    key: "f",
+    target: {
+      tagName: "input"
+    }
+  }));
+});

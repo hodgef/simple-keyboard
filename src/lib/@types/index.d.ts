@@ -88,6 +88,21 @@ declare module 'simple-keyboard' {
     physicalKeyboardHighlight?: boolean;
 
     /**
+     * Presses keys highlighted by physicalKeyboardHighlight
+     */
+    physicalKeyboardHighlightPress?: boolean;
+
+    /**
+     * Define the text color that the physical keyboard highlighted key should have.
+     */
+    physicalKeyboardHighlightTextColor?: string;
+
+    /**
+     * Define the background color that the physical keyboard highlighted key should have.
+     */
+    physicalKeyboardHighlightBgColor?: string;
+
+    /**
      * Calling preventDefault for the mousedown events keeps the focus on the input.
      */
     preventMouseDownDefault?: boolean;
@@ -106,16 +121,6 @@ declare module 'simple-keyboard' {
      * Stops pointer up events on simple-keyboard buttons from bubbling to parent elements.
      */
     stopMouseUpPropagation?: boolean;
-
-    /**
-     * Define the text color that the physical keyboard highlighted key should have.
-     */
-    physicalKeyboardHighlightTextColor?: string;
-
-    /**
-     * Define the background color that the physical keyboard highlighted key should have.
-     */
-    physicalKeyboardHighlightBgColor?: string;
 
     /**
      * Render buttons as a button element instead of a div element.

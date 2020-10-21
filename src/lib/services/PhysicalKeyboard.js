@@ -34,11 +34,24 @@ class PhysicalKeyboard {
           options.physicalKeyboardHighlightBgColor || "#dadce4";
         buttonDOM.style.color =
           options.physicalKeyboardHighlightTextColor || "black";
+
+        if (options.physicalKeyboardHighlightPress) {
+          /**
+           * Trigger mousedown
+           */
+          (
+            buttonDOM.onpointerdown ||
+            buttonDOM.onmousedown ||
+            buttonDOM.ontouchstart ||
+            Utilities.noop
+          )();
+        }
       }
     });
   }
 
   handleHighlightKeyUp(event) {
+    const options = this.getOptions();
     const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
     this.dispatch(instance => {
@@ -48,6 +61,18 @@ class PhysicalKeyboard {
 
       if (buttonDOM && buttonDOM.removeAttribute) {
         buttonDOM.removeAttribute("style");
+
+        if (options.physicalKeyboardHighlightPress) {
+          /**
+           * Trigger mousedown
+           */
+          (
+            buttonDOM.onpointerup ||
+            buttonDOM.onmouseup ||
+            buttonDOM.ontouchend ||
+            Utilities.noop
+          )();
+        }
       }
     });
   }

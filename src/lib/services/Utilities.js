@@ -430,6 +430,8 @@ class Utilities {
         word.length ? str + word[0].toUpperCase() + word.slice(1) : str
       );
   }
+
+  static noop = () => {};
 }
 
 export default Utilities;

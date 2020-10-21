@@ -64,12 +64,13 @@ class SimpleKeyboard {
      * @property {object} maxLength Restrains simple-keyboard’s individual inputs to a certain length. This should be used in addition to the input element’s maxlengthattribute.
      * @property {boolean} syncInstanceInputs When set to true, this option synchronizes the internal input of every simple-keyboard instance.
      * @property {boolean} physicalKeyboardHighlight Enable highlighting of keys pressed on physical keyboard.
+     * @property {boolean} physicalKeyboardHighlightPress Presses keys highlighted by physicalKeyboardHighlight
+     * @property {string} physicalKeyboardHighlightTextColor Define the text color that the physical keyboard highlighted key should have.
+     * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have.
      * @property {boolean} preventMouseDownDefault Calling preventDefault for the mousedown events keeps the focus on the input.
      * @property {boolean} preventMouseUpDefault Calling preventDefault for the mouseup events.
      * @property {boolean} stopMouseDownPropagation Stops pointer down events on simple-keyboard buttons from bubbling to parent elements.
      * @property {boolean} stopMouseUpPropagation Stops pointer up events on simple-keyboard buttons from bubbling to parent elements.
-     * @property {string} physicalKeyboardHighlightTextColor Define the text color that the physical keyboard highlighted key should have.
-     * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have.
      * @property {function(button: string):string} onKeyPress Executes the callback function on key press. Returns button layout name (i.e.: “{shift}”).
      * @property {function(input: string):string} onChange Executes the callback function on input change. Returns the current input’s string.
      * @property {function} onRender Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
