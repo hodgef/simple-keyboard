@@ -37,7 +37,7 @@ class PhysicalKeyboard {
 
         if (options.physicalKeyboardHighlightPress) {
           /**
-           * Trigger mousedown
+           * Trigger pointerdown
            */
           (
             buttonDOM.onpointerdown ||
@@ -64,7 +64,7 @@ class PhysicalKeyboard {
 
         if (options.physicalKeyboardHighlightPress) {
           /**
-           * Trigger mousedown
+           * Trigger pointerup
            */
           (
             buttonDOM.onpointerup ||

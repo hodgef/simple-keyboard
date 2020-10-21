@@ -167,3 +167,38 @@ it('PhysicalKeyboard will work with physicalKeyboardHighlightPress (touch)', () 
     }
   }));
 });
+
+it('PhysicalKeyboard with physicalKeyboardHighlightPress can trigger noop', () => {
+  setDOM();
+
+  const keyboard = new Keyboard({
+    physicalKeyboardHighlight: true,
+    physicalKeyboardHighlightPress: true,
+    useTouchEvents: true,
+    debug: true
+  });
+
+  keyboard.getButtonElement('f').onmousedown = null;
+  keyboard.getButtonElement('f').onpointerdown = null;
+  keyboard.getButtonElement('f').ontouchstart = null;
+
+  document.dispatchEvent(new KeyboardEvent('keydown', {
+    code: "KeyF",
+    key: "f",
+    target: {
+      tagName: "input"
+    }
+  }));
+
+  keyboard.getButtonElement('f').onmouseup = null;
+  keyboard.getButtonElement('f').onpointerup = null;
+  keyboard.getButtonElement('f').ontouchend = null;
+
+  document.dispatchEvent(new KeyboardEvent('keyup', {
+    code: "KeyF",
+    key: "f",
+    target: {
+      tagName: "input"
+    }
+  }));
+});
