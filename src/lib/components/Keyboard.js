@@ -214,6 +214,10 @@ class SimpleKeyboard {
     } else {
       keyboardDOMClass = "simple-keyboard";
       keyboardDOM = document.querySelector(`.${keyboardDOMClass}`);
+if(keyboardDOM  == null){
+document.querySelectorAll('iframe').forEach( item =>
+    keyboardDOM = item.contentWindow.document.querySelector('.simple-keyboard')
+)}
       options = params[0];
     }
 
