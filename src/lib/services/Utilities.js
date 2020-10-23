@@ -362,7 +362,7 @@ class Utilities {
     }
 
     if (typeof maxLength === "object") {
-      const condition = currentInput.length === maxLength[options.inputName];
+      const condition = updatedInput.length - 1 >= maxLength[options.inputName];
 
       if (options.debug) {
         console.log("maxLength (obj) reached:", condition);
