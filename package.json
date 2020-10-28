@@ -77,7 +77,7 @@
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "26.6.1",
     "jest-watch-typeahead": "0.6.1",
-    "mini-css-extract-plugin": "1.2.0",
+    "mini-css-extract-plugin": "1.2.1",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.2.1",
