@@ -80,7 +80,7 @@
     "mini-css-extract-plugin": "1.2.1",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "pnp-webpack-plugin": "1.6.4",
-    "postcss-flexbugs-fixes": "4.2.1",
+    "postcss-flexbugs-fixes": "5.0.0",
     "postcss-loader": "3.0.0",
     "postcss-normalize": "9.0.0",
     "postcss-preset-env": "6.7.0",
