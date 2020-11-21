@@ -1153,24 +1153,10 @@ class SimpleKeyboard {
     if (Array.isArray(this.options.modules)) {
       this.options.modules.forEach(KeyboardModule => {
         const keyboardModule = new KeyboardModule();
-
-        /* istanbul ignore next */
-        if (
-          keyboardModule.constructor.name &&
-          keyboardModule.constructor.name !== "Function"
-        ) {
-          const classStr = `module-${this.utilities.camelCase(
-            keyboardModule.constructor.name
-          )}`;
-          this.keyboardPluginClasses =
-            this.keyboardPluginClasses + ` ${classStr}`;
-        }
-
         keyboardModule.init(this);
       });
 
-      this.keyboardPluginClasses =
-        this.keyboardPluginClasses + " modules-loaded";
+      this.keyboardPluginClasses = "modules-loaded";
 
       this.render();
       this.onModulesLoaded();
