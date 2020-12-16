@@ -99,15 +99,15 @@ class PhysicalKeyboard {
     }
 
     /**
-     * If button is not uppercase, casting to lowercase
+     * Casting key to lowercase
      */
     if (
-      output !== output.toUpperCase() ||
+      (output && output !== output.toUpperCase()) ||
       (event.code[0] === "F" &&
         Number.isInteger(Number(event.code[1])) &&
         event.code.length <= 3)
     ) {
-      output = output.toLowerCase();
+      output = output ? output.toLowerCase() : output;
     }
 
     return output;
