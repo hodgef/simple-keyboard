@@ -333,17 +333,19 @@ class SimpleKeyboard {
    */
   /* istanbul ignore next */
   handleButtonMouseDown(button, e) {
-    /**
-     * Handle event options
-     */
-    if (this.options.preventMouseDownDefault) e.preventDefault();
-    if (this.options.stopMouseDownPropagation) e.stopPropagation();
+    if(e){
+      /**
+       * Handle event options
+       */
+      if (this.options.preventMouseDownDefault) e.preventDefault();
+      if (this.options.stopMouseDownPropagation) e.stopPropagation();
 
-    /**
-     * Add active class
-     */
-    if (e) e.target.classList.add(this.activeButtonClass);
-
+      /**
+       * Add active class
+       */
+      e.target.classList.add(this.activeButtonClass);
+    }
+    
     if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
     if (this.holdTimeout) clearTimeout(this.holdTimeout);
 
