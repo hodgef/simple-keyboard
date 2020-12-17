@@ -333,7 +333,7 @@ class SimpleKeyboard {
    */
   /* istanbul ignore next */
   handleButtonMouseDown(button, e) {
-    if(e){
+    if (e) {
       /**
        * Handle event options
        */
@@ -345,7 +345,7 @@ class SimpleKeyboard {
        */
       e.target.classList.add(this.activeButtonClass);
     }
-    
+
     if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
     if (this.holdTimeout) clearTimeout(this.holdTimeout);
 
