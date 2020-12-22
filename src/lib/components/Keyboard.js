@@ -880,7 +880,7 @@ class SimpleKeyboard {
    * Execute an operation on each button
    */
   recurseButtons(fn) {
-    if (!fn) return false;
+    if (!fn) return;
 
     Object.keys(this.buttonElements).forEach(buttonName =>
       this.buttonElements[buttonName].forEach(fn)

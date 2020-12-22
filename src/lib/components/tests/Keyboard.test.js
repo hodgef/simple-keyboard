@@ -1376,7 +1376,7 @@ it('Keyboard buttonAttribute will warn about invalid entries', () => {
 it('Keyboard recurseButtons will not work without a valid param', () => {
   setDOM();
   const keyboard = new Keyboard();
-  expect(keyboard.recurseButtons()).toBe(false);
+  expect(keyboard.recurseButtons()).toBeFalsy();
 });
 
 it('Keyboard will not work with a DOM element param without class', () => {
