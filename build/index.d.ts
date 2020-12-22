@@ -312,6 +312,11 @@ declare module 'simple-keyboard' {
      * Clears keyboard listeners and DOM elements.
      */
     destroy(): void;
+
+    /**
+     * Iterate on each button (ForEach)
+     */
+    recurseButtons(fn: any): void;
   }
 
   export default Keyboard;
