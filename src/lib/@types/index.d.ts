@@ -291,6 +291,12 @@ declare module 'simple-keyboard' {
     setInput(input: string, inputName?: string): void;
 
     /**
+     * Replaces the entire internal input object.
+     * @param  {string} input the input object
+     */
+    replaceInput(input: any): void;
+
+    /**
      * Set new option or modify existing ones after initialization.
      * @param  {KeyboardOptions} option The option to set
      */
