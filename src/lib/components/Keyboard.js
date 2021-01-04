@@ -847,6 +847,8 @@ class SimpleKeyboard {
 
       if (
         (targetTagName === "textarea" || targetTagName === "input") &&
+        "selectionStart" in event.target &&
+        "selectionEnd" in event.target &&
         !instance.options.disableCaretPositioning
       ) {
         /**
