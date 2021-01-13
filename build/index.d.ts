@@ -1,20 +1,20 @@
 declare module 'simple-keyboard' {
-  interface KeyboardLayoutObject {
+  export interface KeyboardLayoutObject {
     [key: string]: string[];
   }
 
-  interface KeyboardButtonTheme {
+  export interface KeyboardButtonTheme {
     class: string;
     buttons: string;
   }
 
-  interface KeyboardButtonAttributes {
+  export interface KeyboardButtonAttributes {
     attribute: string;
     value: string;
     buttons: string;
   }
 
-  interface KeyboardOptions {
+  export interface KeyboardOptions {
     /**
      * Modify the keyboard layout.
      */
