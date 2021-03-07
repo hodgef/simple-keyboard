@@ -1,11 +1,25 @@
+import { KeyboardInput } from "./../interfaces";
+import { KeyboardOptions, UtilitiesParams } from "../interfaces";
+
 /**
  * Utility Service
  */
 class Utilities {
+  getOptions: () => KeyboardOptions;
+  getCaretPosition: () => number;
+  getCaretPositionEnd: () => number;
+  dispatch: any;
+  maxLengthReached: boolean;
+
   /**
    * Creates an instance of the Utility service
    */
-  constructor({ getOptions, getCaretPosition, getCaretPositionEnd, dispatch }) {
+  constructor({
+    getOptions,
+    getCaretPosition,
+    getCaretPositionEnd,
+    dispatch,
+  }: UtilitiesParams) {
     this.getOptions = getOptions;
     this.getCaretPosition = getCaretPosition;
     this.getCaretPositionEnd = getCaretPositionEnd;
@@ -23,7 +37,7 @@ class Utilities {
    * @param  {string} button The button's layout name
    * @return {string} The classes to be added to the button
    */
-  getButtonClass(button) {
+  getButtonClass(button: string) {
     const buttonTypeClass =
       button.includes("{") && button.includes("}") && button !== "{//}"
         ? "functionBtn"
@@ -100,7 +114,7 @@ class Utilities {
       "{numpad6}": "6",
       "{numpad7}": "7",
       "{numpad8}": "8",
-      "{numpad9}": "9"
+      "{numpad9}": "9",
     };
   }
   /**
@@ -110,7 +124,11 @@ class Utilities {
    * @param  {object} display The provided display option
    * @param  {boolean} mergeDisplay Whether the provided param value should be merged with the default one.
    */
-  getButtonDisplayName(button, display, mergeDisplay) {
+  getButtonDisplayName(
+    button: string,
+    display: KeyboardOptions["display"],
+    mergeDisplay: boolean
+  ) {
     if (mergeDisplay) {
       display = Object.assign({}, this.getDefaultDiplay(), display);
     } else {
@@ -130,14 +148,18 @@ class Utilities {
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
   getUpdatedInput(
-    button,
-    input,
-    caretPos,
+    button: string,
+    input: string,
+    caretPos: number,
     caretPosEnd = caretPos,
     moveCaret = false
   ) {
     const options = this.getOptions();
-    const commonParams = [caretPos, caretPosEnd, moveCaret];
+    const commonParams: [number, number, boolean] = [
+      caretPos,
+      caretPosEnd,
+      moveCaret,
+    ];
 
     let output = input;
 
@@ -194,10 +216,10 @@ class Utilities {
    * @param  {number} length Represents by how many characters the input should be moved
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */
-  updateCaretPos(length, minus) {
+  updateCaretPos(length: number, minus = false) {
     const newCaretPos = this.updateCaretPosAction(length, minus);
 
-    this.dispatch(instance => {
+    this.dispatch((instance: any) => {
       instance.setCaretPosition(newCaretPos);
     });
   }
@@ -208,7 +230,7 @@ class Utilities {
    * @param  {number} length Represents by how many characters the input should be moved
    * @param  {boolean} minus Whether the cursor should be moved to the left or not.
    */
-  updateCaretPosAction(length, minus) {
+  updateCaretPosAction(length: number, minus = false) {
     const options = this.getOptions();
     let caretPosition = this.getCaretPosition();
 
@@ -219,7 +241,7 @@ class Utilities {
     }
 
     if (options.debug) {
-      console.log("Caret at:", caretPosition, `(${this.keyboardDOMClass})`);
+      console.log("Caret at:", caretPosition);
     }
 
     return caretPosition;
@@ -234,8 +256,8 @@ class Utilities {
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
   addStringAt(
-    source,
-    str,
+    source: string,
+    str: string,
     position = source.length,
     positionEnd = source.length,
     moveCaret = false
@@ -268,7 +290,7 @@ class Utilities {
    * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
    */
   removeAt(
-    source,
+    source: string,
     position = source.length,
     positionEnd = source.length,
     moveCaret = false
@@ -314,7 +336,7 @@ class Utilities {
     } else {
       output = source.slice(0, position) + source.slice(positionEnd);
       if (moveCaret) {
-        this.dispatch(instance => {
+        this.dispatch((instance: any) => {
           instance.setCaretPosition(position);
         });
       }
@@ -328,7 +350,7 @@ class Utilities {
    * @param  {object} inputObj
    * @param  {string} updatedInput
    */
-  handleMaxLength(inputObj, updatedInput) {
+  handleMaxLength(inputObj: KeyboardInput, updatedInput: string) {
     const options = this.getOptions();
     const maxLength = options.maxLength;
     const currentInput = inputObj[options.inputName];
@@ -403,7 +425,7 @@ class Utilities {
    * Bind all methods in a given class
    */
 
-  static bindMethods(myClass, instance) {
+  static bindMethods(myClass: any, instance: any) {
     // eslint-disable-next-line no-unused-vars
     for (const myMethod of Object.getOwnPropertyNames(myClass.prototype)) {
       const excludeMethod =
@@ -419,8 +441,8 @@ class Utilities {
    *
    * @param  {string} str The string to transform.
    */
-  camelCase(str) {
-    if (!str) return false;
+  camelCase(str: string): string {
+    if (!str) return;
 
     return str
       .toLowerCase()

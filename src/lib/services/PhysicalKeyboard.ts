@@ -1,13 +1,17 @@
+import { KeyboardOptions, UtilitiesParams } from "../interfaces";
 import Utilities from "../services/Utilities";
 
 /**
  * Physical Keyboard Service
  */
 class PhysicalKeyboard {
+  getOptions: () => KeyboardOptions;
+  dispatch: any;
+
   /**
    * Creates an instance of the PhysicalKeyboard service
    */
-  constructor({ dispatch, getOptions }) {
+  constructor({ dispatch, getOptions }: Partial<UtilitiesParams>) {
     /**
      * @type {object} A simple-keyboard instance
      */
@@ -20,11 +24,11 @@ class PhysicalKeyboard {
     Utilities.bindMethods(PhysicalKeyboard, this);
   }
 
-  handleHighlightKeyDown(event) {
+  handleHighlightKeyDown(event: KeyboardEvent) {
     const options = this.getOptions();
     const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
-    this.dispatch(instance => {
+    this.dispatch((instance: any) => {
       const buttonDOM =
         instance.getButtonElement(buttonPressed) ||
         instance.getButtonElement(`{${buttonPressed}}`);
@@ -50,11 +54,11 @@ class PhysicalKeyboard {
     });
   }
 
-  handleHighlightKeyUp(event) {
+  handleHighlightKeyUp(event: KeyboardEvent) {
     const options = this.getOptions();
     const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
-    this.dispatch(instance => {
+    this.dispatch((instance: any) => {
       const buttonDOM =
         instance.getButtonElement(buttonPressed) ||
         instance.getButtonElement(`{${buttonPressed}}`);
@@ -81,7 +85,7 @@ class PhysicalKeyboard {
    * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
    * @param  {object} event The KeyboardEvent
    */
-  getSimpleKeyboardLayoutKey(event) {
+  getSimpleKeyboardLayoutKey(event: KeyboardEvent) {
     let output;
 
     if (

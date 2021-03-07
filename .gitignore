@@ -5,9 +5,6 @@
 /.pnp
 .pnp.js
 
-# production
-/demo
-
 # testing
 /coverage
 
