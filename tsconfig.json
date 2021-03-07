@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "noImplicitAny": true,
+      "outFile": "build/index.d.ts",
+      "module": "esnext",
+      "target": "es5",
+      "allowJs": true,
+      "sourceMap": true,
+      "declaration": true,
+      "emitDeclarationOnly": true,
+      "suppressImplicitAnyIndexErrors": true,
+      "lib": ["es2018", "dom"],
+      "moduleResolution": "node",
+    },
+    "include": ["src/lib"],
+    "exclude": ["src/**/tests"],
+}
