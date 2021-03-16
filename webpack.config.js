@@ -26,26 +26,23 @@ const banner = `
 
 module.exports = {
   mode: "production",
-  devtool: 'source-map',
   entry: './src/lib/index.ts',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'build'),
     library: "SimpleKeyboard",
     libraryTarget: 'umd',
-    clean: true
+    clean: true,
+    globalObject: 'this',
+    environment: {
+      arrowFunction: false
+    }
   },
   optimization: {
     minimize: true,
     minimizer: [
       new TerserPlugin({ extractComments: false }),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {
-          map: {
-            inline: false
-          }
-        }
-      })
+      new OptimizeCSSAssetsPlugin()
     ],
   },
   devServer: {
@@ -58,7 +55,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(m|j|t)s$/,
+        test: /\.m?(j|t)s$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader'
@@ -68,7 +65,19 @@ module.exports = {
         test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          { loader: "css-loader", options: { sourceMap: true } },
+          { loader: "css-loader" },
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    "autoprefixer"
+                  ],
+                ],
+              },
+            },
+          },
         ],
       },
       {
