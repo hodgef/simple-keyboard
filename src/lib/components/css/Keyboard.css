@@ -8,6 +8,11 @@
   box-sizing: border-box;
   overflow: hidden;
   touch-action: manipulation;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
+  background-color: #ececec;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .hg-theme-default .hg-button span {
@@ -19,14 +24,6 @@
   border-width: 0;
   outline: 0;
   font-size: inherit;
-}
-
-.hg-theme-default {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-    Helvetica, Arial, "Lucida Grande", sans-serif;
-  background-color: #ececec;
-  padding: 5px;
-  border-radius: 5px;
 }
 
 .hg-theme-default .hg-button {
@@ -74,7 +71,14 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.hg-theme-default .hg-button.hg-activeButton {
+.hg-theme-default .hg-button.hg-standardBtn {
+  width: 20px;
+}
+
+.hg-theme-default
+  .hg-button.hg-functionBtn
+  .hg-theme-default
+  .hg-button.hg-activeButton {
   background: #efefef;
 }
 

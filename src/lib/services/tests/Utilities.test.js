@@ -17,11 +17,11 @@ it('Keyboard mergeDisplay will work', () => {
 it('Keyboard function buttons will work', () => {
   setDOM();
 
-  new Keyboard();
+  const keyboard = new Keyboard();
   
-  testLayoutFctButtons((fctBtnCount, fctBtnHasOnclickCount) => {
+  testLayoutFctButtons(keyboard, (fctBtnCount, fctBtnHasOnclickCount) => {
     expect(fctBtnCount).toBe(fctBtnHasOnclickCount);
-  });
+  }, keyboard);
 });
 
 it('Keyboard {bksp} button will work', () => {

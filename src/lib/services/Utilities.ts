@@ -32,16 +32,25 @@ class Utilities {
   }
 
   /**
+   * Retrieve button type
+   *
+   * @param  {string} button The button's layout name
+   * @return {string} The button type
+   */
+  getButtonType(button: string): string {
+    return button.includes("{") && button.includes("}") && button !== "{//}"
+      ? "functionBtn"
+      : "standardBtn";
+  }
+
+  /**
    * Adds default classes to a given button
    *
    * @param  {string} button The button's layout name
    * @return {string} The classes to be added to the button
    */
-  getButtonClass(button: string) {
-    const buttonTypeClass =
-      button.includes("{") && button.includes("}") && button !== "{//}"
-        ? "functionBtn"
-        : "standardBtn";
+  getButtonClass(button: string): string {
+    const buttonTypeClass = this.getButtonType(button);
     const buttonWithoutBraces = button.replace("{", "").replace("}", "");
     let buttonNormalized = "";
 
@@ -418,7 +427,7 @@ class Utilities {
    * Determines whether pointer events are supported
    */
   pointerEventsSupported() {
-    return window.PointerEvent;
+    return !!window.PointerEvent;
   }
 
   /**
@@ -453,6 +462,18 @@ class Utilities {
       );
   }
 
+  /**
+   * Split array into chunks
+   */
+  chunkArray<T>(arr: T[], size: number): T[][] {
+    return [...Array(Math.ceil(arr.length / size))].map((_, i) =>
+      arr.slice(size * i, size + size * i)
+    );
+  }
+
+  /**
+   * Reusable empty function
+   */
   static noop = () => {};
 }
 

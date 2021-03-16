@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "noImplicitAny": true,
-      "outFile": "build/index.d.ts",
+      "outDir": "build/types",
       "module": "esnext",
       "target": "es5",
       "allowJs": true,
@@ -9,9 +9,10 @@
       "declaration": true,
       "emitDeclarationOnly": true,
       "suppressImplicitAnyIndexErrors": true,
-      "lib": ["es2018", "dom"],
+      "lib": ["es2020", "dom"],
       "moduleResolution": "node",
+      "downlevelIteration": true
     },
     "include": ["src/lib"],
-    "exclude": ["src/**/tests"],
+    "exclude": ["src/lib/**/tests"],
 }
