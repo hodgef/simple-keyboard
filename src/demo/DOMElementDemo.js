@@ -4,7 +4,7 @@ import "./css/DOMElementDemo.css";
 class Demo {
   constructor() {
     const rootDOM =
-      document.querySelector("#root") || document.createElement("div");
+      document.querySelector("body") || document.createElement("div");
 
     const keyboard1DOM = document.createElement("div");
     keyboard1DOM.className = "my-keyboard";

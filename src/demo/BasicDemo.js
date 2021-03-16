@@ -2,7 +2,7 @@ import Keyboard from "../lib";
 import "./css/BasicDemo.css";
 
 const setDOM = () => {
-  document.querySelector("#root").innerHTML = `
+  document.querySelector("body").innerHTML = `
     <input class="input" placeholder="Tap on the virtual keyboard to start" />
     <div class="simple-keyboard"></div>
   `;

@@ -44,7 +44,7 @@
     let stdBtnCount = 0;
     let fullInput = '';
 
-    iterateButtons((button) => {
+    keyboard.recurseButtons((button) => {
       const label = button.getAttribute("data-skbtn");
 
       if(label.includes("{"))
@@ -89,11 +89,11 @@
   /**
    * Test if function buttons are interactive (have an onclick)
    */
-  export const testLayoutFctButtons = (callback) => {
+  export const testLayoutFctButtons = (keyboard, callback) => {
     let fctBtnCount = 0;
     let fctBtnHasOnclickCount = 0;
 
-    iterateButtons((button) => {
+    keyboard.recurseButtons((button) => {
       const label = button.getAttribute("data-skbtn");
 
       if(!label.includes("{") && !label.includes("}"))
@@ -107,19 +107,6 @@
       }
 
       callback(fctBtnCount, fctBtnHasOnclickCount);
-    });
-  }
-
-  /**
-   * Iterates on the keyboard buttons
-   */
-  export const iterateButtons = (callback, selector) => {
-    const rows = document.body.querySelector(selector || '.simple-keyboard').children;
-
-    Array.from(rows).forEach(row => {
-      Array.from(row.children).forEach((button) => {
-        callback(button);
-      });
     });
   }
 
