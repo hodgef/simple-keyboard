@@ -44,7 +44,7 @@ export type CandidateBoxRenderParams = {
 }
 
 export type KeyboardElement = HTMLDivElement | HTMLButtonElement;
-export type KeyboardHandlerEvent = PointerEvent & TouchEvent & KeyboardEvent & { target: HTMLDivElement | HTMLInputElement };
+export type KeyboardHandlerEvent = PointerEvent & TouchEvent & KeyboardEvent & { target: HTMLDivElement & HTMLInputElement };
 
 export interface KeyboardButtonElements {
     [key: string]: KeyboardElement[]
