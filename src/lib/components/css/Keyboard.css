@@ -75,10 +75,7 @@
   width: 20px;
 }
 
-.hg-theme-default
-  .hg-button.hg-functionBtn
-  .hg-theme-default
-  .hg-button.hg-activeButton {
+.hg-theme-default .hg-button.hg-activeButton {
   background: #efefef;
 }
 
