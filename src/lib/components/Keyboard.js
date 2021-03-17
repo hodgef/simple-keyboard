@@ -847,8 +847,9 @@ class SimpleKeyboard {
 
       if (
         (targetTagName === "textarea" || targetTagName === "input") &&
-        "selectionStart" in event.target &&
-        "selectionEnd" in event.target &&
+        ["text", "search", "url", "tel", "password"].includes(
+          event.target.type
+        ) &&
         !instance.options.disableCaretPositioning
       ) {
         /**
