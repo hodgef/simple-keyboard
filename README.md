@@ -75,6 +75,7 @@ You can extend simple-keyboard's functionality with [modules](https://hodgef.com
 Want to create your own module? Check out the [Modules page](https://hodgef.com/simple-keyboard/modules/) for instructions.
 
 ## Compatibility 🎯
+
 - Internet Explorer 11
 - Edge (Spartan) 16+
 - Edge (Anaheim/Edge Chromium) 79+
