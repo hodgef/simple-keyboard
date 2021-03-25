@@ -1077,12 +1077,12 @@ class SimpleKeyboard {
       }
 
       if (
-        (
-          targetTagName === "textarea" ||
+        (targetTagName === "textarea" ||
           (targetTagName === "input" &&
-            ["text", "search", "url", "tel", "password"].includes(event.target.type)
-          )
-         ) && !instance.options.disableCaretPositioning
+            ["text", "search", "url", "tel", "password"].includes(
+              event.target.type
+            ))) &&
+        !instance.options.disableCaretPositioning
       ) {
         /**
          * Tracks current cursor position
