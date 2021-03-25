@@ -1336,7 +1336,7 @@ class SimpleKeyboard {
     }
 
     if (typeof this.options.beforeFirstRender === "function")
-      this.options.beforeFirstRender();
+      this.options.beforeFirstRender(this);
 
     /**
      * Notify about PointerEvents usage
@@ -1369,7 +1369,7 @@ class SimpleKeyboard {
    */
   beforeRender() {
     if (typeof this.options.beforeRender === "function")
-      this.options.beforeRender();
+      this.options.beforeRender(this);
   }
 
   /**
