@@ -30,17 +30,17 @@
 
 <blockquote>Virtual Keyboard for Javascript. Compatible with your JS, React, Angular or Vue projects.</blockquote>
 
-## Demo 🚀
+## 🚀 Demo
 
 [Demo Showcase (Vanilla, Angular, React, Vue)](https://simple-keyboard.com/demo)
 
-## Installation & Usage 📦
+## 📦 Installation & Usage
 
 You can use simple-keyboard as a `<script>` tag from a CDN, or install it from npm.
 
 Check out the [Getting Started](https://simple-keyboard.com/getting-started) docs to begin.
 
-## Documentation 📖
+## 📖 Documentation
 
 Check out the [simple-keyboard documentation](https://simple-keyboard.com/documentation) site.
 
@@ -63,7 +63,7 @@ Feel free to browse the [Questions & Answers (FAQ)](https://simple-keyboard.com/
 
 <a href="https://discordapp.com/invite/SJexsCG" title="Join our Discord chat" target="_blank"><img src="https://discordapp.com/api/guilds/498978399801573396/widget.png?style=banner2" align="center"></a>
 
-## Modules ✳️
+## ✳️ Modules
 
 You can extend simple-keyboard's functionality with [modules](https://hodgef.com/simple-keyboard/modules/). Such as:
 
@@ -74,7 +74,7 @@ You can extend simple-keyboard's functionality with [modules](https://hodgef.com
 
 Want to create your own module? Check out the [Modules page](https://hodgef.com/simple-keyboard/modules/) for instructions.
 
-## Compatibility 🎯
+## 🎯 Compatibility
 
 - Internet Explorer 11
 - Edge (Spartan) 16+
@@ -84,7 +84,7 @@ Want to create your own module? Check out the [Modules page](https://hodgef.com/
 - Firefox 57+
 - iOS 9+
 
-## Contributing ✅
+## ✅ Contributing
 
 PRs and issues are always welcome. Feel free to submit any issues you have at:
 [https://github.com/hodgef/simple-keyboard/issues](https://github.com/hodgef/simple-keyboard/issues)
