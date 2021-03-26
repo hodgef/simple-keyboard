@@ -27,6 +27,7 @@ const banner = `
 module.exports = {
   mode: "production",
   entry: './src/lib/index.ts',
+  target: 'es5',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'build'),
