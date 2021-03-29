@@ -639,8 +639,7 @@ class SimpleKeyboard {
    * Clear the keyboard’s input.
    * @param {string} [inputName] optional - the internal input to select
    */
-  clearInput(inputName: string): void {
-    inputName = inputName || this.options.inputName;
+  clearInput(inputName = this.options.inputName): void {
     this.input[inputName] = "";
 
     /**
