@@ -104,7 +104,7 @@ declare class SimpleKeyboard {
      * Clear the keyboard’s input.
      * @param {string} [inputName] optional - the internal input to select
      */
-    clearInput(inputName: string): void;
+    clearInput(inputName?: string): void;
     /**
      * Get the keyboard’s input (You can also get it from the onChange prop).
      * @param  {string} [inputName] optional - the internal input to select
