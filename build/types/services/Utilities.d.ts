@@ -5,8 +5,8 @@ import { KeyboardOptions, UtilitiesParams } from "../interfaces";
  */
 declare class Utilities {
     getOptions: () => KeyboardOptions;
-    getCaretPosition: () => number;
-    getCaretPositionEnd: () => number;
+    getCaretPosition: () => number | null;
+    getCaretPositionEnd: () => number | null;
     dispatch: any;
     maxLengthReached: boolean;
     /**
@@ -122,7 +122,7 @@ declare class Utilities {
      * @param  {number} length Represents by how many characters the input should be moved
      * @param  {boolean} minus Whether the cursor should be moved to the left or not.
      */
-    updateCaretPosAction(length: number, minus?: boolean): number;
+    updateCaretPosAction(length: number, minus?: boolean): number | null;
     /**
      * Adds a string to the input at a given position
      *
@@ -146,7 +146,7 @@ declare class Utilities {
      * @param  {object} inputObj
      * @param  {string} updatedInput
      */
-    handleMaxLength(inputObj: KeyboardInput, updatedInput: string): boolean;
+    handleMaxLength(inputObj: KeyboardInput, updatedInput: string): boolean | undefined;
     /**
      * Gets the current value of maxLengthReached
      */

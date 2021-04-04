@@ -3,10 +3,10 @@ import Utilities from "./services/Utilities";
 export interface KeyboardLayoutObject {
     [key: string]: string[];
 }
-export interface KeyboardButtonTheme {
+export declare type KeyboardButtonTheme = {
     class: string;
     buttons: string;
-}
+} | null;
 export interface KeyboardButtonAttributes {
     attribute: string;
     value: string;
@@ -32,16 +32,18 @@ export declare type CandidateBoxRenderParams = {
     onItemSelected: (selectedCandidate: string) => void;
 };
 export declare type KeyboardElement = HTMLDivElement | HTMLButtonElement;
-export declare type KeyboardHandlerEvent = PointerEvent & TouchEvent & KeyboardEvent & {
-    target: HTMLDivElement & HTMLInputElement;
-};
+export declare type KeyboardHandlerEvent = any;
 export interface KeyboardButtonElements {
     [key: string]: KeyboardElement[];
 }
 export interface UtilitiesParams {
     getOptions: () => KeyboardOptions;
-    getCaretPosition: () => number;
-    getCaretPositionEnd: () => number;
+    getCaretPosition: () => number | null;
+    getCaretPositionEnd: () => number | null;
+    dispatch: any;
+}
+export interface PhysicalKeyboardParams {
+    getOptions: () => KeyboardOptions;
     dispatch: any;
 }
 export interface KeyboardOptions {

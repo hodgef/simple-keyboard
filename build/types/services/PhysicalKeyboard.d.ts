@@ -1,4 +1,4 @@
-import { KeyboardOptions, UtilitiesParams } from "../interfaces";
+import { KeyboardOptions, PhysicalKeyboardParams } from "../interfaces";
 /**
  * Physical Keyboard Service
  */
@@ -8,7 +8,7 @@ declare class PhysicalKeyboard {
     /**
      * Creates an instance of the PhysicalKeyboard service
      */
-    constructor({ dispatch, getOptions }: Partial<UtilitiesParams>);
+    constructor({ dispatch, getOptions }: PhysicalKeyboardParams);
     handleHighlightKeyDown(event: KeyboardEvent): void;
     handleHighlightKeyUp(event: KeyboardEvent): void;
     /**

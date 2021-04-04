@@ -13,8 +13,8 @@ declare class SimpleKeyboard {
     input: KeyboardInput;
     options: KeyboardOptions;
     utilities: any;
-    caretPosition: number;
-    caretPositionEnd: number;
+    caretPosition: number | null;
+    caretPositionEnd: number | null;
     keyboardDOM: KeyboardElement;
     keyboardPluginClasses: string;
     keyboardDOMClass: string;
@@ -34,8 +34,9 @@ declare class SimpleKeyboard {
     holdTimeout: number;
     isMouseHold: boolean;
     initialized: boolean;
-    candidateBox: CandidateBox;
+    candidateBox: CandidateBox | null;
     keyboardRowsDOM: KeyboardElement;
+    defaultName: string;
     /**
      * Creates an instance of SimpleKeyboard
      * @param {Array} params If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.
@@ -47,20 +48,20 @@ declare class SimpleKeyboard {
     handleParams: (params: KeyboardParams) => {
         keyboardDOMClass: string;
         keyboardDOM: KeyboardElement;
-        options: Partial<KeyboardOptions>;
+        options: Partial<KeyboardOptions | undefined>;
     };
     /**
      * Getters
      */
     getOptions: () => KeyboardOptions;
-    getCaretPosition: () => number;
-    getCaretPositionEnd: () => number;
+    getCaretPosition: () => number | null;
+    getCaretPositionEnd: () => number | null;
     /**
      * Changes the internal caret position
      * @param {number} position The caret's start position
      * @param {number} positionEnd The caret's end position
      */
-    setCaretPosition(position: number, endPosition?: number): void;
+    setCaretPosition(position: number | null, endPosition?: number | null): void;
     /**
      * Retrieve the candidates for a given input
      * @param input The input string to check
@@ -166,7 +167,7 @@ declare class SimpleKeyboard {
      * Get the DOM Element of a button. If there are several buttons with the same name, an array of the DOM Elements is returned.
      * @param  {string} button The button layout name to select
      */
-    getButtonElement(button: string): KeyboardElement | KeyboardElement[];
+    getButtonElement(button: string): KeyboardElement | KeyboardElement[] | undefined;
     /**
      * This handles the "inputPattern" option
      * by checking if the provided inputPattern passes
