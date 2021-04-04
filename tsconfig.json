@@ -11,7 +11,8 @@
       "suppressImplicitAnyIndexErrors": true,
       "lib": ["es2020", "dom"],
       "moduleResolution": "node",
-      "downlevelIteration": true
+      "downlevelIteration": true,
+      "strict": true
     },
     "include": ["src/lib"],
     "exclude": ["src/lib/**/tests"],

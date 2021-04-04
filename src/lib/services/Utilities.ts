@@ -6,10 +6,10 @@ import { KeyboardOptions, UtilitiesParams } from "../interfaces";
  */
 class Utilities {
   getOptions: () => KeyboardOptions;
-  getCaretPosition: () => number;
-  getCaretPositionEnd: () => number;
+  getCaretPosition: () => number | null;
+  getCaretPositionEnd: () => number | null;
   dispatch: any;
-  maxLengthReached: boolean;
+  maxLengthReached!: boolean;
 
   /**
    * Creates an instance of the Utility service
@@ -243,10 +243,12 @@ class Utilities {
     const options = this.getOptions();
     let caretPosition = this.getCaretPosition();
 
-    if (minus) {
-      if (caretPosition > 0) caretPosition = caretPosition - length;
-    } else {
-      caretPosition = caretPosition + length;
+    if (caretPosition != null) {
+      if (minus) {
+        if (caretPosition > 0) caretPosition = caretPosition - length;
+      } else {
+        caretPosition = caretPosition + length;
+      }
     }
 
     if (options.debug) {
@@ -362,7 +364,7 @@ class Utilities {
   handleMaxLength(inputObj: KeyboardInput, updatedInput: string) {
     const options = this.getOptions();
     const maxLength = options.maxLength;
-    const currentInput = inputObj[options.inputName];
+    const currentInput = inputObj[options.inputName || "default"];
     const condition = updatedInput.length - 1 >= maxLength;
 
     if (
@@ -393,7 +395,8 @@ class Utilities {
     }
 
     if (typeof maxLength === "object") {
-      const condition = updatedInput.length - 1 >= maxLength[options.inputName];
+      const condition =
+        updatedInput.length - 1 >= maxLength[options.inputName || "default"];
 
       if (options.debug) {
         console.log("maxLength (obj) reached:", condition);
@@ -451,7 +454,7 @@ class Utilities {
    * @param  {string} str The string to transform.
    */
   camelCase(str: string): string {
-    if (!str) return;
+    if (!str) return "";
 
     return str
       .toLowerCase()

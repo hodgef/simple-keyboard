@@ -9,7 +9,7 @@ import {
 
 class CandidateBox {
   utilities: Utilities;
-  candidateBoxElement: HTMLDivElement;
+  candidateBoxElement!: HTMLDivElement;
   pageIndex = 0;
   pageSize;
 

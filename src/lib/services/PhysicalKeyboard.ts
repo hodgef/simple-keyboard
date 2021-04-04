@@ -1,4 +1,4 @@
-import { KeyboardOptions, UtilitiesParams } from "../interfaces";
+import { KeyboardOptions, PhysicalKeyboardParams } from "../interfaces";
 import Utilities from "../services/Utilities";
 
 /**
@@ -11,7 +11,7 @@ class PhysicalKeyboard {
   /**
    * Creates an instance of the PhysicalKeyboard service
    */
-  constructor({ dispatch, getOptions }: Partial<UtilitiesParams>) {
+  constructor({ dispatch, getOptions }: PhysicalKeyboardParams) {
     /**
      * @type {object} A simple-keyboard instance
      */

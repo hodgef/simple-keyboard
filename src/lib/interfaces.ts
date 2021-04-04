@@ -6,10 +6,10 @@ export interface KeyboardLayoutObject {
     [key: string]: string[];
 }
 
-export interface KeyboardButtonTheme {
+export type KeyboardButtonTheme = {
     class: string;
     buttons: string;
-}
+} | null;
 
 export interface KeyboardButtonAttributes {
     attribute: string;
@@ -44,7 +44,7 @@ export type CandidateBoxRenderParams = {
 }
 
 export type KeyboardElement = HTMLDivElement | HTMLButtonElement;
-export type KeyboardHandlerEvent = PointerEvent & TouchEvent & KeyboardEvent & { target: HTMLDivElement & HTMLInputElement };
+export type KeyboardHandlerEvent = any;
 
 export interface KeyboardButtonElements {
     [key: string]: KeyboardElement[]
@@ -52,8 +52,13 @@ export interface KeyboardButtonElements {
 
 export interface UtilitiesParams {
     getOptions: () => KeyboardOptions;
-    getCaretPosition: () => number;
-    getCaretPositionEnd: () => number;
+    getCaretPosition: () => number | null;
+    getCaretPositionEnd: () => number | null;
+    dispatch: any;
+}
+
+export interface PhysicalKeyboardParams {
+    getOptions: () => KeyboardOptions;
     dispatch: any;
 }
 
