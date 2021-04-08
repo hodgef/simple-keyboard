@@ -14,10 +14,6 @@
   <a href="https://github.com/hodgef/simple-keyboard/actions">
      <img alt="Publish Status" src="https://github.com/hodgef/simple-keyboard/workflows/Publish/badge.svg?color=green" />
   </a>
-
-  <a href="https://bundlephobia.com/result?p=simple-keyboard">
-    <img src="https://badgen.net/bundlephobia/minzip/simple-keyboard/?color=green" alt="install size">
-  </a>
   
   <a href="https://david-dm.org/hodgef/simple-keyboard">
     <img src="https://badgen.net/david/dep/hodgef/simple-keyboard" alt="coverage">
