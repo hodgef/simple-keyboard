@@ -763,19 +763,6 @@ class SimpleKeyboard {
    */
   onSetOptions(changedOptions: string[] = []): void {
     /**
-     * Changed: inputName
-     */
-    if (changedOptions.includes("inputName")) {
-      /**
-       * inputName changed. This requires a caretPosition reset
-       */
-      if (this.options.debug) {
-        console.log("inputName changed. caretPosition reset.");
-      }
-      this.setCaretPosition(null);
-    }
-
-    /**
      * Changed: layoutName
      */
     if (changedOptions.includes("layoutName")) {

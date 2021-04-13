@@ -1138,27 +1138,6 @@ it('Keyboard disableRowButtonContainers will bypass parseRowDOMContainers', () =
   expect(containers.length).toBe(0);
 });
 
-it('Keyboard inputName change will trigget caretPosition reset', () => {
-    const keyboard = new Keyboard();
-
-  keyboard.setCaretPosition(0);
-
-  keyboard.getButtonElement("q").onpointerdown();
-  keyboard.getButtonElement("1").onpointerdown();
-
-  expect(keyboard.getCaretPosition()).toBe(2);
-
-  keyboard.setOptions({
-    inputName: "myInput"
-  });
-
-  keyboard.getButtonElement("q").onpointerdown();
-  keyboard.getButtonElement("1").onpointerdown();
-  keyboard.getButtonElement("b").onpointerdown();
-
-  expect(keyboard.getCaretPosition()).toBe(null);
-});
-
 it('Keyboard destroy will work', () => {
     const keyboard = new Keyboard();
   keyboard.destroy();
