@@ -1008,6 +1008,7 @@ class SimpleKeyboard {
       document.addEventListener("mouseup", this.handleMouseUp);
       document.addEventListener("touchend", this.handleTouchEnd);
       document.addEventListener("select", this.handleSelect);
+      document.addEventListener("selectionchange", this.handleSelect);
     }
   }
 
@@ -1135,6 +1136,7 @@ class SimpleKeyboard {
     document.removeEventListener("mouseup", this.handleMouseUp);
     document.removeEventListener("touchend", this.handleTouchEnd);
     document.removeEventListener("select", this.handleSelect);
+    document.removeEventListener("selectionchange", this.handleSelect);
     document.onpointerup = null;
     document.ontouchend = null;
     document.ontouchcancel = null;
