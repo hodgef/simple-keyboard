@@ -1105,7 +1105,10 @@ class SimpleKeyboard {
         instance.setCaretPosition(null);
 
         if (instance.options.debug) {
-          console.log(`Caret position reset due to "${event?.type}" event`, event);
+          console.log(
+            `Caret position reset due to "${event?.type}" event`,
+            event
+          );
         }
       }
     });
