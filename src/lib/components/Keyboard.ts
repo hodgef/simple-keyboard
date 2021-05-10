@@ -53,9 +53,11 @@ class SimpleKeyboard {
   constructor(...params: KeyboardParams) {
     if (typeof window === "undefined") return;
 
-    const { keyboardDOMClass, keyboardDOM, options = {} } = this.handleParams(
-      params
-    );
+    const {
+      keyboardDOMClass,
+      keyboardDOM,
+      options = {},
+    } = this.handleParams(params);
 
     /**
      * Initializing Utilities
@@ -472,9 +474,8 @@ class SimpleKeyboard {
        * Check if this new input has candidates (suggested words)
        */
       if (e?.target && this.options.enableLayoutCandidates) {
-        const { candidateKey, candidateValue } = this.getInputCandidates(
-          updatedInput
-        );
+        const { candidateKey, candidateValue } =
+          this.getInputCandidates(updatedInput);
 
         if (candidateKey && candidateValue) {
           this.showCandidatesBox(
