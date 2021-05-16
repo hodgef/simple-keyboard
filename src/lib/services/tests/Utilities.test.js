@@ -34,6 +34,16 @@ it('Keyboard {bksp} button will work', () => {
   expect(output).toBe("tes");
 });
 
+it('Keyboard {delete} button will work', () => {
+  setDOM();
+
+  const keyboard = new Keyboard();
+
+  const output = keyboard.utilities.getUpdatedInput("{delete}", "test", 1);
+  
+  expect(output).toBe("tst");
+});
+
 it('Keyboard {space} button will work', () => {
   setDOM();
 

@@ -72,6 +72,7 @@ declare class Utilities {
         "{home}": string;
         "{pageup}": string;
         "{delete}": string;
+        "{forwarddelete}": string;
         "{end}": string;
         "{pagedown}": string;
         "{numpadmultiply}": string;
@@ -133,13 +134,20 @@ declare class Utilities {
      */
     addStringAt(source: string, str: string, position?: number, positionEnd?: number, moveCaret?: boolean): string;
     /**
-     * Removes an amount of characters at a given position
+     * Removes an amount of characters before a given position
      *
      * @param  {string} source The source input
      * @param  {number} position The (cursor) position from where the characters should be removed
      * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
      */
     removeAt(source: string, position?: number, positionEnd?: number, moveCaret?: boolean): string;
+    /**
+     * Removes an amount of characters after a given position
+     *
+     * @param  {string} source The source input
+     * @param  {number} position The (cursor) position from where the characters should be removed
+     */
+    removeForwardsAt(source: string, position?: number, positionEnd?: number, moveCaret?: boolean): string;
     /**
      * Determines whether the maxLength has been reached. This function is called when the maxLength option it set.
      *

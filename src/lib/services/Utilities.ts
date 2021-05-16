@@ -106,6 +106,7 @@ class Utilities {
       "{home}": "home",
       "{pageup}": "up",
       "{delete}": "del",
+      "{forwarddelete}": "del",
       "{end}": "end",
       "{pagedown}": "down",
       "{numpadmultiply}": "*",
@@ -177,6 +178,11 @@ class Utilities {
       output.length > 0
     ) {
       output = this.removeAt(output, ...commonParams);
+    } else if (
+      (button === "{delete}" || button === "{forwarddelete}") &&
+      output.length > 0
+    ) {
+      output = this.removeForwardsAt(output, ...commonParams);
     } else if (button === "{space}")
       output = this.addStringAt(output, " ", ...commonParams);
     else if (
@@ -294,7 +300,7 @@ class Utilities {
   }
 
   /**
-   * Removes an amount of characters at a given position
+   * Removes an amount of characters before a given position
    *
    * @param  {string} source The source input
    * @param  {number} position The (cursor) position from where the characters should be removed
@@ -355,6 +361,65 @@ class Utilities {
 
     return output;
   }
+
+  /**
+   * Removes an amount of characters after a given position
+   *
+   * @param  {string} source The source input
+   * @param  {number} position The (cursor) position from where the characters should be removed
+   */
+  removeForwardsAt(
+    source: string,
+    position = source.length,
+    positionEnd = source.length,
+    moveCaret = false
+  ) {
+    if (position === 0 && positionEnd === 0) {
+      return source;
+    }
+
+    let output;
+
+    if (position === positionEnd) {
+      let nextTwoChars;
+      let emojiMatched;
+      const emojiMatchedReg = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
+
+      /**
+       * Emojis are made out of two characters, so we must take a custom approach to trim them.
+       * For more info: https://mathiasbynens.be/notes/javascript-unicode
+       */
+      if (position && position >= 0) {
+        nextTwoChars = source.substring(position, position + 2);
+        emojiMatched = nextTwoChars.match(emojiMatchedReg);
+
+        if (emojiMatched) {
+          output = source.substr(0, position) + source.substr(position + 2);
+        } else {
+          output = source.substr(0, position) + source.substr(position + 1);
+        }
+      } else {
+        nextTwoChars = source.slice(2);
+        emojiMatched = nextTwoChars.match(emojiMatchedReg);
+
+        if (emojiMatched) {
+          output = source.slice(0, 2);
+        } else {
+          output = source.slice(0, 1);
+        }
+      }
+    } else {
+      output = source.slice(0, position) + source.slice(positionEnd);
+      if (moveCaret) {
+        this.dispatch((instance: any) => {
+          instance.setCaretPosition(position);
+        });
+      }
+    }
+
+    return output;
+  }
+
   /**
    * Determines whether the maxLength has been reached. This function is called when the maxLength option it set.
    *
