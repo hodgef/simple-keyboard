@@ -374,39 +374,26 @@ class Utilities {
     positionEnd = source.length,
     moveCaret = false
   ) {
-    if (position === 0 && positionEnd === 0) {
+    if (!source?.length || position === null) {
       return source;
     }
 
     let output;
 
     if (position === positionEnd) {
-      let nextTwoChars;
-      let emojiMatched;
       const emojiMatchedReg = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
 
       /**
        * Emojis are made out of two characters, so we must take a custom approach to trim them.
        * For more info: https://mathiasbynens.be/notes/javascript-unicode
        */
-      if (position && position >= 0) {
-        nextTwoChars = source.substring(position, position + 2);
-        emojiMatched = nextTwoChars.match(emojiMatchedReg);
+      const nextTwoChars = source.substring(position, position + 2);
+      const emojiMatched = nextTwoChars.match(emojiMatchedReg);
 
-        if (emojiMatched) {
-          output = source.substr(0, position) + source.substr(position + 2);
-        } else {
-          output = source.substr(0, position) + source.substr(position + 1);
-        }
+      if (emojiMatched) {
+        output = source.substr(0, position) + source.substr(position + 2);
       } else {
-        nextTwoChars = source.slice(2);
-        emojiMatched = nextTwoChars.match(emojiMatchedReg);
-
-        if (emojiMatched) {
-          output = source.slice(0, 2);
-        } else {
-          output = source.slice(0, 1);
-        }
+        output = source.substr(0, position) + source.substr(position + 1);
       }
     } else {
       output = source.slice(0, position) + source.slice(positionEnd);

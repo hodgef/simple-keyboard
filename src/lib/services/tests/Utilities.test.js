@@ -595,3 +595,167 @@ it('Keyboard camelCase will work with empty strings', () => {
   const keyboard = new Keyboard();
   expect(keyboard.utilities.camelCase()).toBeFalsy();
 });
+
+it('Keyboard removeForwardsAt will exit out on caretPosition:0', () => {
+  setDOM();
+
+  const keyboard = new Keyboard();
+
+  keyboard.setInput("test");
+
+  keyboard.setCaretPosition(0);
+  keyboard.utilities.removeForwardsAt(keyboard.getInput(), 0);
+  expect(keyboard.getInput()).toBe("test");
+
+  keyboard.setInput("test");
+
+  keyboard.setCaretPosition(5);
+  keyboard.utilities.removeForwardsAt(keyboard.getInput(), 0, 0, true);
+  expect(keyboard.caretPosition).toBe(5);
+});
+
+it('Keyboard removeForwardsAt will remove multi-byte unicodes with caretPos>0', () => {
+  setDOM();
+
+  const keyboard = new Keyboard();
+
+  keyboard.setCaretPosition(4);
+  let output = keyboard.utilities.removeForwardsAt("test\uD83D\uDE00", 4, 4);
+  expect(output).toBe("test");
+
+  keyboard.setCaretPosition(4);
+  output = keyboard.utilities.removeForwardsAt("test\uD83D\uDE00", 4, 4, true);
+  expect(keyboard.caretPosition).toBe(4);
+});
+
+it('Keyboard removeForwardsAt will not remove multi-byte unicodes with caretPos:0', () => {
+  setDOM();
+
+  const str = "\uD83D\uDE00";
+  const keyboard = new Keyboard();
+  let output = keyboard.utilities.removeForwardsAt(str, 0);
+  expect(output).toBe("");
+
+  output = keyboard.utilities.removeForwardsAt(str, 0, 0, true);
+  expect(output).toBe("");
+});
+
+it('Keyboard removeForwardsAt will propagate caretPosition', () => {
+  clearDOM();
+
+  document.body.innerHTML = `
+    <div class="simple-keyboard"></div>
+    <div class="keyboard2"></div>
+  `;
+
+  const keyboard = new Keyboard({
+    useMouseEvents: true,
+    layout: {
+      default: ["{delete}"]
+    }
+  });
+  const keyboard2 = new Keyboard('.keyboard2');
+
+  keyboard.input.default = "hello";
+  keyboard2.input.default = "world"
+  
+  keyboard.setCaretPosition(1);
+  expect(keyboard.getCaretPosition()).toBe(1);
+  expect(keyboard.getCaretPositionEnd()).toBe(1);
+  
+  keyboard.setCaretPosition(1, 3);
+  expect(keyboard.getCaretPosition()).toBe(1);
+  expect(keyboard.getCaretPositionEnd()).toBe(3);
+
+  keyboard.getButtonElement('{delete}').onclick();
+  
+  expect(keyboard.getCaretPosition()).toBe(1);
+  expect(keyboard2.getCaretPosition()).toBe(1);
+
+  expect(keyboard.getInput()).toBe('hlo');
+  expect(keyboard.getCaretPositionEnd()).toBe(1);
+  expect(keyboard2.getCaretPositionEnd()).toBe(1);
+});
+
+it('Keyboard removeForwardsAt will propagate caretPosition in a syncInstanceInputs setting', () => {
+  clearDOM();
+
+  document.body.innerHTML = `
+    <div class="simple-keyboard"></div>
+    <div class="keyboard2"></div>
+  `;
+
+  const keyboard = new Keyboard({
+    useMouseEvents: true,
+    syncInstanceInputs: true,
+    layout: {
+      default: ["{delete}"]
+    }
+  });
+  const keyboard2 = new Keyboard('.keyboard2');
+
+  keyboard.input.default = "hello"
+  
+  keyboard.setCaretPosition(1);
+  expect(keyboard.getCaretPosition()).toBe(1);
+  expect(keyboard.getCaretPositionEnd()).toBe(1);
+  
+  keyboard.setCaretPosition(1, 3);
+  expect(keyboard.getCaretPosition()).toBe(1);
+  expect(keyboard.getCaretPositionEnd()).toBe(3);
+
+  keyboard.getButtonElement('{delete}').onclick();
+  
+  expect(keyboard.getCaretPosition()).toBe(1);
+  expect(keyboard2.getCaretPosition()).toBe(1);
+
+  expect(keyboard.getInput()).toBe('hlo');
+  expect(keyboard.getCaretPositionEnd()).toBe(1);
+  expect(keyboard2.getCaretPositionEnd()).toBe(1);
+});
+
+it('Keyboard removeForwardsAt will remove regular strings', () => {
+  setDOM();
+
+  const keyboard = new Keyboard({
+    debug: true
+  });
+
+  keyboard.setCaretPosition(6);
+  let output = keyboard.utilities.removeForwardsAt("testie", 5, 5);
+  expect(output).toBe("testi");
+
+  keyboard.setCaretPosition(5);
+  output = keyboard.utilities.removeForwardsAt("testie", 5, 5, true);
+  expect(keyboard.caretPosition).toBe(5);
+});
+
+it('Keyboard removeForwardsAt will work with unset or start caretPosition', () => {
+  setDOM();
+
+  const keyboard = new Keyboard({
+    debug: true
+  });
+
+  let output = keyboard.utilities.removeForwardsAt("test", 3);
+  expect(output).toBe("tes");
+
+  output = keyboard.utilities.removeForwardsAt("test", null, null);
+  expect(output).toBe("test");
+
+  output = keyboard.utilities.removeForwardsAt("😀", 0);
+  expect(output).toBe("");
+
+  /**
+   * Will also work with moveCaret
+   */
+  output = keyboard.utilities.removeForwardsAt("test", null, null, true);
+  expect(output).toBe("test");
+  expect(keyboard.getCaretPosition()).toBe(null);
+
+  keyboard.setCaretPosition(2);
+  const str = "😀";
+  output = keyboard.utilities.removeForwardsAt(str, null, null, true);
+  expect(output).toBe(str);
+  expect(keyboard.getCaretPosition()).toBe(2);
+});
