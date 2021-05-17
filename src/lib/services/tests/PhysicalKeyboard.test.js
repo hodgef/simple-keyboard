@@ -202,3 +202,24 @@ it('PhysicalKeyboard with physicalKeyboardHighlightPress can trigger noop', () =
     }
   }));
 });
+
+it('PhysicalKeyboard keyCodeToKey will work', () => {
+  setDOM();
+
+  const keyboard = new Keyboard({
+    physicalKeyboardHighlight: true
+  });
+
+  expect(keyboard.physicalKeyboard.keyCodeToKey(186)).toBe(";");
+
+  const methodTest = spyOn(keyboard.physicalKeyboard, "keyCodeToKey");
+
+  document.dispatchEvent(new KeyboardEvent('keyup', {
+    keyCode: 186,
+    target: {
+      tagName: "input"
+    }
+  }));
+
+  expect(methodTest).toBeCalledWith(186);
+});

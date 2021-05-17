@@ -15,6 +15,10 @@ declare class PhysicalKeyboard {
      * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
      * @param  {object} event The KeyboardEvent
      */
-    getSimpleKeyboardLayoutKey(event: KeyboardEvent): string;
+    getSimpleKeyboardLayoutKey(event: KeyboardEvent): string | undefined;
+    /**
+     * Retrieve key from keyCode
+     */
+    keyCodeToKey(keyCode: number): string | undefined;
 }
 export default PhysicalKeyboard;
