@@ -370,8 +370,8 @@ class Utilities {
    */
   removeForwardsAt(
     source: string,
-    position = source.length,
-    positionEnd = source.length,
+    position: number = source.length,
+    positionEnd: number = source.length,
     moveCaret = false
   ) {
     if (!source?.length || position === null) {
