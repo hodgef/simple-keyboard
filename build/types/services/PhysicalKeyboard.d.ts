@@ -15,7 +15,7 @@ declare class PhysicalKeyboard {
      * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
      * @param  {object} event The KeyboardEvent
      */
-    getSimpleKeyboardLayoutKey(event: KeyboardEvent): string | undefined;
+    getSimpleKeyboardLayoutKey(event: KeyboardEvent): string;
     /**
      * Retrieve key from keyCode
      */

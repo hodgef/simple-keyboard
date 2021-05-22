@@ -65,7 +65,7 @@ class PhysicalKeyboard {
    * @param  {object} event The KeyboardEvent
    */
   getSimpleKeyboardLayoutKey(event: KeyboardEvent) {
-    let output;
+    let output = "";
     const keyId = event.code || event.key || this.keyCodeToKey(event?.keyCode);
 
     if (
@@ -77,12 +77,12 @@ class PhysicalKeyboard {
       keyId?.includes("Alt") ||
       keyId?.includes("Meta")
     ) {
-      output = event.code;
+      output = event.code || "";
     } else {
-      output = event.key || this.keyCodeToKey(event?.keyCode);
+      output = event.key || this.keyCodeToKey(event?.keyCode) || "";
     }
 
-    return output?.toLowerCase();
+    return output.length > 1 ? output?.toLowerCase() : output;
   }
 
   /**
