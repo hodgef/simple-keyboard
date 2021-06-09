@@ -300,6 +300,11 @@ class Utilities {
   }
 
   /**
+   * Check whether the button is a standard button
+   */
+  isStandardButton = (button: string) => button && !(button[0] === "{" && button[button.length - 1] === "}");
+
+  /**
    * Removes an amount of characters before a given position
    *
    * @param  {string} source The source input

@@ -1331,3 +1331,24 @@ it('Keyboard onSetOptions can be called without changedOptions param', () => {
   const keyboard = new Keyboard();
   expect(keyboard.onSetOptions()).toBeUndefined();
 });
+
+it('Keyboard will handle selected input with unchanged updatedInput edge case', () => {
+  const inputElem = document.createElement("input");
+  const onChange = jest.fn();
+  const keyboard = new Keyboard({ onChange });
+  
+  const initialValue = "3";
+  inputElem.value = initialValue;
+  inputElem.select();
+  keyboard.setInput(initialValue);
+  keyboard.activeInputElement = inputElem;
+  keyboard.setCaretPosition(0, 1);
+
+  keyboard.getButtonElement("3").onpointerdown();
+  keyboard.getButtonElement("3").onpointerdown();
+
+  expect(onChange).toBeCalledTimes(2);
+  expect(keyboard.getInput()).toBe("33");
+  expect(keyboard.getCaretPosition()).toBe(2);
+  expect(keyboard.getCaretPositionEnd()).toBe(2);
+});

@@ -45,6 +45,7 @@ class SimpleKeyboard {
   candidateBox!: CandidateBox | null;
   keyboardRowsDOM!: KeyboardElement;
   defaultName = "default";
+  activeInputElement: HTMLInputElement | HTMLTextAreaElement | null = null;
 
   /**
    * Creates an instance of SimpleKeyboard
@@ -403,6 +404,27 @@ class SimpleKeyboard {
       this.caretPosition,
       this.caretPositionEnd
     );
+
+    /**
+     * EDGE CASE: Check for whole input selection changes that will yield same updatedInput
+     */
+    if(this.utilities.isStandardButton(button) && this.activeInputElement){
+      const isEntireInputSelection = (
+        this.input[inputName] &&
+        this.input[inputName] === updatedInput &&
+        this.caretPosition === 0 &&
+        this.caretPositionEnd === updatedInput.length
+      );
+  
+      if(isEntireInputSelection){
+        this.setInput("", this.options.inputName, true);
+        this.setCaretPosition(0);
+        this.activeInputElement.value = "";
+        this.activeInputElement.setSelectionRange(0, 0);
+        this.handleButtonClicked(button, e);
+        return;
+      }
+    }
 
     /**
      * Calling onKeyPress
@@ -1090,6 +1112,11 @@ class SimpleKeyboard {
           event.target.selectionEnd
         );
 
+        /**
+         * Tracking current input in order to handle caret positioning edge cases
+         */
+        this.activeInputElement = event.target;
+
         if (instance.options.debug) {
           console.log(
             "Caret at: ",
@@ -1104,6 +1131,11 @@ class SimpleKeyboard {
          * If we toggled off disableCaretPositioning, we must ensure caretPosition doesn't persist once reactivated.
          */
         instance.setCaretPosition(null);
+
+        /**
+         * Resetting activeInputElement
+         */
+        this.activeInputElement = null;
 
         if (instance.options.debug) {
           console.log(
@@ -1189,6 +1221,11 @@ class SimpleKeyboard {
       this.candidateBox.destroy();
       this.candidateBox = null;
     }
+
+    /**
+     * Clearing activeInputElement
+     */
+    this.activeInputElement = null;
 
     /**
      * Clearing keyboardDOM
