@@ -408,15 +408,14 @@ class SimpleKeyboard {
     /**
      * EDGE CASE: Check for whole input selection changes that will yield same updatedInput
      */
-    if(this.utilities.isStandardButton(button) && this.activeInputElement){
-      const isEntireInputSelection = (
+    if (this.utilities.isStandardButton(button) && this.activeInputElement) {
+      const isEntireInputSelection =
         this.input[inputName] &&
         this.input[inputName] === updatedInput &&
         this.caretPosition === 0 &&
-        this.caretPositionEnd === updatedInput.length
-      );
-  
-      if(isEntireInputSelection){
+        this.caretPositionEnd === updatedInput.length;
+
+      if (isEntireInputSelection) {
         this.setInput("", this.options.inputName, true);
         this.setCaretPosition(0);
         this.activeInputElement.value = "";

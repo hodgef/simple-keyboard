@@ -134,6 +134,10 @@ declare class Utilities {
      */
     addStringAt(source: string, str: string, position?: number, positionEnd?: number, moveCaret?: boolean): string;
     /**
+     * Check whether the button is a standard button
+     */
+    isStandardButton: (button: string) => boolean | "";
+    /**
      * Removes an amount of characters before a given position
      *
      * @param  {string} source The source input
