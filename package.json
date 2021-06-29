@@ -81,7 +81,7 @@
       "!src/**/*.d.ts",
       "!src/lib/index.js",
       "!src/lib/polyfills.js",
-      "!src/demo/index.js",
+      "!src/demo/**",
       "!src/utils/**",
       "!src/**/*.d.ts",
       "!**/tests/**"
