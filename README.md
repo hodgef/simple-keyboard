@@ -18,10 +18,6 @@
   <a href="https://david-dm.org/hodgef/simple-keyboard">
     <img src="https://badgen.net/david/dep/hodgef/simple-keyboard" alt="coverage">
   </a>
-
-  <a href="https://codecov.io/gh/hodgef/simple-keyboard">
-    <img src="https://badgen.net/codecov/c/github/hodgef/simple-keyboard" alt="coverage">
-  </a>
 </p>
 
 <blockquote>Virtual Keyboard for Javascript. Compatible with your JS, React, Angular or Vue projects.</blockquote>
