@@ -45,8 +45,8 @@ class CandidateBox {
       targetElement,
       pageIndex: this.pageIndex,
       nbPages: candidateListPages.length,
-      onItemSelected: (selectedCandidate: string) => {
-        onSelect(selectedCandidate);
+      onItemSelected: (selectedCandidate: string, e: MouseEvent) => {
+        onSelect(selectedCandidate, e);
         this.destroy();
       },
     });
@@ -73,9 +73,18 @@ class CandidateBox {
     // Create Candidate box list items
     candidateListPages[pageIndex].forEach((candidateListItem) => {
       const candidateListLIElement = document.createElement("li");
+      const getMouseEvent = () => {
+        const mouseEvent = new MouseEvent("click");
+        Object.defineProperty(mouseEvent, "target", {
+          value: candidateListLIElement,
+        });
+        return mouseEvent;
+      };
+
       candidateListLIElement.className = "hg-candidate-box-list-item";
       candidateListLIElement.textContent = candidateListItem;
-      candidateListLIElement.onclick = () => onItemSelected(candidateListItem);
+      candidateListLIElement.onclick = (e = getMouseEvent()) =>
+        onItemSelected(candidateListItem, e);
 
       // Append list item to ul
       candidateListULElement.appendChild(candidateListLIElement);

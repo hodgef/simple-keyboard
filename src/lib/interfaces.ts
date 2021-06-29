@@ -31,7 +31,7 @@ export type CandidateBoxShowParams = {
     candidateValue: string,
     targetElement: KeyboardElement,
     // eslint-disable-next-line no-unused-vars
-    onSelect: (selectedCandidate: string) => void
+    onSelect: (selectedCandidate: string, e: MouseEvent) => void
 }
 
 export type CandidateBoxRenderParams = {
@@ -40,7 +40,7 @@ export type CandidateBoxRenderParams = {
     pageIndex: number;
     nbPages: number;
     // eslint-disable-next-line no-unused-vars
-    onItemSelected: (selectedCandidate: string) => void
+    onItemSelected: (selectedCandidate: string, e: MouseEvent) => void
 }
 
 export type KeyboardElement = HTMLDivElement | HTMLButtonElement;
@@ -239,6 +239,16 @@ export interface KeyboardOptions {
      * Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
      */
      onInit?: (instance?: SimpleKeyboard) => void;
+
+    /**
+     * Retrieves the current input
+     */
+    onChange?: (input: string, e?: MouseEvent) => any;
+
+    /**
+     * Retrieves all inputs
+     */
+    onChangeAll?: (inputObj: KeyboardInput, e?: MouseEvent) => any;
 
     /**
      * Module options can have any format

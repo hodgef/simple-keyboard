@@ -320,8 +320,10 @@ class SimpleKeyboard {
 
     const layoutCandidates = Object.keys(layoutCandidatesObj).filter(
       (layoutCandidate: string) => {
+        const inputSubstr =
+          input.substring(0, this.getCaretPositionEnd() || 0) || input;
         const regexp = new RegExp(`${layoutCandidate}$`, "g");
-        const matches = [...input.matchAll(regexp)];
+        const matches = [...inputSubstr.matchAll(regexp)];
         return !!matches.length;
       }
     );
@@ -359,21 +361,37 @@ class SimpleKeyboard {
       this.candidateBox.show({
         candidateValue,
         targetElement,
-        onSelect: (selectedCandidate: string) => {
+        onSelect: (selectedCandidate: string, e: MouseEvent) => {
           const currentInput = this.getInput(this.options.inputName, true);
+          const initialCaretPosition = this.getCaretPositionEnd() || 0;
+          const inputSubstr =
+            currentInput.substring(0, initialCaretPosition || 0) ||
+            currentInput;
+
           const regexp = new RegExp(`${candidateKey}$`, "g");
-          const newInput = currentInput.replace(regexp, selectedCandidate);
+          const newInputSubstr = inputSubstr.replace(regexp, selectedCandidate);
+          const newInput = currentInput.replace(inputSubstr, newInputSubstr);
+
+          const caretPositionDiff = newInputSubstr.length - inputSubstr.length;
+          let newCaretPosition =
+            (initialCaretPosition || currentInput.length) + caretPositionDiff;
+
+          if (newCaretPosition < 0) newCaretPosition = 0;
 
           this.setInput(newInput, this.options.inputName, true);
+          this.setCaretPosition(newCaretPosition);
 
           if (typeof this.options.onChange === "function")
-            this.options.onChange(this.getInput(this.options.inputName, true));
+            this.options.onChange(
+              this.getInput(this.options.inputName, true),
+              e
+            );
 
           /**
            * Calling onChangeAll
            */
           if (typeof this.options.onChangeAll === "function")
-            this.options.onChangeAll(this.getAllInputs());
+            this.options.onChangeAll(this.getAllInputs(), e);
         },
       });
     }
@@ -429,7 +447,7 @@ class SimpleKeyboard {
      * Calling onKeyPress
      */
     if (typeof this.options.onKeyPress === "function")
-      this.options.onKeyPress(button);
+      this.options.onKeyPress(button, e);
 
     if (
       // If input will change as a result of this button press
@@ -483,13 +501,13 @@ class SimpleKeyboard {
        * Calling onChange
        */
       if (typeof this.options.onChange === "function")
-        this.options.onChange(this.getInput(this.options.inputName, true));
+        this.options.onChange(this.getInput(this.options.inputName, true), e);
 
       /**
        * Calling onChangeAll
        */
       if (typeof this.options.onChangeAll === "function")
-        this.options.onChangeAll(this.getAllInputs());
+        this.options.onChangeAll(this.getAllInputs(), e);
 
       /**
        * Check if this new input has candidates (suggested words)

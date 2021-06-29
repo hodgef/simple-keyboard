@@ -216,7 +216,7 @@ it('CandidateBox select candidate will work', () => {
   keyboard.getButtonElement("a").click();
   keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
 
-  expect(onSelect).toBeCalledWith("1");
+  expect(onSelect).toBeCalledWith("1", expect.anything());
   keyboard.destroy();
 });
 
@@ -353,6 +353,7 @@ it('CandidateBox selection should trigger onChange', () => {
     });
   
     const candidateBoxRenderFn = keyboard.candidateBox.renderPage;
+    
     jest.spyOn(keyboard.candidateBox, "renderPage").mockImplementation((params) => {
       candidateBoxOnItemSelected = params.onItemSelected;
       params.onItemSelected = onSelect;
@@ -362,10 +363,10 @@ it('CandidateBox selection should trigger onChange', () => {
     keyboard.getButtonElement("a").click();
     keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
   
-    expect(keyboard.options.onChange).toBeCalledWith("a");
-    expect(keyboard.options.onChangeAll).toBeCalledWith({"default": "a"});
+    expect(keyboard.options.onChange.mock.calls[0][0]).toBe("a");
+    expect(keyboard.options.onChangeAll.mock.calls[0][0]).toMatchObject({"default": "a"});
 
-    expect(keyboard.options.onChange).toBeCalledWith("1");
-    expect(keyboard.options.onChangeAll).toBeCalledWith({"default": "1"});
+    expect(keyboard.options.onChange.mock.calls[1][0]).toBe("1");
+    expect(keyboard.options.onChangeAll.mock.calls[1][0]).toMatchObject({"default": "1"});
     keyboard.destroy();
   });

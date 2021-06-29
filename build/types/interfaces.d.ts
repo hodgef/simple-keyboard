@@ -22,14 +22,14 @@ export declare type CandidateBoxParams = {
 export declare type CandidateBoxShowParams = {
     candidateValue: string;
     targetElement: KeyboardElement;
-    onSelect: (selectedCandidate: string) => void;
+    onSelect: (selectedCandidate: string, e: MouseEvent) => void;
 };
 export declare type CandidateBoxRenderParams = {
     candidateListPages: string[][];
     targetElement: KeyboardElement;
     pageIndex: number;
     nbPages: number;
-    onItemSelected: (selectedCandidate: string) => void;
+    onItemSelected: (selectedCandidate: string, e: MouseEvent) => void;
 };
 export declare type KeyboardElement = HTMLDivElement | HTMLButtonElement;
 export declare type KeyboardHandlerEvent = any;
@@ -195,6 +195,14 @@ export interface KeyboardOptions {
      * Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
      */
     onInit?: (instance?: SimpleKeyboard) => void;
+    /**
+     * Retrieves the current input
+     */
+    onChange?: (input: string, e?: MouseEvent) => any;
+    /**
+     * Retrieves all inputs
+     */
+    onChangeAll?: (inputObj: KeyboardInput, e?: MouseEvent) => any;
     /**
      * Module options can have any format
      */
