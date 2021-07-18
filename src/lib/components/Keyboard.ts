@@ -1048,6 +1048,7 @@ class SimpleKeyboard {
       document.addEventListener("mouseup", this.handleMouseUp);
       document.addEventListener("touchend", this.handleTouchEnd);
       document.addEventListener("select", this.handleSelect);
+      document.addEventListener("selectionchange", this.handleSelectionChange);
     }
   }
 
@@ -1091,6 +1092,14 @@ class SimpleKeyboard {
    */
   /* istanbul ignore next */
   handleSelect(event: KeyboardHandlerEvent): void {
+    this.caretEventHandler(event);
+  }
+
+  /**
+   * Event Handler: SelectionChange
+   */
+  /* istanbul ignore next */
+  handleSelectionChange(event: KeyboardHandlerEvent): void {
     this.caretEventHandler(event);
   }
 
@@ -1143,7 +1152,10 @@ class SimpleKeyboard {
             `(${instance.keyboardDOMClass})`
           );
         }
-      } else if (instance.options.disableCaretPositioning || !isKeyboard) {
+      } else if (
+        (instance.options.disableCaretPositioning || !isKeyboard) &&
+        event?.type !== "selectionchange"
+      ) {
         /**
          * If we toggled off disableCaretPositioning, we must ensure caretPosition doesn't persist once reactivated.
          */
@@ -1192,6 +1204,7 @@ class SimpleKeyboard {
     document.removeEventListener("mouseup", this.handleMouseUp);
     document.removeEventListener("touchend", this.handleTouchEnd);
     document.removeEventListener("select", this.handleSelect);
+    document.removeEventListener("selectionchange", this.handleSelectionChange);
     document.onpointerup = null;
     document.ontouchend = null;
     document.ontouchcancel = null;

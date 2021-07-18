@@ -199,6 +199,10 @@ declare class SimpleKeyboard {
      */
     handleSelect(event: KeyboardHandlerEvent): void;
     /**
+     * Event Handler: SelectionChange
+     */
+    handleSelectionChange(event: KeyboardHandlerEvent): void;
+    /**
      * Called by {@link setEventListeners} when an event that warrants a cursor position update is triggered
      */
     caretEventHandler(event: KeyboardHandlerEvent): void;
