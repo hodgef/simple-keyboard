@@ -29,9 +29,22 @@ class PhysicalKeyboard {
     const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
     this.dispatch((instance: any) => {
-      const buttonDOM =
-        instance.getButtonElement(buttonPressed) ||
-        instance.getButtonElement(`{${buttonPressed}}`);
+      const standardButtonPressed = instance.getButtonElement(buttonPressed);
+      const functionButtonPressed = instance.getButtonElement(
+        `{${buttonPressed}}`
+      );
+      let buttonDOM;
+      let buttonName;
+
+      if (standardButtonPressed) {
+        buttonDOM = standardButtonPressed;
+        buttonName = buttonPressed;
+      } else if (functionButtonPressed) {
+        buttonDOM = functionButtonPressed;
+        buttonName = `{${buttonPressed}}`;
+      } else {
+        return;
+      }
 
       if (buttonDOM) {
         buttonDOM.style.backgroundColor =
@@ -40,7 +53,11 @@ class PhysicalKeyboard {
           options.physicalKeyboardHighlightTextColor || "black";
 
         if (options.physicalKeyboardHighlightPress) {
-          buttonDOM.click();
+          if (options.physicalKeyboardHighlightPressUseClick) {
+            buttonDOM.click();
+          } else {
+            instance.handleButtonClicked(buttonName, event);
+          }
         }
       }
     });
