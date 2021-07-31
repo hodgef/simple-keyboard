@@ -108,9 +108,15 @@ export interface KeyboardOptions {
      */
     physicalKeyboardHighlight?: boolean;
     /**
-     * Presses keys highlighted by physicalKeyboardHighlight
+     * Calls handler for a button highlighted by physicalKeyboardHighlight
+     * In other words, this calls keyboard.handleButtonClicked(buttonName) on the highlighted button
      */
     physicalKeyboardHighlightPress?: boolean;
+    /**
+     * Trigger click on a button's element when using physicalKeyboardHighlightPress
+     * In other words, this calls button.click() on the highlighted button
+     */
+    physicalKeyboardHighlightPressUseClick?: boolean;
     /**
      * Define the text color that the physical keyboard highlighted key should have.
      */
