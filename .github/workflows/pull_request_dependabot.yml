@@ -1,0 +1,39 @@
+name: Build PR (Dependabot)
+
+on:
+  pull_request_target:
+    types: [labeled]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    if: ${{ github.actor == 'dependabot' || github.actor == 'dependabot[bot]' }}
+    strategy:
+      matrix:
+        node-version: [12.x]
+        os: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node_version }}
+    - name: npm install, build, and test
+      run: |
+        npm install
+        npm run coverage
+      env:
+        CI: true
+    - name: Merge PR
+      if: success()
+      uses: "pascalgn/automerge-action@v0.14.2"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        MERGE_LABELS: "dependencies"
+    - name: Reject PR
+      if: failure()
+      uses: peter-evans/close-pull@v1
+      with:
+        pull-request-number: ${{github.event.number}}
+        comment: PR closed due to failing tests
+        delete-branch: true
