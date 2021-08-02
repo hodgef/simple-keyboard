@@ -34,5 +34,5 @@ jobs:
       uses: peter-evans/close-pull@v1
       with:
         pull-request-number: ${{github.event.number}}
-        comment: PR closed due to failing tests
+        comment: "Closing PR due to failing tests."
         delete-branch: true
