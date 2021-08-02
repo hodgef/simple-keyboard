@@ -1,9 +1,10 @@
-name: Build PR
+name: Build PR (Standard)
 on: [pull_request]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'dependencies') }}
     strategy:
       matrix:
         node-version: [12.x]
@@ -20,16 +21,3 @@ jobs:
         npm run coverage
       env:
         CI: true
-    - name: Merge PR
-      if: success() && ${{ github.actor == 'dependabot[bot]' }}
-      uses: "pascalgn/automerge-action@v0.14.2"
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        MERGE_LABELS: "dependencies"
-    - name: Reject PR
-      if: failure() && ${{ github.actor == 'dependabot[bot]' }}
-      uses: peter-evans/close-pull@v1
-      with:
-        pull-request-number: ${{github.event.number}}
-        comment: PR closed due to failing tests
-        delete-branch: true
