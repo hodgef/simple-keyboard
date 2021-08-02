@@ -1,13 +1,12 @@
 name: Build PR (Dependabot)
 
 on:
-  pull_request_target:
-    types: [labeled]
+  pull_request_target
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    if: ${{ github.actor == 'dependabot' || github.actor == 'dependabot[bot]' }}
+    if: contains(github.event.pull_request.labels.*.name, 'dependencies')
     strategy:
       matrix:
         node-version: [12.x]
