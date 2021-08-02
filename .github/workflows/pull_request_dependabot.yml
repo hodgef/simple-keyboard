@@ -5,7 +5,7 @@ on: pull_request_target
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    if: contains(github.event.pull_request.labels.*.name, 'dependencies')
+    if: ${{ github.actor == 'dependabot[bot]' }}
     strategy:
       matrix:
         node-version: [12.x]
