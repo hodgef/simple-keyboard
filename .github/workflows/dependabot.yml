@@ -22,3 +22,8 @@ jobs:
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Reject PR
+        if: failure()
+        uses: superbrothers/close-pull-request@v3
+        with:
+          comment: "PR closed due to failing tests."
