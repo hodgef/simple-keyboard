@@ -20,3 +20,14 @@ jobs:
         npm run coverage
       env:
         CI: true
+    - name: automerge
+      if: success()
+      uses: "pascalgn/automerge-action@v0.14.2"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        MERGE_LABELS: "dependencies"
+    - name: Reject PR
+      if: failure()
+      uses: superbrothers/close-pull-request@v3
+      with:
+        comment: "PR closed due to failing tests."
