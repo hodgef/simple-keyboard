@@ -6,24 +6,5 @@ updates:
     interval: daily
     time: "04:00"
     timezone: America/Montreal
-  open-pull-requests-limit: 20
+  open-pull-requests-limit: 10
   versioning-strategy: increase
-  ignore:
-  - dependency-name: copy-webpack-plugin
-    versions:
-    - ">= 6.0.a, < 6.1"
-  - dependency-name: copy-webpack-plugin
-    versions:
-    - ">= 6.a, < 7"
-  - dependency-name: postcss-flexbugs-fixes
-    versions:
-    - ">= 5.a, < 6"
-  - dependency-name: postcss-loader
-    versions:
-    - ">= 4.a, < 5"
-  - dependency-name: webpack
-    versions:
-    - 5.34.0
-  - dependency-name: core-js
-    versions:
-    - 3.10.2
