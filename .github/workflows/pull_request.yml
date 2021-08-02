@@ -1,23 +1,24 @@
 name: Build PR (Standard)
-on: [pull_request]
+
+on: pull_request
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'dependencies') }}
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'dependencies') }}
     strategy:
       matrix:
         node-version: [12.x]
         os: [ubuntu-latest]
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node_version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node_version }}
-    - name: npm install, build, and test
-      run: |
-        npm install
-        npm run coverage
-      env:
-        CI: true
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run coverage
+        env:
+          CI: true

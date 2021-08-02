@@ -1,8 +1,6 @@
 name: Build PR (Dependabot)
 
-on:
-  pull_request_target:
-        types: [labeled]
+on: pull_request_target
 
 jobs:
   build:
@@ -13,29 +11,29 @@ jobs:
         node-version: [12.x]
         os: [ubuntu-latest]
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-    - name: Use Node.js ${{ matrix.node_version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node_version }}
-    - name: npm install, build, and test
-      run: |
-        npm install
-        npm run coverage
-      env:
-        CI: true
-    - name: Merge PR
-      if: success()
-      uses: "pascalgn/automerge-action@v0.14.2"
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        MERGE_LABELS: "dependencies"
-    - name: Reject PR
-      if: failure()
-      uses: peter-evans/close-pull@v1
-      with:
-        pull-request-number: ${{github.event.number}}
-        comment: "Closing PR due to failing tests."
-        delete-branch: true
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run coverage
+        env:
+          CI: true
+      - name: Merge PR
+        if: success()
+        uses: "pascalgn/automerge-action@v0.14.2"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: "dependencies"
+      - name: Reject PR
+        if: failure()
+        uses: peter-evans/close-pull@v1
+        with:
+          pull-request-number: ${{github.event.number}}
+          comment: "Closing PR due to failing tests."
+          delete-branch: true
