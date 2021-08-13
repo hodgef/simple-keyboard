@@ -26,10 +26,19 @@ jobs:
           CI: true
       - name: Merge PR
         if: success()
-        uses: "pascalgn/automerge-action@v0.14.2"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: "dependencies"
+        uses: "actions/github-script@v2"
+        with:
+          github-token: "${{ secrets.GH_KEY }}"
+          script: |
+            const pullRequest = context.payload.pull_request
+            const repository = context.repo
+
+            await github.pulls.merge({
+              merge_method: "merge",
+              owner: repository.owner,
+              pull_number: pullRequest.number,
+              repo: repository.repo,
+            })
       - name: Reject PR
         if: failure()
         uses: peter-evans/close-pull@v1
