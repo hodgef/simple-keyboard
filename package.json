@@ -62,7 +62,7 @@
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "postcss": "^8.3.6",
     "postcss-loader": "^6.1.1",
-    "prettier": "^2.3.2",
+    "prettier": "^2.4.0",
     "prettier-webpack-plugin": "^1.2.0",
     "style-loader": "^3.2.1",
     "terser-webpack-plugin": "^5.2.4",
