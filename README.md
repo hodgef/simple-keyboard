@@ -72,7 +72,7 @@ Want to create your own module? Check out the [Modules page](https://hodgef.com/
 - Firefox 57+
 - iOS 9+
 
-> Note: If you don't want to support old browsers, you can use the Modern Browsers bundle ([index.modern.js](https://github.com/hodgef/simple-keyboard/blob/master/build/index.modern.js)).
+> Note: If you don't want to support old browsers, you can use the Modern Browsers bundle ([index.modern.js](https://github.com/hodgef/simple-keyboard/blob/master/build)).
 
 ## ✅ Contributing
 
