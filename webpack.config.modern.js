@@ -62,11 +62,14 @@ module.exports = {
             ]
           }
         }
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: path.resolve('scripts/loaderMock.js')
       }
     ]
   },
   plugins: [
-    new webpack.IgnorePlugin({ resourceRegExp: /\.(sa|sc|c)ss$/ }),
     new webpack.BannerPlugin(banner)
   ],
   resolve: {

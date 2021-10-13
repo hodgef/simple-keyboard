@@ -6,7 +6,7 @@
   "types": "build/types/index.d.ts",
   "scripts": {
     "start": "webpack serve --config webpack.config.demo.js",
-    "build": "webpack && tsc && npm run build-modern",
+    "build": "webpack && npm run build-modern && tsc",
     "build-modern": "webpack --config webpack.config.modern.js",
     "test": "jest --silent",
     "coverage": "npm run test -- --coverage",
