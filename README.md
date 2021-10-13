@@ -14,10 +14,6 @@
   <a href="https://github.com/hodgef/simple-keyboard/actions">
      <img alt="Publish Status" src="https://github.com/hodgef/simple-keyboard/workflows/Publish/badge.svg?color=green" />
   </a>
-  
-  <a href="https://david-dm.org/hodgef/simple-keyboard">
-    <img src="https://badgen.net/david/dep/hodgef/simple-keyboard" alt="coverage">
-  </a>
 </p>
 
 <blockquote>Virtual Keyboard for Javascript. Compatible with your JS, React, Angular or Vue projects.</blockquote>
@@ -75,6 +71,8 @@ Want to create your own module? Check out the [Modules page](https://hodgef.com/
 - Safari 9+
 - Firefox 57+
 - iOS 9+
+
+> Note: If you don't want to support old browsers, you can use the Modern Browsers bundle ([index.modern.js](https://github.com/hodgef/simple-keyboard/blob/master/build/index.modern.js)). More info [here](https://github.com/hodgef/simple-keyboard/releases/tag/3.3.0).
 
 ## ✅ Contributing
 
