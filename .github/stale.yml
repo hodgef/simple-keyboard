@@ -6,8 +6,6 @@ daysUntilClose: 2
 exemptLabels:
   - pinned
   - security
-  - "💥 Bug"
-  - "⚡️ Enhancement"
 # Label to use when marking an issue as stale
 staleLabel: Stale
 # Comment to post when marking an issue as stale. Set to `false` to disable
