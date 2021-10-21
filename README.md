@@ -12,11 +12,15 @@
   </a>
 
   <a href="https://github.com/hodgef/simple-keyboard/actions">
-     <img alt="Build Status" src="https://github.com/hodgef/simple-keyboard/workflows/Build/badge.svg?color=green" />
+     <img alt="Build Status" src="https://github.com/hodgef/simple-keyboard/workflows/Build/badge.svg" />
   </a>
   
   <a href="https://github.com/hodgef/simple-keyboard/actions">
-     <img alt="Publish Status" src="https://github.com/hodgef/simple-keyboard/workflows/Publish/badge.svg?color=green" />
+     <img alt="Publish Status" src="https://github.com/hodgef/simple-keyboard/workflows/Publish/badge.svg" />
+  </a>
+	
+  <a href="https://gitlab.com/hodgef/simple-keyboard" target="_blank">
+     <img alt="Mirroring" src="https://github.com/hodgef/simple-keyboard/actions/workflows/mirroring.yml/badge.svg" />
   </a>
 </p>
 
