@@ -51,7 +51,7 @@
     "@typescript-eslint/parser": "^4.33.0",
     "autoprefixer": "^10.3.6",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "^8.2.3",
     "babel-preset-minify": "^0.5.0",
     "core-js": "^3.18.3",
     "css-loader": "^6.4.0",
