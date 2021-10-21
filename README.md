@@ -7,8 +7,8 @@
     <img src="https://badgen.net/npm/v/simple-keyboard?color=blue" alt="npm version">
   </a>
 	
-  <a href="https://github.com/hodgef/simple-keyboard">
-    <img src="https://img.shields.io/github/last-commit/hodgef/simple-keyboard" alt="lastest commit">
+  <a href="https://github.com/hodgef/simple-keyboard/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT license">
   </a>
 
   <a href="https://github.com/hodgef/simple-keyboard/actions">
