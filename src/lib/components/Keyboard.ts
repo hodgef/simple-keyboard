@@ -322,7 +322,7 @@ class SimpleKeyboard {
       (layoutCandidate: string) => {
         const inputSubstr =
           input.substring(0, this.getCaretPositionEnd() || 0) || input;
-        const regexp = new RegExp(`${layoutCandidate}$`, "g");
+        const regexp = new RegExp(`${layoutCandidate}$`, "gi");
         const matches = [...inputSubstr.matchAll(regexp)];
         return !!matches.length;
       }
