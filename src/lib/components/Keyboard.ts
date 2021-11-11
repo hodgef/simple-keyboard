@@ -368,7 +368,7 @@ class SimpleKeyboard {
             currentInput.substring(0, initialCaretPosition || 0) ||
             currentInput;
 
-          const regexp = new RegExp(`${candidateKey}$`, "g");
+          const regexp = new RegExp(`${candidateKey}$`, "gi");
           const newInputSubstr = inputSubstr.replace(regexp, selectedCandidate);
           const newInput = currentInput.replace(inputSubstr, newInputSubstr);
 
