@@ -61,7 +61,7 @@
     "jest": "^26.6.3",
     "mini-css-extract-plugin": "^2.4.5",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
-    "postcss": "^8.3.11",
+    "postcss": "^8.4.1",
     "postcss-loader": "^6.2.0",
     "prettier": "^2.4.1",
     "prettier-webpack-plugin": "^1.2.0",
