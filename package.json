@@ -1,9 +1,8 @@
 {
   "name": "simple-keyboard",
-  "version": "3.3.30",
+  "version": "3.4.0",
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
-  "types": "build/types/index.d.ts",
   "scripts": {
     "start": "webpack serve --config webpack.config.demo.js",
     "build": "webpack && npm run build-modern && tsc",

@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "noImplicitAny": true,
-      "outDir": "build/types",
+      "outDir": "build",
       "module": "esnext",
       "target": "es5",
       "allowJs": true,
