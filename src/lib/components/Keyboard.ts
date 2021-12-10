@@ -10,7 +10,6 @@ import {
   KeyboardButtonElements,
   KeyboardHandlerEvent,
   KeyboardElement,
-  KeyboardParams,
 } from "../interfaces";
 import CandidateBox from "./CandidateBox";
 
@@ -51,14 +50,17 @@ class SimpleKeyboard {
    * Creates an instance of SimpleKeyboard
    * @param {Array} params If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.
    */
-  constructor(...params: KeyboardParams) {
+  constructor(
+    selectorOrOptions?: string | HTMLDivElement | KeyboardOptions,
+    keyboardOptions?: KeyboardOptions
+  ) {
     if (typeof window === "undefined") return;
 
     const {
       keyboardDOMClass,
       keyboardDOM,
       options = {},
-    } = this.handleParams(params);
+    } = this.handleParams(selectorOrOptions, keyboardOptions);
 
     /**
      * Initializing Utilities
@@ -232,7 +234,8 @@ class SimpleKeyboard {
    * parseParams
    */
   handleParams = (
-    params: KeyboardParams
+    selectorOrOptions?: string | HTMLDivElement | KeyboardOptions,
+    keyboardOptions?: KeyboardOptions
   ): {
     keyboardDOMClass: string;
     keyboardDOM: KeyboardElement;
@@ -246,29 +249,29 @@ class SimpleKeyboard {
      * If first parameter is a string:
      * Consider it as an element's class
      */
-    if (typeof params[0] === "string") {
-      keyboardDOMClass = params[0].split(".").join("");
+    if (typeof selectorOrOptions === "string") {
+      keyboardDOMClass = selectorOrOptions.split(".").join("");
       keyboardDOM = document.querySelector(
         `.${keyboardDOMClass}`
       ) as KeyboardElement;
-      options = params[1];
+      options = keyboardOptions;
 
       /**
        * If first parameter is an KeyboardElement
        * Consider it as the keyboard DOM element
        */
-    } else if (params[0] instanceof HTMLDivElement) {
+    } else if (selectorOrOptions instanceof HTMLDivElement) {
       /**
        * This element must have a class, otherwise throw
        */
-      if (!params[0].className) {
+      if (!selectorOrOptions.className) {
         console.warn("Any DOM element passed as parameter must have a class.");
         throw new Error("KEYBOARD_DOM_CLASS_ERROR");
       }
 
-      keyboardDOMClass = params[0].className.split(" ")[0];
-      keyboardDOM = params[0];
-      options = params[1];
+      keyboardDOMClass = selectorOrOptions.className.split(" ")[0];
+      keyboardDOM = selectorOrOptions;
+      options = keyboardOptions;
 
       /**
        * Otherwise, search for .simple-keyboard DOM element
@@ -278,7 +281,7 @@ class SimpleKeyboard {
       keyboardDOM = document.querySelector(
         `.${keyboardDOMClass}`
       ) as KeyboardElement;
-      options = params[0];
+      options = selectorOrOptions;
     }
 
     return {

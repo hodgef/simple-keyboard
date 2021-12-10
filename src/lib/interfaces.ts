@@ -21,8 +21,6 @@ export interface KeyboardInput {
     [key: string]: string
 }
 
-export type KeyboardParams = [KeyboardOptions] | [string | HTMLDivElement, KeyboardOptions];
-
 export type CandidateBoxParams = {
     utilities: Utilities
 }

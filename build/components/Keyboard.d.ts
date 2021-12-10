@@ -1,6 +1,6 @@
 import "./css/Keyboard.css";
 import PhysicalKeyboard from "../services/PhysicalKeyboard";
-import { KeyboardOptions, KeyboardInput, KeyboardButtonElements, KeyboardHandlerEvent, KeyboardElement, KeyboardParams } from "../interfaces";
+import { KeyboardOptions, KeyboardInput, KeyboardButtonElements, KeyboardHandlerEvent, KeyboardElement } from "../interfaces";
 import CandidateBox from "./CandidateBox";
 /**
  * Root class for simple-keyboard.
@@ -42,11 +42,11 @@ declare class SimpleKeyboard {
      * Creates an instance of SimpleKeyboard
      * @param {Array} params If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.
      */
-    constructor(...params: KeyboardParams);
+    constructor(selectorOrOptions?: string | HTMLDivElement | KeyboardOptions, keyboardOptions?: KeyboardOptions);
     /**
      * parseParams
      */
-    handleParams: (params: KeyboardParams) => {
+    handleParams: (selectorOrOptions?: string | HTMLDivElement | KeyboardOptions | undefined, keyboardOptions?: KeyboardOptions | undefined) => {
         keyboardDOMClass: string;
         keyboardDOM: KeyboardElement;
         options: Partial<KeyboardOptions | undefined>;
