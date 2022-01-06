@@ -57,7 +57,7 @@
     "eslint": "^8.6.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "jest": "^26.6.3",
+    "jest": "^27.4.7",
     "mini-css-extract-plugin": "^2.4.5",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "postcss": "^8.4.5",
