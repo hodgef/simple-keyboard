@@ -33,4 +33,5 @@ README.md
 .eslintignore
 .eslintrc.json
 webpack.config.js
+webpack.config.modern.js
 babel.config.js

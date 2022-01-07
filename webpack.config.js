@@ -33,6 +33,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     library: "SimpleKeyboard",
     libraryTarget: 'umd',
+    chunkFormat: 'array-push',
     clean: true,
     globalObject: 'this',
     environment: {
