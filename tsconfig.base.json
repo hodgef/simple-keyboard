@@ -1,13 +1,12 @@
 {
     "compilerOptions": {
       "noImplicitAny": true,
-      "outDir": "build",
       "module": "esnext",
-      "target": "es2020",
       "allowJs": true,
       "sourceMap": true,
       "declaration": true,
       "emitDeclarationOnly": true,
+      "isolatedModules": true,
       "suppressImplicitAnyIndexErrors": true,
       "lib": ["es2020", "dom"],
       "moduleResolution": "node",

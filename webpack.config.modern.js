@@ -15,7 +15,7 @@ const {
 } = getPackageJson('version', 'name', 'license', 'repository', 'author');
 
 const banner = `
-  ${name} v${version} (index.modern.js - Ecmascript Module bundle)
+  ${name} v${version} (index.modern.js - Modern Browsers bundle)
   ${repository.url}
 
   NOTE: This modern browsers bundle (index.modern.js) removes all polyfills
@@ -31,16 +31,14 @@ const banner = `
 module.exports = {
   mode: "production",
   entry: './src/lib/index.modern.ts',
-  target: 'browserslist:last 2 versions',
+  target: 'es5',
   output: {
     filename: 'index.modern.js',
-    path: path.resolve(__dirname, 'build'),
-    libraryTarget: 'module',
-    chunkFormat: 'module',
+    path: path.resolve(__dirname, 'build/cjs'),
+    library: "SimpleKeyboard",
+    libraryTarget: 'umd',
+    chunkFormat: 'array-push',
     globalObject: 'this'
-  },
-  experiments: {
-    outputModule: true
   },
   optimization: {
     minimize: true,
