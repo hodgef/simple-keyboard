@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v3.4.27
+ *   simple-keyboard v3.4.28
  *   https://github.com/hodgef/simple-keyboard
  *
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
