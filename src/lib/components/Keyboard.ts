@@ -365,6 +365,10 @@ class SimpleKeyboard {
         candidateValue,
         targetElement,
         onSelect: (selectedCandidate: string, e: MouseEvent) => {
+          /**
+           * Making sure that our suggestions are not composed characters
+           */
+          const normalizedCandidate = selectedCandidate.normalize("NFD");
           const currentInput = this.getInput(this.options.inputName, true);
           const initialCaretPosition = this.getCaretPositionEnd() || 0;
           const inputSubstr =
@@ -372,7 +376,10 @@ class SimpleKeyboard {
             currentInput;
 
           const regexp = new RegExp(`${candidateKey}$`, "gi");
-          const newInputSubstr = inputSubstr.replace(regexp, selectedCandidate);
+          const newInputSubstr = inputSubstr.replace(
+            regexp,
+            normalizedCandidate
+          );
           const newInput = currentInput.replace(inputSubstr, newInputSubstr);
 
           const caretPositionDiff = newInputSubstr.length - inputSubstr.length;
