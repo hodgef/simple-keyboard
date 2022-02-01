@@ -1127,10 +1127,6 @@ class SimpleKeyboard {
         event.target === instance.keyboardDOM ||
         (event.target && instance.keyboardDOM.contains(event.target));
 
-      if (instance.isMouseHold) {
-        instance.isMouseHold = false;
-      }
-
       if (
         (targetTagName === "textarea" ||
           (targetTagName === "input" &&
