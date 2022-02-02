@@ -544,6 +544,26 @@ class SimpleKeyboard {
   }
 
   /**
+   * Get mouse hold state
+   */
+  getMouseHold() {
+    return this.isMouseHold;
+  }
+
+  /**
+   * Mark mouse hold state as set
+   */
+  setMouseHold(value: boolean) {
+    if (this.options.syncInstanceInputs) {
+      this.dispatch((instance: SimpleKeyboard) => {
+        instance.isMouseHold = value;
+      });
+    } else {
+      this.isMouseHold = value;
+    }
+  }
+
+  /**
    * Handles button mousedown
    */
   /* istanbul ignore next */
@@ -567,7 +587,7 @@ class SimpleKeyboard {
     /**
      * @type {boolean} Whether the mouse is being held onKeyPress
      */
-    this.isMouseHold = true;
+    this.setMouseHold(true);
 
     /**
      * @type {object} Time to wait until a key hold is detected
@@ -575,7 +595,7 @@ class SimpleKeyboard {
     if (!this.options.disableButtonHold) {
       this.holdTimeout = window.setTimeout(() => {
         if (
-          (this.isMouseHold &&
+          (this.getMouseHold() &&
             // TODO: This needs to be configurable through options
             ((!button.includes("{") && !button.includes("}")) ||
               button === "{delete}" ||
@@ -635,7 +655,7 @@ class SimpleKeyboard {
       buttonElement.classList.remove(this.activeButtonClass);
     });
 
-    this.isMouseHold = false;
+    this.setMouseHold(false);
     if (this.holdInteractionTimeout) clearTimeout(this.holdInteractionTimeout);
 
     /**
@@ -666,7 +686,7 @@ class SimpleKeyboard {
      * @type {object} Timeout dictating the speed of key hold iterations
      */
     this.holdInteractionTimeout = window.setTimeout(() => {
-      if (this.isMouseHold) {
+      if (this.getMouseHold()) {
         this.handleButtonClicked(button);
         this.handleButtonHold(button);
       } else {
@@ -1805,7 +1825,7 @@ class SimpleKeyboard {
                * Handle mouse events
                */
               buttonDOM.onclick = (e: KeyboardHandlerEvent) => {
-                this.isMouseHold = false;
+                this.setMouseHold(false);
                 this.handleButtonClicked(button, e);
               };
               buttonDOM.onmousedown = (e: KeyboardHandlerEvent) => {
