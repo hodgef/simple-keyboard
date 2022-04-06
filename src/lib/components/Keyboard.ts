@@ -316,7 +316,10 @@ class SimpleKeyboard {
   getInputCandidates(
     input: string
   ): { candidateKey: string; candidateValue: string } | Record<string, never> {
-    const { layoutCandidates: layoutCandidatesObj, layoutCandidatesCaseSensitiveMatch } = this.options;
+    const {
+      layoutCandidates: layoutCandidatesObj,
+      layoutCandidatesCaseSensitiveMatch,
+    } = this.options;
 
     if (!layoutCandidatesObj || typeof layoutCandidatesObj !== "object") {
       return {};
@@ -326,7 +329,10 @@ class SimpleKeyboard {
       (layoutCandidate: string) => {
         const inputSubstr =
           input.substring(0, this.getCaretPositionEnd() || 0) || input;
-        const regexp = new RegExp(`${layoutCandidate}$`, layoutCandidatesCaseSensitiveMatch ? "g" : "gi");
+        const regexp = new RegExp(
+          `${layoutCandidate}$`,
+          layoutCandidatesCaseSensitiveMatch ? "g" : "gi"
+        );
         const matches = [...inputSubstr.matchAll(regexp)];
         return !!matches.length;
       }
@@ -378,7 +384,10 @@ class SimpleKeyboard {
             currentInput.substring(0, initialCaretPosition || 0) ||
             currentInput;
 
-          const regexp = new RegExp(`${candidateKey}$`, layoutCandidatesCaseSensitiveMatch ? "g" : "gi");
+          const regexp = new RegExp(
+            `${candidateKey}$`,
+            layoutCandidatesCaseSensitiveMatch ? "g" : "gi"
+          );
           const newInputSubstr = inputSubstr.replace(
             regexp,
             normalizedCandidate
