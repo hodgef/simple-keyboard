@@ -129,7 +129,8 @@ class SimpleKeyboard {
      * @property {array} modules Module classes to be loaded by simple-keyboard.
      * @property {boolean} enableLayoutCandidates Enable input method editor candidate list support.
      * @property {object} excludeFromLayout Buttons to exclude from layout
-     * @property {number} layoutCandidatesPageSize Determine size of layout candidate list
+     * @property {number} layoutCandidatesPageSize Determines size of layout candidate list
+     * @property {boolean} layoutCandidatesCaseSensitiveMatch Determines whether layout candidate match should be case sensitive.
      */
     this.options = {
       layoutName: "default",
@@ -315,7 +316,7 @@ class SimpleKeyboard {
   getInputCandidates(
     input: string
   ): { candidateKey: string; candidateValue: string } | Record<string, never> {
-    const { layoutCandidates: layoutCandidatesObj } = this.options;
+    const { layoutCandidates: layoutCandidatesObj, layoutCandidatesCaseSensitiveMatch } = this.options;
 
     if (!layoutCandidatesObj || typeof layoutCandidatesObj !== "object") {
       return {};
@@ -325,7 +326,7 @@ class SimpleKeyboard {
       (layoutCandidate: string) => {
         const inputSubstr =
           input.substring(0, this.getCaretPositionEnd() || 0) || input;
-        const regexp = new RegExp(`${layoutCandidate}$`, "gi");
+        const regexp = new RegExp(`${layoutCandidate}$`, layoutCandidatesCaseSensitiveMatch ? "g" : "gi");
         const matches = [...inputSubstr.matchAll(regexp)];
         return !!matches.length;
       }
@@ -365,6 +366,8 @@ class SimpleKeyboard {
         candidateValue,
         targetElement,
         onSelect: (selectedCandidate: string, e: MouseEvent) => {
+          const { layoutCandidatesCaseSensitiveMatch } = this.options;
+
           /**
            * Making sure that our suggestions are not composed characters
            */
@@ -375,7 +378,7 @@ class SimpleKeyboard {
             currentInput.substring(0, initialCaretPosition || 0) ||
             currentInput;
 
-          const regexp = new RegExp(`${candidateKey}$`, "gi");
+          const regexp = new RegExp(`${candidateKey}$`, layoutCandidatesCaseSensitiveMatch ? "g" : "gi");
           const newInputSubstr = inputSubstr.replace(
             regexp,
             normalizedCandidate

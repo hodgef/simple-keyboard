@@ -231,9 +231,14 @@ export interface KeyboardOptions {
     excludeFromLayout?: { [key: string]: string[] };
 
     /**
-     * Determine size of layout candidate list
+     * Determines size of layout candidate list
      */
     layoutCandidatesPageSize?: number;
+
+    /**
+     * Determines whether layout candidate match should be case sensitive.
+     */
+    layoutCandidatesCaseSensitiveMatch?: boolean;
 
     /**
      * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
