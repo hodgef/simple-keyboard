@@ -53,7 +53,10 @@ class PhysicalKeyboard {
           options.physicalKeyboardHighlightTextColor || "black";
 
         if (options.physicalKeyboardHighlightPress) {
-          if (options.physicalKeyboardHighlightPressUseClick) {
+          if (options.physicalKeyboardHighlightPressUsePointerEvents) {
+            buttonDOM.onpointerdown();
+            buttonDOM.onpointerup();
+          } else if (options.physicalKeyboardHighlightPressUseClick) {
             buttonDOM.click();
           } else {
             instance.handleButtonClicked(buttonName, event);
