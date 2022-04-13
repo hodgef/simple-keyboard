@@ -117,6 +117,10 @@ export interface KeyboardOptions {
      */
     physicalKeyboardHighlightPressUseClick?: boolean;
     /**
+     * Whether physicalKeyboardHighlightPress should use pointer events to trigger buttons.
+     */
+    physicalKeyboardHighlightPressUsePointerEvents?: boolean;
+    /**
      * Define the text color that the physical keyboard highlighted key should have.
      */
     physicalKeyboardHighlightTextColor?: string;
