@@ -55,7 +55,6 @@ class PhysicalKeyboard {
         if (options.physicalKeyboardHighlightPress) {
           if (options.physicalKeyboardHighlightPressUsePointerEvents) {
             buttonDOM.onpointerdown();
-            buttonDOM.onpointerup();
           } else if (options.physicalKeyboardHighlightPressUseClick) {
             buttonDOM.click();
           } else {
@@ -67,6 +66,7 @@ class PhysicalKeyboard {
   }
 
   handleHighlightKeyUp(event: KeyboardEvent) {
+    const options = this.getOptions();
     const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
     this.dispatch((instance: any) => {
@@ -76,6 +76,9 @@ class PhysicalKeyboard {
 
       if (buttonDOM && buttonDOM.removeAttribute) {
         buttonDOM.removeAttribute("style");
+        if (options.physicalKeyboardHighlightPressUsePointerEvents) {
+          buttonDOM.onpointerup();
+        }
       }
     });
   }
