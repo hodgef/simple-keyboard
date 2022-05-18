@@ -46,7 +46,7 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.17.12",
     "@types/jest": "^27.5.0",
-    "@typescript-eslint/eslint-plugin": "^5.24.0",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.23.0",
     "autoprefixer": "^10.4.6",
     "babel-eslint": "^10.1.0",
