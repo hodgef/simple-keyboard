@@ -46,7 +46,7 @@ declare class SimpleKeyboard {
     /**
      * parseParams
      */
-    handleParams: (selectorOrOptions?: string | HTMLDivElement | KeyboardOptions | undefined, keyboardOptions?: KeyboardOptions | undefined) => {
+    handleParams: (selectorOrOptions?: string | HTMLDivElement | KeyboardOptions, keyboardOptions?: KeyboardOptions) => {
         keyboardDOMClass: string;
         keyboardDOM: KeyboardElement;
         options: Partial<KeyboardOptions | undefined>;
