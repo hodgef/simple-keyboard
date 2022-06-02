@@ -65,7 +65,7 @@
     "prettier": "^2.6.2",
     "prettier-webpack-plugin": "^1.2.0",
     "style-loader": "^3.3.1",
-    "terser-webpack-plugin": "^5.3.1",
+    "terser-webpack-plugin": "^5.3.3",
     "typescript": "^4.7.2",
     "url-loader": "^4.1.1",
     "webpack": "^5.40.0",
