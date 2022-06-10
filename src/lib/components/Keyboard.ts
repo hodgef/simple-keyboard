@@ -887,6 +887,7 @@ class SimpleKeyboard {
     }
 
     this.keyboardDOM.className = this.keyboardDOMClass;
+    this.keyboardDOM.setAttribute("data-skInstance", this.currentInstanceName);
     this.buttonElements = {};
   }
 
@@ -1157,9 +1158,19 @@ class SimpleKeyboard {
     }
 
     this.dispatch((instance) => {
-      const isKeyboard =
+      let isKeyboard =
         event.target === instance.keyboardDOM ||
         (event.target && instance.keyboardDOM.contains(event.target));
+
+      /**
+       * If syncInstanceInputs option is enabled, make isKeyboard match any instance
+       * not just the current one
+       */
+      if (this.options.syncInstanceInputs && Array.isArray(event.path)) {
+        isKeyboard = event.path.some((item: HTMLElement) =>
+          item?.hasAttribute?.("data-skInstance")
+        );
+      }
 
       if (
         (targetTagName === "textarea" ||
@@ -1296,6 +1307,11 @@ class SimpleKeyboard {
      * Clearing activeInputElement
      */
     this.activeInputElement = null;
+
+    /**
+     * Removing instance attribute
+     */
+    this.keyboardDOM.removeAttribute("data-skInstance");
 
     /**
      * Clearing keyboardDOM
@@ -1676,6 +1692,11 @@ class SimpleKeyboard {
       this.keyboardPluginClasses,
       useTouchEventsClass
     );
+
+    /**
+     * Adding keyboard identifier
+     */
+    this.keyboardDOM.setAttribute("data-skInstance", this.currentInstanceName);
 
     /**
      * Create row wrapper
