@@ -1866,7 +1866,7 @@ class SimpleKeyboard {
                  * This fires handler before onKeyReleased, therefore when that option is set we will fire the handler
                  * in onmousedown instead
                  */
-                if(typeof this.options.onKeyReleased !== "function"){
+                if (typeof this.options.onKeyReleased !== "function") {
                   this.handleButtonClicked(button, e);
                 }
               };
@@ -1874,7 +1874,10 @@ class SimpleKeyboard {
                 /**
                  * Fire button handler for onKeyReleased use-case
                  */
-                if(typeof this.options.onKeyReleased === "function" && !this.isMouseHold){
+                if (
+                  typeof this.options.onKeyReleased === "function" &&
+                  !this.isMouseHold
+                ) {
                   this.handleButtonClicked(button, e);
                 }
                 this.handleButtonMouseDown(button, e);
