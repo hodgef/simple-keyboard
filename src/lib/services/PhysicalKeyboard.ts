@@ -47,7 +47,7 @@ class PhysicalKeyboard {
       }
 
       if (buttonDOM) {
-        buttonDOM.style.backgroundColor =
+        buttonDOM.style.background =
           options.physicalKeyboardHighlightBgColor || "#dadce4";
         buttonDOM.style.color =
           options.physicalKeyboardHighlightTextColor || "black";
