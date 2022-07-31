@@ -186,6 +186,10 @@ declare class Utilities {
      */
     chunkArray<T>(arr: T[], size: number): T[][];
     /**
+     * Escape regex input
+     */
+    escapeRegex(str: string): string;
+    /**
      * Reusable empty function
      */
     static noop: () => void;
