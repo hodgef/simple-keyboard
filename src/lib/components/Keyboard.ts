@@ -332,7 +332,7 @@ class SimpleKeyboard {
         const inputSubstr =
           input.substring(0, this.getCaretPositionEnd() || 0) || input;
         const regexp = new RegExp(
-          `${layoutCandidate}$`,
+          `${this.utilities.escapeRegex(layoutCandidate)}$`,
           layoutCandidatesCaseSensitiveMatch ? "g" : "gi"
         );
         const matches = [...inputSubstr.matchAll(regexp)];
@@ -387,7 +387,7 @@ class SimpleKeyboard {
             currentInput;
 
           const regexp = new RegExp(
-            `${candidateKey}$`,
+            `${this.utilities.escapeRegex(candidateKey)}$`,
             layoutCandidatesCaseSensitiveMatch ? "g" : "gi"
           );
           const newInputSubstr = inputSubstr.replace(

@@ -533,6 +533,13 @@ class Utilities {
   }
 
   /**
+   * Escape regex input
+   */
+  escapeRegex(str: string) {
+      return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  }
+
+  /**
    * Reusable empty function
    */
   static noop = () => {};
