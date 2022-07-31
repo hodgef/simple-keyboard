@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const PrettierPlugin = require("prettier-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const getPackageJson = require('./scripts/getPackageJson');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -88,7 +87,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new PrettierPlugin(),
     new MiniCssExtractPlugin({
         filename: 'css/index.css'
     }),
