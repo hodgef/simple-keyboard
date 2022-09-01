@@ -1,8 +1,8 @@
 <p>
   <a href="https://simple-keyboard.com/demo">
-	<img alt="simple-keyboard: Javascript Virtual Keyboard" src="https://user-images.githubusercontent.com/25509135/187998781-979c4194-45a7-40af-8c3c-450140d285dc.gif">
+	<img alt="simple-keyboard: Javascript Virtual Keyboard" src="https://user-images.githubusercontent.com/25509135/187999993-fb5422fd-a56f-4a9a-84a9-55c94478f61c.gif">
   </a>
-	
+
   <a href="https://www.npmjs.com/package/simple-keyboard">
     <img src="https://badgen.net/npm/v/simple-keyboard?color=blue" alt="npm version">
   </a>
