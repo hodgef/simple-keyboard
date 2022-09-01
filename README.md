@@ -1,6 +1,6 @@
 <p>
   <a href="https://simple-keyboard.com/demo">
-	<img alt="simple-keyboard: Javascript Virtual Keyboard" src="https://i.imgur.com/PrpbdIu.png">
+	<img alt="simple-keyboard: Javascript Virtual Keyboard" src="https://user-images.githubusercontent.com/25509135/187998781-979c4194-45a7-40af-8c3c-450140d285dc.gif">
   </a>
 	
   <a href="https://www.npmjs.com/package/simple-keyboard">
