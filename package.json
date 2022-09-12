@@ -54,7 +54,7 @@
     "babel-preset-minify": "^0.5.2",
     "core-js": "^3.25.1",
     "css-loader": "^6.7.1",
-    "css-minimizer-webpack-plugin": "^4.0.0",
+    "css-minimizer-webpack-plugin": "^4.1.0",
     "eslint": "^8.23.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
