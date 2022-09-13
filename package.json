@@ -47,7 +47,7 @@
     "@babel/preset-env": "^7.19.0",
     "@types/jest": "^27.5.0",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
-    "@typescript-eslint/parser": "^5.36.2",
+    "@typescript-eslint/parser": "^5.37.0",
     "autoprefixer": "^10.4.9",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
