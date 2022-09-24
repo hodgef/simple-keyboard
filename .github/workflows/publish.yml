@@ -11,14 +11,22 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [16.x]
+        os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
         with:
-          node-version: 12
-      - run: npm install
-      - run: npm run test -- --coverage --watchAll=false
+          node-version: ${{ matrix.node_version }}
+          
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run test -- --coverage --watchAll=false
 
       - name: Setup GIT
         run: |
