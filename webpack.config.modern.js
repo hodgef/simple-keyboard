@@ -11,7 +11,7 @@ const {
   name,
   license,
   repository,
-  author,
+  author
 } = getPackageJson('version', 'name', 'license', 'repository', 'author');
 
 const banner = `
