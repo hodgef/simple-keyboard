@@ -12,7 +12,7 @@ jobs:
     if: contains(github.ref, 'master')
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [16.x]
         os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v1
