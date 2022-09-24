@@ -24,11 +24,6 @@ jobs:
         run: |
           npm install
           npm run coverage
-      - uses: codecov/codecov-action@v1.0.2
-        with:
-          token: ${{secrets.CODECOV_TOKEN}}
-        env:
-          CI: true
 
       - name: Discord notification
         if: success()
