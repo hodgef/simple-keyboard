@@ -26,6 +26,7 @@ jobs:
           npm run coverage
 
       - name: Discord notification
+        continue-on-error: true
         if: success()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
@@ -34,6 +35,7 @@ jobs:
           args: "simple-keyboard - CI Build Passed"
 
       - name: Discord notification
+        continue-on-error: true
         if: failure()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
