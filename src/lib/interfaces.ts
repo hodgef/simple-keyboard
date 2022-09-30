@@ -246,6 +246,11 @@ export interface KeyboardOptions {
     layoutCandidatesCaseSensitiveMatch?: boolean;
 
     /**
+     * Disables the automatic normalization for selected layout candidates
+     */
+    disableCandidateNormalization?: boolean;
+
+    /**
      * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
      */
      onRender?: (instance?: SimpleKeyboard) => void;

@@ -133,6 +133,7 @@ class SimpleKeyboard {
      * @property {object} excludeFromLayout Buttons to exclude from layout
      * @property {number} layoutCandidatesPageSize Determines size of layout candidate list
      * @property {boolean} layoutCandidatesCaseSensitiveMatch Determines whether layout candidate match should be case sensitive.
+     * @property {boolean} disableCandidateNormalization Disables the automatic normalization for selected layout candidates
      */
     this.options = {
       layoutName: "default",
@@ -374,12 +375,17 @@ class SimpleKeyboard {
         candidateValue,
         targetElement,
         onSelect: (selectedCandidate: string, e: MouseEvent) => {
-          const { layoutCandidatesCaseSensitiveMatch } = this.options;
+          const { layoutCandidatesCaseSensitiveMatch, disableCandidateNormalization } = this.options;
 
-          /**
-           * Making sure that our suggestions are not composed characters
-           */
-          const normalizedCandidate = selectedCandidate.normalize("NFD");
+          let candidateStr = selectedCandidate;
+
+          if(!disableCandidateNormalization) {
+            /**
+             * Making sure that our suggestions are not composed characters
+             */
+            candidateStr = selectedCandidate.normalize("NFD");
+          }
+
           const currentInput = this.getInput(this.options.inputName, true);
           const initialCaretPosition = this.getCaretPositionEnd() || 0;
           const inputSubstr =
@@ -392,7 +398,7 @@ class SimpleKeyboard {
           );
           const newInputSubstr = inputSubstr.replace(
             regexp,
-            normalizedCandidate
+            candidateStr
           );
           const newInput = currentInput.replace(inputSubstr, newInputSubstr);
 
