@@ -3,7 +3,7 @@ import Utilities from "./services/Utilities";
 export interface KeyboardLayoutObject {
     [key: string]: string[];
 }
-export declare type KeyboardButtonTheme = {
+export type KeyboardButtonTheme = {
     class: string;
     buttons: string;
 } | null;
@@ -15,23 +15,23 @@ export interface KeyboardButtonAttributes {
 export interface KeyboardInput {
     [key: string]: string;
 }
-export declare type CandidateBoxParams = {
+export type CandidateBoxParams = {
     utilities: Utilities;
 };
-export declare type CandidateBoxShowParams = {
+export type CandidateBoxShowParams = {
     candidateValue: string;
     targetElement: KeyboardElement;
     onSelect: (selectedCandidate: string, e: MouseEvent) => void;
 };
-export declare type CandidateBoxRenderParams = {
+export type CandidateBoxRenderParams = {
     candidateListPages: string[][];
     targetElement: KeyboardElement;
     pageIndex: number;
     nbPages: number;
     onItemSelected: (selectedCandidate: string, e: MouseEvent) => void;
 };
-export declare type KeyboardElement = HTMLDivElement | HTMLButtonElement;
-export declare type KeyboardHandlerEvent = any;
+export type KeyboardElement = HTMLDivElement | HTMLButtonElement;
+export type KeyboardHandlerEvent = any;
 export interface KeyboardButtonElements {
     [key: string]: KeyboardElement[];
 }
