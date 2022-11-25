@@ -1352,3 +1352,53 @@ it('Keyboard will handle selected input with unchanged updatedInput edge case', 
   expect(keyboard.getCaretPosition()).toBe(2);
   expect(keyboard.getCaretPositionEnd()).toBe(2);
 });
+
+it('Ensure caret position is offset when rtl option is enabled', () => {
+  const keyboard = new Keyboard({
+    useMouseEvents: true,
+    rtl: true,
+    layout: {
+      default: ["{bksp} ש ל ו ם"]
+    }
+  });
+
+  const caretEventHandler = jest.spyOn(keyboard, 'caretEventHandler');
+
+  keyboard.getButtonElement("ש").onclick();
+  keyboard.getButtonElement("ו").onclick();
+  keyboard.getButtonElement("ם").onclick();
+
+  expect(keyboard.getInput()).toBe("‫שום‬");
+
+  const input = document.createElement("input");
+  input.value = keyboard.getInput();
+  input.type = "text";
+  input.selectionStart = 2;
+  input.selectionEnd = 2;
+
+  keyboard.caretEventHandler({
+    type: "selectionchange",
+    target: input
+  });
+
+  expect(caretEventHandler).toHaveBeenCalled();
+  expect(keyboard.getCaretPosition()).toBe(1);
+
+  keyboard.getButtonElement("ל").onclick();
+
+  expect(keyboard.getInput()).toBe('‫שלום‬');
+
+  input.value = keyboard.getInput();
+  input.type = "text";
+  input.selectionStart = 4;
+  input.selectionEnd = 4;
+
+  keyboard.caretEventHandler({
+    type: "selectionchange",
+    target: input
+  });
+
+  keyboard.getButtonElement("{bksp}").onclick();
+  
+  expect(keyboard.getInput()).toBe('‫שלם‬');
+});

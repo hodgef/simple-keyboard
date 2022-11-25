@@ -1190,10 +1190,15 @@ class SimpleKeyboard {
          * Tracks current cursor position
          * As keys are pressed, text will be added/removed at that position within the input.
          */
-        instance.setCaretPosition(
-          event.target.selectionStart,
-          event.target.selectionEnd
-        );
+        let selectionStart = event.target.selectionStart;
+        let selectionEnd = event.target.selectionEnd;
+
+        if(instance.options.rtl){
+          selectionStart = instance.utilities.getRtlOffset(selectionStart, instance.getInput());
+          selectionEnd = instance.utilities.getRtlOffset(selectionEnd, instance.getInput());
+        }
+
+        instance.setCaretPosition(selectionStart, selectionEnd);
 
         /**
          * Tracking current input in order to handle caret positioning edge cases

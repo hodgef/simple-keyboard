@@ -540,6 +540,20 @@ class Utilities {
   }
 
   /**
+   * Calculate caret position offset when using rtl option
+   */
+  getRtlOffset(index: number, input: string) {
+    let newIndex = index;
+    const startMarkerIndex = input.indexOf("\u202B");
+    const endMarkerIndex = input.indexOf("\u202C");
+
+    if(startMarkerIndex < index && startMarkerIndex != -1){ newIndex--; }
+    if(endMarkerIndex < index && startMarkerIndex != -1){ newIndex--; }
+
+    return newIndex < 0 ? 0 : newIndex;
+  }
+
+  /**
    * Reusable empty function
    */
   static noop = () => {};
