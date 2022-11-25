@@ -190,6 +190,10 @@ declare class Utilities {
      */
     escapeRegex(str: string): string;
     /**
+     * Calculate caret position offset when using rtl option
+     */
+    getRtlOffset(index: number, input: string): number;
+    /**
      * Reusable empty function
      */
     static noop: () => void;
