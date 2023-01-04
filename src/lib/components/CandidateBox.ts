@@ -5,16 +5,19 @@ import {
   CandidateBoxParams,
   CandidateBoxRenderParams,
   CandidateBoxShowParams,
+  KeyboardOptions,
 } from "./../interfaces";
 
 class CandidateBox {
   utilities: Utilities;
+  options: KeyboardOptions;
   candidateBoxElement!: HTMLDivElement;
   pageIndex = 0;
   pageSize;
 
-  constructor({ utilities }: CandidateBoxParams) {
+  constructor({ utilities, options }: CandidateBoxParams) {
     this.utilities = utilities;
+    this.options = options;
     Utilities.bindMethods(CandidateBox, this);
     this.pageSize = this.utilities.getOptions().layoutCandidatesPageSize || 5;
   }
@@ -82,7 +85,7 @@ class CandidateBox {
       };
 
       candidateListLIElement.className = "hg-candidate-box-list-item";
-      candidateListLIElement.textContent = candidateListItem;
+      candidateListLIElement.textContent = this.options.display?.[candidateListItem] || candidateListItem;
       candidateListLIElement.onclick = (e = getMouseEvent()) =>
         onItemSelected(candidateListItem, e);
 

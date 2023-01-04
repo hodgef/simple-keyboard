@@ -215,6 +215,7 @@ class SimpleKeyboard {
     this.candidateBox = this.options.enableLayoutCandidates
       ? new CandidateBox({
           utilities: this.utilities,
+          options: this.options,
         })
       : null;
 
@@ -878,6 +879,7 @@ class SimpleKeyboard {
         this.candidateBox.destroy();
         this.candidateBox = new CandidateBox({
           utilities: this.utilities,
+          options: this.options,
         });
       }
     }

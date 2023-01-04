@@ -22,7 +22,8 @@ export interface KeyboardInput {
 }
 
 export type CandidateBoxParams = {
-    utilities: Utilities
+    utilities: Utilities,
+    options: KeyboardOptions
 }
 
 export type CandidateBoxShowParams = {
