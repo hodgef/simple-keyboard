@@ -85,7 +85,7 @@ class CandidateBox {
       };
 
       candidateListLIElement.className = "hg-candidate-box-list-item";
-      candidateListLIElement.textContent = this.options.display?.[candidateListItem] || candidateListItem;
+      candidateListLIElement.innerHTML = this.options.display?.[candidateListItem] || candidateListItem;
       candidateListLIElement.onclick = (e = getMouseEvent()) =>
         onItemSelected(candidateListItem, e);
 
