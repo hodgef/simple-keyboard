@@ -34,7 +34,7 @@ class PhysicalKeyboard {
         `{${buttonPressed}}`
       );
       let buttonDOM;
-      let buttonName;
+      let buttonName: string;
 
       if (standardButtonPressed) {
         buttonDOM = standardButtonPressed;
@@ -46,19 +46,38 @@ class PhysicalKeyboard {
         return;
       }
 
-      if (buttonDOM) {
-        buttonDOM.style.background =
+      const applyButtonStyle = (buttonElement: HTMLElement) => {
+        buttonElement.style.background =
           options.physicalKeyboardHighlightBgColor || "#dadce4";
-        buttonDOM.style.color =
+          buttonElement.style.color =
           options.physicalKeyboardHighlightTextColor || "black";
+      }
 
-        if (options.physicalKeyboardHighlightPress) {
-          if (options.physicalKeyboardHighlightPressUsePointerEvents) {
-            buttonDOM.onpointerdown();
-          } else if (options.physicalKeyboardHighlightPressUseClick) {
-            buttonDOM.click();
-          } else {
-            instance.handleButtonClicked(buttonName, event);
+      if (buttonDOM) {
+        if(Array.isArray(buttonDOM)){
+          buttonDOM.forEach(buttonElement => applyButtonStyle(buttonElement));
+
+          // Even though we have an array of buttons, we just want to press one of them
+          if (options.physicalKeyboardHighlightPress) {
+            if (options.physicalKeyboardHighlightPressUsePointerEvents) {
+              buttonDOM[0]?.onpointerdown();
+            } else if (options.physicalKeyboardHighlightPressUseClick) {
+              buttonDOM[0]?.click();
+            } else {
+              instance.handleButtonClicked(buttonName, event);
+            }
+          }
+        } else {
+          applyButtonStyle(buttonDOM);
+
+          if (options.physicalKeyboardHighlightPress) {
+            if (options.physicalKeyboardHighlightPressUsePointerEvents) {
+              buttonDOM.onpointerdown();
+            } else if (options.physicalKeyboardHighlightPressUseClick) {
+              buttonDOM.click();
+            } else {
+              instance.handleButtonClicked(buttonName, event);
+            }
           }
         }
       }
@@ -74,10 +93,26 @@ class PhysicalKeyboard {
         instance.getButtonElement(buttonPressed) ||
         instance.getButtonElement(`{${buttonPressed}}`);
 
-      if (buttonDOM && buttonDOM.removeAttribute) {
-        buttonDOM.removeAttribute("style");
-        if (options.physicalKeyboardHighlightPressUsePointerEvents) {
-          buttonDOM.onpointerup();
+      const applyButtonStyle = (buttonElement: HTMLElement) => {
+        if(buttonElement.removeAttribute){
+          buttonElement.removeAttribute("style");
+        }
+      };
+
+      if (buttonDOM) {
+        if(Array.isArray(buttonDOM)){
+          buttonDOM.forEach(buttonElement => applyButtonStyle(buttonElement));
+
+          // Even though we have an array of buttons, we just want to press one of them
+          if (options.physicalKeyboardHighlightPressUsePointerEvents) {
+            buttonDOM[0]?.onpointerup();
+          }
+        } else {
+          applyButtonStyle(buttonDOM);
+
+          if (options.physicalKeyboardHighlightPressUsePointerEvents) {
+            buttonDOM.onpointerup();
+          }
         }
       }
     });
