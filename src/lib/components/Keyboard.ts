@@ -1153,6 +1153,13 @@ class SimpleKeyboard {
    */
   /* istanbul ignore next */
   handleSelectionChange(event: KeyboardHandlerEvent): void {
+    /**
+     * Firefox is not reporting the correct caret position through this event
+     * https://github.com/hodgef/simple-keyboard/issues/1839
+     */
+    if(navigator.userAgent.includes('Firefox')){
+      return;
+    }
     this.caretEventHandler(event);
   }
 
