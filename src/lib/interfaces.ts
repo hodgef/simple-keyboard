@@ -162,6 +162,11 @@ export interface KeyboardOptions {
     physicalKeyboardHighlightBgColor?: string;
 
     /**
+     * Whether physicalKeyboardHighlight should use preventDefault to disable default browser actions.
+     */
+    physicalKeyboardHighlightPreventDefault?: boolean;
+
+    /**
      * Calling preventDefault for the mousedown events keeps the focus on the input.
      */
     preventMouseDownDefault?: boolean;

@@ -26,6 +26,11 @@ class PhysicalKeyboard {
 
   handleHighlightKeyDown(event: KeyboardEvent) {
     const options = this.getOptions();
+
+    if(options.physicalKeyboardHighlightPreventDefault){
+      event.preventDefault();
+    }
+
     const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
     this.dispatch((instance: any) => {
@@ -86,6 +91,11 @@ class PhysicalKeyboard {
 
   handleHighlightKeyUp(event: KeyboardEvent) {
     const options = this.getOptions();
+
+    if(options.physicalKeyboardHighlightPreventDefault){
+      event.preventDefault();
+    }
+    
     const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
 
     this.dispatch((instance: any) => {

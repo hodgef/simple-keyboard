@@ -109,6 +109,7 @@ class SimpleKeyboard {
      * @property {string} physicalKeyboardHighlightBgColor Define the background color that the physical keyboard highlighted key should have.
      * @property {boolean} physicalKeyboardHighlightPressUseClick Whether physicalKeyboardHighlightPress should use clicks to trigger buttons.
      * @property {boolean} physicalKeyboardHighlightPressUsePointerEvents Whether physicalKeyboardHighlightPress should use pointer events to trigger buttons.
+     * @property {boolean} physicalKeyboardHighlightPreventDefault Whether physicalKeyboardHighlight should use preventDefault to disable default browser actions.
      * @property {boolean} preventMouseDownDefault Calling preventDefault for the mousedown events keeps the focus on the input.
      * @property {boolean} preventMouseUpDefault Calling preventDefault for the mouseup events.
      * @property {boolean} stopMouseDownPropagation Stops pointer down events on simple-keyboard buttons from bubbling to parent elements.
