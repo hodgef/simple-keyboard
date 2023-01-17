@@ -29,6 +29,7 @@ class PhysicalKeyboard {
 
     if(options.physicalKeyboardHighlightPreventDefault){
       event.preventDefault();
+      event.stopImmediatePropagation();
     }
 
     const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
@@ -94,6 +95,7 @@ class PhysicalKeyboard {
 
     if(options.physicalKeyboardHighlightPreventDefault){
       event.preventDefault();
+      event.stopImmediatePropagation();
     }
     
     const buttonPressed = this.getSimpleKeyboardLayoutKey(event);

@@ -1094,11 +1094,13 @@ class SimpleKeyboard {
         console.log(`Caret handling started (${this.keyboardDOMClass})`);
       }
 
+      const { physicalKeyboardHighlightPreventDefault = false } = this.options;
+
       /**
        * Event Listeners
        */
-      document.addEventListener("keyup", this.handleKeyUp);
-      document.addEventListener("keydown", this.handleKeyDown);
+      document.addEventListener("keyup", this.handleKeyUp, physicalKeyboardHighlightPreventDefault);
+      document.addEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
       document.addEventListener("mouseup", this.handleMouseUp);
       document.addEventListener("touchend", this.handleTouchEnd);
       document.addEventListener("select", this.handleSelect);
@@ -1268,11 +1270,13 @@ class SimpleKeyboard {
         `Destroying simple-keyboard instance: ${this.currentInstanceName}`
       );
 
+    const { physicalKeyboardHighlightPreventDefault = false } = this.options;
+
     /**
      * Remove document listeners
      */
-    document.removeEventListener("keyup", this.handleKeyUp);
-    document.removeEventListener("keydown", this.handleKeyDown);
+    document.removeEventListener("keyup", this.handleKeyUp, physicalKeyboardHighlightPreventDefault);
+    document.removeEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
     document.removeEventListener("mouseup", this.handleMouseUp);
     document.removeEventListener("touchend", this.handleTouchEnd);
     document.removeEventListener("select", this.handleSelect);
