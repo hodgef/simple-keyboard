@@ -30,6 +30,9 @@ config
 .travis.yml
 CHANGELOG.md
 README.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+tsconfig.json
 .eslintignore
 .eslintrc.json
 webpack.config.js
