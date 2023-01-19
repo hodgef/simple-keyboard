@@ -24,15 +24,15 @@ class PhysicalKeyboard {
     Utilities.bindMethods(PhysicalKeyboard, this);
   }
 
-  handleHighlightKeyDown(event: KeyboardEvent) {
+  handleHighlightKeyDown(e: KeyboardEvent) {
     const options = this.getOptions();
 
-    if(options.physicalKeyboardHighlightPreventDefault){
-      event.preventDefault();
-      event.stopImmediatePropagation();
+    if(options.physicalKeyboardHighlightPreventDefault && this.isMofifierKey(e)){
+      e.preventDefault();
+      e.stopImmediatePropagation();
     }
 
-    const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+    const buttonPressed = this.getSimpleKeyboardLayoutKey(e);
 
     this.dispatch((instance: any) => {
       const standardButtonPressed = instance.getButtonElement(buttonPressed);
@@ -70,7 +70,7 @@ class PhysicalKeyboard {
             } else if (options.physicalKeyboardHighlightPressUseClick) {
               buttonDOM[0]?.click();
             } else {
-              instance.handleButtonClicked(buttonName, event);
+              instance.handleButtonClicked(buttonName, e);
             }
           }
         } else {
@@ -82,7 +82,7 @@ class PhysicalKeyboard {
             } else if (options.physicalKeyboardHighlightPressUseClick) {
               buttonDOM.click();
             } else {
-              instance.handleButtonClicked(buttonName, event);
+              instance.handleButtonClicked(buttonName, e);
             }
           }
         }
@@ -90,15 +90,15 @@ class PhysicalKeyboard {
     });
   }
 
-  handleHighlightKeyUp(event: KeyboardEvent) {
+  handleHighlightKeyUp(e: KeyboardEvent) {
     const options = this.getOptions();
 
-    if(options.physicalKeyboardHighlightPreventDefault){
-      event.preventDefault();
-      event.stopImmediatePropagation();
+    if(options.physicalKeyboardHighlightPreventDefault && this.isMofifierKey(e)){
+      e.preventDefault();
+      e.stopImmediatePropagation();
     }
     
-    const buttonPressed = this.getSimpleKeyboardLayoutKey(event);
+    const buttonPressed = this.getSimpleKeyboardLayoutKey(e);
 
     this.dispatch((instance: any) => {
       const buttonDOM =
@@ -132,11 +132,11 @@ class PhysicalKeyboard {
 
   /**
    * Transforms a KeyboardEvent's "key.code" string into a simple-keyboard layout format
-   * @param  {object} event The KeyboardEvent
+   * @param  {object} e The KeyboardEvent
    */
-  getSimpleKeyboardLayoutKey(event: KeyboardEvent) {
+  getSimpleKeyboardLayoutKey(e: KeyboardEvent) {
     let output = "";
-    const keyId = event.code || event.key || this.keyCodeToKey(event?.keyCode);
+    const keyId = e.code || e.key || this.keyCodeToKey(e?.keyCode);
 
     if (
       keyId?.includes("Numpad") ||
@@ -147,9 +147,9 @@ class PhysicalKeyboard {
       keyId?.includes("Alt") ||
       keyId?.includes("Meta")
     ) {
-      output = event.code || "";
+      output = e.code || "";
     } else {
-      output = event.key || this.keyCodeToKey(event?.keyCode) || "";
+      output = e.key || this.keyCodeToKey(e?.keyCode) || "";
     }
 
     return output.length > 1 ? output?.toLowerCase() : output;
@@ -158,7 +158,7 @@ class PhysicalKeyboard {
   /**
    * Retrieve key from keyCode
    */
-  keyCodeToKey(keyCode: number) {
+  keyCodeToKey(keyCode: number): string {
     return {
       8: "Backspace",
       9: "Tab",
@@ -257,7 +257,18 @@ class PhysicalKeyboard {
       220: "\\",
       221: "]",
       222: "'",
-    }[keyCode];
+    }[keyCode] || "";
+  }
+
+  isMofifierKey = (e: KeyboardEvent): boolean => {
+    return (
+      e.altKey
+      || e.ctrlKey
+      || e.shiftKey
+      || ["Tab", "CapsLock", "Esc", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(
+        e.code || e.key || this.keyCodeToKey(e?.keyCode)
+      )
+    )
   }
 }
 
