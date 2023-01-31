@@ -277,6 +277,16 @@ export interface KeyboardOptions {
     onChangeAll?: (inputObj: KeyboardInput, e?: MouseEvent) => any;
 
     /**
+     * Retrieves the pressed key
+     */
+    onKeyPress?: (button: string, e?: MouseEvent) => any;
+
+    /**
+     * Retrieves the released key
+     */
+    onKeyReleased?: (button: string, e?: MouseEvent) => any;
+
+    /**
      * Module options can have any format
      */
     [name: string]: any;

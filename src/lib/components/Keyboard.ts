@@ -684,7 +684,7 @@ class SimpleKeyboard {
      * Calling onKeyReleased
      */
     if (button && typeof this.options.onKeyReleased === "function")
-      this.options.onKeyReleased(button);
+      this.options.onKeyReleased(button, e);
   }
 
   /**
