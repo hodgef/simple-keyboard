@@ -18,6 +18,7 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - name: npm install, build, and test
         run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
           npm install
           npm run coverage
         env:
