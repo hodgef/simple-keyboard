@@ -25,6 +25,7 @@ jobs:
           
       - name: npm install, build, and test
         run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
           npm install
           npm run test -- --coverage --watchAll=false
 
