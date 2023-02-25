@@ -41,6 +41,7 @@ jobs:
 
       - name: Bump version
         run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
           git reset --hard
           npm version patch
           npm run build
@@ -52,6 +53,7 @@ jobs:
 
       - name: npm publish
         run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
           npm run trypublish
         env:
