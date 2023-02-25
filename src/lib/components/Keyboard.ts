@@ -135,6 +135,7 @@ class SimpleKeyboard {
      * @property {number} layoutCandidatesPageSize Determines size of layout candidate list
      * @property {boolean} layoutCandidatesCaseSensitiveMatch Determines whether layout candidate match should be case sensitive.
      * @property {boolean} disableCandidateNormalization Disables the automatic normalization for selected layout candidates
+     * @property {boolean} enableLayoutCandidatesKeyPress Enables onKeyPress triggering for layoutCandidate items
      */
     this.options = {
       layoutName: "default",
@@ -377,7 +378,11 @@ class SimpleKeyboard {
         candidateValue,
         targetElement,
         onSelect: (selectedCandidate: string, e: MouseEvent) => {
-          const { layoutCandidatesCaseSensitiveMatch, disableCandidateNormalization } = this.options;
+          const {
+            layoutCandidatesCaseSensitiveMatch,
+            disableCandidateNormalization,
+            enableLayoutCandidatesKeyPress
+          } = this.options;
 
           let candidateStr = selectedCandidate;
 
@@ -412,6 +417,14 @@ class SimpleKeyboard {
 
           this.setInput(newInput, this.options.inputName, true);
           this.setCaretPosition(newCaretPosition);
+
+          /**
+           * Calling onKeyPress
+           * We pass in the composed candidate instead of the decomposed one
+           * To prevent confusion for users
+           */
+          if (enableLayoutCandidatesKeyPress && typeof this.options.onKeyPress === "function")
+            this.options.onKeyPress(selectedCandidate, e);
 
           if (typeof this.options.onChange === "function")
             this.options.onChange(

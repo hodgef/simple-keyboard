@@ -257,6 +257,11 @@ export interface KeyboardOptions {
     disableCandidateNormalization?: boolean;
 
     /**
+     * Enables onKeyPress triggering for layoutCandidate items
+     */
+    enableLayoutCandidatesKeyPress?: boolean;
+
+    /**
      * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
      */
      onRender?: (instance?: SimpleKeyboard) => void;
