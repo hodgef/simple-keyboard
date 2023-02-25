@@ -1687,7 +1687,7 @@ class SimpleKeyboard {
    */
   getKeyboardClassString = (...baseDOMClasses: any[]) => {
     const keyboardClasses = [this.keyboardDOMClass, ...baseDOMClasses].filter(
-      DOMClass => !!DOMClass
+      (DOMClass) => !!DOMClass
     );
 
     return keyboardClasses.join(" ");
