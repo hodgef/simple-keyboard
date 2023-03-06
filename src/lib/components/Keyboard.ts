@@ -1130,8 +1130,7 @@ class SimpleKeyboard {
       document.addEventListener("mouseup", this.handleMouseUp);
       document.addEventListener("touchend", this.handleTouchEnd);
       document.addEventListener("selectionchange", this.handleSelectionChange);
-      // Reporting old caret pos @ https://github.com/hodgef/simple-keyboard/issues/1868
-      //document.addEventListener("select", this.handleSelect);
+      document.addEventListener("select", this.handleSelect);
     }
   }
 
