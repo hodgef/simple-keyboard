@@ -23,7 +23,7 @@ import CandidateBox from "./CandidateBox";
 class SimpleKeyboard {
   input!: KeyboardInput;
   options!: KeyboardOptions;
-  utilities: any;
+  utilities!: Utilities;
   caretPosition!: number | null;
   caretPositionEnd!: number | null;
   keyboardDOM!: KeyboardElement;
@@ -533,7 +533,8 @@ class SimpleKeyboard {
           "Caret at: ",
           this.getCaretPosition(),
           this.getCaretPositionEnd(),
-          `(${this.keyboardDOMClass})`
+          `(${this.keyboardDOMClass})`,
+          e?.type
         );
       }
 
@@ -570,6 +571,18 @@ class SimpleKeyboard {
         } else {
           this.candidateBox?.destroy();
         }
+      }
+    }
+
+    /**
+     * After a button is clicked the selection (if any) will disappear
+     * we should reflect this in our state, as applicable
+     */
+    if(this.caretPositionEnd && this.caretPosition !== this.caretPositionEnd){
+      this.setCaretPosition(this.caretPositionEnd, this.caretPositionEnd);
+      
+      if(this.options.debug){
+        console.log("Caret position aligned", this.caretPosition);
       }
     }
 
@@ -1116,8 +1129,9 @@ class SimpleKeyboard {
       document.addEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
       document.addEventListener("mouseup", this.handleMouseUp);
       document.addEventListener("touchend", this.handleTouchEnd);
-      document.addEventListener("select", this.handleSelect);
       document.addEventListener("selectionchange", this.handleSelectionChange);
+      // Reporting old caret pos @ https://github.com/hodgef/simple-keyboard/issues/1868
+      //document.addEventListener("select", this.handleSelect);
     }
   }
 
@@ -1236,7 +1250,8 @@ class SimpleKeyboard {
             instance.getCaretPosition(),
             instance.getCaretPositionEnd(),
             event && event.target.tagName.toLowerCase(),
-            `(${instance.keyboardDOMClass})`
+            `(${instance.keyboardDOMClass})`,
+            event?.type
           );
         }
       } else if (

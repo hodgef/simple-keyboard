@@ -1353,6 +1353,43 @@ it('Keyboard will handle selected input with unchanged updatedInput edge case', 
   expect(keyboard.getCaretPositionEnd()).toBe(2);
 });
 
+// https://github.com/hodgef/simple-keyboard/issues/1868
+it('Keyboard will handle caret pos sync after partially selected input resolution', () => {
+  const inputElem = document.createElement("input");
+  const onChange = jest.fn();
+  const keyboard = new Keyboard({ onChange });
+  
+  keyboard.getButtonElement("q").onpointerdown();
+  keyboard.getButtonElement("w").onpointerdown();
+  keyboard.getButtonElement("e").onpointerdown();
+  keyboard.getButtonElement("r").onpointerdown();
+  keyboard.getButtonElement("t").onpointerdown();
+  keyboard.getButtonElement("y").onpointerdown();
+
+  inputElem.setSelectionRange(1, 2);
+  keyboard.setCaretPosition(1, 2);
+
+  keyboard.getButtonElement("d").onpointerdown();
+  keyboard.getButtonElement("d").onpointerdown();
+  keyboard.getButtonElement("d").onpointerdown();
+
+  expect(keyboard.getInput()).toBe("qddderty");
+
+  inputElem.setSelectionRange(1, 2);
+  keyboard.setCaretPosition(1, 2);
+
+  keyboard.getButtonElement("d").onpointerdown();
+  expect(keyboard.getInput()).toBe("qddderty");
+
+  // caret position should now be synced
+  expect(keyboard.getCaretPosition()).toBe(keyboard.getCaretPositionEnd());
+
+  keyboard.getButtonElement("d").onpointerdown();
+
+  expect(keyboard.getInput()).toBe("qdddderty");
+  expect(keyboard.getCaretPosition()).toBe(3);
+});
+
 it('Ensure caret position is offset when rtl option is enabled', () => {
   const keyboard = new Keyboard({
     useMouseEvents: true,

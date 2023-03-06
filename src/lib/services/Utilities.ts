@@ -137,7 +137,7 @@ class Utilities {
   getButtonDisplayName(
     button: string,
     display: KeyboardOptions["display"],
-    mergeDisplay: boolean
+    mergeDisplay = false
   ) {
     if (mergeDisplay) {
       display = Object.assign({}, this.getDefaultDiplay(), display);
@@ -160,12 +160,12 @@ class Utilities {
   getUpdatedInput(
     button: string,
     input: string,
-    caretPos: number,
+    caretPos: any,
     caretPosEnd = caretPos,
     moveCaret = false
   ) {
     const options = this.getOptions();
-    const commonParams: [number, number, boolean] = [
+    const commonParams: [number | undefined, number | undefined, boolean] = [
       caretPos,
       caretPosEnd,
       moveCaret,
@@ -221,6 +221,10 @@ class Utilities {
       output = this.addStringAt(output, button, ...commonParams);
     else if (!button.includes("{") && !button.includes("}"))
       output = this.addStringAt(output, button, ...commonParams);
+
+    if(options.debug){
+      console.log("Input will be: "+ output);
+    }
 
     return output;
   }
