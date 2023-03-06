@@ -580,6 +580,10 @@ class SimpleKeyboard {
      */
     if(this.caretPositionEnd && this.caretPosition !== this.caretPositionEnd){
       this.setCaretPosition(this.caretPositionEnd, this.caretPositionEnd);
+
+      if(this.activeInputElement){
+        this.activeInputElement.setSelectionRange(this.caretPositionEnd, this.caretPositionEnd);
+      }
       
       if(this.options.debug){
         console.log("Caret position aligned", this.caretPosition);
