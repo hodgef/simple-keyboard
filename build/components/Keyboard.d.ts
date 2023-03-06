@@ -1,5 +1,6 @@
 import "./css/Keyboard.css";
 import PhysicalKeyboard from "../services/PhysicalKeyboard";
+import Utilities from "../services/Utilities";
 import { KeyboardOptions, KeyboardInput, KeyboardButtonElements, KeyboardHandlerEvent, KeyboardElement } from "../interfaces";
 import CandidateBox from "./CandidateBox";
 /**
@@ -12,7 +13,7 @@ import CandidateBox from "./CandidateBox";
 declare class SimpleKeyboard {
     input: KeyboardInput;
     options: KeyboardOptions;
-    utilities: any;
+    utilities: Utilities;
     caretPosition: number | null;
     caretPositionEnd: number | null;
     keyboardDOM: KeyboardElement;

@@ -99,7 +99,7 @@ declare class Utilities {
      * @param  {object} display The provided display option
      * @param  {boolean} mergeDisplay Whether the provided param value should be merged with the default one.
      */
-    getButtonDisplayName(button: string, display: KeyboardOptions["display"], mergeDisplay: boolean): string;
+    getButtonDisplayName(button: string, display: KeyboardOptions["display"], mergeDisplay?: boolean): string;
     /**
      * Returns the updated input resulting from clicking a given button
      *
@@ -109,7 +109,7 @@ declare class Utilities {
      * @param  {number} caretPosEnd The cursor's current end position
      * @param  {boolean} moveCaret Whether to update simple-keyboard's cursor
      */
-    getUpdatedInput(button: string, input: string, caretPos: number, caretPosEnd?: number, moveCaret?: boolean): string;
+    getUpdatedInput(button: string, input: string, caretPos: any, caretPosEnd?: any, moveCaret?: boolean): string;
     /**
      * Moves the cursor position by a given amount
      *
