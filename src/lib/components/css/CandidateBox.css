@@ -48,7 +48,6 @@ li.hg-candidate-box-list-item:active {
   display: flex;
   align-items: center;
   padding: 0 10px;
-  background: #d0d0d0;
   color: #969696;
   cursor: pointer;
 }
