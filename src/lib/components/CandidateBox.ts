@@ -13,7 +13,7 @@ class CandidateBox {
   options: KeyboardOptions;
   candidateBoxElement!: HTMLDivElement;
   pageIndex = 0;
-  pageSize;
+  pageSize: number;
 
   constructor({ utilities, options }: CandidateBoxParams) {
     this.utilities = utilities;
@@ -77,7 +77,7 @@ class CandidateBox {
     candidateListPages[pageIndex].forEach((candidateListItem) => {
       const candidateListLIElement = document.createElement("li");
       const getMouseEvent = () => {
-        const mouseEvent = new MouseEvent("click");
+        const mouseEvent = new (this.options.useTouchEvents ? TouchEvent : MouseEvent)("click");
         Object.defineProperty(mouseEvent, "target", {
           value: candidateListLIElement,
         });
@@ -86,8 +86,14 @@ class CandidateBox {
 
       candidateListLIElement.className = "hg-candidate-box-list-item";
       candidateListLIElement.innerHTML = this.options.display?.[candidateListItem] || candidateListItem;
-      candidateListLIElement.onclick = (e = getMouseEvent()) =>
-        onItemSelected(candidateListItem, e);
+
+      if(this.options.useTouchEvents) {
+        candidateListLIElement.ontouchstart = (e: any) =>
+          onItemSelected(candidateListItem, e || getMouseEvent());
+      } else {
+        candidateListLIElement.onclick = (e = getMouseEvent() as MouseEvent) =>
+          onItemSelected(candidateListItem, e);
+      }
 
       // Append list item to ul
       candidateListULElement.appendChild(candidateListLIElement);
@@ -99,7 +105,8 @@ class CandidateBox {
     prevBtnElement.classList.add("hg-candidate-box-prev");
     isPrevBtnElementActive &&
       prevBtnElement.classList.add("hg-candidate-box-btn-active");
-    prevBtnElement.onclick = () => {
+
+    const prevBtnElementClickAction = () => {
       if (!isPrevBtnElementActive) return;
       this.renderPage({
         candidateListPages,
@@ -109,6 +116,13 @@ class CandidateBox {
         onItemSelected,
       });
     };
+
+    if(this.options.useTouchEvents) {
+      prevBtnElement.ontouchstart = prevBtnElementClickAction;
+    } else {
+      prevBtnElement.onclick = prevBtnElementClickAction;
+    }
+    
     this.candidateBoxElement.appendChild(prevBtnElement);
 
     // Add elements to container
@@ -121,7 +135,7 @@ class CandidateBox {
     isNextBtnElementActive &&
       nextBtnElement.classList.add("hg-candidate-box-btn-active");
 
-    nextBtnElement.onclick = () => {
+    const nextBtnElementClickAction = () => {
       if (!isNextBtnElementActive) return;
       this.renderPage({
         candidateListPages,
@@ -131,6 +145,13 @@ class CandidateBox {
         onItemSelected,
       });
     };
+
+    if(this.options.useTouchEvents) {
+      nextBtnElement.ontouchstart = nextBtnElementClickAction;
+    } else {
+      nextBtnElement.onclick = nextBtnElementClickAction;
+    }
+
     this.candidateBoxElement.appendChild(nextBtnElement);
 
     // Append candidate box to target element

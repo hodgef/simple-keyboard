@@ -1764,7 +1764,7 @@ class SimpleKeyboard {
      * Iterating through each row
      */
     layout[this.options.layoutName || this.defaultName].forEach(
-      (row, rIndex) => {
+      (row: string, rIndex: number) => {
         let rowArray = row.split(" ");
 
         /**
