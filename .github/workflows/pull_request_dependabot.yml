@@ -8,7 +8,7 @@ jobs:
     if: ${{ github.actor == 'dependabot[bot]' }}
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [20.x]
         os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v2

@@ -34,6 +34,8 @@ module.exports = {
     libraryTarget: 'umd',
     clean: true,
     globalObject: 'this',
+    hashFunction: 'xxhash64',
+    chunkFormat: 'module',
     environment: {
       arrowFunction: false
     }

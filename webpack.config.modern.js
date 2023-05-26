@@ -38,7 +38,9 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     library: "SimpleKeyboard",
     libraryTarget: 'umd',
-    globalObject: 'this'
+    globalObject: 'this',
+    hashFunction: 'xxhash64',
+    chunkFormat: 'module',
   },
   optimization: {
     minimize: true,
