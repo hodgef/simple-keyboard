@@ -35,7 +35,5 @@ CONTRIBUTING.md
 tsconfig.json
 .eslintignore
 .eslintrc.json
-webpack.config.js
-webpack.config.demo.js
-webpack.config.modern.js
+webpack.config.*
 babel.config.js
