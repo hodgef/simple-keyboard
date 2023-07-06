@@ -52,7 +52,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^9.1.2",
     "babel-preset-minify": "^0.5.2",
-    "core-js": "^3.31.0",
+    "core-js": "^3.31.1",
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.1",
     "eslint": "^8.44.0",
