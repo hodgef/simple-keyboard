@@ -55,7 +55,7 @@
     "core-js": "^3.31.1",
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.1",
-    "eslint": "^8.44.0",
+    "eslint": "^8.45.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",
     "jest": "^26.6.3",
