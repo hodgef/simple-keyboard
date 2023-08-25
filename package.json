@@ -41,7 +41,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.22.10",
-    "@babel/core": "^7.22.10",
+    "@babel/core": "^7.22.11",
     "@babel/plugin-proposal-class-properties": "^7.17.12",
     "@babel/plugin-transform-typescript": "^7.22.10",
     "@babel/polyfill": "^7.12.1",
