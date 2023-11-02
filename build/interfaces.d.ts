@@ -216,11 +216,11 @@ export interface KeyboardOptions {
     /**
      * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
      */
-    onRender?: (instance?: SimpleKeyboard) => void;
+    onRender?: (instance: SimpleKeyboard) => void;
     /**
      * Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
      */
-    onInit?: (instance?: SimpleKeyboard) => void;
+    onInit?: (instance: SimpleKeyboard) => void;
     /**
      * Retrieves the current input
      */
