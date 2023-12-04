@@ -66,7 +66,7 @@ class PhysicalKeyboard {
           // Even though we have an array of buttons, we just want to press one of them
           if (options.physicalKeyboardHighlightPress) {
             if (options.physicalKeyboardHighlightPressUsePointerEvents) {
-              buttonDOM[0]?.onpointerdown();
+              buttonDOM[0]?.onpointerdown?.(e);
             } else if (options.physicalKeyboardHighlightPressUseClick) {
               buttonDOM[0]?.click();
             } else {
@@ -78,7 +78,7 @@ class PhysicalKeyboard {
 
           if (options.physicalKeyboardHighlightPress) {
             if (options.physicalKeyboardHighlightPressUsePointerEvents) {
-              buttonDOM.onpointerdown();
+              buttonDOM?.onpointerdown?.(e);
             } else if (options.physicalKeyboardHighlightPressUseClick) {
               buttonDOM.click();
             } else {
@@ -117,13 +117,13 @@ class PhysicalKeyboard {
 
           // Even though we have an array of buttons, we just want to press one of them
           if (options.physicalKeyboardHighlightPressUsePointerEvents) {
-            buttonDOM[0]?.onpointerup();
+            buttonDOM[0]?.onpointerup?.(e);
           }
         } else {
           applyButtonStyle(buttonDOM);
 
           if (options.physicalKeyboardHighlightPressUsePointerEvents) {
-            buttonDOM.onpointerup();
+            buttonDOM?.onpointerup?.(e);
           }
         }
       }
