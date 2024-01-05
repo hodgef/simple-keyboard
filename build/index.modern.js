@@ -1,6 +1,6 @@
 /*!
  * 
- *   simple-keyboard v3.7.40 (index.modern.js - Modern Browsers bundle)
+ *   simple-keyboard v3.7.41 (index.modern.js - Modern Browsers bundle)
  *   https://github.com/hodgef/simple-keyboard
  *
  *   NOTE: This modern browsers bundle (index.modern.js) removes all polyfills
