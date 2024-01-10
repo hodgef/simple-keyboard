@@ -11,6 +11,5 @@ jobs:
         with:
           stale-issue-message: 'This ticket is stale because it has been open 5 days with no activity. If pertaining to an Enhancement, the ticket will be tracked even after closing.'
           stale-pr-message: 'This PR is stale because it has been open 5 days with no activity. It will be closed soon if no further activity occurs. Thank you!'
-          close-issue-message: 'This issue was closed because it has been stalled for 10 days with no activity.'
           days-before-stale: 5
           days-before-close: 5
