@@ -110,5 +110,8 @@
       "jsx",
       "node"
     ]
+  },
+  "dependencies": {
+    "xregexp": "^5.1.1"
   }
 }

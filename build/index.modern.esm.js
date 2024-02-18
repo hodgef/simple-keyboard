@@ -1,5 +1,5 @@
 /*!
- * 
+ *
  *   simple-keyboard v3.7.58 (index.modern.esm.js - Modern Browsers bundle, ESM output)
  *   https://github.com/hodgef/simple-keyboard
  *
