@@ -217,9 +217,9 @@ class SimpleKeyboard {
      */
     this.candidateBox = this.options.enableLayoutCandidates
       ? new CandidateBox({
-          utilities: this.utilities,
-          options: this.options,
-        })
+        utilities: this.utilities,
+        options: this.options,
+      })
       : null;
 
     /**
@@ -387,7 +387,7 @@ class SimpleKeyboard {
 
           let candidateStr = selectedCandidate;
 
-          if(!disableCandidateNormalization) {
+          if (!disableCandidateNormalization) {
             /**
              * Making sure that our suggestions are not composed characters
              */
@@ -579,14 +579,14 @@ class SimpleKeyboard {
      * After a button is clicked the selection (if any) will disappear
      * we should reflect this in our state, as applicable
      */
-    if(this.caretPositionEnd && this.caretPosition !== this.caretPositionEnd){
+    if (this.caretPositionEnd && this.caretPosition !== this.caretPositionEnd) {
       this.setCaretPosition(this.caretPositionEnd, this.caretPositionEnd);
 
-      if(this.activeInputElement){
+      if (this.activeInputElement) {
         this.activeInputElement.setSelectionRange(this.caretPositionEnd, this.caretPositionEnd);
       }
 
-      if(this.options.debug){
+      if (this.options.debug) {
         console.log("Caret position aligned", this.caretPosition);
       }
     }
@@ -1098,8 +1098,7 @@ class SimpleKeyboard {
 
       if (this.options.debug) {
         console.log(
-          `inputPattern ("${inputPattern}"): ${
-            didInputMatch ? "passed" : "did not pass!"
+          `inputPattern ("${inputPattern}"): ${didInputMatch ? "passed" : "did not pass!"
           }`
         );
       }
@@ -1191,7 +1190,7 @@ class SimpleKeyboard {
      * Firefox is not reporting the correct caret position through this event
      * https://github.com/hodgef/simple-keyboard/issues/1839
      */
-    if(navigator.userAgent.includes('Firefox')){
+    if (navigator.userAgent.includes('Firefox')) {
       return;
     }
     this.caretEventHandler(event);
@@ -1236,7 +1235,7 @@ class SimpleKeyboard {
         let selectionStart = event.target.selectionStart;
         let selectionEnd = event.target.selectionEnd;
 
-        if(instance.options.rtl){
+        if (instance.options.rtl) {
           selectionStart = instance.utilities.getRtlOffset(selectionStart, instance.getInput());
           selectionEnd = instance.utilities.getRtlOffset(selectionEnd, instance.getInput());
         }
@@ -1696,26 +1695,28 @@ class SimpleKeyboard {
 
 
         const containerise = (contained: any, parents: string[] = []) => {
-          /**
-           * Create button container
-           */
-          const containerDOM = document.createElement("div");
-          containerDOM.className += "hg-button-container";
-          const containerUID = `${this.options.layoutName}-r${rIndex}_${parents.join('_')}`;
-          containerDOM.setAttribute("data-skUID", containerUID);
+          if (!disableRowButtonContainers) {
+            /**
+               * Create button container
+               */
+            const containerDOM = document.createElement("div");
+            containerDOM.className += "hg-button-container";
+            const containerUID = `${this.options.layoutName}-r${rIndex}_${parents.join('_')}`;
+            containerDOM.setAttribute("data-skUID", containerUID);
 
-          /**
-           * Inserting elements to container
-           */
-          // console.log(contained)
-          contained.forEach((element: any) =>
-            containerDOM.appendChild(element)
-          );
+            /**
+               * Inserting elements to container
+               */
+            // console.log(contained)
+            contained.forEach((element: any) =>
+              containerDOM.appendChild(element)
+            );
 
-          rowDOM.appendChild(containerDOM)
+            rowDOM.appendChild(containerDOM)
 
-          // return [contained]
-          return containerDOM
+            return containerDOM
+          }
+          return [contained]
         }
         const buttonify = (line: string, parents: string[]) => {
           const rawButtonify = (button: string, parents: string[]) => {
