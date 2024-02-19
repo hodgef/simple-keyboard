@@ -12,7 +12,7 @@ import {
   KeyboardElement,
 } from "../interfaces";
 import CandidateBox from "./CandidateBox";
-import XRegExp from "./xregexp.mjs";
+import XRegExp from "./xregexp";
 const { matchRecursive } = XRegExp
 
 /**
@@ -586,7 +586,7 @@ class SimpleKeyboard {
       if(this.activeInputElement){
         this.activeInputElement.setSelectionRange(this.caretPositionEnd, this.caretPositionEnd);
       }
-      
+
       if(this.options.debug){
         console.log("Caret position aligned", this.caretPosition);
       }
