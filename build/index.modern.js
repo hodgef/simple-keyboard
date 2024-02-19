@@ -1,5 +1,5 @@
 /*!
- *
+ * 
  *   simple-keyboard v3.7.58 (index.modern.js - Modern Browsers bundle)
  *   https://github.com/hodgef/simple-keyboard
  *
