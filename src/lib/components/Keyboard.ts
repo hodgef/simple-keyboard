@@ -1825,7 +1825,7 @@ class SimpleKeyboard {
               * Adding unique id
               * Since there's no limit on spawning same buttons, the unique id ensures you can style every button
               */
-            const buttonUID = `${this.options.layoutName}-r${rIndex}_${parents.join('_')}`;
+            const buttonUID = `${this.options.layoutName}-r${rIndex}_${[...parents, button].join('_')}`;
             buttonDOM.setAttribute("data-skBtnUID", buttonUID);
 
             /**
