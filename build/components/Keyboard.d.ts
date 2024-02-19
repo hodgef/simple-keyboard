@@ -277,10 +277,6 @@ declare class SimpleKeyboard {
      */
     getModulesList(): string[];
     /**
-     * Parse Row DOM containers
-     */
-    parseRowDOMContainers(rowDOM: HTMLDivElement, rowIndex: number, containerStartIndexes: number[], containerEndIndexes: number[]): HTMLDivElement;
-    /**
      * getKeyboardClassString
      */
     getKeyboardClassString: (...baseDOMClasses: any[]) => string;

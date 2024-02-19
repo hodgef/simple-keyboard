@@ -11,7 +11,7 @@ afterEach(() => {
 
 it('Keyboard will not render without target element', () => {
   clearDOM();
-
+  
   try {
     new Keyboard();
     expect(true).toBe(false);
@@ -30,7 +30,7 @@ describe('When window is undefined', () => {
   afterAll(() => {
     global.window = window;
   });
-
+  
   it('Keyboard will return early if window is undefined', () => {
     const keyboard = new Keyboard();
     expect(keyboard.initialized).toBeUndefined();
@@ -56,7 +56,7 @@ it('Keyboard will run with custom DOM target', () => {
 
 it('Keyboard will run with debug option set', () => {
   setDOM();
-
+  
   const keyboard = new Keyboard({
     debug: true
   });
@@ -84,7 +84,7 @@ it('Keyboard will use touch events', () => {
   keyboard.getButtonElement("q").ontouchstart();
   keyboard.getButtonElement("q").ontouchend();
   keyboard.getButtonElement("q").ontouchcancel();
-
+  
   expect(keyboard.options.useTouchEvents).toBeTruthy();
   expect(touched).toBeTruthy();
   expect(keyboard.getInput()).toBe('q');
@@ -97,7 +97,7 @@ it('Keyboard standard buttons will work', () => {
       "default": 10
     }
   });
-
+  
   testLayoutStdButtons(keyboard);
 });
 
@@ -821,7 +821,7 @@ it('Keyboard loadModules will load a simple module', () => {
     modules: [
       myClass
     ]
-  });
+  });  
 });
 
 it('Keyboard handleButtonMouseUp will set isMouseHold to false', () => {
@@ -1282,7 +1282,7 @@ it('Keyboard caret positioning will work', () => {
   function handleShift() {
     const currentLayout = keyboard.options.layoutName;
     const shiftToggle = currentLayout === "default" ? "shift" : "default";
-
+  
     keyboard.setOptions({
       layoutName: shiftToggle
     });
@@ -1322,7 +1322,7 @@ it('Keyboard will handle selected input with unchanged updatedInput edge case', 
   const inputElem = document.createElement("input");
   const onChange = jest.fn();
   const keyboard = new Keyboard({ onChange });
-
+  
   const initialValue = "3";
   inputElem.value = initialValue;
   inputElem.select();
@@ -1344,7 +1344,7 @@ it('Keyboard will handle caret pos sync after partially selected input resolutio
   const inputElem = document.createElement("input");
   const onChange = jest.fn();
   const keyboard = new Keyboard({ onChange });
-
+  
   keyboard.getButtonElement("q").onpointerdown();
   keyboard.getButtonElement("w").onpointerdown();
   keyboard.getButtonElement("e").onpointerdown();
@@ -1422,6 +1422,6 @@ it('Ensure caret position is offset when rtl option is enabled', () => {
   });
 
   keyboard.getButtonElement("{bksp}").onclick();
-
+  
   expect(keyboard.getInput()).toBe('‫שלם‬');
 });
