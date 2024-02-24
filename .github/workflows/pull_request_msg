@@ -1,0 +1,22 @@
+name: PR Compliance
+
+on: pull_request_target
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    strategy:
+      matrix:
+        node-version: [20.x]
+        os: [ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            :wave: Hello @${{ github.actor }}! Please make sure to review the [Contributing Guidelines](https://github.com/hodgef/simple-keyboard/blob/master/CONTRIBUTING.md) to ensure your PR is compliant. Thank you!
+          reactions: eyes
