@@ -18,5 +18,5 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            :wave: Hello @${{ github.actor }}! Please make sure to review the [Contributing Guidelines](https://github.com/hodgef/simple-keyboard/blob/master/CONTRIBUTING.md) to ensure your PR is compliant. Thank you!
+            :wave: Hello @${{ github.actor }}! Please make sure to review the [Contributing Guidelines](https://github.com/simple-keyboard/simple-keyboard-layouts/blob/master/CONTRIBUTING.md) to ensure your PR is compliant. Thank you!
           reactions: eyes
