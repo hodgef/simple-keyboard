@@ -27,7 +27,7 @@ class PhysicalKeyboard {
   handleHighlightKeyDown(e: KeyboardEvent) {
     const options = this.getOptions();
 
-    if(options.physicalKeyboardHighlightPreventDefault && this.isMofifierKey(e)){
+    if(options.physicalKeyboardHighlightPreventDefault && this.isModifierKey(e)){
       e.preventDefault();
       e.stopImmediatePropagation();
     }
@@ -93,7 +93,7 @@ class PhysicalKeyboard {
   handleHighlightKeyUp(e: KeyboardEvent) {
     const options = this.getOptions();
 
-    if(options.physicalKeyboardHighlightPreventDefault && this.isMofifierKey(e)){
+    if(options.physicalKeyboardHighlightPreventDefault && this.isModifierKey(e)){
       e.preventDefault();
       e.stopImmediatePropagation();
     }
@@ -260,7 +260,7 @@ class PhysicalKeyboard {
     }[keyCode] || "";
   }
 
-  isMofifierKey = (e: KeyboardEvent): boolean => {
+  isModifierKey = (e: KeyboardEvent): boolean => {
     return (
       e.altKey
       || e.ctrlKey
