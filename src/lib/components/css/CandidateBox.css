@@ -5,7 +5,6 @@
   background: #ececec;
   border-bottom: 2px solid #b5b5b5;
   user-select: none;
-  max-width: 272px;
   transform: translateY(-100%);
   margin-top: -10px;
 }
