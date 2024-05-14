@@ -393,6 +393,13 @@ class SimpleKeyboard {
             candidateStr = selectedCandidate.normalize("NFD");
           }
 
+          /**
+           * Perform an action before any input change
+           */
+          if (typeof this.options.beforeInputUpdate === "function") {
+            this.options.beforeInputUpdate(this);
+          }
+
           const currentInput = this.getInput(this.options.inputName, true);
           const initialCaretPosition = this.getCaretPositionEnd() || 0;
           const inputSubstr =
