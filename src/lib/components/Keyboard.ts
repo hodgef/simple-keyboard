@@ -466,6 +466,13 @@ class SimpleKeyboard {
     if (!this.input[inputName]) this.input[inputName] = "";
 
     /**
+     * Perform an action before any input change
+     */
+    if (typeof this.options.beforeInputUpdate === "function") {
+      this.options.beforeInputUpdate(this);
+    }
+
+    /**
      * Calculating new input
      */
     const updatedInput = this.utilities.getUpdatedInput(

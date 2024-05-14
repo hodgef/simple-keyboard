@@ -218,6 +218,19 @@ it('Keyboard onChange will work', () => {
   expect(output).toBe("q");
 });
 
+it('Keyboard beforeInputChange will work', () => {
+  const mockBeforeInputUpdate = jest.fn();
+  
+  const keyboard = new Keyboard({
+    beforeInputUpdate: mockBeforeInputUpdate,
+    useMouseEvents: true
+  });
+
+  keyboard.getButtonElement("q").onclick();
+
+  expect(mockBeforeInputUpdate).toHaveBeenCalledWith(keyboard);
+});
+
 it('Keyboard onChangeAll will work', () => {
     let output;
 
