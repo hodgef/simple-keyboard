@@ -332,98 +332,98 @@ it('CandidateBox show not be called if keyboard.candidateBox is undefined upon s
 });
 
 it('CandidateBox selection should trigger onChange', () => {
-    const keyboard = new Keyboard({
-      layout: {
-        default: [
-          "a b {bksp}"
-        ]
-      },
-      layoutCandidates: {
-        a: "1 2 3 4 5 6"
-      },
-      onChange: jest.fn(),
-      onChangeAll: jest.fn()
-    });
-  
-    let candidateBoxOnItemSelected;
-    
-    const onSelect = jest.fn().mockImplementation((selectedCandidate) => {
-      candidateBoxOnItemSelected(selectedCandidate);
-      keyboard.candidateBox.destroy();
-    });
-  
-    const candidateBoxRenderFn = keyboard.candidateBox.renderPage;
-    
-    jest.spyOn(keyboard.candidateBox, "renderPage").mockImplementation((params) => {
-      candidateBoxOnItemSelected = params.onItemSelected;
-      params.onItemSelected = onSelect;
-      candidateBoxRenderFn(params);
-    });
-  
-    keyboard.getButtonElement("a").click();
-    keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
-  
-    expect(keyboard.options.onChange.mock.calls[0][0]).toBe("a");
-    expect(keyboard.options.onChangeAll.mock.calls[0][0]).toMatchObject({"default": "a"});
-
-    expect(keyboard.options.onChange.mock.calls[1][0]).toBe("1");
-    expect(keyboard.options.onChangeAll.mock.calls[1][0]).toMatchObject({"default": "1"});
-    keyboard.destroy();
+  const keyboard = new Keyboard({
+    layout: {
+      default: [
+        "a b {bksp}"
+      ]
+    },
+    layoutCandidates: {
+      a: "1 2 3 4 5 6"
+    },
+    onChange: jest.fn(),
+    onChangeAll: jest.fn()
   });
 
-  it('CandidateBox normalization will work', () => {
-    const keyboard = new Keyboard({
-      layout: {
-        default: [
-          "a b {bksp}"
-        ]
-      },
-      layoutCandidates: {
-        a: "신"
-      },
-      onChange: jest.fn(),
-      onChangeAll: jest.fn()
-    });
+  let candidateBoxOnItemSelected;
   
-    let candidateBoxOnItemSelected;
-    
-    const onSelect = jest.fn().mockImplementation((selectedCandidate) => {
-      candidateBoxOnItemSelected(selectedCandidate);
-      keyboard.candidateBox.destroy();
-    });
-  
-    const candidateBoxRenderFn = keyboard.candidateBox.renderPage;
-    
-    jest.spyOn(keyboard.candidateBox, "renderPage").mockImplementation((params) => {
-      candidateBoxOnItemSelected = params.onItemSelected;
-      params.onItemSelected = onSelect;
-      candidateBoxRenderFn(params);
-    });
-  
-    keyboard.getButtonElement("a").click();
-    keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
-  
-    expect(keyboard.options.onChange.mock.calls[0][0]).toBe("a");
-    expect(keyboard.options.onChangeAll.mock.calls[0][0]).toMatchObject({"default": "a"});
-
-    // Selected candidate will be normalized
-    expect(keyboard.options.onChange.mock.calls[1][0]).toBe("신");
-    expect(keyboard.options.onChange.mock.calls[1][0].length).toBe(3);
-    expect(keyboard.options.onChangeAll.mock.calls[1][0]).toMatchObject({"default": "신"});
-
-    // Selected candidate will not be normalized
-    keyboard.clearInput();
-    keyboard.setOptions({ disableCandidateNormalization: true });
-
-    keyboard.getButtonElement("a").click();
-    keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
-  
-    expect(keyboard.options.onChange.mock.calls[2][0]).toBe("a");
-    expect(keyboard.options.onChangeAll.mock.calls[2][0]).toMatchObject({"default": "a"});
-
-    expect(keyboard.options.onChange.mock.calls[3][0]).toBe("신");
-    expect(keyboard.options.onChange.mock.calls[3][0].length).toBe(1);
-    expect(keyboard.options.onChangeAll.mock.calls[3][0]).toMatchObject({"default": "신"});
-
-    keyboard.destroy();
+  const onSelect = jest.fn().mockImplementation((selectedCandidate) => {
+    candidateBoxOnItemSelected(selectedCandidate);
+    keyboard.candidateBox.destroy();
   });
+
+  const candidateBoxRenderFn = keyboard.candidateBox.renderPage;
+  
+  jest.spyOn(keyboard.candidateBox, "renderPage").mockImplementation((params) => {
+    candidateBoxOnItemSelected = params.onItemSelected;
+    params.onItemSelected = onSelect;
+    candidateBoxRenderFn(params);
+  });
+
+  keyboard.getButtonElement("a").click();
+  keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
+
+  expect(keyboard.options.onChange.mock.calls[0][0]).toBe("a");
+  expect(keyboard.options.onChangeAll.mock.calls[0][0]).toMatchObject({"default": "a"});
+
+  expect(keyboard.options.onChange.mock.calls[1][0]).toBe("1");
+  expect(keyboard.options.onChangeAll.mock.calls[1][0]).toMatchObject({"default": "1"});
+  keyboard.destroy();
+});
+
+it('CandidateBox normalization will work', () => {
+  const keyboard = new Keyboard({
+    layout: {
+      default: [
+        "a b {bksp}"
+      ]
+    },
+    layoutCandidates: {
+      a: "신"
+    },
+    onChange: jest.fn(),
+    onChangeAll: jest.fn()
+  });
+
+  let candidateBoxOnItemSelected;
+  
+  const onSelect = jest.fn().mockImplementation((selectedCandidate) => {
+    candidateBoxOnItemSelected(selectedCandidate);
+    keyboard.candidateBox.destroy();
+  });
+
+  const candidateBoxRenderFn = keyboard.candidateBox.renderPage;
+  
+  jest.spyOn(keyboard.candidateBox, "renderPage").mockImplementation((params) => {
+    candidateBoxOnItemSelected = params.onItemSelected;
+    params.onItemSelected = onSelect;
+    candidateBoxRenderFn(params);
+  });
+
+  keyboard.getButtonElement("a").click();
+  keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
+
+  expect(keyboard.options.onChange.mock.calls[0][0]).toBe("a");
+  expect(keyboard.options.onChangeAll.mock.calls[0][0]).toMatchObject({"default": "a"});
+
+  // Selected candidate will be normalized
+  expect(keyboard.options.onChange.mock.calls[1][0]).toBe("신");
+  expect(keyboard.options.onChange.mock.calls[1][0].length).toBe(3);
+  expect(keyboard.options.onChangeAll.mock.calls[1][0]).toMatchObject({"default": "신"});
+
+  // Selected candidate will not be normalized
+  keyboard.clearInput();
+  keyboard.setOptions({ disableCandidateNormalization: true });
+
+  keyboard.getButtonElement("a").click();
+  keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
+
+  expect(keyboard.options.onChange.mock.calls[2][0]).toBe("a");
+  expect(keyboard.options.onChangeAll.mock.calls[2][0]).toMatchObject({"default": "a"});
+
+  expect(keyboard.options.onChange.mock.calls[3][0]).toBe("신");
+  expect(keyboard.options.onChange.mock.calls[3][0].length).toBe(1);
+  expect(keyboard.options.onChangeAll.mock.calls[3][0]).toMatchObject({"default": "신"});
+
+  keyboard.destroy();
+});
