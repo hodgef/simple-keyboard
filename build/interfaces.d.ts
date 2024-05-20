@@ -238,6 +238,10 @@ export interface KeyboardOptions {
      */
     onKeyReleased?: (button: string, e?: MouseEvent) => any;
     /**
+     * Executes the callback function before an input is about to be updated
+     */
+    beforeInputUpdate?: (instance: SimpleKeyboard) => void;
+    /**
      * Module options can have any format
      */
     [name: string]: any;
