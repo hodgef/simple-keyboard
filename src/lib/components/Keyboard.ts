@@ -118,6 +118,7 @@ class SimpleKeyboard {
      * @property {function(input: string):string} onChange Executes the callback function on input change. Returns the current input’s string.
      * @property {function} onRender Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
      * @property {function} onInit Executes the callback function once simple-keyboard is rendered for the first time (on initialization).
+     * @property {function(keyboard: Keyboard):void} beforeInputUpdate Perform an action before any input change
      * @property {function(inputs: object):object} onChangeAll Executes the callback function on input change. Returns the input object with all defined inputs.
      * @property {boolean} useButtonTag Render buttons as a button element instead of a div element.
      * @property {boolean} disableCaretPositioning A prop to ensure characters are always be added/removed at the end of the string.
@@ -393,6 +394,13 @@ class SimpleKeyboard {
             candidateStr = selectedCandidate.normalize("NFD");
           }
 
+          /**
+           * Perform an action before any input change
+           */
+          if (typeof this.options.beforeInputUpdate === "function") {
+            this.options.beforeInputUpdate(this);
+          }
+
           const currentInput = this.getInput(this.options.inputName, true);
           const initialCaretPosition = this.getCaretPositionEnd() || 0;
           const inputSubstr =
@@ -457,6 +465,13 @@ class SimpleKeyboard {
      * Creating inputName if it doesn't exist
      */
     if (!this.input[inputName]) this.input[inputName] = "";
+
+    /**
+     * Perform an action before any input change
+     */
+    if (typeof this.options.beforeInputUpdate === "function") {
+      this.options.beforeInputUpdate(this);
+    }
 
     /**
      * Calculating new input
