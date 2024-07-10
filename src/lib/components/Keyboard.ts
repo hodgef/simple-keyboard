@@ -1260,7 +1260,7 @@ class SimpleKeyboard {
         /**
          * Tracking current input in order to handle caret positioning edge cases
          */
-        this.activeInputElement = event.target;
+        instance.activeInputElement = event.target;
 
         if (instance.options.debug) {
           console.log(
@@ -1284,7 +1284,7 @@ class SimpleKeyboard {
         /**
          * Resetting activeInputElement
          */
-        this.activeInputElement = null;
+        instance.activeInputElement = null;
 
         if (instance.options.debug) {
           console.log(
