@@ -51,7 +51,7 @@ class SimpleKeyboard {
 
   /**
    * Creates an instance of SimpleKeyboard
-   * @param {Array} params If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.
+   * @param {Array} selectorOrOptions If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.
    */
   constructor(
     selectorOrOptions?: string | HTMLDivElement | KeyboardOptions,
