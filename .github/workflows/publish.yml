@@ -9,6 +9,10 @@ on:
       - .gitignore
       - .github/**
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
     runs-on: ${{ matrix.os }}
