@@ -1,6 +1,5 @@
 import "./css/Keyboard.css";
 
-// Services
 import { getDefaultLayout } from "../services/KeyboardLayout";
 import PhysicalKeyboard from "../services/PhysicalKeyboard";
 import Utilities from "../services/Utilities";
