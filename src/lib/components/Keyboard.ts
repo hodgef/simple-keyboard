@@ -13,6 +13,10 @@ import {
 } from "../interfaces";
 import CandidateBox from "./CandidateBox";
 
+declare global {
+  interface Window { SimpleKeyboardInstances: any; }
+}
+
 /**
  * Root class for simple-keyboard.
  * This class:
@@ -821,7 +825,7 @@ class SimpleKeyboard {
    * Get all simple-keyboard inputs
    */
   getAllInputs(): KeyboardInput {
-    const output = {};
+    const output = {} as KeyboardInput;
     const inputNames = Object.keys(this.input);
 
     inputNames.forEach((inputName) => {

@@ -19,8 +19,9 @@ class Demo {
       onChange: input => this.onChange(input),
       onKeyPress: button => this.onKeyPress(button),
       preventMouseDownDefault: true,
+      layoutCandidatesPageSize: 15,
       layoutCandidates: {
-        ni: "你 尼",
+        ni: "你 尼 你 尼 你 尼 你 尼 你 尼 你 尼 你 尼 你 尼 你 尼 你 尼",
         hao: "好 号"
       }
     });

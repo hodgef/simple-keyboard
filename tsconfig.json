@@ -8,7 +8,6 @@
       "sourceMap": true,
       "declaration": true,
       "emitDeclarationOnly": true,
-      "suppressImplicitAnyIndexErrors": true,
       "lib": ["es2020", "dom"],
       "moduleResolution": "node",
       "downlevelIteration": true,
