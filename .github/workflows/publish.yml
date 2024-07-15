@@ -55,6 +55,6 @@ jobs:
         run: |
           export NODE_OPTIONS=--openssl-legacy-provider
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-          npm run trypublish
+          npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
