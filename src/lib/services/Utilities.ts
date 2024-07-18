@@ -261,10 +261,6 @@ class Utilities {
       }
     }
 
-    if (options.debug) {
-      console.log("Caret at:", caretPosition);
-    }
-
     return caretPosition;
   }
 
