@@ -436,9 +436,6 @@ class Utilities {
     }
 
     if (Number.isInteger(maxLength)) {
-      if (options.debug) {
-        console.log("maxLength (num) reached:", condition);
-      }
 
       if (condition) {
         /**
@@ -455,10 +452,6 @@ class Utilities {
     if (typeof maxLength === "object") {
       const condition =
         updatedInput.length - 1 >= maxLength[options.inputName || "default"];
-
-      if (options.debug) {
-        console.log("maxLength (obj) reached:", condition);
-      }
 
       if (condition) {
         this.maxLengthReached = true;
