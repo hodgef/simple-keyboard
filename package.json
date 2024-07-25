@@ -60,7 +60,7 @@
     "html-webpack-plugin": "^5.6.0",
     "jest": "^26.6.3",
     "mini-css-extract-plugin": "^2.9.0",
-    "postcss": "^8.4.39",
+    "postcss": "^8.4.40",
     "postcss-loader": "^8.1.1",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.10",
