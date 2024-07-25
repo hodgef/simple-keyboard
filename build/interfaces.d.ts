@@ -1,5 +1,8 @@
 import SimpleKeyboard from "./components/Keyboard";
 import Utilities from "./services/Utilities";
+export interface SKWindow extends Window {
+    SimpleKeyboardInstances?: any;
+}
 export interface KeyboardLayoutObject {
     [key: string]: string[];
 }

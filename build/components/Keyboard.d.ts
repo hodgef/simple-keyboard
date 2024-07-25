@@ -3,11 +3,6 @@ import PhysicalKeyboard from "../services/PhysicalKeyboard";
 import Utilities from "../services/Utilities";
 import { KeyboardOptions, KeyboardInput, KeyboardButtonElements, KeyboardHandlerEvent, KeyboardElement } from "../interfaces";
 import CandidateBox from "./CandidateBox";
-declare global {
-    interface Window {
-        SimpleKeyboardInstances: any;
-    }
-}
 /**
  * Root class for simple-keyboard.
  * This class:
