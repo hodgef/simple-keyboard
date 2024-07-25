@@ -9,12 +9,9 @@ import {
   KeyboardButtonElements,
   KeyboardHandlerEvent,
   KeyboardElement,
+  SKWindow,
 } from "../interfaces";
 import CandidateBox from "./CandidateBox";
-
-declare global {
-  interface Window { SimpleKeyboardInstances: any; }
-}
 
 /**
  * Root class for simple-keyboard.
@@ -193,17 +190,17 @@ class SimpleKeyboard {
      * Simple-keyboard Instances
      * This enables multiple simple-keyboard support with easier management
      */
-    if (!window["SimpleKeyboardInstances"])
-      window["SimpleKeyboardInstances"] = {};
+    if (!(window as SKWindow)["SimpleKeyboardInstances"])
+      (window as SKWindow)["SimpleKeyboardInstances"] = {};
 
     this.currentInstanceName = this.utilities.camelCase(this.keyboardDOMClass);
-    window["SimpleKeyboardInstances"][this.currentInstanceName] = this;
+    (window as SKWindow)["SimpleKeyboardInstances"][this.currentInstanceName] = this;
 
     /**
      * Instance vars
      */
-    this.allKeyboardInstances = window["SimpleKeyboardInstances"];
-    this.keyboardInstanceNames = Object.keys(window["SimpleKeyboardInstances"]);
+    this.allKeyboardInstances = (window as SKWindow)["SimpleKeyboardInstances"];
+    this.keyboardInstanceNames = Object.keys((window as SKWindow)["SimpleKeyboardInstances"]);
     this.isFirstKeyboardInstance =
       this.keyboardInstanceNames[0] === this.currentInstanceName;
 
@@ -954,15 +951,15 @@ class SimpleKeyboard {
    */
   // eslint-disable-next-line no-unused-vars
   dispatch(callback: (instance: SimpleKeyboard, key?: string) => void): void {
-    if (!window["SimpleKeyboardInstances"]) {
+    if (!(window as SKWindow)["SimpleKeyboardInstances"]) {
       console.warn(
         `SimpleKeyboardInstances is not defined. Dispatch cannot be called.`
       );
       throw new Error("INSTANCES_VAR_ERROR");
     }
 
-    return Object.keys(window["SimpleKeyboardInstances"]).forEach((key) => {
-      callback(window["SimpleKeyboardInstances"][key], key);
+    return Object.keys((window as SKWindow)["SimpleKeyboardInstances"]).forEach((key) => {
+      callback((window as SKWindow)["SimpleKeyboardInstances"][key], key);
     });
   }
 
@@ -1395,8 +1392,8 @@ class SimpleKeyboard {
     /**
      * Remove instance
      */
-    window["SimpleKeyboardInstances"][this.currentInstanceName] = null;
-    delete window["SimpleKeyboardInstances"][this.currentInstanceName];
+    (window as SKWindow)["SimpleKeyboardInstances"][this.currentInstanceName] = null;
+    delete (window as SKWindow)["SimpleKeyboardInstances"][this.currentInstanceName];
 
     /**
      * Reset initialized flag
