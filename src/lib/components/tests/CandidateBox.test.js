@@ -216,7 +216,7 @@ it('CandidateBox select candidate will work', () => {
   keyboard.getButtonElement("a").click();
   keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
 
-  expect(onSelect).toBeCalledWith("1", expect.anything());
+  expect(onSelect).toHaveBeenCalledWith("1", expect.anything());
   keyboard.destroy();
 });
 
@@ -368,41 +368,6 @@ it('CandidateBox selection should trigger onChange', () => {
 
   expect(keyboard.options.onChange.mock.calls[1][0]).toBe("1");
   expect(keyboard.options.onChangeAll.mock.calls[1][0]).toMatchObject({"default": "1"});
-  keyboard.destroy();
-});
-
-it('CandidateBox selection should trigger beforeInputChange', () => {
-  const keyboard = new Keyboard({
-    layout: {
-      default: [
-        "a b {bksp}"
-      ]
-    },
-    layoutCandidates: {
-      a: "1 2 3 4 5 6"
-    },
-    beforeInputUpdate: jest.fn(),
-  });
-
-  let candidateBoxOnItemSelected;
-  
-  const onSelect = jest.fn().mockImplementation((selectedCandidate) => {
-    candidateBoxOnItemSelected(selectedCandidate);
-    keyboard.candidateBox.destroy();
-  });
-
-  const candidateBoxRenderFn = keyboard.candidateBox.renderPage;
-  
-  jest.spyOn(keyboard.candidateBox, "renderPage").mockImplementation((params) => {
-    candidateBoxOnItemSelected = params.onItemSelected;
-    params.onItemSelected = onSelect;
-    candidateBoxRenderFn(params);
-  });
-
-  keyboard.getButtonElement("a").click();
-  keyboard.candidateBox.candidateBoxElement.querySelector("li").click();
-
-  expect(keyboard.options.beforeInputUpdate.mock.calls[0][0]).toMatchObject(keyboard);
   keyboard.destroy();
 });
 

@@ -1,6 +1,6 @@
 {
   "name": "simple-keyboard",
-  "version": "3.7.108",
+  "version": "3.8.0",
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
@@ -45,7 +45,7 @@
     "@babel/plugin-transform-typescript": "^7.25.2",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.25.4",
-    "@types/jest": "^27.5.0",
+    "@types/jest": "^29.5.13",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "autoprefixer": "^10.4.20",
@@ -58,7 +58,8 @@
     "eslint": "^8.57.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
-    "jest": "^26.6.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "mini-css-extract-plugin": "^2.9.1",
     "postcss": "^8.4.45",
     "postcss-loader": "^8.1.1",
@@ -71,6 +72,7 @@
     "webpack-dev-server": "4.15.0"
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "roots": [
       "<rootDir>/src"
     ],

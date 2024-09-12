@@ -212,7 +212,7 @@ it('PhysicalKeyboard keyCodeToKey will work', () => {
 
   expect(keyboard.physicalKeyboard.keyCodeToKey(186)).toBe(";");
 
-  const methodTest = spyOn(keyboard.physicalKeyboard, "keyCodeToKey");
+  const methodTest = jest.spyOn(keyboard.physicalKeyboard, "keyCodeToKey");
 
   document.dispatchEvent(new KeyboardEvent('keyup', {
     keyCode: 186,
@@ -221,5 +221,5 @@ it('PhysicalKeyboard keyCodeToKey will work', () => {
     }
   }));
 
-  expect(methodTest).toBeCalledWith(186);
+  expect(methodTest).toHaveBeenCalledWith(186);
 });
