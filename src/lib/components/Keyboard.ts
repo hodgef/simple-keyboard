@@ -137,6 +137,7 @@ class SimpleKeyboard {
      * @property {boolean} layoutCandidatesCaseSensitiveMatch Determines whether layout candidate match should be case sensitive.
      * @property {boolean} disableCandidateNormalization Disables the automatic normalization for selected layout candidates
      * @property {boolean} enableLayoutCandidatesKeyPress Enables onKeyPress triggering for layoutCandidate items
+     * @property {boolean} updateCaretOnSelectionChange Updates caret when selectionchange event is fired
      */
     this.options = {
       layoutName: "default",
@@ -1148,7 +1149,11 @@ class SimpleKeyboard {
       document.addEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
       document.addEventListener("mouseup", this.handleMouseUp);
       document.addEventListener("touchend", this.handleTouchEnd);
-      document.addEventListener("selectionchange", this.handleSelectionChange);
+
+      if (this.options.updateCaretOnSelectionChange) {
+        document.addEventListener("selectionchange", this.handleSelectionChange);
+      }
+
       document.addEventListener("select", this.handleSelect);
     }
   }
@@ -1326,7 +1331,13 @@ class SimpleKeyboard {
     document.removeEventListener("mouseup", this.handleMouseUp);
     document.removeEventListener("touchend", this.handleTouchEnd);
     document.removeEventListener("select", this.handleSelect);
-    document.removeEventListener("selectionchange", this.handleSelectionChange);
+
+    // selectionchange is causing caret update issues on Chrome
+    // https://github.com/hodgef/simple-keyboard/issues/2346
+    if (this.options.updateCaretOnSelectionChange) {
+      document.removeEventListener("selectionchange", this.handleSelectionChange);
+    }
+
     document.onpointerup = null;
     document.ontouchend = null;
     document.ontouchcancel = null;

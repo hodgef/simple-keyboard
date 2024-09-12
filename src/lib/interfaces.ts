@@ -266,6 +266,11 @@ export interface KeyboardOptions {
     enableLayoutCandidatesKeyPress?: boolean;
 
     /**
+     * Updates caret when selectionchange event is fired
+     */
+    updateCaretOnSelectionChange?: boolean;
+
+    /**
      * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
      */
      onRender?: (instance: SimpleKeyboard) => void;
