@@ -63,6 +63,10 @@ Want to create your own module? Check out the [Modules page](https://hodgef.com/
 
 > Note: If you don't want to support old browsers, you can use the Modern Browsers bundle ([index.modern.js](https://github.com/hodgef/simple-keyboard/blob/master/build)).
 
+## 🔶 Community Libraries & Integrations
+Check out useful community modules for simple-keyboard:<br />
+https://github.com/hodgef/simple-keyboard/wiki/Community-Libraries-&-Integrations
+
 ## ✅ Contributing
 
 PRs and issues are always welcome. Feel free to submit any issues you have at:
