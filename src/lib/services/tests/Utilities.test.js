@@ -759,3 +759,69 @@ it('Keyboard removeForwardsAt will work with unset or start caretPosition', () =
   expect(output).toBe(str);
   expect(keyboard.getCaretPosition()).toBe(2);
 });
+
+describe('Korean', () => {
+  it('Keyboard removeAt will remove Korean Janmo', () => {
+    setDOM();
+
+    const keyboard = new Keyboard();
+
+    // in the end
+    keyboard.setCaretPosition(2);
+    let output = keyboard.utilities.removeAt("한글", 2, 2, true);
+    expect(output).toBe("한그");
+    expect(keyboard.caretPosition).toBe(2);
+
+    output = keyboard.utilities.removeAt("한ㄱ", 2, 2, true);
+    expect(output).toBe("한");
+    expect(keyboard.caretPosition).toBe(1);
+
+    // in the middle
+    keyboard.setCaretPosition(1);
+    output = keyboard.utilities.removeAt("한글", 1, 1, true);
+    expect(output).toBe("하글");
+    expect(keyboard.caretPosition).toBe(1);
+
+    output = keyboard.utilities.removeAt("ㅎ글", 1, 1, true);
+    expect(output).toBe("글");
+    expect(keyboard.caretPosition).toBe(0);
+  })
+
+  it('Keyboard addStringAt will add assembled Korean', () => {
+    setDOM();
+
+    const keyboard = new Keyboard();
+
+    // in the end
+    keyboard.setCaretPosition(0);
+    let output = keyboard.utilities.addStringAt("", "ㅎ", 0, 0, true);
+    expect(output).toBe("ㅎ");
+    expect(keyboard.caretPosition).toBe(1);
+
+    output = keyboard.utilities.addStringAt("ㅎ", 'ㅏ', 1, 1, true);
+    expect(output).toBe("하");
+    expect(keyboard.caretPosition).toBe(1);
+
+    output = keyboard.utilities.addStringAt("하", 'ㄴ', 1, 1, true);
+    expect(output).toBe("한");
+    expect(keyboard.caretPosition).toBe(1);
+
+    output = keyboard.utilities.addStringAt("한", 'ㄱ', 1, 1, true);
+    expect(output).toBe("한ㄱ");
+    expect(keyboard.caretPosition).toBe(2);
+
+    // in the middle
+    keyboard.setCaretPosition(0);
+    output = keyboard.utilities.addStringAt("글", 'ㅎ', 0, 0, true);
+    expect(output).toBe("ㅎ글");
+    expect(keyboard.caretPosition).toBe(1);
+
+    output = keyboard.utilities.addStringAt("ㅎ글", 'ㅏ', 1, 1, true);
+    expect(output).toBe("하글");
+    expect(keyboard.caretPosition).toBe(1);
+
+    output = keyboard.utilities.addStringAt("하글", 'ㄴ', 1, 1, true);
+    expect(output).toBe("한글");
+    expect(keyboard.caretPosition).toBe(1);
+  })
+})

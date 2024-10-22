@@ -8,7 +8,7 @@
     "build": "webpack && npm run build-modern && npm run build-modern-esm && tsc",
     "build-modern": "webpack --config webpack.config.modern.js",
     "build-modern-esm": "webpack --config webpack.config.modern_esm.js",
-    "test": "jest --silent",
+    "test": "jest",
     "coverage": "npm run test -- --coverage",
     "prepare": "npm run build"
   },
@@ -111,5 +111,8 @@
       "jsx",
       "node"
     ]
+  },
+  "dependencies": {
+    "hangul-js": "^0.2.6"
   }
 }

@@ -1,3 +1,5 @@
+import * as hangul from "hangul-js";
+
 import { KeyboardInput } from "./../interfaces";
 import { KeyboardOptions, UtilitiesParams } from "../interfaces";
 
@@ -285,19 +287,22 @@ class Utilities {
   ) {
     let output;
 
+    const prevCharacter = position === null ? source.slice(-1) : source.slice(position - 1, position);
+    const addingString = hangul.a([...hangul.d(prevCharacter), str]);
+
     if (!position && position !== 0) {
-      output = source + str;
+      output = source.slice(0, -1) + addingString;
     } else {
-      output = [source.slice(0, position), str, source.slice(positionEnd)].join(
+      output = [source.slice(0, Math.max(0, position - 1)), addingString, source.slice(positionEnd)].join(
         ""
       );
+    }
 
-      /**
-       * Avoid caret position change when maxLength is set
-       */
-      if (!this.isMaxLengthReached()) {
-        if (moveCaret) this.updateCaretPos(str.length);
-      }
+    /**
+     * Avoid caret position change when maxLength is set
+     */
+    if (!this.isMaxLengthReached()) {
+      if (moveCaret) this.updateCaretPos(addingString.length - prevCharacter.length);
     }
 
     return output;
@@ -333,17 +338,27 @@ class Utilities {
       let emojiMatched;
       const emojiMatchedReg = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
 
+      const prevCharacter = position === null ? source.slice(-1) : source.slice(position - 1, position);
+      const isPrevHangul = hangul.isHangul(prevCharacter);
+
       /**
        * Emojis are made out of two characters, so we must take a custom approach to trim them.
        * For more info: https://mathiasbynens.be/notes/javascript-unicode
        */
-      if (position && position >= 0) {
+      if (position !== null && position >= 0) {
         prevTwoChars = source.substring(position - 2, position);
         emojiMatched = prevTwoChars.match(emojiMatchedReg);
 
         if (emojiMatched) {
           output = source.substr(0, position - 2) + source.substr(position);
           if (moveCaret) this.updateCaretPos(2, true);
+        } else if (isPrevHangul) {
+          const removingCharacter = hangul.a(hangul.d(prevCharacter).slice(0, -1))
+          const removedLength = 1 - removingCharacter.length;
+
+          output = source.substr(0, position - 1) + removingCharacter + source.substr(position);
+
+          if (moveCaret) this.updateCaretPos(removedLength, true);
         } else {
           output = source.substr(0, position - 1) + source.substr(position);
           if (moveCaret) this.updateCaretPos(1, true);
@@ -355,6 +370,12 @@ class Utilities {
         if (emojiMatched) {
           output = source.slice(0, -2);
           if (moveCaret) this.updateCaretPos(2, true);
+        } else if (isPrevHangul) {
+          const removingCharacter = hangul.a(hangul.d(prevCharacter).slice(0, -1))
+          const removedLength = 1 - removingCharacter.length;
+
+          output = source.slice(0, -1) + removingCharacter;
+          if (moveCaret) this.updateCaretPos(removedLength, true);
         } else {
           output = source.slice(0, -1);
           if (moveCaret) this.updateCaretPos(1, true);
