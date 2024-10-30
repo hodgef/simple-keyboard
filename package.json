@@ -1,9 +1,10 @@
 {
-  "name": "simple-keyboard",
-  "version": "3.8.9",
-  "description": "On-screen Javascript Virtual Keyboard",
+  "name": "@bearrobotics/simple-keyboard",
+  "version": "3.8.9+ko",
+  "description": "Bear Robotics's fork of simple-keyboard",
   "main": "build/index.js",
   "scripts": {
+    "prepublish": "yarn build",
     "start": "webpack serve --config webpack.config.demo.js",
     "build": "webpack && npm run build-modern && npm run build-modern-esm && tsc",
     "build-modern": "webpack --config webpack.config.modern.js",
@@ -12,13 +13,19 @@
     "coverage": "npm run test -- --coverage",
     "prepare": "npm run build"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hodgef/simple-keyboard"
+    "url": "git+https://github.com/bearrobotics/simple-keyboard.git"
   },
-  "author": "Francisco Hodge <hello@franciscohodge.com> (https://github.com/hodgef)",
+  "author": "Yongjun Cho <yongjun.cho@bearrobotics.ai> (https://github.com/bearrobotics)",
+  "contributors": [
+    "Original Author <hello@franciscohodge.com>"
+  ],
   "bugs": {
-    "url": "https://github.com/hodgef/simple-keyboard/issues"
+    "url": "https://github.com/bearrobotics/simple-keyboard/issues"
   },
   "homepage": "https://virtual-keyboard.js.org/",
   "keywords": [
@@ -114,5 +121,6 @@
   },
   "dependencies": {
     "hangul-js": "^0.2.6"
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }
