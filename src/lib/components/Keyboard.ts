@@ -138,6 +138,7 @@ class SimpleKeyboard {
      * @property {boolean} disableCandidateNormalization Disables the automatic normalization for selected layout candidates
      * @property {boolean} enableLayoutCandidatesKeyPress Enables onKeyPress triggering for layoutCandidate items
      * @property {boolean} updateCaretOnSelectionChange Updates caret when selectionchange event is fired
+     * @property {boolean} clickOnMouseDown When useMouseEvents is enabled, this option allows you to trigger a button click event on mousedown
      */
     this.options = {
       layoutName: "default",
@@ -1948,7 +1949,10 @@ class SimpleKeyboard {
                  * This fires handler before onKeyReleased, therefore when that option is set we will fire the handler
                  * in onmousedown instead
                  */
-                if (typeof this.options.onKeyReleased !== "function") {
+                if (
+                  typeof this.options.onKeyReleased !== "function" &&
+                  !(this.options.useMouseEvents && this.options.clickOnMouseDown)
+                ) {
                   this.handleButtonClicked(button, e);
                 }
               };
@@ -1957,7 +1961,10 @@ class SimpleKeyboard {
                  * Fire button handler for onKeyReleased use-case
                  */
                 if (
-                  typeof this.options.onKeyReleased === "function" &&
+                  (
+                    typeof this.options.onKeyReleased === "function" ||
+                    (this.options.useMouseEvents && this.options.clickOnMouseDown)
+                  ) &&
                   !this.isMouseHold
                 ) {
                   this.handleButtonClicked(button, e);

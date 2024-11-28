@@ -16,8 +16,9 @@ class Demo {
      * Demo Start
      */
     this.keyboard = new Keyboard({
-      onChange: input => this.onChange(input),
-      onKeyPress: button => this.onKeyPress(button)
+      onChange: this.onChange,
+      onKeyPress: this.onKeyPress,
+      useMouseEvents: true
     });
 
     /**
@@ -28,13 +29,13 @@ class Demo {
     });
   }
 
-  onChange(input) {
+  onChange = (input) => {
     document.querySelector(".input").value = input;
     console.log("Input changed", input);
   }
 
-  onKeyPress(button) {
-    console.log("Button pressed", button);
+  onKeyPress = (button, e) => {
+    console.log("Button pressed", button, e);
 
     /**
      * If you want to handle the shift and caps lock buttons
@@ -42,7 +43,11 @@ class Demo {
     if (button === "{shift}" || button === "{lock}") this.handleShift();
   }
 
-  handleShift() {
+  onKeyReleased = (button, e) => {
+    console.log("Button released", button, e);
+  }
+
+  handleShift = () => {
     const currentLayout = this.keyboard.options.layoutName;
     const shiftToggle = currentLayout === "default" ? "shift" : "default";
 

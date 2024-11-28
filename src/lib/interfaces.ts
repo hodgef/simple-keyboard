@@ -271,6 +271,11 @@ export interface KeyboardOptions {
     updateCaretOnSelectionChange?: boolean;
 
     /**
+     * When useMouseEvents is enabled, this option allows you to trigger a button click event on mousedown
+     */
+    clickOnMouseDown?: boolean;
+
+    /**
      * Executes the callback function every time simple-keyboard is rendered (e.g: when you change layouts).
      */
      onRender?: (instance: SimpleKeyboard) => void;
