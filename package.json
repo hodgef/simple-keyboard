@@ -64,7 +64,7 @@
     "postcss": "^8.4.49",
     "postcss-loader": "^8.1.1",
     "style-loader": "^4.0.0",
-    "terser-webpack-plugin": "^5.3.10",
+    "terser-webpack-plugin": "^5.3.11",
     "typescript": "^5.7.2",
     "url-loader": "^4.1.1",
     "webpack": "^5.97.1",
