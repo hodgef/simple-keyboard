@@ -1688,7 +1688,7 @@ class SimpleKeyboard {
           updated_startIndex,
           updated_endIndex - updated_startIndex + 1
         );
-        removedElements = updated_endIndex - updated_startIndex;
+        removedElements += updated_endIndex - updated_startIndex;
 
         /**
          * Inserting elements to container
