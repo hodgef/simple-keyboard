@@ -1,4 +1,3 @@
-import { is } from "core-js/core/object";
 import Keyboard from "../lib";
 import "./css/CandidateBoxDemo.css";
 import layout from "simple-keyboard-layouts/build/layouts/arabic";
@@ -31,10 +30,8 @@ class Demo {
       enableLayoutCandidatesKeyPress: true,
       physicalKeyboardHighlight: true,
       physicalKeyboardHighlightPress: true,
-      physicalKeyboardHighlightPressUseClick: true,
       physicalKeyboardHighlightPressUsePointerEvents: true,
       physicalKeyboardHighlightPreventDefault: true,
-      physicalKeyboardHighlightPressPreventDefault: true,
     });
 
     /**
@@ -84,7 +81,7 @@ class Demo {
         this.shiftTimeout = setTimeout(() => {
           this.isShiftActive = false;
           this.handleShift();
-        }, 750); // we need to find a sweet spot for this bewteen 500 and 1200ms
+        }, 750); // I need to find a sweet spot
       }
     } else if (button === "{lock}") {
       this.isShiftActive = !this.isShiftActive;
