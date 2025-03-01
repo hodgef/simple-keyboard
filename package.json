@@ -111,5 +111,8 @@
       "jsx",
       "node"
     ]
+  },
+  "dependencies": {
+    "simple-keyboard-layouts": "^3.4.63"
   }
 }
