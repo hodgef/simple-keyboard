@@ -1060,9 +1060,10 @@ class SimpleKeyboard {
       this.keyboardDOM.tabIndex = 0;
       this.keyboardDOM.style.outline = "none";
 
+      // LPJr: added event listener to focus the keyboardDOM element when it is clicked
       this.keyboardDOM.addEventListener("pointerdown", () => {
         this.keyboardDOM.focus();
-        console.log("🔹 Virtual Keyboard Focused.");
+        console.log("Virtual Keyboard Focused.");
       });
 
       /**
