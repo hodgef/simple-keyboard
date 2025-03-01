@@ -537,9 +537,16 @@ class SimpleKeyboard {
       if (e?.target && this.options.enableLayoutCandidates) {
         const { candidateKey, candidateValue } = this.getInputCandidates(updatedInput);
 
+        // LPJr: Added debug logging for candidateKey and candidateValue
+        console.log("🔹 Input Candidates Detected:");
+        console.log("🔹 candidateKey:", candidateKey);
+        console.log("🔹 candidateValue:", candidateValue);
+        console.log("🔹 Input Source:", e.isTrusted ? "Physical Key" : "Virtual Key");
+
         if (candidateKey && candidateValue) {
           this.showCandidatesBox(candidateKey, candidateValue, this.keyboardDOM);
         } else {
+          console.log("❌ No Candidates Found - Destroying Candidate Box");
           this.candidateBox?.destroy();
         }
       }
@@ -1057,11 +1064,21 @@ class SimpleKeyboard {
 
       const { physicalKeyboardHighlightPreventDefault = false } = this.options;
 
+      //LPJr: moved event listeners to the keyboardDOM element from the document
+      // adding tabIndex to the keyboardDOM element to allow it to receive focus
+      this.keyboardDOM.tabIndex = 0;
+      this.keyboardDOM.style.outline = "none";
+
+      this.keyboardDOM.addEventListener("pointerdown", () => {
+        this.keyboardDOM.focus();
+        console.log("🔹 Virtual Keyboard Focused.");
+      });
+
       /**
        * Event Listeners
        */
-      document.addEventListener("keyup", this.handleKeyUp, physicalKeyboardHighlightPreventDefault);
-      document.addEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
+      this.keyboardDOM.addEventListener("keyup", this.handleKeyUp, physicalKeyboardHighlightPreventDefault);
+      this.keyboardDOM.addEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
       document.addEventListener("mouseup", this.handleMouseUp);
       document.addEventListener("touchend", this.handleTouchEnd);
 
