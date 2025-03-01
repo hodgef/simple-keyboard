@@ -128,8 +128,6 @@ class PhysicalKeyboard {
 
     const buttonPressed = this.getSimpleKeyboardLayoutKey(e);
 
-    console.log("buttonPressed", buttonPressed);
-
     this.dispatch((instance: any) => {
       const buttonDOM = instance.getButtonElement(buttonPressed) || instance.getButtonElement(`{${buttonPressed}}`);
 

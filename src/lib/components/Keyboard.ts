@@ -398,12 +398,10 @@ class SimpleKeyboard {
            * To prevent confusion for users
            */
           if (enableLayoutCandidatesKeyPress && typeof this.options.onKeyPress === "function") {
-            console.log("OnKeyPress triggered: ", selectedCandidate);
             this.options.onKeyPress(selectedCandidate, e);
           }
 
           if (typeof this.options.onChange === "function") {
-            console.log("OnChange triggered: ", this.getInput(this.options.inputName, true));
             this.options.onChange(this.getInput(this.options.inputName, true), e);
           }
 
@@ -537,16 +535,9 @@ class SimpleKeyboard {
       if (e?.target && this.options.enableLayoutCandidates) {
         const { candidateKey, candidateValue } = this.getInputCandidates(updatedInput);
 
-        // LPJr: Added debug logging for candidateKey and candidateValue
-        console.log("🔹 Input Candidates Detected:");
-        console.log("🔹 candidateKey:", candidateKey);
-        console.log("🔹 candidateValue:", candidateValue);
-        console.log("🔹 Input Source:", e.isTrusted ? "Physical Key" : "Virtual Key");
-
         if (candidateKey && candidateValue) {
           this.showCandidatesBox(candidateKey, candidateValue, this.keyboardDOM);
         } else {
-          console.log("❌ No Candidates Found - Destroying Candidate Box");
           this.candidateBox?.destroy();
         }
       }
