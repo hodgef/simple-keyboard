@@ -1071,12 +1071,12 @@ class SimpleKeyboard {
 
           this.handleKeyDown(event);
 
-          // Ensure keyboardDOM stays in focus
-          if (document.activeElement !== this.keyboardDOM) {
-            this.keyboardDOM.focus();
-          }
+          // // Ensure keyboardDOM stays in focus
+          // if (document.activeElement !== this.keyboardDOM) {
+          //   this.keyboardDOM.focus();
+          // }
         },
-        Boolean(physicalKeyboardHighlightPreventDefault)
+        physicalKeyboardHighlightPreventDefault
       ); // Capture mode ensures this fires before bubbling
 
       document.addEventListener(
@@ -1093,7 +1093,7 @@ class SimpleKeyboard {
             this.keyboardDOM.focus();
           }
         },
-        Boolean(physicalKeyboardHighlightPreventDefault)
+        physicalKeyboardHighlightPreventDefault
       );
 
       /**

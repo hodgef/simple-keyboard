@@ -31,7 +31,7 @@ class Demo {
       physicalKeyboardHighlight: true,
       physicalKeyboardHighlightPress: true,
       physicalKeyboardHighlightPressUsePointerEvents: true,
-      physicalKeyboardHighlightPreventDefault: true,
+      physicalKeyboardHighlightPreventDefault: false,
     });
 
     /**
