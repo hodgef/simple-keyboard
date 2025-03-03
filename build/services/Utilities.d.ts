@@ -12,7 +12,7 @@ declare class Utilities {
     /**
      * Creates an instance of the Utility service
      */
-    constructor({ getOptions, getCaretPosition, getCaretPositionEnd, dispatch, }: UtilitiesParams);
+    constructor({ getOptions, getCaretPosition, getCaretPositionEnd, dispatch }: UtilitiesParams);
     /**
      * Retrieve button type
      *
@@ -30,7 +30,7 @@ declare class Utilities {
     /**
      * Default button display labels
      */
-    getDefaultDiplay(): {
+    getDefaultDisplay(): {
         "{bksp}": string;
         "{backspace}": string;
         "{enter}": string;
