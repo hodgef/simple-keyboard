@@ -1055,22 +1055,53 @@ class SimpleKeyboard {
 
       const { physicalKeyboardHighlightPreventDefault = false } = this.options;
 
-      //LPJr: moved event listeners to the keyboardDOM element from the document
+      // LPJr: moved event listeners to the keyboardDOM element from the document
       // adding tabIndex to the keyboardDOM element to allow it to receive focus
       this.keyboardDOM.tabIndex = 0;
       this.keyboardDOM.style.outline = "none";
 
       // LPJr: added event listener to focus the keyboardDOM element when it is clicked
-      this.keyboardDOM.addEventListener("pointerdown", () => {
-        this.keyboardDOM.focus();
-        console.log("Virtual Keyboard Focused.");
-      });
+      // third parameter controls Capture and is set to false to allow the event to bubble up
+      document.addEventListener(
+        "keydown",
+        (event) => {
+          if (physicalKeyboardHighlightPreventDefault) {
+            event.preventDefault();
+          }
+
+          this.handleKeyDown(event);
+
+          // Ensure keyboardDOM stays in focus
+          if (document.activeElement !== this.keyboardDOM) {
+            this.keyboardDOM.focus();
+          }
+        },
+        Boolean(physicalKeyboardHighlightPreventDefault)
+      ); // Capture mode ensures this fires before bubbling
+
+      document.addEventListener(
+        "keyup",
+        (event) => {
+          if (physicalKeyboardHighlightPreventDefault) {
+            event.preventDefault();
+          }
+
+          this.handleKeyUp(event);
+
+          // Ensure keyboardDOM stays in focus
+          if (document.activeElement !== this.keyboardDOM) {
+            this.keyboardDOM.focus();
+          }
+        },
+        Boolean(physicalKeyboardHighlightPreventDefault)
+      );
 
       /**
        * Event Listeners
        */
-      this.keyboardDOM.addEventListener("keyup", this.handleKeyUp, physicalKeyboardHighlightPreventDefault);
-      this.keyboardDOM.addEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
+      // LPJr: removed event listeners from the document but added my own as seen directly above
+      // document.addEventListener("keyup", this.handleKeyUp, physicalKeyboardHighlightPreventDefault);
+      // document.addEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
       document.addEventListener("mouseup", this.handleMouseUp);
       document.addEventListener("touchend", this.handleTouchEnd);
 
