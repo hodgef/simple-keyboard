@@ -38,6 +38,8 @@ class PhysicalKeyboard {
       this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(getDefaultLayout()));
     }
 
+    console.log("PhysicalKeyboard -> constructor -> layoutJSON", this.layoutJSON);
+
     /**
      * Bindings
      */
@@ -168,6 +170,8 @@ class PhysicalKeyboard {
   getSimpleKeyboardLayoutKey(e: KeyboardEvent): string {
     let output = "";
 
+    console.log("PhysicalKeyboard -> getSimpleKeyboardLayoutKey -> e.code", e.code);
+
     if (this.layoutJSON && this.layoutJSON[e.code]) {
       // Determine whether to use normal or shift based on Shift & CapsLock state
       output =
@@ -177,6 +181,8 @@ class PhysicalKeyboard {
     } else {
       output = e.key && e.key !== "Unidentified" ? e.key : this.keyCodeToKey(e?.keyCode);
     }
+
+    console.log("PhysicalKeyboard -> getSimpleKeyboardLayoutKey -> output", output);
 
     // Normalize left/right variations
     const normalizeKeyMap: Record<string, string> = {
