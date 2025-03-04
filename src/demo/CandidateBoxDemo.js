@@ -12,7 +12,7 @@ const setDOM = () => {
 
 class Demo {
   isShiftActive = false;
-  shiftTimeout = null;
+  persistentKey = new Set();
 
   constructor() {
     setDOM();
@@ -28,6 +28,7 @@ class Demo {
       layoutCandidates: korean.layoutCandidates || [],
       onChange: (input) => this.onChange(input),
       onKeyPress: (button) => this.onKeyPress(button),
+      onKeyReleased: (button) => this.onKeyReleased(button),
       preventMouseDownDefault: true,
       layoutCandidatesPageSize: 15,
       enableLayoutCandidatesKeyPress: true,
@@ -73,24 +74,25 @@ class Demo {
     console.log("Button pressed", button);
 
     if (button === "{shift}") {
+      if (this.persistentKey.has(button)) return;
+      this.persistentKey.add(button);
+
       if (!this.isShiftActive) {
         this.isShiftActive = true;
         this.handleShift();
-
-        if (this.shiftTimeout) {
-          clearTimeout(this.shiftTimeout);
-        }
-
-        this.shiftTimeout = setTimeout(() => {
-          this.isShiftActive = false;
-          this.handleShift();
-        }, 400); // I need to find a sweet spot
       }
-    } else {
-    }
-
-    if (button === "{lock}") {
+    } else if (button === "{lock}") {
       this.isShiftActive = !this.isShiftActive;
+      this.handleShift();
+    }
+  }
+
+  onKeyReleased(button) {
+    console.log("Button released", button);
+
+    if (button === "{shift}") {
+      this.persistentKey.delete(button);
+      this.isShiftActive = false;
       this.handleShift();
     }
   }
