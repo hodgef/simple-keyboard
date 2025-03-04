@@ -1,5 +1,6 @@
 import { KeyboardOptions, PhysicalKeyboardParams } from "../interfaces";
 import Utilities from "../services/Utilities";
+import { getDefaultLayout } from "../services/KeyboardLayout";
 
 /**
  * Layout Key Mapping Interface
@@ -34,7 +35,7 @@ class PhysicalKeyboard {
         this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
       }
     } else {
-      this.layoutJSON = null;
+      this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(getDefaultLayout()));
     }
 
     /**
@@ -46,10 +47,10 @@ class PhysicalKeyboard {
   handleHighlightKeyDown(e: KeyboardEvent) {
     const options = this.getOptions();
 
-    if (options.physicalKeyboardHighlightPreventDefault && this.isModifierKey(e)) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
+    // if (options.physicalKeyboardHighlightPreventDefault && this.isModifierKey(e)) {
+    //   e.preventDefault();
+    //   e.stopImmediatePropagation();
+    // }
 
     if ((e.code === "ShiftLeft" || e.code === "ShiftRight") && !this.shiftActive) {
       this.shiftActive = !this.shiftActive;
@@ -64,6 +65,9 @@ class PhysicalKeyboard {
     this.dispatch((instance: any) => {
       const standardButtonPressed = instance.getButtonElement(buttonPressed);
       const functionButtonPressed = instance.getButtonElement(`{${buttonPressed}}`);
+
+      console.log("standardButtonPressed", standardButtonPressed);
+      console.log("functionButtonPressed", functionButtonPressed);
 
       let buttonDOM;
       let buttonName: string;
@@ -117,10 +121,10 @@ class PhysicalKeyboard {
   handleHighlightKeyUp(e: KeyboardEvent) {
     const options = this.getOptions();
 
-    if (options.physicalKeyboardHighlightPreventDefault && this.isModifierKey(e)) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
+    // if (options.physicalKeyboardHighlightPreventDefault && this.isModifierKey(e)) {
+    //   e.preventDefault();
+    //   e.stopImmediatePropagation();
+    // }
 
     if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
       this.shiftActive = false;
@@ -166,16 +170,31 @@ class PhysicalKeyboard {
 
     if (this.layoutJSON && this.layoutJSON[e.code]) {
       // Determine whether to use normal or shift based on Shift & CapsLock state
-      if (this.shiftActive || this.capslockActive) {
-        output = this.layoutJSON[e.code].shift.toString();
-      } else {
-        output = this.layoutJSON[e.code].normal.toString();
-      }
+      output =
+        this.shiftActive || this.capslockActive
+          ? this.layoutJSON[e.code].shift.toString()
+          : this.layoutJSON[e.code].normal.toString();
     } else {
-      output = e.key || this.keyCodeToKey(e?.keyCode);
+      output = e.key && e.key !== "Unidentified" ? e.key : this.keyCodeToKey(e?.keyCode);
     }
 
-    return output.length > 1 ? output?.toLowerCase() : output;
+    // Normalize left/right variations
+    const normalizeKeyMap: Record<string, string> = {
+      ShiftLeft: "shift",
+      ShiftRight: "shift",
+      ControlLeft: "ctrl",
+      ControlRight: "ctrl",
+      AltLeft: "alt",
+      AltRight: "alt",
+      MetaLeft: "meta",
+      MetaRight: "meta",
+      Backspace: "bksp",
+      CapsLock: "lock",
+      Enter: "enter",
+      Tab: "tab",
+    };
+
+    return normalizeKeyMap[output] || (output.length > 1 ? output.toLowerCase() : output);
   }
 
   /**

@@ -19,19 +19,22 @@ class Demo {
 
     /**
      * Demo Start
+     * add layoutCandidates to the layout
+     *       ...korean,
+     * layoutCandidates: korean.layoutCandidates,
      */
     this.keyboard = new Keyboard({
+      ...korean,
+      layoutCandidates: korean.layoutCandidates || [],
       onChange: (input) => this.onChange(input),
       onKeyPress: (button) => this.onKeyPress(button),
       preventMouseDownDefault: true,
-      ...korean,
-      layoutCandidates: korean.layoutCandidates,
       layoutCandidatesPageSize: 15,
       enableLayoutCandidatesKeyPress: true,
       physicalKeyboardHighlight: true,
       physicalKeyboardHighlightPress: true,
       physicalKeyboardHighlightPressUsePointerEvents: true,
-      physicalKeyboardHighlightPreventDefault: false,
+      physicalKeyboardHighlightPreventDefault: true,
     });
 
     /**
@@ -81,9 +84,12 @@ class Demo {
         this.shiftTimeout = setTimeout(() => {
           this.isShiftActive = false;
           this.handleShift();
-        }, 750); // I need to find a sweet spot
+        }, 400); // I need to find a sweet spot
       }
-    } else if (button === "{lock}") {
+    } else {
+    }
+
+    if (button === "{lock}") {
       this.isShiftActive = !this.isShiftActive;
       this.handleShift();
     }
