@@ -17,6 +17,7 @@ class PhysicalKeyboard {
   getOptions: () => KeyboardOptions;
   dispatch: any;
   layoutJSON: Record<string, LayoutKeyMapping> | null = null;
+  lastLayout = "";
   shiftActive = false;
   capslockActive = false;
 
@@ -29,12 +30,17 @@ class PhysicalKeyboard {
      */
     this.dispatch = dispatch;
     this.getOptions = getOptions;
+
+    console.log("PhysicalKeyboard -> constructor -> this.getOptions().layout", this.getOptions().layout);
+
     if (this.getOptions() && this.getOptions().layout) {
+      this.lastLayout = this.getOptions()?.layout?.default?.[1] || "";
       const layout = this.getOptions().layout;
       if (layout) {
         this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
       }
     } else {
+      this.lastLayout = getDefaultLayout().default[1];
       this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(getDefaultLayout()));
     }
 
@@ -169,6 +175,18 @@ class PhysicalKeyboard {
    */
   getSimpleKeyboardLayoutKey(e: KeyboardEvent): string {
     let output = "";
+
+    if (this.lastLayout !== this.getOptions()?.layout?.default?.[1]) {
+      this.lastLayout = this.getOptions()?.layout?.default?.[1] || "";
+      if (this.getOptions()?.layout) {
+        const layout = this.getOptions().layout;
+        if (layout) {
+          this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
+        }
+      } else {
+        this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(getDefaultLayout()));
+      }
+    }
 
     console.log("PhysicalKeyboard -> getSimpleKeyboardLayoutKey -> e.code", e.code);
 
