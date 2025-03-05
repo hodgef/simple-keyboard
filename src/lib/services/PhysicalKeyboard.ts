@@ -176,16 +176,13 @@ class PhysicalKeyboard {
   getSimpleKeyboardLayoutKey(e: KeyboardEvent): string {
     let output = "";
 
-    if (this.lastLayout !== this.getOptions()?.layout?.default?.[1]) {
-      this.lastLayout = this.getOptions()?.layout?.default?.[1] || "";
-      if (this.getOptions()?.layout) {
-        const layout = this.getOptions().layout;
-        if (layout) {
-          this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
-        }
-      } else {
-        this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(getDefaultLayout()));
-      }
+    const options = this.getOptions();
+    const currentLayout = options?.layout?.default?.[1] ?? getDefaultLayout().default[1];
+    if (this.lastLayout !== currentLayout) {
+      this.lastLayout = currentLayout || "";
+
+      const layout = options?.layout ?? getDefaultLayout();
+      this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
     }
 
     console.log("PhysicalKeyboard -> getSimpleKeyboardLayoutKey -> e.code", e.code);

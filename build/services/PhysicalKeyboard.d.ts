@@ -13,6 +13,7 @@ declare class PhysicalKeyboard {
     getOptions: () => KeyboardOptions;
     dispatch: any;
     layoutJSON: Record<string, LayoutKeyMapping> | null;
+    lastLayout: string;
     shiftActive: boolean;
     capslockActive: boolean;
     /**
