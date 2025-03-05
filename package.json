@@ -9,7 +9,7 @@
     "build-modern": "webpack --config webpack.config.modern.js",
     "build-modern-esm": "webpack --config webpack.config.modern_esm.js",
     "test": "jest --silent",
-    "coverage": "npm run test -- --coverage",
+    "coverage": "npm run test -- --coverage"
   },
   "repository": {
     "type": "git",
