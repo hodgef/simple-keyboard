@@ -10,7 +10,6 @@
     "build-modern-esm": "webpack --config webpack.config.modern_esm.js",
     "test": "jest --silent",
     "coverage": "npm run test -- --coverage",
-    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
