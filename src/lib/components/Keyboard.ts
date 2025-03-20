@@ -1264,8 +1264,8 @@ class SimpleKeyboard {
     /**
      * Remove document listeners
      */
-    document.removeEventListener("keyup", this.handleKeyUp, physicalKeyboardHighlightPreventDefault);
-    document.removeEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
+    document.removeEventListener("keyup", this.handleKeyUp);
+    document.removeEventListener("keydown", this.handleKeyDown);
     document.removeEventListener("mouseup", this.handleMouseUp);
     document.removeEventListener("touchend", this.handleTouchEnd);
     document.removeEventListener("select", this.handleSelect);

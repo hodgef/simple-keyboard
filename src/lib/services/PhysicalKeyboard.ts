@@ -31,8 +31,6 @@ class PhysicalKeyboard {
     this.dispatch = dispatch;
     this.getOptions = getOptions;
 
-    console.log("PhysicalKeyboard -> constructor -> this.getOptions().layout", this.getOptions().layout);
-
     if (this.getOptions() && this.getOptions().layout) {
       this.lastLayout = this.getOptions()?.layout?.default?.[1] || "";
       const layout = this.getOptions().layout;
@@ -43,8 +41,6 @@ class PhysicalKeyboard {
       this.lastLayout = getDefaultLayout().default[1];
       this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(getDefaultLayout()));
     }
-
-    console.log("PhysicalKeyboard -> constructor -> layoutJSON", this.layoutJSON);
 
     /**
      * Bindings
@@ -73,9 +69,6 @@ class PhysicalKeyboard {
     this.dispatch((instance: any) => {
       const standardButtonPressed = instance.getButtonElement(buttonPressed);
       const functionButtonPressed = instance.getButtonElement(`{${buttonPressed}}`);
-
-      console.log("standardButtonPressed", standardButtonPressed);
-      console.log("functionButtonPressed", functionButtonPressed);
 
       let buttonDOM;
       let buttonName: string;
@@ -185,8 +178,6 @@ class PhysicalKeyboard {
       this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
     }
 
-    console.log("PhysicalKeyboard -> getSimpleKeyboardLayoutKey -> e.code", e.code);
-
     if (this.layoutJSON && this.layoutJSON[e.code]) {
       // Determine whether to use normal or shift based on Shift & CapsLock state
       output =
@@ -196,8 +187,6 @@ class PhysicalKeyboard {
     } else {
       output = e.key && e.key !== "Unidentified" ? e.key : this.keyCodeToKey(e?.keyCode);
     }
-
-    console.log("PhysicalKeyboard -> getSimpleKeyboardLayoutKey -> output", output);
 
     // Normalize left/right variations
     const normalizeKeyMap: Record<string, string> = {

@@ -24,8 +24,6 @@ class Demo {
      * layoutCandidates: korean.layoutCandidates,
      */
     this.keyboard = new Keyboard({
-      ...korean,
-      layoutCandidates: korean.layoutCandidates || [],
       onChange: (input) => this.onChange(input),
       onKeyPress: (button) => this.onKeyPress(button),
       onKeyReleased: (button) => this.onKeyReleased(button),
@@ -36,13 +34,6 @@ class Demo {
       physicalKeyboardHighlightPress: true,
       physicalKeyboardHighlightPressUsePointerEvents: true,
       physicalKeyboardHighlightPreventDefault: true,
-    });
-
-    /**
-     * Update simple-keyboard when input is changed directly
-     */
-    document.querySelector(".input").addEventListener("input", (event) => {
-      this.keyboard.setInput(event.target.value);
     });
   }
 
@@ -59,8 +50,6 @@ class Demo {
      */
     const caretPosition = this.keyboard.caretPosition;
     if (caretPosition !== null) this.setInputCaretPosition(inputElement, caretPosition);
-
-    console.log("caretPosition", caretPosition);
   }
 
   setInputCaretPosition(elem, pos) {
