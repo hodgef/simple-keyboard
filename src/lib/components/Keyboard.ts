@@ -45,6 +45,7 @@ class SimpleKeyboard {
   keyboardRowsDOM!: KeyboardElement;
   defaultName = "default";
   activeInputElement: HTMLInputElement | HTMLTextAreaElement | null = null;
+  listenersAdded = false;
 
   /**
    * Creates an instance of SimpleKeyboard
@@ -1042,6 +1043,33 @@ class SimpleKeyboard {
   }
 
   /**
+   * Handles the removal of event listers before initializing new ones
+   * This is useful when changing options that require a fresh set of event listeners
+   */
+  handleKeyDownBound!: (event: KeyboardEvent) => void;
+  handleKeyUpBound!: (event: KeyboardEvent) => void;
+  handleMouseDownBound!: (event: MouseEvent) => void;
+  handleMouseUpBound!: (event: MouseEvent) => void;
+  handleTouchEndBound!: (event: TouchEvent) => void;
+  handleSelectBound!: (event: Event) => void;
+  handleSelectionChangeBound!: (event: Event) => void;
+
+  removeEventListeners(): void {
+    console.log("Removing event listeners...");
+
+    document.removeEventListener("keydown", this.handleKeyDownBound);
+    document.removeEventListener("keyup", this.handleKeyUpBound);
+    document.removeEventListener("mouseup", this.handleMouseUpBound);
+    document.removeEventListener("touchend", this.handleTouchEndBound);
+    document.removeEventListener("select", this.handleSelectBound);
+
+    if (this.options.updateCaretOnSelectionChange) {
+      document.removeEventListener("selectionchange", this.handleSelectionChangeBound);
+    }
+
+    this.listenersAdded = false; // Allow re-adding if necessary
+  }
+  /**
    * Handles simple-keyboard event listeners
    */
   setEventListeners(): void {
@@ -1055,61 +1083,40 @@ class SimpleKeyboard {
 
       const { physicalKeyboardHighlightPreventDefault = false } = this.options;
 
+      // LPJr: Prevent duplicate listeners
+      if (this.listenersAdded) {
+        console.log("Event listeners already set. Skipping...");
+        return;
+      }
+
+      // Ensure existing listeners are removed before adding new ones
+      this.removeEventListeners();
+
       // LPJr: moved event listeners to the keyboardDOM element from the document
-      // adding tabIndex to the keyboardDOM element to allow it to receive focus
       this.keyboardDOM.tabIndex = 0;
       this.keyboardDOM.style.outline = "none";
 
-      // LPJr: added event listener to focus the keyboardDOM element when it is clicked
-      // third parameter controls Capture and is set to false to allow the event to bubble up
-      document.addEventListener(
-        "keydown",
-        (event) => {
-          if (physicalKeyboardHighlightPreventDefault) {
-            event.preventDefault();
-          }
+      // LPJr: added named event handlers instead of anonymous functions
+      this.handleKeyDownBound = this.handleKeyDown.bind(this);
+      this.handleKeyUpBound = this.handleKeyUp.bind(this);
+      this.handleMouseUpBound = this.handleMouseUp.bind(this);
+      this.handleTouchEndBound = () => this.handleTouchEnd(this);
+      this.handleSelectBound = () => this.handleSelect(this);
+      this.handleSelectionChangeBound = this.handleSelectionChange.bind(this);
 
-          this.handleKeyDown(event);
-
-          // // Ensure keyboardDOM stays in focus
-          // if (document.activeElement !== this.keyboardDOM) {
-          //   this.keyboardDOM.focus();
-          // }
-        },
-        physicalKeyboardHighlightPreventDefault
-      ); // Capture mode ensures this fires before bubbling
-
-      document.addEventListener(
-        "keyup",
-        (event) => {
-          if (physicalKeyboardHighlightPreventDefault) {
-            event.preventDefault();
-          }
-
-          this.handleKeyUp(event);
-
-          // Ensure keyboardDOM stays in focus
-          if (document.activeElement !== this.keyboardDOM) {
-            this.keyboardDOM.focus();
-          }
-        },
-        physicalKeyboardHighlightPreventDefault
-      );
-
-      /**
-       * Event Listeners
-       */
-      // LPJr: removed event listeners from the document but added my own as seen directly above
-      // document.addEventListener("keyup", this.handleKeyUp, physicalKeyboardHighlightPreventDefault);
-      // document.addEventListener("keydown", this.handleKeyDown, physicalKeyboardHighlightPreventDefault);
-      document.addEventListener("mouseup", this.handleMouseUp);
-      document.addEventListener("touchend", this.handleTouchEnd);
+      document.addEventListener("keydown", this.handleKeyDownBound, physicalKeyboardHighlightPreventDefault);
+      document.addEventListener("keyup", this.handleKeyUpBound, physicalKeyboardHighlightPreventDefault);
+      document.addEventListener("mouseup", this.handleMouseUpBound);
+      document.addEventListener("touchend", this.handleTouchEndBound);
 
       if (this.options.updateCaretOnSelectionChange) {
-        document.addEventListener("selectionchange", this.handleSelectionChange);
+        document.addEventListener("selectionchange", this.handleSelectionChangeBound);
       }
 
-      document.addEventListener("select", this.handleSelect);
+      document.addEventListener("select", this.handleSelectBound);
+
+      // Mark listeners as added to prevent duplicates
+      this.listenersAdded = true;
     }
   }
 
