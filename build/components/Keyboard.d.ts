@@ -39,6 +39,7 @@ declare class SimpleKeyboard {
     keyboardRowsDOM: KeyboardElement;
     defaultName: string;
     activeInputElement: HTMLInputElement | HTMLTextAreaElement | null;
+    listenersAdded: boolean;
     /**
      * Creates an instance of SimpleKeyboard
      * @param {Array} selectorOrOptions If first parameter is a string, it is considered the container class. The second parameter is then considered the options object. If first parameter is an object, it is considered the options object.
@@ -183,6 +184,18 @@ declare class SimpleKeyboard {
      * by checking if the provided inputPattern passes
      */
     inputPatternIsValid(inputVal: string): boolean;
+    /**
+     * Handles the removal of event listers before initializing new ones
+     * This is useful when changing options that require a fresh set of event listeners
+     */
+    handleKeyDownBound: (event: KeyboardEvent) => void;
+    handleKeyUpBound: (event: KeyboardEvent) => void;
+    handleMouseDownBound: (event: MouseEvent) => void;
+    handleMouseUpBound: (event: MouseEvent) => void;
+    handleTouchEndBound: (event: TouchEvent) => void;
+    handleSelectBound: (event: Event) => void;
+    handleSelectionChangeBound: (event: Event) => void;
+    removeEventListeners(): void;
     /**
      * Handles simple-keyboard event listeners
      */
