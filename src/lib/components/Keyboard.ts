@@ -1271,16 +1271,16 @@ class SimpleKeyboard {
     /**
      * Remove document listeners
      */
-    document.removeEventListener("keyup", this.handleKeyUp);
-    document.removeEventListener("keydown", this.handleKeyDown);
-    document.removeEventListener("mouseup", this.handleMouseUp);
-    document.removeEventListener("touchend", this.handleTouchEnd);
-    document.removeEventListener("select", this.handleSelect);
+    document.removeEventListener("keyup", this.handleKeyUpBound);
+    document.removeEventListener("keydown", this.handleKeyDownBound);
+    document.removeEventListener("mouseup", this.handleMouseUpBound);
+    document.removeEventListener("touchend", this.handleTouchEndBound);
+    document.removeEventListener("select", this.handleSelectBound);
 
     // selectionchange is causing caret update issues on Chrome
     // https://github.com/hodgef/simple-keyboard/issues/2346
     if (this.options.updateCaretOnSelectionChange) {
-      document.removeEventListener("selectionchange", this.handleSelectionChange);
+      document.removeEventListener("selectionchange", this.handleSelectionChangeBound);
     }
 
     document.onpointerup = null;
