@@ -1,8 +1,8 @@
-import "./css/Keyboard.css";
-import PhysicalKeyboard from "../services/PhysicalKeyboard";
-import Utilities from "../services/Utilities";
-import { KeyboardOptions, KeyboardInput, KeyboardButtonElements, KeyboardHandlerEvent, KeyboardElement } from "../interfaces";
-import CandidateBox from "./CandidateBox";
+import './css/Keyboard.css';
+import PhysicalKeyboard from '../services/PhysicalKeyboard';
+import Utilities from '../services/Utilities';
+import { KeyboardOptions, KeyboardInput, KeyboardButtonElements, KeyboardHandlerEvent, KeyboardElement } from '../interfaces';
+import CandidateBox from './CandidateBox';
 /**
  * Root class for simple-keyboard.
  * This class:

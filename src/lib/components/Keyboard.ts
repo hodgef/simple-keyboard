@@ -1089,6 +1089,10 @@ class SimpleKeyboard {
         return;
       }
 
+      // LPJr: moved event listeners to the keyboardDOM element from the document
+      this.keyboardDOM.tabIndex = 0;
+      this.keyboardDOM.style.outline = 'none';
+
       // Ensure existing listeners are removed before adding new ones
       this.removeEventListeners();
 
