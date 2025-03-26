@@ -1,6 +1,6 @@
-import { KeyboardOptions, PhysicalKeyboardParams } from "../interfaces";
-import Utilities from "../services/Utilities";
-import { getDefaultLayout } from "../services/KeyboardLayout";
+import { KeyboardOptions, PhysicalKeyboardParams } from '../interfaces';
+import Utilities from '../services/Utilities';
+import { getDefaultLayout } from '../services/KeyboardLayout';
 
 /**
  * Layout Key Mapping Interface
@@ -17,7 +17,7 @@ class PhysicalKeyboard {
   getOptions: () => KeyboardOptions;
   dispatch: any;
   layoutJSON: Record<string, LayoutKeyMapping> | null = null;
-  lastLayout = "";
+  lastLayout = '';
   shiftActive = false;
   capslockActive = false;
 
@@ -32,7 +32,7 @@ class PhysicalKeyboard {
     this.getOptions = getOptions;
 
     if (this.getOptions() && this.getOptions().layout) {
-      this.lastLayout = this.getOptions()?.layout?.default?.[1] || "";
+      this.lastLayout = this.getOptions()?.layout?.default?.[1] || '';
       const layout = this.getOptions().layout;
       if (layout) {
         this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
@@ -56,11 +56,11 @@ class PhysicalKeyboard {
     //   e.stopImmediatePropagation();
     // }
 
-    if ((e.code === "ShiftLeft" || e.code === "ShiftRight") && !this.shiftActive) {
+    if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !this.shiftActive) {
       this.shiftActive = !this.shiftActive;
     }
 
-    if (e.code === "CapsLock") {
+    if (e.code === 'CapsLock') {
       this.capslockActive = !this.capslockActive;
     }
 
@@ -84,8 +84,8 @@ class PhysicalKeyboard {
       }
 
       const applyButtonStyle = (buttonElement: HTMLElement) => {
-        buttonElement.style.background = options.physicalKeyboardHighlightBgColor || "#dadce4";
-        buttonElement.style.color = options.physicalKeyboardHighlightTextColor || "black";
+        buttonElement.style.background = options.physicalKeyboardHighlightBgColor || '#dadce4';
+        buttonElement.style.color = options.physicalKeyboardHighlightTextColor || 'black';
       };
 
       if (buttonDOM) {
@@ -127,7 +127,7 @@ class PhysicalKeyboard {
     //   e.stopImmediatePropagation();
     // }
 
-    if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
+    if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
       this.shiftActive = false;
     }
 
@@ -138,7 +138,7 @@ class PhysicalKeyboard {
 
       const applyButtonStyle = (buttonElement: HTMLElement) => {
         if (buttonElement.removeAttribute) {
-          buttonElement.removeAttribute("style");
+          buttonElement.removeAttribute('style');
         }
       };
 
@@ -167,12 +167,12 @@ class PhysicalKeyboard {
    * @returns {string} The simple-keyboard layout key
    */
   getSimpleKeyboardLayoutKey(e: KeyboardEvent): string {
-    let output = "";
+    let output = '';
 
     const options = this.getOptions();
     const currentLayout = options?.layout?.default?.[1] ?? getDefaultLayout().default[1];
     if (this.lastLayout !== currentLayout) {
-      this.lastLayout = currentLayout || "";
+      this.lastLayout = currentLayout || '';
 
       const layout = options?.layout ?? getDefaultLayout();
       this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
@@ -185,23 +185,23 @@ class PhysicalKeyboard {
           ? this.layoutJSON[e.code].shift.toString()
           : this.layoutJSON[e.code].normal.toString();
     } else {
-      output = e.key && e.key !== "Unidentified" ? e.key : this.keyCodeToKey(e?.keyCode);
+      output = e.key && e.key !== 'Unidentified' ? e.key : this.keyCodeToKey(e?.keyCode);
     }
 
     // Normalize left/right variations
     const normalizeKeyMap: Record<string, string> = {
-      ShiftLeft: "shift",
-      ShiftRight: "shift",
-      ControlLeft: "ctrl",
-      ControlRight: "ctrl",
-      AltLeft: "alt",
-      AltRight: "alt",
-      MetaLeft: "meta",
-      MetaRight: "meta",
-      Backspace: "bksp",
-      CapsLock: "lock",
-      Enter: "enter",
-      Tab: "tab",
+      ShiftLeft: 'shift',
+      ShiftRight: 'shift',
+      ControlLeft: 'ctrl',
+      ControlRight: 'ctrl',
+      AltLeft: 'alt',
+      AltRight: 'alt',
+      MetaLeft: 'meta',
+      MetaRight: 'meta',
+      Backspace: 'bksp',
+      CapsLock: 'lock',
+      Enter: 'enter',
+      Tab: 'tab',
     };
 
     return normalizeKeyMap[output] || (output.length > 1 ? output.toLowerCase() : output);
@@ -213,104 +213,104 @@ class PhysicalKeyboard {
   keyCodeToKey(keyCode: number): string {
     return (
       {
-        8: "Backspace",
-        9: "Tab",
-        13: "Enter",
-        16: "Shift",
-        17: "Ctrl",
-        18: "Alt",
-        19: "Pause",
-        20: "CapsLock",
-        27: "Esc",
-        32: "Space",
-        33: "PageUp",
-        34: "PageDown",
-        35: "End",
-        36: "Home",
-        37: "ArrowLeft",
-        38: "ArrowUp",
-        39: "ArrowRight",
-        40: "ArrowDown",
-        45: "Insert",
-        46: "Delete",
-        48: "0",
-        49: "1",
-        50: "2",
-        51: "3",
-        52: "4",
-        53: "5",
-        54: "6",
-        55: "7",
-        56: "8",
-        57: "9",
-        65: "A",
-        66: "B",
-        67: "C",
-        68: "D",
-        69: "E",
-        70: "F",
-        71: "G",
-        72: "H",
-        73: "I",
-        74: "J",
-        75: "K",
-        76: "L",
-        77: "M",
-        78: "N",
-        79: "O",
-        80: "P",
-        81: "Q",
-        82: "R",
-        83: "S",
-        84: "T",
-        85: "U",
-        86: "V",
-        87: "W",
-        88: "X",
-        89: "Y",
-        90: "Z",
-        91: "Meta",
-        96: "Numpad0",
-        97: "Numpad1",
-        98: "Numpad2",
-        99: "Numpad3",
-        100: "Numpad4",
-        101: "Numpad5",
-        102: "Numpad6",
-        103: "Numpad7",
-        104: "Numpad8",
-        105: "Numpad9",
-        106: "NumpadMultiply",
-        107: "NumpadAdd",
-        109: "NumpadSubtract",
-        110: "NumpadDecimal",
-        111: "NumpadDivide",
-        112: "F1",
-        113: "F2",
-        114: "F3",
-        115: "F4",
-        116: "F5",
-        117: "F6",
-        118: "F7",
-        119: "F8",
-        120: "F9",
-        121: "F10",
-        122: "F11",
-        123: "F12",
-        144: "NumLock",
-        145: "ScrollLock",
-        186: ";",
-        187: "=",
-        188: ",",
-        189: "-",
-        190: ".",
-        191: "/",
-        192: "`",
-        219: "[",
-        220: "\\",
-        221: "]",
+        8: 'Backspace',
+        9: 'Tab',
+        13: 'Enter',
+        16: 'Shift',
+        17: 'Ctrl',
+        18: 'Alt',
+        19: 'Pause',
+        20: 'CapsLock',
+        27: 'Esc',
+        32: 'Space',
+        33: 'PageUp',
+        34: 'PageDown',
+        35: 'End',
+        36: 'Home',
+        37: 'ArrowLeft',
+        38: 'ArrowUp',
+        39: 'ArrowRight',
+        40: 'ArrowDown',
+        45: 'Insert',
+        46: 'Delete',
+        48: '0',
+        49: '1',
+        50: '2',
+        51: '3',
+        52: '4',
+        53: '5',
+        54: '6',
+        55: '7',
+        56: '8',
+        57: '9',
+        65: 'A',
+        66: 'B',
+        67: 'C',
+        68: 'D',
+        69: 'E',
+        70: 'F',
+        71: 'G',
+        72: 'H',
+        73: 'I',
+        74: 'J',
+        75: 'K',
+        76: 'L',
+        77: 'M',
+        78: 'N',
+        79: 'O',
+        80: 'P',
+        81: 'Q',
+        82: 'R',
+        83: 'S',
+        84: 'T',
+        85: 'U',
+        86: 'V',
+        87: 'W',
+        88: 'X',
+        89: 'Y',
+        90: 'Z',
+        91: 'Meta',
+        96: 'Numpad0',
+        97: 'Numpad1',
+        98: 'Numpad2',
+        99: 'Numpad3',
+        100: 'Numpad4',
+        101: 'Numpad5',
+        102: 'Numpad6',
+        103: 'Numpad7',
+        104: 'Numpad8',
+        105: 'Numpad9',
+        106: 'NumpadMultiply',
+        107: 'NumpadAdd',
+        109: 'NumpadSubtract',
+        110: 'NumpadDecimal',
+        111: 'NumpadDivide',
+        112: 'F1',
+        113: 'F2',
+        114: 'F3',
+        115: 'F4',
+        116: 'F5',
+        117: 'F6',
+        118: 'F7',
+        119: 'F8',
+        120: 'F9',
+        121: 'F10',
+        122: 'F11',
+        123: 'F12',
+        144: 'NumLock',
+        145: 'ScrollLock',
+        186: ';',
+        187: '=',
+        188: ',',
+        189: '-',
+        190: '.',
+        191: '/',
+        192: '`',
+        219: '[',
+        220: '\\',
+        221: ']',
         222: "'",
-      }[keyCode] || ""
+      }[keyCode] || ''
     );
   }
 
@@ -324,10 +324,10 @@ class PhysicalKeyboard {
 
     const processedLayout: Record<string, (string | number)[][]> = { default: [], shift: [] };
 
-    for (const type of ["default", "shift"]) {
+    for (const type of ['default', 'shift']) {
       if (!layout[type]) continue; // Skip if layout type is missing
 
-      const rows = layout[type].map((row) => row.split(" "));
+      const rows = layout[type].map((row) => row.split(' '));
 
       for (let i = 0; i < qwertyRowLengths.length; i++) {
         processedLayout[type][i] = rows[i] ? [...rows[i]] : [];
@@ -351,65 +351,65 @@ class PhysicalKeyboard {
 
     const qwertyRows = [
       [
-        "Backquote",
-        "Digit1",
-        "Digit2",
-        "Digit3",
-        "Digit4",
-        "Digit5",
-        "Digit6",
-        "Digit7",
-        "Digit8",
-        "Digit9",
-        "Digit0",
-        "Minus",
-        "Equal",
-        "Backspace",
+        'Backquote',
+        'Digit1',
+        'Digit2',
+        'Digit3',
+        'Digit4',
+        'Digit5',
+        'Digit6',
+        'Digit7',
+        'Digit8',
+        'Digit9',
+        'Digit0',
+        'Minus',
+        'Equal',
+        'Backspace',
       ],
       [
-        "Tab",
-        "KeyQ",
-        "KeyW",
-        "KeyE",
-        "KeyR",
-        "KeyT",
-        "KeyY",
-        "KeyU",
-        "KeyI",
-        "KeyO",
-        "KeyP",
-        "BracketLeft",
-        "BracketRight",
-        "Backslash",
+        'Tab',
+        'KeyQ',
+        'KeyW',
+        'KeyE',
+        'KeyR',
+        'KeyT',
+        'KeyY',
+        'KeyU',
+        'KeyI',
+        'KeyO',
+        'KeyP',
+        'BracketLeft',
+        'BracketRight',
+        'Backslash',
       ],
       [
-        "CapsLock",
-        "KeyA",
-        "KeyS",
-        "KeyD",
-        "KeyF",
-        "KeyG",
-        "KeyH",
-        "KeyJ",
-        "KeyK",
-        "KeyL",
-        "Semicolon",
-        "Quote",
-        "Enter",
+        'CapsLock',
+        'KeyA',
+        'KeyS',
+        'KeyD',
+        'KeyF',
+        'KeyG',
+        'KeyH',
+        'KeyJ',
+        'KeyK',
+        'KeyL',
+        'Semicolon',
+        'Quote',
+        'Enter',
       ],
-      ["ShiftLeft", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ShiftRight"],
-      ["ControlLeft", "AltLeft", "Space"],
+      ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ShiftRight'],
+      ['ControlLeft', 'AltLeft', 'Space'],
     ];
 
     for (let rowIndex = 0; rowIndex < qwertyRows.length; rowIndex++) {
       for (let colIndex = 0; colIndex < qwertyRows[rowIndex].length; colIndex++) {
         const eventCode = qwertyRows[rowIndex][colIndex];
-        const normalKey = layout.default[rowIndex][colIndex] ?? "";
-        const shiftKey = layout.shift[rowIndex][colIndex] ?? "";
+        const normalKey = layout.default[rowIndex][colIndex] ?? '';
+        const shiftKey = layout.shift[rowIndex][colIndex] ?? '';
 
         mappedLayout[eventCode] = {
-          normal: normalKey !== -1 ? normalKey : "",
-          shift: shiftKey !== -1 ? shiftKey : "",
+          normal: normalKey !== -1 ? normalKey : '',
+          shift: shiftKey !== -1 ? shiftKey : '',
         };
       }
     }
@@ -422,7 +422,7 @@ class PhysicalKeyboard {
       e.altKey ||
       e.ctrlKey ||
       e.shiftKey ||
-      ["Tab", "CapsLock", "Esc", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(
+      ['Tab', 'CapsLock', 'Esc', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(
         e.code || e.key || this.keyCodeToKey(e?.keyCode)
       )
     );

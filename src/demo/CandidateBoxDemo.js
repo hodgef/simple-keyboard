@@ -1,10 +1,10 @@
-import Keyboard from "../lib";
-import "./css/CandidateBoxDemo.css";
-import layout from "simple-keyboard-layouts/build/layouts/arabic";
-import korean from "simple-keyboard-layouts/build/layouts/korean";
+import Keyboard from '../lib';
+import './css/CandidateBoxDemo.css';
+import layout from 'simple-keyboard-layouts/build/layouts/arabic';
+import korean from 'simple-keyboard-layouts/build/layouts/korean';
 
 const setDOM = () => {
-  document.querySelector("body").innerHTML = `
+  document.querySelector('body').innerHTML = `
     <input class="input" placeholder="Tap on the virtual keyboard to start" />
     <div class="simple-keyboard"></div>
   `;
@@ -34,11 +34,15 @@ class Demo {
       physicalKeyboardHighlightPress: true,
       physicalKeyboardHighlightPressUsePointerEvents: true,
       physicalKeyboardHighlightPreventDefault: true,
+      excludeFromLayout: {
+        default: ['@', '.com'],
+        shift: ['@', '.com'],
+      },
     });
   }
 
   onChange(input) {
-    const inputElement = document.querySelector(".input");
+    const inputElement = document.querySelector('.input');
 
     /**
      * Updating input's value
@@ -60,9 +64,9 @@ class Demo {
   }
 
   onKeyPress(button) {
-    console.log("Button pressed", button);
+    console.log('Button pressed', button);
 
-    if (button === "{shift}") {
+    if (button === '{shift}') {
       if (this.persistentKey.has(button)) return;
       this.persistentKey.add(button);
 
@@ -70,16 +74,16 @@ class Demo {
         this.isShiftActive = true;
         this.handleShift();
       }
-    } else if (button === "{lock}") {
+    } else if (button === '{lock}') {
       this.isShiftActive = !this.isShiftActive;
       this.handleShift();
     }
   }
 
   onKeyReleased(button) {
-    console.log("Button released", button);
+    console.log('Button released', button);
 
-    if (button === "{shift}") {
+    if (button === '{shift}') {
       this.persistentKey.delete(button);
       this.isShiftActive = false;
       this.handleShift();
@@ -88,7 +92,7 @@ class Demo {
 
   handleShift() {
     const currentLayout = this.keyboard.options.layoutName;
-    const shiftToggle = currentLayout === "default" ? "shift" : "default";
+    const shiftToggle = currentLayout === 'default' ? 'shift' : 'default';
 
     this.keyboard.setOptions({
       layoutName: shiftToggle,

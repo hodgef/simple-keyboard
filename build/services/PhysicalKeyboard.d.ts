@@ -1,4 +1,4 @@
-import { KeyboardOptions, PhysicalKeyboardParams } from "../interfaces";
+import { KeyboardOptions, PhysicalKeyboardParams } from '../interfaces';
 /**
  * Layout Key Mapping Interface
  */

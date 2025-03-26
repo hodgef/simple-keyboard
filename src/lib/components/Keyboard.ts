@@ -1081,8 +1081,6 @@ class SimpleKeyboard {
         console.log(`Caret handling started (${this.keyboardDOMClass})`);
       }
 
-      const { physicalKeyboardHighlightPreventDefault = false } = this.options;
-
       // LPJr: Prevent duplicate listeners
       if (this.listenersAdded) {
         console.log('Event listeners already set. Skipping...');
