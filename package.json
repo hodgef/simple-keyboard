@@ -1,6 +1,9 @@
 {
   "name": "simple-keyboard",
-  "version": "3.8.39.aac",
+  "version": "3.8.40-aac",
+  "contributors": [
+    "Lee Paulison <lee.paulison.jr@aac-usa.com> Editor"
+  ],
   "description": "On-screen Javascript Virtual Keyboard",
   "main": "build/index.js",
   "scripts": {
