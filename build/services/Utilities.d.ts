@@ -197,5 +197,9 @@ declare class Utilities {
      * Reusable empty function
      */
     static noop: () => void;
+    /**
+     * Check if a function is a constructor
+     */
+    isConstructor(f: any): boolean;
 }
 export default Utilities;
