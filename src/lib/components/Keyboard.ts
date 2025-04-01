@@ -1614,7 +1614,9 @@ class SimpleKeyboard {
   loadModules() {
     if (Array.isArray(this.options.modules)) {
       this.options.modules.forEach((KeyboardModule) => {
-        const keyboardModule = new KeyboardModule(this);
+        const keyboardModule = this.utilities.isConstructor(KeyboardModule) ?
+          new KeyboardModule(this) : KeyboardModule(this);
+
         keyboardModule.init && keyboardModule.init(this);
       });
 

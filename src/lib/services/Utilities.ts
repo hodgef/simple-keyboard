@@ -561,6 +561,18 @@ class Utilities {
    * Reusable empty function
    */
   static noop = () => {};
+
+  /**
+   * Check if a function is a constructor
+   */
+  isConstructor(f: any) {
+    try {
+      Reflect.construct(String, [], f);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 }
 
 export default Utilities;
