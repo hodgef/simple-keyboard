@@ -178,12 +178,13 @@ class PhysicalKeyboard {
       this.layoutJSON = this.mapLayoutToEventCodes(this.extractAndPadLayout(layout));
     }
 
-    if (this.layoutJSON && this.layoutJSON[e.code]) {
-      // Determine whether to use normal or shift based on Shift & CapsLock state
+    const resolvedCode = e.code || this.keyCodeToKey(e.keyCode) || e.key;
+
+    if (this.layoutJSON && resolvedCode && this.layoutJSON[resolvedCode]) {
       output =
         this.shiftActive || this.capslockActive
-          ? this.layoutJSON[e.code].shift.toString()
-          : this.layoutJSON[e.code].normal.toString();
+          ? this.layoutJSON[resolvedCode].shift.toString()
+          : this.layoutJSON[resolvedCode].normal.toString();
     } else {
       output = e.key && e.key !== 'Unidentified' ? e.key : this.keyCodeToKey(e?.keyCode);
     }
