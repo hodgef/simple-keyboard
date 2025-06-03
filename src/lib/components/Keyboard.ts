@@ -1496,7 +1496,7 @@ class SimpleKeyboard {
   /* istanbul ignore next */
   disableContextualWindow() {
     window.oncontextmenu = (event: KeyboardHandlerEvent) => {
-      if (event.target.classList.contains("hg-button")) {
+      if (event.target.classList?.contains("hg-button")) {
         event.preventDefault();
         event.stopPropagation();
         return false;
