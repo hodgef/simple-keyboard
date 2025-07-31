@@ -1459,14 +1459,17 @@ class SimpleKeyboard {
           attrObj.attribute &&
           typeof attrObj.attribute === "string" &&
           attrObj.value &&
-          typeof attrObj.value === "string" &&
-          attrObj.buttons &&
-          typeof attrObj.buttons === "string"
+          typeof attrObj.value === "string"
         ) {
-          const attrObjButtons = attrObj.buttons.split(" ");
-
-          if (attrObjButtons.includes(button)) {
+          // If buttons is empty, undefined, or not a string, apply to all buttons
+          if (!attrObj.buttons || typeof attrObj.buttons !== "string") {
             callback(attrObj.attribute, attrObj.value);
+          } else {
+            const attrObjButtons = attrObj.buttons.split(" ");
+
+            if (attrObjButtons.includes(button)) {
+              callback(attrObj.attribute, attrObj.value);
+            }
           }
         } else {
           console.warn(

@@ -24,7 +24,6 @@
 /* When using option "useButtonTag" */
 .hg-theme-default button.hg-button {
   border-width: 0;
-  outline: 0;
   font-size: inherit;
 }
 
