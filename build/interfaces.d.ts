@@ -13,7 +13,7 @@ export type KeyboardButtonTheme = {
 export interface KeyboardButtonAttributes {
     attribute: string;
     value: string;
-    buttons: string;
+    buttons?: string;
 }
 export interface KeyboardInput {
     [key: string]: string;
