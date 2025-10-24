@@ -42,7 +42,7 @@
     "@babel/cli": "^7.28.0",
     "@babel/core": "^7.28.4",
     "@babel/plugin-proposal-class-properties": "^7.17.12",
-    "@babel/plugin-transform-typescript": "^7.28.0",
+    "@babel/plugin-transform-typescript": "^7.28.5",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.28.3",
     "@types/jest": "^29.5.14",
