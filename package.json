@@ -48,7 +48,7 @@
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.22",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^9.2.1",
     "babel-preset-minify": "^0.5.2",
