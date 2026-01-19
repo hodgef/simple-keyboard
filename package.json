@@ -60,7 +60,7 @@
     "html-webpack-plugin": "^5.6.6",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "mini-css-extract-plugin": "^2.9.4",
+    "mini-css-extract-plugin": "^2.10.0",
     "postcss": "^8.5.6",
     "postcss-loader": "^8.2.0",
     "style-loader": "^4.0.0",
