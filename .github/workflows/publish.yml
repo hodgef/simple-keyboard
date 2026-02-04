@@ -15,17 +15,13 @@ permissions:
 
 jobs:
   publish:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node-version: [20.x]
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node_version }}
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
           
       - name: npm install, build, and test
         run: |
@@ -54,11 +50,4 @@ jobs:
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-      - name: npm publish
-        run: |
-          export NODE_OPTIONS=--openssl-legacy-provider
-          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-          npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+      - run: npm publish
