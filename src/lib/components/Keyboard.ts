@@ -63,7 +63,7 @@ class SimpleKeyboard {
     } = this.handleParams(selectorOrOptions, keyboardOptions);
 
     /**
-     * Initializing Utilities
+     * Initializing utilities
      */
     this.utilities = new Utilities({
       getOptions: this.getOptions,
