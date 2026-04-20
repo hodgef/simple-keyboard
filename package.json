@@ -57,7 +57,7 @@
     "css-minimizer-webpack-plugin": "^8.0.0",
     "eslint": "^8.57.0",
     "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.6.6",
+    "html-webpack-plugin": "^5.6.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "mini-css-extract-plugin": "^2.10.2",
