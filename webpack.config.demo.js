@@ -4,7 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: "development",
   devtool: 'cheap-module-source-map',
-  entry: './src/demo/index.js',
+  entry: [
+    './src/lib/components/css/Keyboard.css',
+    './src/lib/components/css/CandidateBox.css',
+    './src/demo/index.js'
+  ],
   output: {
     filename: 'index.js'
   },
