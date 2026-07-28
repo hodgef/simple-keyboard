@@ -1,4 +1,3 @@
-import "./css/CandidateBox.css";
 import Utilities from "../services/Utilities";
 import { CandidateBoxParams, CandidateBoxRenderParams, CandidateBoxShowParams, KeyboardOptions } from "./../interfaces";
 declare class CandidateBox {

@@ -1,5 +1,3 @@
-import "./css/CandidateBox.css";
-
 import Utilities from "../services/Utilities";
 import {
   CandidateBoxParams,
