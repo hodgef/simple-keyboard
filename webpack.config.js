@@ -26,7 +26,11 @@ const banner = `
 
 module.exports = {
   mode: "production",
-  entry: './src/lib/index.ts',
+  entry: [
+    './src/lib/components/css/Keyboard.css',
+    './src/lib/components/css/CandidateBox.css',
+    './src/lib/index.ts'
+  ],
   target: 'es5',
   output: {
     filename: 'index.js',

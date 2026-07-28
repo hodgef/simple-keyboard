@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
       "noImplicitAny": true,
+      "rootDir": "src/lib",
       "outDir": "build",
       "module": "esnext",
       "target": "es5",
@@ -11,6 +12,7 @@
       "lib": ["es2020", "dom"],
       "moduleResolution": "node",
       "downlevelIteration": true,
+      "ignoreDeprecations": "6.0",
       "strict": true
     },
     "include": ["src/lib"],
