@@ -203,6 +203,61 @@ it('Keyboard syncInstanceInputs will work', () => {
   expect(keyboard2.getInput()).toBe("123456");
 });
 
+it('Keyboard syncInstanceInputs keeps the caret when another instance is pressed', () => {
+  clearDOM();
+
+  document.body.innerHTML = `
+    <input class="input" />
+    <div class="keyboard1"></div>
+    <div class="keyboard2"></div>
+  `;
+
+  const sharedOptions = { syncInstanceInputs: true };
+  const keyboard1 = new Keyboard(".keyboard1", sharedOptions);
+  const keyboard2 = new Keyboard(".keyboard2", sharedOptions);
+
+  const input = document.querySelector(".input");
+  input.value = "abcdef";
+  input.selectionStart = 3;
+  input.selectionEnd = 3;
+
+  keyboard1.caretEventHandler({ target: input, type: "select" });
+
+  expect(keyboard2.getCaretPosition()).toBe(3);
+
+  // A press on keyboard1 reaches the document as a click outside keyboard2. Only the
+  // event path tells keyboard2 this came from a sibling instance rather than elsewhere.
+  const pressed = keyboard1.keyboardDOM.querySelector(".hg-button");
+  keyboard2.caretEventHandler({
+    target: pressed,
+    type: "mouseup",
+    composedPath: () => [pressed, keyboard1.keyboardDOM, document.body]
+  });
+
+  expect(keyboard2.getCaretPosition()).toBe(3);
+});
+
+it('Keyboard caretEventHandler drops the caret for a click outside any instance', () => {
+  clearDOM();
+
+  document.body.innerHTML = `
+    <div class="outside"></div>
+    <div class="keyboard1"></div>
+  `;
+
+  const keyboard = new Keyboard(".keyboard1", { syncInstanceInputs: true });
+  keyboard.setCaretPosition(2);
+
+  const outside = document.querySelector(".outside");
+  keyboard.caretEventHandler({
+    target: outside,
+    type: "mouseup",
+    composedPath: () => [outside, document.body]
+  });
+
+  expect(keyboard.getCaretPosition()).toBe(null);
+});
+
 it('Keyboard onChange will work', () => {
     let output = false;
 

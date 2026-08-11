@@ -1233,10 +1233,20 @@ class SimpleKeyboard {
        * If syncInstanceInputs option is enabled, make isKeyboard match any instance
        * not just the current one
        */
-      if (this.options.syncInstanceInputs && Array.isArray(event.path)) {
-        isKeyboard = event.path.some((item: HTMLElement) =>
-          item?.hasAttribute?.("data-skInstance")
-        );
+      if (this.options.syncInstanceInputs) {
+        // `event.path` is a legacy Chrome property that no longer exists; without
+        // composedPath() every other instance saw a sibling's key press as a click
+        // outside and dropped its caret, so the next instance typed at the end.
+        const eventPath =
+          typeof event.composedPath === "function"
+            ? event.composedPath()
+            : event.path;
+
+        if (Array.isArray(eventPath)) {
+          isKeyboard = eventPath.some((item: HTMLElement) =>
+            item?.hasAttribute?.("data-skInstance")
+          );
+        }
       }
 
       if (
